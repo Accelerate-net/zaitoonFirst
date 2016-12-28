@@ -2,10 +2,10 @@
   "products":[
     {
       "id": 1,
-      "code": "CHOC4LIFE",
-      "description": "Lindt Excellence 70% Cocoa Chocolate Diamonds 60ct Box with Lancaster for $10.26",
-      "name": "50% OFF Lindt",
-      "expiration_date": "05/01/2016",
+      "code": "FIRST50",
+      "description": "Make a purchase through Zaitoon First App and get Flat Rs. 50 off. ",
+      "name": "FLAT Rs. 50 OFF",
+      "expiration_date": "05/01/2017",
       "picture": "./img/sample-images/deals/Deals1-4.1.png"
     }, {
       "id": 2,
@@ -14,20 +14,6 @@
       "name": "20% OFF Landscape Lighting",
       "expiration_date": "07/07/2016",
       "picture": "./img/sample-images/deals/Deals2-4.1.png"
-    }, {
-      "id": 3,
-      "code": "MORETVPLZ3",
-      "description": "Starz HD free trial extended for 3 months, in time for the new seasons of your favourite shows",
-      "name": "3 Months FREE (Trial)",
-      "expiration_date": "09/08/2016",
-      "picture": "./img/sample-images/deals/Deals3-4.1.png"
-    }, {
-      "id": 4,
-      "code": "GETTHATPHONE212",
-      "description": "Free 4 Month Notevault Subscription With Cat® Phones worth $578",
-      "name": "CAT Limited Time Offer",
-      "expiration_date": "04/30/2016",
-      "picture": "./img/sample-images/deals/Deals4-4.1.png"
     }
   ]
 }

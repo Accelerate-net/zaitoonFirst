@@ -4,8 +4,8 @@
       "id": 1,
       "price_range": 3,
       "image": "./img/sample-images/food/foodlogo1.png",
-      "name": "NomNom",
-      "rating": 4.3,
+      "name": "Aloo Porotta",
+      "rating": 4,
       "tags": [
         "vegetarian",
         "vegan",
@@ -21,7 +21,7 @@
         "./img/sample-images/food/Cat1Foto2-1.1.png",
         "./img/sample-images/food/Cat1Foto3-1.1.png"
       ],
-      "address": "6782 Bobwhite Crossing"
+      "address": "Indian Roti"
     }, {
       "id": 2,
       "price_range": 1,

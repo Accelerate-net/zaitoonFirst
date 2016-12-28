@@ -4,12 +4,9 @@
     <div class="products-row">
       <div class="card deals-product-container" ng-repeat="product in results = products">
         <div class="row row-center top-row">
-          <div class="col col-66 logo-col">
-            <img class="deal-logo" ng-src="{{product.picture}}"/>
-          </div>
-          <div class="col shop-col">
+          <div class="col col-100 shop-col">
             <button class="button shop-button">
-              CLAIM
+              {{product.code}}
             </button>
           </div>
         </div>
@@ -28,9 +25,6 @@
           </div>
         </div>
         <div class="row bottom-row">
-          <div class="col col-75">
-            <span class="deal-code">{{product.code}}</span>
-          </div>
           <div class="col time-col">
             <div class="time-left-container">
               <span class="deal-time-left" ng-class="{'days-left-1': ((product.expiration_date | amDifference : null : 'hours') <= 10) && ((product.expiration_date | amDifference : null : 'hours') > 0), 'days-left-0': (product.expiration_date | amDifference : null : 'hours') < 0}" am-time-ago="product.expiration_date"></span>
