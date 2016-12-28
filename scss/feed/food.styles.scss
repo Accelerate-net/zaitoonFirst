@@ -9,8 +9,8 @@
 		.food-product-container
 		{
 			border-bottom: 1px solid $food-product-divider-color;
-			margin: 0px 0px 3px 0px;
-  		padding: 12px 0px;
+			margin: 0px 0px 2px 0px;
+  			padding: 2px 0px;
 
 			&:last-child
 			{
@@ -37,12 +37,12 @@
 
 			.row.info-row
 			{
-				padding: 0px 2px 12px 2px;
+				padding: 0px 0px 2px 0px;
 			}
 
 			.col.logo-col
 			{
-				max-width: 58px;
+				max-width: 8px;
 
 				.product-anchor
 				{
@@ -64,11 +64,11 @@
 
 			.col.description-col
 			{
-				padding-left: 12px;
+				padding-left: 0px;
 
 				.product-title
 				{
-					margin: 2px 0px 0px 0px;
+					margin: 0px 0px 0px 0px;
 
 					a
 					{

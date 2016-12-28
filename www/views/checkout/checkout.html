@@ -5,25 +5,8 @@
     </div>
     <h1 class="title">Checkout</h1>
   </ion-header-bar>
-  <ion-content has-bouncing="false" class="checkout-content">
-    <div class="row order-brief-row">
-      <div class="col col-67">
-        <div class="row illustration-row">
-          <div class="col illustration-col">
-            <img class="order-brief-illustration" ng-src="./img/checkout/checkout_illustration.png"/>
-          </div>
-          <div class="col">
-            <span class="order-brief-callout">{{products.length}} {{ products.length === 1 ? 'item' : 'items' }} ready</span>
-          </div>
-        </div>
-      </div>
-      <div class="col col-33 col-center order-total-col">
-        <div class="order-total-wrapper">
-          <span class="brief-total-title">Total:</span>
-          <span class="brief-total">${{ getTotal() | number:2 }}</span>
-        </div>
-      </div>
-    </div>
+  <ion-content has-bouncing="false" class="checkout-content">  
+    <h3 class="checkout-sub-title">Delivery Information</h3>  
     <div class="row address-row">
       <div class="col">
         <div class="address-chooser">
@@ -51,11 +34,11 @@
     <ul class="list checkout-products">
       <li class="item checkout-product" ng-repeat="product in products">
         <div class="row">
-          <div class="col col-20 product-image-col">
-            <div class="product-image-container" multi-bg="[product.square_image]"></div>
-          </div>
-          <div class="col col-50 col-center">
+          <div class="col col-67 col-center">
             <span class="product-name">{{product.name}}</span>
+          </div>
+          <div class="col col-10 col-center">
+            <span class="product-name">x {{product.qty}}</span>
           </div>
           <div class="col col-center">
             <span class="product-price">${{product.price}}</span>
