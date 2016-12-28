@@ -44,19 +44,14 @@
 				background-size: 100% 100%;
 				margin: 8px auto 3px;
 
-				&.feed-icon
+				&.menu-icon
 				{
-					background-image: url('../img/common/tabs_navigation_icon-feed.png');
+					background-image: url('../img/common/tabs_navigation_icon-menu.png');
 				}
 
 				&.search-icon
 				{
 					background-image: url('../img/common/tabs_navigation_icon-search.png');
-				}
-
-				&.liked-icon
-				{
-					background-image: url('../img/common/tabs_navigation_icon-liked.png');
 				}
 
 				&.account-icon

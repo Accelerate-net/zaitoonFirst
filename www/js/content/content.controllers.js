@@ -10,7 +10,7 @@ angular.module('your_app_name.content.controllers', [])
 
   $scope.addToCart = function(product) {
 		$ionicLoading.show({
-			template: 'Adding to cart',
+			template: 'Adding to Cart',
 			duration: 1000
 		});
 

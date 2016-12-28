@@ -3,7 +3,7 @@
     <div class="buttons">
       <button class="button button-clear close-button" ng-click="close()">Close</button>
     </div>
-    <h1 class="title">Shopping Cart</h1>
+    <h1 class="title">Food Cart</h1>
     <div class="buttons">
       <button class="button button-clear checkout-button" ui-sref="main.app.checkout()" ng-show="products.length > 0">Checkout</button>
     </div>
@@ -11,7 +11,7 @@
   <ion-content class="shopping-cart-content" has-bouncing="false">
     <div class="row row-center empty-cart-row" ng-if="products.length == 0">
       <div class="col">
-        <h3 class="no-products-title">I feel so empty</h3>
+        <h3 class="no-products-title">Your cart is empty.</h3>
         <div class="illustration-container">
           <pre-img ratio="_34_25">
             <img class="illustration-image" ng-src="./img/shopping-cart/cart-empty.png" spinner-on-load/>
@@ -67,47 +67,37 @@
       </div>
       <div class="products-in-cart-row">
         <div class="card product-in-cart" ng-repeat="product in products">
+          
           <div class="item item-divider product-header">
             <div class="row">
-              <div class="col col-center">
-                <span class="product-name">{{product.name}}</span>
+              <div class="col col-90 col-center">
+                <span class="shipping-text">{{product.name}}</span>
               </div>
-              <div class="col col-center">
-                <button class="button button-icon icon ion-close-round remove-button" ng-click="removeFromCart(product)"></button>
-              </div>
+              <div class="col col-10 col-center">
+                <span class="mycount">x <b class="product-quantity">{{product.qty}}</b></span>
+              </div>              
             </div>
           </div>
-          <div class="item item-text-wrap product-content">
-            <div class="row">
-              <div class="col col-33 product-image-col">
-                <div class="product-image-container" multi-bg="[product.square_image]"></div>
-              </div>
-              <div class="col col-center product-description-col">
-                <span class="description-line">Style: <b>{{product.style}}</b></span>
-                <span class="description-line">Color: <b>{{product.color}}</b></span>
-                <span class="description-line">Size: <b>{{product.size}}</b></span>
-                <div class="row">
-                  <div class="col col-50">
-                    <span class="description-line">Quantity: <b class="product-quantity">{{product.qty}}</b></span>
-                  </div>
-                  <div class="col quantity-input-col">
-                    <number-input ng-model="product.qty"></number-input>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <div class="item item-divider product-footer">
             <div class="row">
-              <div class="col">
-                <span class="shipping-text">Standard Shipping</span>
-                <span class="shipping-text">Delivery between 2 and 3 days</span>
+              <div class="col col-33 col-center">                              
+                <button class="button button-icon icon ion-close-round remove-button" ng-click="removeFromCart(product)"></button> 
               </div>
-              <div class="col col-center">
+              
+              <div class="col col-33 col-center">
+                <div class="col quantity-input-col">
+                  <number-input ng-model="product.qty"></number-input>
+                </div> 
+              </div>
+                
+              <div class="col col-33 col-center">
                 <span class="order-total">${{product.price * product.qty | number:2}}</span>
-              </div>
+              </div>              
             </div>
           </div>
+
+
         </div>
       </div>
     </div>

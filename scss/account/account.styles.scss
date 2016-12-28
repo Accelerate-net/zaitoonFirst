@@ -21,6 +21,8 @@
 		justify-content: flex-start;
 		height: 100%;
 		border-width: 0px;
+		background-color: $account-bg;
+
 
 		.tabs
 		{
@@ -34,6 +36,8 @@
 			height: $account-tabs-height;
 			line-height: $account-tabs-height;
 			border-radius: 6px;
+
+			background-color: $account-bg;
 
 			.tab-item
 			{

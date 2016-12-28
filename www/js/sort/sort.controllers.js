@@ -11,7 +11,7 @@ angular.module('your_app_name.sort.controllers', [])
 			cssClass: 'popup-outer sort-view '+current_state,
 			templateUrl: 'views/sort/sort.html',
 			scope: angular.extend($scope, {sort_order: $scope.sort_order}),
-			title: 'Sort by:',
+			title: 'Sort by',
 			buttons: [
 				{ text: 'Close', type: 'close-popup' }
 			]

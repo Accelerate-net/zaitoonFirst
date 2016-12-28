@@ -1,27 +1,69 @@
 <ion-scroll direction="y" ng-controller="FiltersCtrl">
-	<div class="card list filter-group alt-filter-group">
+
+<div class="card list filter-group">
     <div class="item item-divider">
-      Ingredients
+      Avoid
     </div>
-    <ion-list class="ingredients-filters filter-options-container">
-      <ion-checkbox ng-model="ingredients_filter.salmon">Salmon</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.butter">Butter</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.rice">Rice</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.tomato">Tomato</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.lemon">Lemon</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.olive_oil">Olive Oil</ion-checkbox>
+    <ion-list class="tags-filters filter-options-container">
+      <tag-checkbox ng-model="tags_filter.meat" title="Chicken"></tag-checkbox>
+      <tag-checkbox ng-model="tags_filter.vegetables" title="Mutton"></tag-checkbox>
+      <tag-checkbox ng-model="tags_filter.eggs" title="Egg"></tag-checkbox>
+      <tag-checkbox ng-model="tags_filter.breakfast" title="Prawns"></tag-checkbox>
+      <tag-checkbox ng-model="tags_filter.asian" title="Fish"></tag-checkbox>
     </ion-list>
   </div>
 
-  <div class="card list filter-group alt-filter-group">
+	<div class="card list filter-group alt-filter-group">
     <div class="item item-divider">
-      Show only
+      Show Items Contain
     </div>
-    <ion-list class="show-filters filter-options-container">
-      <ion-radio name="show_filter" ng-model="show_filter" ng-value="'Restaurants'">Restaurants</ion-radio>
-      <ion-radio name="show_filter" ng-model="show_filter" ng-value="'Cafes'">Cafes</ion-radio>
-      <ion-radio name="show_filter" ng-model="show_filter" ng-value="'Bars'">Bars</ion-radio>
-      <ion-radio name="show_filter" ng-model="show_filter" ng-value="'Clubs'">Clubs</ion-radio>
+    <ion-list class="ingredients-filters filter-options-container">
+      <ion-checkbox ng-model="ingredients_filter.salmon">Chicken</ion-checkbox>
+      <ion-checkbox ng-model="ingredients_filter.butter">Mutton</ion-checkbox>
+      <ion-checkbox ng-model="ingredients_filter.rice">Egg</ion-checkbox>
+      <ion-checkbox ng-model="ingredients_filter.tomato">Fish</ion-checkbox>
+      <ion-checkbox ng-model="ingredients_filter.lemon">Prawns</ion-checkbox>
     </ion-list>
   </div>
+
+
+
+<div class="card list filter-group">
+    <div class="item item-divider">
+      Spice Level
+    </div>
+    <ion-list class="budget-filters filter-options-container">
+      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$'">
+        <span class="radio-tag-content">Spicy</span>
+      </tag-radio>
+      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$$'">
+        <span class="radio-tag-content">Sweeten</span>
+      </tag-radio>
+      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$$$'">
+        <span class="radio-tag-content">Non Spicy</span>
+      </tag-radio>
+      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'Any'">
+        <span class="radio-tag-content">Any</span>
+      </tag-radio>      
+    </ion-list>
+  </div>
+
+  <div class="card list filter-group">
+    <div class="item item-divider">
+      Fry Type
+    </div>
+    <ion-list class="budget-filters filter-options-container">
+      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'Any'">
+        <span class="radio-tag-content">Tawa Fry</span>
+      </tag-radio>
+      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$'">
+        <span class="radio-tag-content">Oil Fry</span>
+      </tag-radio>
+      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$$'">
+        <span class="radio-tag-content">Any</span>
+      </tag-radio>
+    </ion-list>
+  </div>
+
+  
 </ion-scroll>
