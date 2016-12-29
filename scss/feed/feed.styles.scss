@@ -202,14 +202,16 @@
 					display: inline-block;
 					// display: block;
 					color: #FFF;
-					text-transform: uppercase;
+					//text-transform: uppercase;
 					text-decoration: none;
+					width: 33%;
 				}
 
 				&.active
 				{
 					font-size: 18px;
 					font-weight: 600;
+					width: 33%;
 				}
 
 				&.main-app-feed-real-state
