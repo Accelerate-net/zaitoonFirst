@@ -1,16 +1,16 @@
 // WELCOME
-$welcome-bg: #FFF;
+$welcome-bg: #e74c3c;
 $welcome-color: #e74c3c;
 $welcome-top-padding: 100px;
 
 $get-started-button-height: 60px;
-$get-started-button-bg:              $welcome-color !default;
+$get-started-button-bg:              #c0392b !default;
 $get-started-button-text:            #FFF !default;
 $get-started-button-border:          darken($welcome-color, 10%) !default;
 $get-started-button-active-bg:       darken($welcome-color, 10%) !default;
 $get-started-button-active-border:   darken($welcome-color, 10%) !default;
 
-$auth-button-text: $welcome-color;
+$auth-button-text: #ecf0f1;
 
 $welcome-logo-ratio: 1 1;
 $welcome-illustration-ratio: 20 9;
