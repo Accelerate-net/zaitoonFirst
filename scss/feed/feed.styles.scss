@@ -191,7 +191,7 @@
 
 			.sliding-item
 			{
-				min-width: 100px;
+				min-width: 150px;
 				height: $sliding-categories-height;
 				line-height: $sliding-categories-height;
 				text-align: center;
@@ -204,14 +204,12 @@
 					color: #FFF;
 					//text-transform: uppercase;
 					text-decoration: none;
-					width: 33%;
 				}
 
 				&.active
 				{
 					font-size: 18px;
 					font-weight: 600;
-					width: 33%;
 				}
 
 				&.main-app-feed-real-state
