@@ -15,11 +15,11 @@
                 </h5>
                 <p class="address-and-price-container">
                   <span class="product-address">{{product.address}}</span>
-                  <span class="product-price-range" ng-repeat="price in [].constructor(product.price_range) track by $index">Rs. 120</span>
+                  <span class="product-price-range">Rs. 120</span>
                 </p>
               </div>
-              <div class="col col-20 actions-col col-center">
-                <span class="product-rating rating-{{ product.rating | floor }}">Add</span>
+              <div class="col col-10">
+                <button class="button button-small button-outline button-balanced"><span class="icon ion-plus"></span></button>
               </div>
             </div>
           </div>
