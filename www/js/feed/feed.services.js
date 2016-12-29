@@ -1,4 +1,4 @@
-angular.module('your_app_name.feed.services', [])
+angular.module('zaitoonFirst.feed.services', [])
 
 .service('FashionService', function ($http, $q){
   this.getProducts = function(){
@@ -56,6 +56,27 @@ angular.module('your_app_name.feed.services', [])
   this.getProduct = function(productId){
     var dfd = $q.defer();
     $http.get('food_db.json').success(function(database) {
+      var product = _.find(database.products, function(product){
+        return product.id == productId;
+      });
+      dfd.resolve(product);
+    });
+    return dfd.promise;
+  };
+})
+
+.service('FoodSoupService', function ($http, $q){
+  this.getProducts = function(){
+    var dfd = $q.defer();
+    $http.get('food_soup_db.json').success(function(database) {
+      dfd.resolve(database.products);
+    });
+    return dfd.promise;
+  };
+
+  this.getProduct = function(productId){
+    var dfd = $q.defer();
+    $http.get('food_soup_db.json').success(function(database) {
       var product = _.find(database.products, function(product){
         return product.id == productId;
       });

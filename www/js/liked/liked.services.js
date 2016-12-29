@@ -1,4 +1,4 @@
-angular.module('your_app_name.liked.services', [])
+angular.module('zaitoonFirst.liked.services', [])
 
 .service('ListService', function ($http, $q){
   this.getUserLists = function(){

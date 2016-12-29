@@ -1,4 +1,4 @@
-angular.module('your_app_name.account.services', [])
+angular.module('zaitoonFirst.account.services', [])
 
 .service('OrderService', function ($http, $q){
 

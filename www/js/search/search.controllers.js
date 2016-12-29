@@ -1,4 +1,4 @@
-angular.module('your_app_name.search.controllers', [])
+angular.module('zaitoonFirst.search.controllers', [])
 
 .controller('SearchCtrl', function($scope, FoodService, results) {
 

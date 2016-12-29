@@ -1,4 +1,4 @@
-angular.module('your_app_name.account.controllers', [])
+angular.module('zaitoonFirst.account.controllers', [])
 
 .controller('ProfileCtrl', function($scope, user, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
   $scope.user = user;

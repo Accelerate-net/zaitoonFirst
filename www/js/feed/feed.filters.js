@@ -1,4 +1,4 @@
-angular.module('your_app_name.feed.filters', [])
+angular.module('zaitoonFirst.feed.filters', [])
 
 .filter('cleanStateClass', function () {
   return function (input) {

@@ -1,4 +1,4 @@
-angular.module('your_app_name.search.services', [])
+angular.module('zaitoonFirst.search.services', [])
 
 .service('TestService', function ($http, $q){
   this.testMethod = function(){

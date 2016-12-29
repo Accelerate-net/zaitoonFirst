@@ -1,4 +1,4 @@
-angular.module('your_app_name.shopping-cart.directives', [])
+angular.module('zaitoonFirst.shopping-cart.directives', [])
 
 .directive('testDirective', function($timeout) {
 	return {

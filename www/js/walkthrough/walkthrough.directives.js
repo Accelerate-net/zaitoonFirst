@@ -1,4 +1,4 @@
-angular.module('your_app_name.walkthrough.directives', [])
+angular.module('zaitoonFirst.walkthrough.directives', [])
 
 .directive('testDirective', function($timeout) {
 	return {

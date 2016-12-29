@@ -1,4 +1,4 @@
-angular.module('your_app_name.getting-started.controllers', [])
+angular.module('zaitoonFirst.getting-started.controllers', [])
 
 .controller('GettingStartedCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
 	$scope.skipIntro = function(){

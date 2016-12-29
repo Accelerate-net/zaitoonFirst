@@ -87,7 +87,7 @@ angular.module('analytics.mixpanel', [])
 
 ;
 
-angular.module("your_app_name.tracking", ['analytics.mixpanel'])
+angular.module("zaitoonFirst.tracking", ['analytics.mixpanel'])
 .run(function($ionicPlatform, $rootScope, $state, $mixpanel) {
   $ionicPlatform.on("deviceready", function(){
     if(ionic.Platform.isWebView())

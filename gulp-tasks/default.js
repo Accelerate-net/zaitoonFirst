@@ -25,7 +25,7 @@ gulp.task('sass', function(done) {
 
 gulp.task('templatecache', function (done) {
   gulp.src(paths.templatecache)
-    .pipe(templateCache({standalone:true, filename:'views.js', module:'your_app_name.views', root:'views/', base:'./www/js/app/'}))
+    .pipe(templateCache({standalone:true, filename:'views.js', module:'zaitoonFirst.views', root:'views/', base:'./www/js/app/'}))
     .pipe(gulp.dest('./www/js/app/'))
     .on('end', done);
 });

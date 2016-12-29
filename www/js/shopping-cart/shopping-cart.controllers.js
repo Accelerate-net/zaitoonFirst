@@ -1,4 +1,4 @@
-angular.module('your_app_name.shopping-cart.controllers', [])
+angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 .controller('ShoppingCartCtrl', function($scope, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService) {
 
