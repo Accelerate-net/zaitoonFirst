@@ -6,6 +6,8 @@
 		padding: 0px $food-products-outer-padding;
 		margin: 0px;
 
+
+
 		.food-product-container
 		{
 			border-bottom: 1px solid $food-product-divider-color;
@@ -43,6 +45,8 @@
 			.col.logo-col
 			{
 				max-width: 8px;
+				margin-top: -2px;
+				margin-right: 6px;			
 
 				.product-anchor
 				{
