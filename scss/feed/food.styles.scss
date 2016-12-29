@@ -141,6 +141,17 @@
 			{
 				padding-left: 12px;
 
+				.addButton{
+					color: #1abc9c;
+					border-radius: 2px;
+					padding: 0px 4px;
+				  	font-size: 12px;
+				  	font-weight: 600;
+				  	width: 100%;
+				  	display: block;
+				  	text-align: center;
+				}
+
 				.product-rating
 				{
 					color: $food-product-rating-color;
