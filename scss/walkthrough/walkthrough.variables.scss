@@ -1,7 +1,7 @@
 // WELCOME
-$welcome-bg: #FFE6DC;
-$welcome-color: #4D301C;
-$welcome-top-padding: 45px;
+$welcome-bg: #FFF;
+$welcome-color: #e74c3c;
+$welcome-top-padding: 100px;
 
 $get-started-button-height: 60px;
 $get-started-button-bg:              $welcome-color !default;
@@ -19,8 +19,8 @@ $pre-img-ratios: append($pre-img-ratios, $welcome-logo-ratio);
 $pre-img-ratios: append($pre-img-ratios, $welcome-illustration-ratio);
 
 // LEARN
-$learn-bg: #FFE6DC;
-$learn-color: #4D301C;
+$learn-bg: #FFF;
+$learn-color: #e74c3c;
 $learn-actions-height: 65px;
 
 $learn-action-button-bg:              #FF984C !default;
