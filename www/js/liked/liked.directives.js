@@ -1,4 +1,4 @@
-angular.module('your_app_name.liked.directives', [])
+angular.module('zaitoonFirst.liked.directives', [])
 
 .directive('testDirective', function($timeout) {
 	return {

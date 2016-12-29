@@ -1,4 +1,4 @@
-angular.module('your_app_name.feed.directives', [])
+angular.module('zaitoonFirst.feed.directives', [])
 
 .directive('slidingList', function($ionicScrollDelegate, $rootScope, $state) {
 	return {

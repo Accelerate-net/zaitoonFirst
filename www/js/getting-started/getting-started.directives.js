@@ -1,4 +1,4 @@
-angular.module('your_app_name.getting-started.directives', [])
+angular.module('zaitoonFirst.getting-started.directives', [])
 
 .directive('customCheckbox', function($ionicConfig) {
   return {

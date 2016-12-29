@@ -1,4 +1,4 @@
-angular.module('your_app_name.walkthrough.controllers', [])
+angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 .controller('TestCtrl', function($scope) {
 

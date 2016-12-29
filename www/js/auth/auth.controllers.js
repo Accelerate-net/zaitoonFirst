@@ -1,4 +1,4 @@
-angular.module('your_app_name.auth.controllers', [])
+angular.module('zaitoonFirst.auth.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, $ionicLoading, $timeout) {
 	$scope.user = {};

@@ -1,4 +1,4 @@
-angular.module('your_app_name.search.filters', [])
+angular.module('zaitoonFirst.search.filters', [])
 
 .filter('searchField', function ($parse) {
 

@@ -1,4 +1,4 @@
-angular.module('your_app_name.auth.directives', [])
+angular.module('zaitoonFirst.auth.directives', [])
 
 .directive('testDirective', function($timeout) {
 	return {

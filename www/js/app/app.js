@@ -3,59 +3,59 @@ angular.module('underscore', [])
   return window._; // assumes underscore has already been loaded on the page
 });
 
-angular.module('your_app_name', [
+angular.module('zaitoonFirst', [
   'ionic',
-  'your_app_name.views',
-  'your_app_name.common.controllers',
-  'your_app_name.common.directives',
+  'zaitoonFirst.views',
+  'zaitoonFirst.common.controllers',
+  'zaitoonFirst.common.directives',
 
-  'your_app_name.account.controllers',
-  'your_app_name.account.directives',
-  'your_app_name.account.services',
+  'zaitoonFirst.account.controllers',
+  'zaitoonFirst.account.directives',
+  'zaitoonFirst.account.services',
 
-  'your_app_name.auth.controllers',
-  'your_app_name.auth.directives',
-  'your_app_name.auth.services',
+  'zaitoonFirst.auth.controllers',
+  'zaitoonFirst.auth.directives',
+  'zaitoonFirst.auth.services',
 
-  'your_app_name.checkout.controllers',
-  'your_app_name.checkout.directives',
-  'your_app_name.checkout.services',
+  'zaitoonFirst.checkout.controllers',
+  'zaitoonFirst.checkout.directives',
+  'zaitoonFirst.checkout.services',
 
-  'your_app_name.content.controllers',
-  'your_app_name.content.directives',
-  'your_app_name.content.services',
+  'zaitoonFirst.content.controllers',
+  'zaitoonFirst.content.directives',
+  'zaitoonFirst.content.services',
 
-  'your_app_name.feed.controllers',
-  'your_app_name.feed.directives',
-  'your_app_name.feed.filters',
-  'your_app_name.feed.services',
+  'zaitoonFirst.feed.controllers',
+  'zaitoonFirst.feed.directives',
+  'zaitoonFirst.feed.filters',
+  'zaitoonFirst.feed.services',
 
-  'your_app_name.sort.controllers',
+  'zaitoonFirst.sort.controllers',
 
-  'your_app_name.filters.controllers',
-  'your_app_name.filters.directives',
-  'your_app_name.filters.services',
+  'zaitoonFirst.filters.controllers',
+  'zaitoonFirst.filters.directives',
+  'zaitoonFirst.filters.services',
 
-  'your_app_name.getting-started.controllers',
-  'your_app_name.getting-started.directives',
-  'your_app_name.getting-started.services',
+  'zaitoonFirst.getting-started.controllers',
+  'zaitoonFirst.getting-started.directives',
+  'zaitoonFirst.getting-started.services',
 
-  'your_app_name.liked.controllers',
-  'your_app_name.liked.directives',
-  'your_app_name.liked.services',
+  'zaitoonFirst.liked.controllers',
+  'zaitoonFirst.liked.directives',
+  'zaitoonFirst.liked.services',
 
-  'your_app_name.search.controllers',
-  'your_app_name.search.directives',
-  'your_app_name.search.filters',
-  'your_app_name.search.services',
+  'zaitoonFirst.search.controllers',
+  'zaitoonFirst.search.directives',
+  'zaitoonFirst.search.filters',
+  'zaitoonFirst.search.services',
 
-  'your_app_name.shopping-cart.controllers',
-  'your_app_name.shopping-cart.directives',
-  'your_app_name.shopping-cart.services',
+  'zaitoonFirst.shopping-cart.controllers',
+  'zaitoonFirst.shopping-cart.directives',
+  'zaitoonFirst.shopping-cart.services',
 
-  'your_app_name.walkthrough.controllers',
-  'your_app_name.walkthrough.directives',
-  'your_app_name.walkthrough.services',
+  'zaitoonFirst.walkthrough.controllers',
+  'zaitoonFirst.walkthrough.directives',
+  'zaitoonFirst.walkthrough.services',
 
   'underscore',
   'angularMoment',
@@ -265,6 +265,24 @@ angular.module('your_app_name', [
                   }
                 }
               })
+
+              .state('main.app.feed.soup', {
+                url: '/soup',
+                views: {
+                  'category-feed@main.app.feed': {
+                    templateUrl: 'views/feed/soup.html',
+                    controller: 'FoodSoupCtrl'
+                  }
+                },
+                resolve: {
+                  products: function(FoodSoupService){
+                    console.log("resolving food");
+                    return FoodSoupService.getProducts();
+                  }
+                }
+              })
+
+              
 
                   .state('main.app.feed.food.content', {
                     url: '/content/:productId',

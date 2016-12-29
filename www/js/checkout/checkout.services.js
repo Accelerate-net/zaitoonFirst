@@ -1,4 +1,4 @@
-angular.module('your_app_name.checkout.services', [])
+angular.module('zaitoonFirst.checkout.services', [])
 
 .service('CheckoutService', function ($http, $q){
 
@@ -19,16 +19,16 @@ angular.module('your_app_name.checkout.services', [])
   };
 
   this.saveUserSelectedCard = function(card){
-    window.localStorage.your_app_name_selected_card = JSON.stringify(card);
+    window.localStorage.zaitoonFirst_selected_card = JSON.stringify(card);
   }
   this.saveUserSelectedAddress = function(address){
-    window.localStorage.your_app_name_selected_address = JSON.stringify(address);
+    window.localStorage.zaitoonFirst_selected_address = JSON.stringify(address);
   }
   this.getUserSelectedCard = function(){
-    return JSON.parse(window.localStorage.your_app_name_selected_card || '[]');
+    return JSON.parse(window.localStorage.zaitoonFirst_selected_card || '[]');
   };
   this.getUserSelectedAddress = function(){
-    return JSON.parse(window.localStorage.your_app_name_selected_address || '[]');
+    return JSON.parse(window.localStorage.zaitoonFirst_selected_address || '[]');
   };
 })
 

@@ -1,4 +1,4 @@
-angular.module('your_app_name.liked.controllers', [])
+angular.module('zaitoonFirst.liked.controllers', [])
 
 .controller('LikedCtrl', function($scope, lists) {
 	$scope.lists = lists;

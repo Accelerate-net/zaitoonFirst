@@ -1,4 +1,4 @@
-angular.module('your_app_name.auth.services', [])
+angular.module('zaitoonFirst.auth.services', [])
 
 .service('AuthService', function ($http, $q){
 

@@ -1,4 +1,4 @@
-angular.module('your_app_name.sort.controllers', [])
+angular.module('zaitoonFirst.sort.controllers', [])
 
 .controller('SortCtrl', function($scope, $ionicPopup, $state, $filter) {
 	var sortPopup = {},

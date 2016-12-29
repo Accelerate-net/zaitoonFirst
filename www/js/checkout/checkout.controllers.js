@@ -1,4 +1,4 @@
-angular.module('your_app_name.checkout.controllers', [])
+angular.module('zaitoonFirst.checkout.controllers', [])
 
 .controller('CheckoutCtrl', function($scope, $state, $rootScope, products, CheckoutService) {
 

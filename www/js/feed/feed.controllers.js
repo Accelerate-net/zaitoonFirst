@@ -1,4 +1,4 @@
-angular.module('your_app_name.feed.controllers', [])
+angular.module('zaitoonFirst.feed.controllers', [])
 
 .controller('FeedCtrl', function($scope,  $ionicScrollDelegate, ShoppingCartService) {
 	$scope.getProductsInCart = function(){
@@ -13,6 +13,10 @@ angular.module('your_app_name.feed.controllers', [])
 })
 
 .controller('FoodCtrl', function($scope, products) {
+	$scope.products = products;
+})
+
+.controller('FoodSoupCtrl', function($scope, products) {
 	$scope.products = products;
 })
 

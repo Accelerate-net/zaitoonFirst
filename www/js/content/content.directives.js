@@ -1,4 +1,4 @@
-angular.module('your_app_name.content.directives', [])
+angular.module('zaitoonFirst.content.directives', [])
 
 .directive('progressBar', function() {
 	return {
