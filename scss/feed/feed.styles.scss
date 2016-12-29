@@ -191,7 +191,7 @@
 
 			.sliding-item
 			{
-				min-width: 150px;
+				min-width: 100px;
 				height: $sliding-categories-height;
 				line-height: $sliding-categories-height;
 				text-align: center;
@@ -202,19 +202,19 @@
 					display: inline-block;
 					// display: block;
 					color: #FFF;
-					//text-transform: uppercase;
+					text-transform: uppercase;
 					text-decoration: none;
 				}
 
 				&.active
 				{
-					font-size: 18px;
+					font-size: 24px;
 					font-weight: 600;
 				}
 
-				&.main-app-feed-real-state
+				&.main.app.feed.fashion
 				{
-					width: 128px;
+					width: 110px;
 				}
 			}
 		}
