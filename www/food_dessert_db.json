@@ -9,7 +9,8 @@
         "sweet",
         "desserts"
       ],
-      "type": "Desserts"
+      "type": "Desserts",
+      "isVeg":true
     },
     {
       "id": 4002,
@@ -20,7 +21,8 @@
         "sweet",
         "desserts"
       ],
-      "type": "Juices"
+      "type": "Juices",
+      "isVeg":false
     }
   ]
 }

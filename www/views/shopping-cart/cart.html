@@ -20,6 +20,36 @@
       </div>
     </div>
     <div ng-if="products.length > 0">
+      <div class="item item-divider shopping-cart-divider">
+        {{ products.length }} {{ products.length === 1 ? 'item' : 'items' }} in Cart
+      </div>
+
+<div class="products-in-cart-row">
+
+    <div class="shopping-cart-view">
+    <ul class="list checkout-products">
+      <li class="item checkout-product" ng-repeat="product in products">
+        <div class="row">
+          
+          <div class="col col-67 col-center">
+            <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span>
+            <span class="product-name item-text-wrap">{{product.name}}</span>
+          </div>
+          <div class="col col-20 col-center">
+            <span ng-click="lessCount(product)" class="icon ion-ios-minus-outline myMinus"></span>
+            <span class="product-name">{{product.qty}}</span>
+            <span ng-click="addCount(product)" class="icon ion-ios-plus-outline myPlus"></span>
+          </div>
+          <div class="col col-center">
+            <span class="product-price">${{product.price}}</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    </div>
+
+
+
       <ul class="list shopping-bill">
         <li class="item">
           <div class="row">
@@ -62,43 +92,8 @@
           </div>
         </li>
       </ul>
-      <div class="item item-divider shopping-cart-divider">
-        {{ products.length }} {{ products.length === 1 ? 'item' : 'items' }} in cart
-      </div>
-      <div class="products-in-cart-row">
-        <div class="card product-in-cart" ng-repeat="product in products">
-          
-          <div class="item item-divider product-header">
-            <div class="row">
-              <div class="col col-90 col-center">
-                <span class="shipping-text">{{product.name}}</span>
-              </div>
-              <div class="col col-10 col-center">
-                <span class="mycount">x <b class="product-quantity">{{product.qty}}</b></span>
-              </div>              
-            </div>
-          </div>
 
-          <div class="item item-divider product-footer">
-            <div class="row">
-              <div class="col col-33 col-center">                              
-                <button class="button button-icon icon ion-close-round remove-button" ng-click="removeFromCart(product)"></button> 
-              </div>
-              
-              <div class="col col-33 col-center">
-                <div class="col quantity-input-col">
-                  <number-input ng-model="product.qty"></number-input>
-                </div> 
-              </div>
-                
-              <div class="col col-33 col-center">
-                <span class="order-total">${{product.price * product.qty | number:2}}</span>
-              </div>              
-            </div>
-          </div>
-
-
-        </div>
+      
       </div>
     </div>
   </ion-content>

@@ -9,7 +9,8 @@
         "sweet",
         "desserts"
       ],
-      "type": "Arabian Starters"
+      "type": "Arabian Starters",
+      "isVeg":true
     },
     {
       "id": 1002,
@@ -20,7 +21,8 @@
         "sweet",
         "desserts"
       ],
-      "type": "Main Course"
+      "type": "Main Course",
+      "isVeg":false
     }
   ]
 }

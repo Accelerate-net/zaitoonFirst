@@ -34,11 +34,28 @@ angular.module('zaitoonFirst.shopping-cart.services', [])
         }
         i++;
       }
-
-
     }
 
     window.localStorage.zaitoonFirst_cart = JSON.stringify(cart_products);
+    $rootScope.$broadcast('cart_updated', cart_products);
+  };
+
+  this.lessProduct = function(productToAdd){
+    var cart_products = JSON.parse(window.localStorage.zaitoonFirst_cart);
+
+    //Decrement the cart count
+      var i = 0;
+      while(i < cart_products.length){
+        if(cart_products[i].id == productToAdd.id){
+          if(cart_products[i].qty > 1)
+            cart_products[i].qty--;
+          break;
+        }
+        i++;
+      }
+    
+    window.localStorage.zaitoonFirst_cart = JSON.stringify(cart_products);
+    $rootScope.$broadcast('cart_updated', cart_products);
   };
 
   this.removeProduct = function(productToRemove){

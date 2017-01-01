@@ -2,6 +2,74 @@
 {
 	background-color: $shopping-cart-products-bg;
 
+
+	.checkout-products
+	{
+		background-color: $checkout-products-bg;	
+		margin: 0px;
+		padding: 10px 5px 0px;		
+
+		.item.checkout-product
+		{
+			border: none;
+			margin: 0px;
+			padding: 15px 5px;
+			border-bottom: 1px solid $shopping-bill-border;
+
+
+			&:last-child
+			{
+				border-color: $checkout-products-border;
+			}
+
+			.row
+			{
+				padding: 0px;
+
+				.col
+				{
+					padding: 0px;
+				}
+			}
+
+			.col.product-image-col
+			{
+				padding: 5px 10px 5px 0px;
+
+				.product-image-container
+				{
+					padding-bottom: 100%;
+
+					&.multi-bg-outer
+					{
+						background-color: $shopping-cart-product-pre-img-bg;
+
+						.bg-overlay
+						{
+							opacity: 0;
+						}
+					}
+				}
+			}
+
+			.product-name
+			{
+				font-size: 16px;
+				color: #c0392b;
+				font-weight: 400;
+			}
+
+			.product-price
+			{
+				float: right;
+				font-size: 16px;
+				font-weight: 500;
+				color: #c0392b;
+			}
+		}
+	}
+
+
 	.shopping-cart-header
 	{
 		background-color: $shopping-cart-header-bg !important;
@@ -74,7 +142,7 @@
 
 	.shopping-bill
 	{
-		padding: 15px 30px;
+		padding: 10px 5px;
 		margin: 0px;
 		background-color: $shopping-bill-bg;
 
@@ -84,7 +152,7 @@
 		  border-right-style: none;
 		  border-left-style: none;
 			margin: 0px;
-			padding: 15px 2px;
+			padding: 8px 2px;
 			border-color: $shopping-bill-border;
 			color: $shopping-bill-color;
 
@@ -122,7 +190,7 @@
 			{
 				font-weight: 300;
 				display: block;
-				font-size: 16px;
+				font-size: 14px;
 			}
 
 			.bill-item-title
@@ -139,9 +207,9 @@
 
 	.shopping-cart-divider
 	{
-		background-color: $shopping-cart-divider-bg;
+		background-color: #2ecc71;
 		color: $shopping-cart-divider-color;
-		text-transform: uppercase;
+		//text-transform: uppercase;
 		text-align: center;
 		border: none;
 		height: $shopping-cart-divider-height;
@@ -154,7 +222,7 @@
 	.products-in-cart-row
 	{
 		background-color: $shopping-cart-products-bg;
-		padding: 15px;
+		padding: 7px;
 		margin-bottom: 20px;
 
 		.product-in-cart
