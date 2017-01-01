@@ -55,6 +55,94 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
+.controller('FoodArabianCtrl', function($scope, products, ShoppingCartService, $ionicLoading) {
+	$scope.products = products;
+
+	$scope.addToCart = function(product) {
+		$ionicLoading.show({
+			template:  '<b style="color: #f1c40f">'+product.name+'</b> is added.',
+			duration: 1000
+		});
+
+		product.qty = 1;
+		product.size = "M";
+		product.color = "black";
+		product.price = 150;
+  	    ShoppingCartService.addProduct(product);
+  	    //console.log(product);
+  };
+
+
+})
+
+.controller('FoodChineseCtrl', function($scope, products, ShoppingCartService, $ionicLoading) {
+	$scope.products = products;
+
+	$scope.addToCart = function(product) {
+		$ionicLoading.show({
+			template:  '<b style="color: #f1c40f">'+product.name+'</b> is added.',
+			duration: 1000
+		});
+
+		product.qty = 1;
+		product.size = "M";
+		product.color = "black";
+		product.price = 150;
+  	    ShoppingCartService.addProduct(product);
+  	    //console.log(product);
+  };
+
+
+})
+
+.controller('FoodIndianCtrl', function($scope, products, ShoppingCartService, $ionicLoading) {
+	$scope.products = products;
+
+	$scope.addToCart = function(product) {
+		$ionicLoading.show({
+			template:  '<b style="color: #f1c40f">'+product.name+'</b> is added.',
+			duration: 1000
+		});
+
+		product.qty = 1;
+		product.size = "M";
+		product.color = "black";
+		product.price = 150;
+  	    ShoppingCartService.addProduct(product);
+  	    //console.log(product);
+  };
+
+
+})
+
+.controller('FoodDessertCtrl', function($scope, products, ShoppingCartService, $ionicLoading) {
+	$scope.products = products;
+
+	$scope.addToCart = function(product) {
+		$ionicLoading.show({
+			template:  '<b style="color: #f1c40f">'+product.name+'</b> is added.',
+			duration: 1000
+		});
+
+		product.qty = 1;
+		product.size = "M";
+		product.color = "black";
+		product.price = 150;
+  	    ShoppingCartService.addProduct(product);
+  	    //console.log(product);
+  };
+
+
+})
+
+
+
+
+
+
+
+
+
 .controller('TravelCtrl', function($scope, products) {
 	$scope.products = products;
 })

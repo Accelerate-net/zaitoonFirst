@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": 1001,
+      "price": 320,
+      "name": "Arabian Sizzler",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Arabian Starters"
+    },
+    {
+      "id": 1002,
+      "price": 200,
+      "name": "Barbeque Chicken",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Main Course"
+    }
+  ]
+}

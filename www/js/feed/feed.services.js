@@ -86,6 +86,94 @@ angular.module('zaitoonFirst.feed.services', [])
   };
 })
 
+
+.service('FoodArabianService', function ($http, $q){
+  this.getProducts = function(){
+    var dfd = $q.defer();
+    $http.get('food_arabian_db.json').success(function(database) {
+      dfd.resolve(database.products);
+    });
+    return dfd.promise;
+  };
+
+  this.getProduct = function(productId){
+    var dfd = $q.defer();
+    $http.get('food_arabian_db.json').success(function(database) {
+      var product = _.find(database.products, function(product){
+        return product.id == productId;
+      });
+      dfd.resolve(product);
+    });
+    return dfd.promise;
+  };
+})
+
+
+.service('FoodIndianService', function ($http, $q){
+  this.getProducts = function(){
+    var dfd = $q.defer();
+    $http.get('food_indian_db.json').success(function(database) {
+      dfd.resolve(database.products);
+    });
+    return dfd.promise;
+  };
+
+  this.getProduct = function(productId){
+    var dfd = $q.defer();
+    $http.get('food_indian_db.json').success(function(database) {
+      var product = _.find(database.products, function(product){
+        return product.id == productId;
+      });
+      dfd.resolve(product);
+    });
+    return dfd.promise;
+  };
+})
+
+
+.service('FoodChineseService', function ($http, $q){
+  this.getProducts = function(){
+    var dfd = $q.defer();
+    $http.get('food_chinese_db.json').success(function(database) {
+      dfd.resolve(database.products);
+    });
+    return dfd.promise;
+  };
+
+  this.getProduct = function(productId){
+    var dfd = $q.defer();
+    $http.get('food_chinese_db.json').success(function(database) {
+      var product = _.find(database.products, function(product){
+        return product.id == productId;
+      });
+      dfd.resolve(product);
+    });
+    return dfd.promise;
+  };
+})
+
+
+.service('FoodDessertService', function ($http, $q){
+  this.getProducts = function(){
+    var dfd = $q.defer();
+    $http.get('food_dessert_db.json').success(function(database) {
+      dfd.resolve(database.products);
+    });
+    return dfd.promise;
+  };
+
+  this.getProduct = function(productId){
+    var dfd = $q.defer();
+    $http.get('food_dessert_db.json').success(function(database) {
+      var product = _.find(database.products, function(product){
+        return product.id == productId;
+      });
+      dfd.resolve(product);
+    });
+    return dfd.promise;
+  };
+})
+
 .service('DealsService', function ($http, $q){
   this.getProducts = function(){
     var dfd = $q.defer();
