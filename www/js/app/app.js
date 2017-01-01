@@ -282,6 +282,70 @@ angular.module('zaitoonFirst', [
                 }
               })
 
+
+              .state('main.app.feed.arabian', {
+                url: '/arabian',
+                views: {
+                  'category-feed@main.app.feed': {
+                    templateUrl: 'views/feed/arabian.html',
+                    controller: 'FoodArabianCtrl'
+                  }
+                },
+                resolve: {
+                  products: function(FoodArabianService){
+                    console.log("resolving food");
+                    return FoodArabianService.getProducts();
+                  }
+                }
+              })
+
+              .state('main.app.feed.chinese', {
+                url: '/chinese',
+                views: {
+                  'category-feed@main.app.feed': {
+                    templateUrl: 'views/feed/chinese.html',
+                    controller: 'FoodChineseCtrl'
+                  }
+                },
+                resolve: {
+                  products: function(FoodChineseService){
+                    console.log("resolving food");
+                    return FoodChineseService.getProducts();
+                  }
+                }
+              })
+
+              .state('main.app.feed.indian', {
+                url: '/indian',
+                views: {
+                  'category-feed@main.app.feed': {
+                    templateUrl: 'views/feed/indian.html',
+                    controller: 'FoodIndianCtrl'
+                  }
+                },
+                resolve: {
+                  products: function(FoodIndianService){
+                    console.log("resolving food");
+                    return FoodIndianService.getProducts();
+                  }
+                }
+              })
+
+              .state('main.app.feed.dessert', {
+                url: '/dessert',
+                views: {
+                  'category-feed@main.app.feed': {
+                    templateUrl: 'views/feed/desserts.html',
+                    controller: 'FoodDessertCtrl'
+                  }
+                },
+                resolve: {
+                  products: function(FoodDessertService){
+                    console.log("resolving food");
+                    return FoodDessertService.getProducts();
+                  }
+                }
+              })
               
 
                   .state('main.app.feed.food.content', {

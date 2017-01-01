@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": 2001,
+      "price": 320,
+      "name": "Dal Tadka",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Indian Starters"
+    },
+    {
+      "id": 2002,
+      "price": 200,
+      "name": "Malabar Chicken",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Main Course"
+    }
+  ]
+}

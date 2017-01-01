@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": 4001,
+      "price": 320,
+      "name": "Vanilla Icecream",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Desserts"
+    },
+    {
+      "id": 4002,
+      "price": 200,
+      "name": "Mango Milkshake",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Juices"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": 3001,
+      "price": 320,
+      "name": "Chicken Soup",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Starters"
+    },
+    {
+      "id": 3002,
+      "price": 200,
+      "name": "Manjurian Chicken",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Main Course"
+    }
+  ]
+}
