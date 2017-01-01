@@ -15,14 +15,27 @@ angular.module('zaitoonFirst.shopping-cart.services', [])
     var cart_products = !_.isUndefined(window.localStorage.zaitoonFirst_cart) ?      JSON.parse(window.localStorage.zaitoonFirst_cart) : [];
 
     //check if this product is already saved
-    var existing_product = _.find(cart_products, function(product){
+    var existing_product = _.find(cart_products, function(product){      
       return product.id == productToAdd.id;
     });
+
 
     if(!existing_product){
       cart_products.push(productToAdd);
       $rootScope.$broadcast('cart_updated', cart_products);
       $rootScope.$emit('cart_updated', cart_products);
+    }
+    else{ //Increment the cart count
+      var i = 0;
+      while(i < cart_products.length){
+        if(cart_products[i].id == productToAdd.id){
+          cart_products[i].qty++;
+          break;
+        }
+        i++;
+      }
+
+
     }
 
     window.localStorage.zaitoonFirst_cart = JSON.stringify(cart_products);

@@ -19,3 +19,5 @@ $food-product-images-ratio: 1 1;
 // Merge maps
 $pre-img-ratios: append($pre-img-ratios, $food-product-logo-image-ratio);
 $pre-img-ratios: append($pre-img-ratios, $food-product-images-ratio);
+
+$food-product-pricing-color	: #e67e22;
