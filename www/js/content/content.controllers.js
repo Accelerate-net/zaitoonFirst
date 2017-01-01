@@ -17,7 +17,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 		product.qty = 1;
 		product.size = "M";
 		product.color = "black";
-  	ShoppingCartService.addProduct(product);
+  	    ShoppingCartService.addProduct(product);
   };
 
 	var colorPopup = {},
@@ -51,7 +51,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 	};
 })
 
-.controller('FoodContentCtrl', function($scope, $state, $rootScope, $ionicPopup, product) {
+.controller('FoodContentCtrl', function($scope, $state, $rootScope, $ionicPopup, product, ShoppingCartService, $ionicLoading) {
 	$scope.goBack = function() {
 		var previous_view = _.last($rootScope.previousView);
 		$state.go(previous_view.fromState, previous_view.fromParams );
