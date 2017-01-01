@@ -17,8 +17,8 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 	$scope.removeFromCart = function(product) {
 		$ionicActionSheet.show({
-			titleText: 'Remove product from Shopping Cart',
-			destructiveText: 'Remove from cart',
+			titleText: 'Remove '+product.name+' from the Cart',
+			destructiveText: 'Remove from Cart',
 			cancelText: 'Cancel',
 			cancel: function() {
 				return true;
@@ -28,6 +28,14 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 				return true;
 			}
 		});
+	};
+
+	$scope.addCount = function(product) {
+		ShoppingCartService.addProduct(product);
+	};
+
+	$scope.lessCount = function(product) {
+		ShoppingCartService.lessProduct(product);
 	};
 
 	//update product quantities

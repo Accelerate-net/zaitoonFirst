@@ -2,7 +2,7 @@ angular.module('zaitoonFirst.getting-started.controllers', [])
 
 .controller('GettingStartedCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
 	$scope.skipIntro = function(){
-		$state.go('main.app.feed.fashion');
+		$state.go('main.app.feed.arabian');
 	}
 
 	$scope.show_call_to_action_button = false;

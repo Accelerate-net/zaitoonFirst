@@ -36,9 +36,9 @@
             <span class="product-name item-text-wrap">{{product.name}}</span>
           </div>
           <div class="col col-20 col-center">
-            <span class="icon ion-ios-minus-outline myMinus"></span>
+            <span ng-click="lessCount(product)" class="icon ion-ios-minus-outline myMinus"></span>
             <span class="product-name">{{product.qty}}</span>
-            <span class="icon ion-ios-plus-outline myPlus"></span>
+            <span ng-click="addCount(product)" class="icon ion-ios-plus-outline myPlus"></span>
           </div>
           <div class="col col-center">
             <span class="product-price">${{product.price}}</span>
