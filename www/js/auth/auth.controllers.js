@@ -4,23 +4,59 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	$scope.user = {};
 
 	$scope.user.email = "";
-	$scope.user.password = "";
-	// $scope.user.password = "12345";
+	$scope.user.otp = "";
+	$scope.user.mobile = "";
+	$scope.otpFlag = false;
 
-	$scope.doLogIn = function(){
-		console.log("doing log in");
+	
+
+	$scope.validateNumber = function(){
+
+		var isnum = /^\d+$/.test($scope.user.mobile);
+		if(isnum && $scope.user.mobile.length == 10){
+			if($scope.user.mobile == "9043960876"){
+				$scope.otpFlag = true;
+				$scope.error="";
+			}else{
+				$scope.error = "Number not registered.";
+			}
+		}
+		else
+		{
+			$scope.error = "Invalid Mobile Number";
+		}
 
 		$ionicLoading.show({
-      template: 'Loging in...'
-    });
+      		template: 'Loading...'
+    	});
 
-		$timeout(function(){
-			// Simulate login OK
-			// $state.go('main.app.feed.fashion');
-      // $ionicLoading.hide();
+		$timeout(function(){			
+			$ionicLoading.hide();
+		}, 800);
+	};
 
-			// Simulate login ERROR
-			$scope.error = "This is an error message";
+	$scope.doLogIn = function(){
+
+		var isnum = /^\d+$/.test($scope.user.otp);
+		if(isnum && $scope.user.otp.length == 4){
+			if($scope.user.otp == "1111"){ //Validate OTP and LOG IN				
+				$state.go('main.app.feed.arabian');
+      			$ionicLoading.hide();
+				$scope.error="";
+			}else{
+				$scope.error = "Incorrect OTP.";
+			}
+		}
+		else
+		{
+			$scope.error = "OTP must be a 4 digit number.";
+		}
+
+		$ionicLoading.show({
+      		template: 'Loading...'
+    	});
+
+		$timeout(function(){			
 			$ionicLoading.hide();
 		}, 800);
 	};
@@ -35,7 +71,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 		$timeout(function(){
 			// Simulate login OK
 			$state.go('main.app.feed.fashion');
-      $ionicLoading.hide();
+      		$ionicLoading.hide();
 
 			// Simulate login ERROR
 			// $scope.error = "This is an error message";

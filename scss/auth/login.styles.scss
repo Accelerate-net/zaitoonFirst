@@ -1,5 +1,16 @@
 .login-view
 {
+
+	background: #FFF;
+
+	.item-input{
+		color: #ff4300;
+		border: none;
+		border-radius: 0px;
+		border-bottom: 1px dashed #ff4300;
+		font-size: 18px;
+	}
+
 	.images-row
 	{
 		padding-top: 0px;
@@ -8,7 +19,7 @@
 		.illustration-container
 		{
 			margin: 0px auto;
-			width: 50vw;
+			width: 80vw;
 		}
 	}
 
