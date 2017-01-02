@@ -1,5 +1,7 @@
 .signup-view
 {
+	background: #e74c3c;
+
 	.facebook-button
 	{
 		margin-top: 6vh;
@@ -20,4 +22,15 @@
 		margin-top: 1vh;
 	}
 
+	.images-row
+	{
+		padding-top: 0px;
+		height: 27%;
+
+		.illustration-container
+		{
+			margin: 0px auto;
+			width: 80vw;
+		}
+	}
 }
