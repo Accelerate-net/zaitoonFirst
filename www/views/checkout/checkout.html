@@ -24,14 +24,6 @@
       </div>
     </div>
 
-    
-    <div class="row card-row">
-      <div class="col">
-        <div class="address-chooser">
-          <a class="button button-block icon-right ion-chevron-right choose-card-button" ng-class="{'aa': addresses_popover.isShown(), 'bb' : !addresses_popover.isShown()}" ui-sref="main.app.checkout.card()">{{getSelectedCard() || 'Credit Card'}}</a>
-        </div>
-      </div>
-    </div>
     <h3 class="checkout-sub-title">Your Order</h3>
     <ul class="list checkout-products">
       <li class="item checkout-product" ng-repeat="product in products">

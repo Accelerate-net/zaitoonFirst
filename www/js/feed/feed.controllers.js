@@ -28,7 +28,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		product.price = 120;
   	    ShoppingCartService.addProduct(product);
   	    console.log(product);
-  };
+  		};
 
 
 
@@ -55,8 +55,17 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodArabianCtrl', function($scope, products, ShoppingCartService, $ionicLoading) {
-	$scope.products = products;
+.controller('FoodArabianCtrl', function($scope, FoodArabianService, products, ShoppingCartService, $ionicLoading) {
+	
+	$scope.search = { query : '' };
+	$scope.products = products;	
+
+	$scope.cancelSearch = function(){
+		$scope.search = { query : '' };
+		console.log('****************');
+	};
+
+
 
 	$scope.addToCart = function(product) {
 		$ionicLoading.show({
@@ -70,7 +79,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		product.price = 150;
   	    ShoppingCartService.addProduct(product);
   	    //console.log(product);
-  };
+  	};
 
 
 })
