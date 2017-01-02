@@ -1,17 +1,19 @@
 <ion-view class="signup-view auth-view" cache-view="false">
   <ion-content has-bouncing="false">
+  <div class="form-divider"></div>
   <div class="row row-bottom images-row">
       <div class="col">
         <div class="illustration-container">
           <pre-img ratio="_17_9" helper-class="square-image">
-            <img class="illustration-image" ng-src="./img/walkthrough/welcome_logo-Bazaar.png" spinner-on-load/>
+            <img class="illustration-image" ng-src="./img/walkthrough/welcome_illustration_white.png" spinner-on-load/>
           </pre-img>
         </div>
       </div>
     </div>
+    <div class="form-divider"></div>
     <div class="row form-row">
       <div class="col">
-        <form name="signup_form" class="form-container myTopPadding" novalidate>
+        <form name="signup_form" class="form-container" novalidate>
           <div class="input-list list list-inset">
             <label class="item item-input">
               <input type="text" placeholder="Name" name="name" ng-model="user.name" required>
@@ -29,7 +31,8 @@
           </button>
         </form>
         <div class="alternative-actions">
-          <center><a class="action-link button button-small button-clear" ng-click="showTerms()">Terms</a></center>
+          <a class="action-link button button-small button-clear" ui-sref="intro.auth-login()">Login</a>
+          <a class="action-link button button-small button-clear" ui-sref="main.app.feed.arabian()">Skip</a>
         </div>
       </div>
     </div>

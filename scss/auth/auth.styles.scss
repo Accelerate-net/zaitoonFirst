@@ -64,7 +64,13 @@
 				text-align: center;
 				//border-radius: $auth-inputs-height/2;
 
-				@include item-style($auth-input-bg, $auth-input-border, $auth-input-text);
+				//@include item-style($auth-input-bg, $auth-input-border, $auth-input-text);
+
+				background: none;
+				border: none;
+				border-bottom: 1px dashed #ecf0f1;
+				color: #FFF;
+
 
 				&:last-child
 				{
@@ -75,13 +81,14 @@
 				{
 					padding: 0px;
 					height: initial;
-					color: #e74c3c;
+					color: #FFF;
 					text-align: center;
 					font-size: 18px;
 
+
 					@include _placeholder {
-				    text-align: center;
-						color: $auth-placeholder-color;
+				    	text-align: center;
+						color: #ecf0f1;
 				  }
 				}
 			}
@@ -128,7 +135,7 @@
 
 		&.error
 		{
-			color: $auth-error-color;
+			color: #f39c12;
 		}
 
 		&.error-signup

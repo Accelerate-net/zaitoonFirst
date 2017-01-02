@@ -8,7 +8,9 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	$scope.user.mobile = "";
 	$scope.otpFlag = false;
 
-	
+	$scope.resetNumber = function(){
+		$scope.otpFlag = false;
+	}
 
 	$scope.validateNumber = function(){
 
@@ -88,11 +90,11 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	$scope.user.password = "";
 
 	$scope.doSignUp = function(){
-		console.log("doing sign up");
+		//Validate, Create an account and login.
 
 		$ionicLoading.show({
-      template: 'Creating account...'
-    });
+	      template: 'Loading...'
+	    });
 
 		$timeout(function(){
 			// Simulate login OK
