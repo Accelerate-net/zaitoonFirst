@@ -1,8 +1,7 @@
 {
   "user":{
     "id": 1,
-    "first_name": "Billy",
-    "last_name": "Fowler",
+    "first_name": "Abhijith C S",
     "password": "billy12345678",
     "email": "bfowler0@gmail.com",
     "picture": "https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg",
