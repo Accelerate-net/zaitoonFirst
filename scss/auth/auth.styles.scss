@@ -61,7 +61,8 @@
 				height: $auth-inputs-height;
 				padding: 15px 20px;
 				margin-bottom: 13px;
-				border-radius: $auth-inputs-height/2;
+				text-align: center;
+				//border-radius: $auth-inputs-height/2;
 
 				@include item-style($auth-input-bg, $auth-input-border, $auth-input-text);
 
@@ -74,8 +75,9 @@
 				{
 					padding: 0px;
 					height: initial;
-					color: $auth-color;
+					color: #e74c3c;
 					text-align: center;
+					font-size: 18px;
 
 					@include _placeholder {
 				    text-align: center;
@@ -159,7 +161,7 @@
 		text-transform: uppercase;
 		line-height: $auth-buttons-height - 5px;
 		font-size: 18px;
-		border-radius: $auth-buttons-height/2;
+		//border-radius: $auth-buttons-height/2;
 
 		@include button-style($auth-action-button-bg, $auth-action-button-border, $auth-action-button-active-bg, $auth-action-button-active-border, $auth-action-button-text);
 	}

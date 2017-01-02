@@ -13,7 +13,7 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	$scope.close = function() {
 		var previous_view = _.last($rootScope.previousView);
 		$state.go(previous_view.fromState, previous_view.fromParams );
-  };
+  	};
 
 	$scope.removeFromCart = function(product) {
 		$ionicActionSheet.show({
