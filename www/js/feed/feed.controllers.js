@@ -60,12 +60,16 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	$scope.search = { query : '' };
 	$scope.products = products;	
 
+	$scope.showSearch = true;
+
 	$scope.cancelSearch = function(){
-		$scope.search = { query : '' };
-		console.log('****************');
+
 	};
 
-
+	$scope.resetSearch = function(){
+		$scope.search = { query : '' };
+		$scope.showSearch = !$scope.showSearch;
+	}
 
 	$scope.addToCart = function(product) {
 		$ionicLoading.show({
