@@ -9,7 +9,7 @@
       </div>
       <div class="col">
         <button class="button button-clear cancel-button" ng-click="cancelSearch()">
-          Cancel
+          Clear
         </button>
       </div>
     </div>
@@ -24,19 +24,24 @@
         <div class="products-row">
           <div class="food-product-container" ng-repeat="product in results = (products | searchField : 'product.name' | filter:search.query)">
             <div class="row info-row">
+              <div class="col logo-col" ng-if="product.isVeg">
+                <span class="icon ion-android-radio-button-on veg"></span>
+              </div> 
+              <div class="col logo-col" ng-if="!product.isVeg">
+                <span class="icon ion-android-radio-button-on nveg"></span>
+              </div>     
               <div class="col description-col">
                 <div class="row">
                   <div class="col data-col">
                     <h5 class="product-title">
-                      <a class="product-anchor">{{product.name}}</a>                      
+                      <a class="product-anchor">{{product.name}}</a>
                     </h5>
                     <p class="address-and-price-container">
-                      <span class="product-address">{{product.address}}</span>
-                      <span class="product-price-range" ng-repeat="price in [].constructor(product.price_range) track by $index">$</span>
+                      <span class="product-address">{{product.type}}<tag class="myPrice">Rs. 120</tag></span>
                     </p>
                   </div>
-                  <div class="col col-20 actions-col col-center">
-                    <span class="product-rating rating-{{ product.rating | floor }}">Add</span>
+                  <div class="col col-10 col-center">
+                    <button class="button button-small button-outline button-balanced" ng-click="addToCart(product)"><span class="icon ion-plus"></span></button>
                   </div>
                 </div>
               </div>

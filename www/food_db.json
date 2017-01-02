@@ -21,7 +21,7 @@
         "./img/sample-images/food/Cat1Foto2-1.1.png",
         "./img/sample-images/food/Cat1Foto3-1.1.png"
       ],
-      "address": "Indian Roti"
+      "type": "Indian Roti"
     }, {
       "id": 2,
       "price_range": 1,
@@ -42,7 +42,7 @@
         "./img/sample-images/food/Cat2Foto1-1.1.png",
         "./img/sample-images/food/Cat2Foto2-1.1.png"
       ],
-      "address": "1 Buhler Parkway"
+      "type": "1 Buhler Parkway"
     }, {
       "id": 3,
       "price_range": 2,
@@ -61,7 +61,7 @@
         "./img/sample-images/food/Cat3Foto3-1.1.png",
         "./img/sample-images/food/Cat3Foto4-1.1.png"
       ],
-      "address": "7104 Burning Wood Park"
+      "type": "7104 Burning Wood Park"
     }, {
       "id": 4,
       "price_range": 2,
@@ -82,7 +82,7 @@
         "./img/sample-images/food/Cat4Foto4-1.1.png",
         "./img/sample-images/food/Cat4Foto3-1.1.png"
       ],
-      "address": "4362 Wandsworth Street"
+      "type": "4362 Wandsworth Street"
     }
   ]
 }
