@@ -84,6 +84,10 @@
   				height: 28px;
   				font-size: 18px;
 			}
+
+			myInput{
+				font-size: 24px;
+			}
 		}
 
 		& > .row
@@ -252,7 +256,7 @@
 		padding: 0px;
 		background-color: none;
 		text-align: center;
-		border-top: 1px dashed #e74c3c;
+		border-top: 1px solid #E37E6C;
 
 		.terms-row
 		{
@@ -261,7 +265,7 @@
 
 		.logout-button
 		{
-			color: #e74c3c;
+			color: #E37E6C;
 		}
 	}
 

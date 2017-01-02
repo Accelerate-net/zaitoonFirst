@@ -3,13 +3,15 @@ angular.module('zaitoonFirst.account.controllers', [])
 .controller('ProfileCtrl', function($scope, user, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
   $scope.user = user;
 
+  $scope.user.mobile ="9043960876";
+
   $scope.user_credit_cards = user.credit_cards;
   $scope.user_shipping_addresses = user.shipping_addresses;
   $scope.data = {};
   $scope.data.selected_card = user.credit_cards[0];
 	$scope.data.selected_address = user.shipping_addresses[0];
 
-  $scope.user.name = user.first_name +' '+ user.last_name;
+  $scope.user.name = user.first_name;
   $scope.user.password = 'pepe123456789';
   $scope.show_new_address_button = false;
   $scope.show_new_card_button = false;
@@ -111,7 +113,7 @@ angular.module('zaitoonFirst.account.controllers', [])
           }
         },
         {
-          text: 'Edit',
+          text: 'Save',
           onTap: function(e) {
             // return $scope.data;
           }
