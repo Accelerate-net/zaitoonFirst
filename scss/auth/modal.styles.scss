@@ -1,6 +1,6 @@
 .modal-view.legal-view
 {
-	background-color: $auth-bg;
+	background-color: #e74c3c;
 
 	.legal-header
 	{
@@ -8,6 +8,7 @@
 		background: transparent !important;
 		border: none !important;
 		background-size: 0px !important; // To remove bottom border on header
+		color: #FFF;
 
 		.buttons
 		{
@@ -19,7 +20,7 @@
 
 		.close-button
 		{
-			color: $auth-color;
+			color: #FFF;
 			font-size: 16px;
 		}
 	}
@@ -37,7 +38,7 @@
 	.legal-title
 	{
 		text-align: center;
-		color: $auth-color;
+		color: #FFF;
 		margin: 0px 5px 20px;
 		font-size: 22px;
   	font-weight: 300;

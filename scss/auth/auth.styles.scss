@@ -29,7 +29,7 @@
 		{
 			margin: 12px 23% 0px 24%;
 
-			.illustration-image
+		.illustration-image
 	    {
 	      width: 100%;
 	    }
@@ -130,6 +130,11 @@
 		{
 			color: $auth-error-color;
 		}
+
+		&.error-signup
+		{
+			color: #f1c40f;
+		}
 	}
 
 	.facebook-button
@@ -165,6 +170,20 @@
 
 		@include button-style($auth-action-button-bg, $auth-action-button-border, $auth-action-button-active-bg, $auth-action-button-active-border, $auth-action-button-text);
 	}
+
+	.auth-action-button-signup
+	{
+		margin: 0px;
+		margin-top: 15px;
+		height: $auth-buttons-height;
+		text-transform: uppercase;
+		line-height: $auth-buttons-height - 5px;
+		font-size: 18px;
+		//border-radius: $auth-buttons-height/2;
+
+		@include button-style($auth-action-button-bg, $auth-action-button-border, $auth-action-button-active-bg, $auth-action-button-active-border, $auth-action-button-text);
+	}
+
 
 	.alternative-actions
 	{
