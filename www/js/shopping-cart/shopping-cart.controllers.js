@@ -47,7 +47,7 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 	$scope.getSubtotal = function() {
 		$scope.subtotal = _.reduce($scope.products, function(memo, product){
-			return memo + (product.price * product.qty);
+			return memo + (product.itemPrice * product.qty);
 		}, 0);
 
 		return $scope.subtotal;

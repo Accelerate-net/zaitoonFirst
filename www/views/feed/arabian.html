@@ -22,7 +22,7 @@
       <div ng-repeat="submenu in maintype.subCategories">
       <h1>{{submenu.subType}}</h1>
 
-      <div class="food-product-container" ng-repeat="product in submenu.items">
+      <div class="food-product-container" ng-repeat="product in results = (submenu.items | searchField : 'product.itemName' | filter:search.query)">
         <div class="row info-row">
           <div class="col logo-col" ng-if="product.isVeg">
             <span class="icon ion-android-radio-button-on veg"></span>

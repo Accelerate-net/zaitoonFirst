@@ -33,7 +33,7 @@
           
           <div class="col col-67 col-center">
             <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span>
-            <span class="product-name item-text-wrap">{{product.name}}</span>
+            <span class="product-name item-text-wrap">{{product.itemName}}</span>
           </div>
           <div class="col col-20 col-center">
             <span ng-click="lessCount(product)" class="icon ion-ios-minus-outline myMinus"></span>
@@ -41,7 +41,7 @@
             <span ng-click="addCount(product)" class="icon ion-ios-plus-outline myPlus"></span>
           </div>
           <div class="col col-center">
-            <span class="product-price">${{product.price}}</span>
+            <span class="product-price">Rs {{product.itemPrice}}</span>
           </div>
         </div>
       </li>
@@ -57,7 +57,7 @@
               <span class="bill-item-title">Price Subtotal</span>
             </div>
             <div class="col">
-              <span class="bill-item-value">$ {{ getSubtotal() | number:2 }}</span>
+              <span class="bill-item-value">Rs. {{ getSubtotal() | number:2 }}</span>
             </div>
           </div>
         </li>
@@ -67,14 +67,14 @@
               <span class="bill-item-title">Estimated Taxes</span>
             </div>
             <div class="col">
-              <span class="bill-item-value">$ {{ getTax() | number:2 }}</span>
+              <span class="bill-item-value">Rs. {{ getTax() | number:2 }}</span>
             </div>
           </div>
         </li>
         <li class="item">
           <div class="row">
             <div class="col">
-              <span class="bill-item-title">Shipping</span>
+              <span class="bill-item-title">Container Charges</span>
             </div>
             <div class="col">
               <span class="bill-item-value">FREE</span>
@@ -87,7 +87,7 @@
               <span class="bill-item-title">Order Total</span>
             </div>
             <div class="col">
-              <span class="bill-item-value">$ {{ getTotal() | number:2 }}</span>
+              <span class="bill-item-value">Rs. {{ getTotal() | number:2 }}</span>
             </div>
           </div>
         </li>

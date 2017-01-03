@@ -89,7 +89,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 			duration: 1000
 		});
 
-		// product.qty = 1;
+		product.qty = 1;
 		// product.size = "M";
 		// product.color = "black";
 		// product.price = 150;

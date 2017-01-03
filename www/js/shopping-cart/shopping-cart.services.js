@@ -16,7 +16,7 @@ angular.module('zaitoonFirst.shopping-cart.services', [])
 
     //check if this product is already saved
     var existing_product = _.find(cart_products, function(product){      
-      return product.id == productToAdd.id;
+      return product.itemCode == productToAdd.itemCode;
     });
 
 
@@ -28,7 +28,7 @@ angular.module('zaitoonFirst.shopping-cart.services', [])
     else{ //Increment the cart count
       var i = 0;
       while(i < cart_products.length){
-        if(cart_products[i].id == productToAdd.id){
+        if(cart_products[i].itemCode == productToAdd.itemCode){
           cart_products[i].qty++;
           break;
         }
@@ -46,7 +46,7 @@ angular.module('zaitoonFirst.shopping-cart.services', [])
     //Decrement the cart count
       var i = 0;
       while(i < cart_products.length){
-        if(cart_products[i].id == productToAdd.id){
+        if(cart_products[i].itemCode == productToAdd.itemCode){
           if(cart_products[i].qty > 1)
             cart_products[i].qty--;
           break;
@@ -62,7 +62,7 @@ angular.module('zaitoonFirst.shopping-cart.services', [])
     var cart_products = JSON.parse(window.localStorage.zaitoonFirst_cart);
 
     var new_cart_products = _.reject(cart_products, function(product){
-      return product.id == productToRemove.id;
+      return product.itemCode == productToRemove.itemCode;
     });
     window.localStorage.zaitoonFirst_cart = JSON.stringify(new_cart_products);
 
