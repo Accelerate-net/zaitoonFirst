@@ -3,7 +3,7 @@
     <div class="buttons">
       <button class="button button-clear cancel-button" ng-click="cancel()">Cancel</button>
     </div>
-    <h1 class="title">Shipping Address</h1>
+    <h1 class="title">Delivery Address</h1>
   </ion-header-bar>
   <ion-content class="checkout-address-content" has-bouncing="false">
     <div class="row everything-else-row">
@@ -11,20 +11,17 @@
         <div ng-if="user_shipping_addresses.length == 0">
           <div class="new-address-button-outer">
             <button class="button button-block new-address-button" ng-click="showNewAddressPopup()">
-              New Shipping Address
+              New Delivery Address
             </button>
           </div>
         </div>
         <div ng-if="user_shipping_addresses.length > 0">
-          <h3 class="shipping-address-title">Select Shipping Address</h3>
+          <h3 class="shipping-address-title">Select Delivery Address</h3>
           <div class="address-chooser" ng-click="openAddressesPopover($event)">
             <button class="button button-block icon-right addresses-popover-button" ng-class="{'ion-chevron-up': addresses_popover.isShown(), 'ion-chevron-down' : !addresses_popover.isShown()}">
-              {{data.selected_address.street || 'Select address'}}
+              {{data.selected_address.street || 'Select Address'}}
             </button>
           </div>
-          <ion-list class="billing-same-as-shipping-option">
-            <ion-checkbox ng-model="billing_same_as_shipping_address">Billing Address same as Shipping</ion-checkbox>
-          </ion-list>
         </div>
 
         <div class="address-details-container" ng-show="data.selected_address.street">
