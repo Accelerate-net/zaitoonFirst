@@ -50,11 +50,11 @@
 
     .order-content
     {
-      background-color: $account-orders-bg;
+      background-color: #faf7dc;
       color: $account-color;
       border: none;
       margin: 0px;
-      padding: 5px 15px;
+      padding: 5px 8px;
 
       .row
       {
@@ -71,7 +71,7 @@
       .order-product
       {
         border-bottom: 1px solid $account-orders-products-border;
-        padding: 0px 5px;
+        padding: 0px 1px;
 
         &:last-child
         {
@@ -114,7 +114,6 @@
           font-weight: 300;
           display: block;
           font-size: 14px;
-          padding-left: 5px;
           word-break: break-all;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -148,20 +147,20 @@
 
       &.delivered
       {
-        border-top: 2px solid #34495e;
-        background-color: #FFF;
-        color: #34495e;
+        border-top: 2px solid #3D3A3A;
+        background-color: #faf7dc;
+        color: #3D3A3A;
       }
       &.shipped
       {
         border-top: 2px solid #27ae60;
-        background-color: #FFF;
+        background-color: #faf7dc;
         color: #27ae60;
       }
       &.canceled
       {
         border-top: 2px solid #c0392b;
-        background-color: #FFF;
+        background-color: #faf7dc;
         color: #c0392b;
       }
 

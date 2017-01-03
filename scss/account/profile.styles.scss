@@ -92,7 +92,7 @@
 
 		& > .row
 		{
-			border-bottom: 1px dashed #34495e;
+			border-bottom: 1px dashed #bdc3c7;
 
 			&:last-child
 			{
@@ -103,18 +103,18 @@
 
 	.account-sub-title
 	{
-		color: $account-color;
+		color: #e74c3c;
 		padding: 20px 30px 10px;
-		text-align: left;
+		text-align: center;
 		font-size: 16px;
-		font-weight: 300;
-		margin: 0px;
+		font-weight: 500;
+		margin-top: 10px;
 	}
 
 	.address-chooser,
 	.card-chooser
 	{
-		padding: 0px 15px 0px 30px;
+		padding: 0px 15px;
 	}
 
 	.addresses-popover-button,
@@ -256,7 +256,7 @@
 		padding: 0px;
 		background-color: none;
 		text-align: center;
-		border-top: 1px solid #E37E6C;
+		border-top: 1px solid #ecf0f1;
 
 		.terms-row
 		{
