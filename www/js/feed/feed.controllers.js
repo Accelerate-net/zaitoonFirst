@@ -55,10 +55,22 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodArabianCtrl', function($scope, FoodArabianService, products, ShoppingCartService, $ionicLoading) {
+.controller('FoodArabianCtrl', function($scope, $http, FoodArabianService, products, ShoppingCartService, $ionicLoading) {
 	
+
+	$http.get('http://localhost/vega-web-app/online/fetchmenu.php')
+	.then(function(response){
+      	console.log('********* am here');
+      	console.log(response.data);
+      	$scope.menu = response.data;
+      	console.log($scope.menu);
+    });
+
 	$scope.search = { query : '' };
-	$scope.products = products;	
+	//$scope.products = products;	
+
+	console.log('******************************');
+	console.log(products);
 
 	$scope.showSearch = false;
 
@@ -73,14 +85,14 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 	$scope.addToCart = function(product) {
 		$ionicLoading.show({
-			template:  '<b style="color: #f1c40f">'+product.name+'</b> is added.',
+			template:  '<b style="color: #f1c40f">'+product.itemName+'</b> is added.',
 			duration: 1000
 		});
 
 		product.qty = 1;
-		product.size = "M";
-		product.color = "black";
-		product.price = 150;
+		// product.size = "M";
+		// product.color = "black";
+		// product.price = 150;
   	    ShoppingCartService.addProduct(product);
   	    //console.log(product);
   	};

@@ -1,4 +1,5 @@
-{
+[{
+  "subtype":"Starters",
   "products": [
     {
       "id": 1001,
@@ -9,7 +10,36 @@
         "sweet",
         "desserts"
       ],
-      "type": "Arabian Starters",
+      "type": "Starters",
+      "isVeg":true
+    },
+    {
+      "id": 1002,
+      "price": 200,
+      "name": "Badami Chicken",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Starters",
+      "isVeg":false
+    }
+  ]
+},
+{
+  "subtype":"Main Course",
+  "products": [
+    {
+      "id": 1001,
+      "price": 320,
+      "name": "Arabian Majloos",
+      "tags": [
+        "arabian",
+        "sweet",
+        "desserts"
+      ],
+      "type": "Main Course",
       "isVeg":true
     },
     {
@@ -25,4 +55,4 @@
       "isVeg":false
     }
   ]
-}
+}]
