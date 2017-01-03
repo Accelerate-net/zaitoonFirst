@@ -60,7 +60,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	$scope.search = { query : '' };
 	$scope.products = products;	
 
-	$scope.showSearch = true;
+	$scope.showSearch = false;
 
 	$scope.cancelSearch = function(){
 
