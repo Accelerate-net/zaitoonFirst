@@ -523,6 +523,32 @@ angular.module('zaitoonFirst', [
                 }
               })
 
+              //               .state('main.app.feed.deals', {
+              //   url: '/deals',
+              //   views: {
+              //     'category-feed@main.app.feed': {
+              //       templateUrl: 'views/feed/deals.html',
+              //       controller: 'DealsCtrl'
+              //     }
+              //   },
+              //   resolve: {
+              //     products: function(DealsService){
+              //       console.log("resolving deals");
+              //       return DealsService.getProducts();
+              //     }
+              //   }
+              // })
+
+          // .state('main.app.deals', {
+          //   url: '/deals',
+          //   views: {
+          //     'app-deals@main.app': {
+          //       templateUrl: 'views/feed/account.html'
+          //     }
+          //   }
+          // })
+
+
           .state('main.app.account', {
             url: '/account',
             views: {
