@@ -15,7 +15,7 @@
     </div>
   </ion-header-bar>
 
-  <ion-content>
+  <ion-content>    
     <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
     <div class="products-row">
     <div ng-repeat="maintype in menu">
@@ -53,6 +53,6 @@
         
       </div>
     </div>
-    <div class="myFind" ng-if="!showSearch" ng-click="resetSearch()"><span class="icon ion-search"></span></div>
+
   </ion-content>
 </ion-view>

@@ -213,6 +213,27 @@
       background-image: url('../img/common/sort_and_filters-filter-icon.png');
     }
   }
+
+  .search-button
+  {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 300;
+    color: $sort-and-filters-icon-color;
+    float: right;
+
+    &.filter-icon:before
+    {
+      content:'';
+      width: 20px;
+      height: 17px;
+      background-size: 100% 100%;
+      margin: 4px 4px 0px 0px;
+      background-image: url('../img/common/sort_and_filters-search-icon.png');
+    }
+  }
+
 }
 
 

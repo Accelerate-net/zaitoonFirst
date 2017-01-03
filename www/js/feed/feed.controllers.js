@@ -67,16 +67,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
     });
 
 	$scope.search = { query : '' };
-	//$scope.products = products;	
-
-	console.log('******************************');
-	console.log(products);
-
 	$scope.showSearch = false;
 
-	$scope.cancelSearch = function(){
 
-	};
+	//Any filter applied?
+	$scope.filterFlag = false;
 
 	$scope.resetSearch = function(){
 		$scope.search = { query : '' };
@@ -90,11 +85,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		});
 
 		product.qty = 1;
-		// product.size = "M";
-		// product.color = "black";
-		// product.price = 150;
   	    ShoppingCartService.addProduct(product);
-  	    //console.log(product);
   	};
 
 
