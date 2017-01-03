@@ -19,8 +19,8 @@
     <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
     <div class="products-row">
     <div ng-repeat="maintype in menu">
-      <div ng-repeat="submenu in maintype.subCategories">
-      <h1>{{submenu.subType}}</h1>
+      <div ng-repeat="submenu in subs = (maintype.subCategories | searchField : 'product.itemName' | filter:search.query)">
+      <h1 class="myMenuSubTitle">{{submenu.subType}}</h1>
 
       <div class="food-product-container" ng-repeat="product in results = (submenu.items | searchField : 'product.itemName' | filter:search.query)">
         <div class="row info-row">
