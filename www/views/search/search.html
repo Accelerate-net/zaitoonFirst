@@ -1,52 +1,41 @@
-<ion-view class="search-view" cache-view="false">
-  <ion-header-bar class="search-header">
-    <div class="row item-input-inset search-row">
-      <div class="col col-75">
-        <label class="item-input-wrapper search-label">
-          <i class="icon ion-ios-search placeholder-icon"></i>
-          <input type="search" placeholder="Search" name="search_query" ng-model="search.query">
-        </label>
-      </div>
-      <div class="col">
-        <button class="button button-clear cancel-button" ng-click="cancelSearch()">
-          Clear
-        </button>
-      </div>
-    </div>
+<ion-view class="feed-deals-view feed-sub-view" cache-view="false">
+
+  <ion-header-bar class="account-header">
+    <h1 class="title">Deals</h1>
   </ion-header-bar>
-  <ion-content>
-    <!-- <div ng-if="results.length == 0">
-      <h2>No results</h2>
-    </div> -->
-    <div>
-      <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
-      <div class="search-results-container">
-        <div class="products-row">
-          <div class="food-product-container" ng-repeat="product in results = (products | searchField : 'product.name' | filter:search.query)">
-            <div class="row info-row">
-              <div class="col logo-col" ng-if="product.isVeg">
-                <span class="icon ion-android-radio-button-on veg"></span>
-              </div> 
-              <div class="col logo-col" ng-if="!product.isVeg">
-                <span class="icon ion-android-radio-button-on nveg"></span>
-              </div>     
-              <div class="col description-col">
-                <div class="row">
-                  <div class="col data-col">
-                    <h5 class="product-title">
-                      <a class="product-anchor">{{product.name}}</a>
-                    </h5>
-                    <p class="address-and-price-container">
-                      <span class="product-address">{{product.type}}<tag class="myPrice">Rs. 120</tag></span>
-                    </p>
-                  </div>
-                  <div class="col col-10 col-center">
-                    <button class="button button-small button-outline button-balanced" ng-click="addToCart(product)"><span class="icon ion-plus"></span></button>
-                  </div>
-                </div>
-              </div>
+
+
+  <ion-content padding>
+    
+    <div class="products-row">
+      <div class="card deals-product-container" ng-repeat="product in results = products">
+        <div class="row row-center top-row">
+          <div class="col col-100 shop-col">
+            <button class="button shop-button">
+              {{product.code}}
+            </button>
+          </div>
+        </div>
+        <div class="row middle-row">
+          <div class="col col-75">
+            <h5 class="product-title">
+              <a class="product-anchor">{{product.name}}</a>
+              <!-- <a class="product-anchor" ui-sref="main.app.feed.deals.content({productId: product.id})">{{product.name}}</a> -->
+            </h5>
+            <p class="product-description">
+              {{product.description}}
+            </p>
+          </div>
+          <div class="col bookmark-col">
+            <a class="button button-icon icon ion-pricetag bookmark-button"></a>
+          </div>
+        </div>
+        <div class="row bottom-row">
+          <div class="col time-col">
+            <div class="time-left-container">
+              <span class="deal-time-left" ng-class="{'days-left-1': ((product.expiration_date | amDifference : null : 'hours') <= 10) && ((product.expiration_date | amDifference : null : 'hours') > 0), 'days-left-0': (product.expiration_date | amDifference : null : 'hours') < 0}" am-time-ago="product.expiration_date"></span>
+              <i class="icon ion-android-time"></i>
             </div>
-            
           </div>
         </div>
       </div>
