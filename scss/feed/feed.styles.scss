@@ -87,23 +87,23 @@
 			left: 0px;
 			@include linear-gradient(right, rgba($categories-default-bg, 0) 0%, $categories-default-bg 100%);
 
-			&.main-app-feed-fashion
+			&.main-app-feed-arabian
 			{
 				@include linear-gradient(right, rgba($fashion-bg, 0) 0%, $fashion-bg 100%);
 			}
-			&.main-app-feed-food
+			&.main-app-feed-chinese
 			{
 				@include linear-gradient(right, rgba($food-bg, 0) 0%, $food-bg 100%);
 			}
-			&.main-app-feed-travel
+			&.main-app-feed-deals
 			{
 				@include linear-gradient(right, rgba($travel-bg, 0) 0%, $travel-bg 100%);
 			}
-			&.main-app-feed-deals
+			&.main-app-feed-dessert
 			{
 				@include linear-gradient(right, rgba($deals-bg, 0) 0%, $deals-bg 100%);
 			}
-			&.main-app-feed-real-state
+			&.main-app-feed-indian
 			{
 				@include linear-gradient(right, rgba($real-state-bg, 0) 0%, $real-state-bg 100%);
 			}
@@ -113,23 +113,23 @@
 			right: 0px;
 			@include linear-gradient(left, rgba($categories-default-bg, 0) 0%, $categories-default-bg 100%);
 
-			&.main-app-feed-fashion
+			&.main-app-feed-arabian
 			{
 				@include linear-gradient(left, rgba($fashion-bg, 0) 0%, $fashion-bg 100%);
 			}
-			&.main-app-feed-food
+			&.main-app-feed-chinese
 			{
 				@include linear-gradient(left, rgba($food-bg, 0) 0%, $food-bg 100%);
 			}
-			&.main-app-feed-travel
+			&.main-app-feed-deals
 			{
 				@include linear-gradient(left, rgba($travel-bg, 0) 0%, $travel-bg 100%);
 			}
-			&.main-app-feed-deals
+			&.main-app-feed-dessert
 			{
 				@include linear-gradient(left, rgba($deals-bg, 0) 0%, $deals-bg 100%);
 			}
-			&.main-app-feed-real-state
+			&.main-app-feed-indian
 			{
 				@include linear-gradient(left, rgba($real-state-bg, 0) 0%, $real-state-bg 100%);
 			}
@@ -148,35 +148,35 @@
 				background-color: $categories-default-bg;
 			}
 
-			&.main-app-feed-fashion
+			&.main-app-feed-arabian
 			{
 				.sliding-list
 				{
 					background-color: $fashion-bg;
 				}
 			}
-			&.main-app-feed-food
+			&.main-app-feed-chinese
 			{
 				.sliding-list
 				{
 					background-color: $food-bg;
 				}
 			}
-			&.main-app-feed-travel
+			&.main-app-feed-deals
 			{
 				.sliding-list
 				{
 					background-color: $travel-bg;
 				}
 			}
-			&.main-app-feed-deals
+			&.main-app-feed-dessert
 			{
 				.sliding-list
 				{
 					background-color: $deals-bg;
 				}
 			}
-			&.main-app-feed-real-state
+			&.main-app-feed-indian
 			{
 				.sliding-list
 				{
