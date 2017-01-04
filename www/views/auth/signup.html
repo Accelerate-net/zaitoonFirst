@@ -15,6 +15,7 @@
       <div class="col">
         <form name="signup_form" class="form-container" novalidate>
           <div class="input-list list list-inset">
+            <div ng-if="!signupFlag">
             <label class="item item-input">
               <input type="text" placeholder="Name" name="name" ng-model="user.name" required>
             </label>
@@ -23,12 +24,22 @@
             </label>
             <label class="item item-input">
               <input type="text" placeholder="Email" name="email" ng-model="user.email" required>
+            </label>
+          </div>
+          <div ng-if="signupFlag">              
+            <label class="item item-input">
+              <input type="text" placeholder="Enter OTP" name="otp" ng-model="user.otp" required>
             </label>            
           </div>
+        </div>
           <p ng-show="error" class="message error-signup">{{error}}</p>
-          <button type="submit" class="button button-block auth-action-button-signup" ng-click="doSignUp()" ng-disabled="signup_form.$invalid">
+          <button type="submit" class="button button-block auth-action-button-signup" ng-if="!signupFlag" ng-click="validateSignUp()" ng-disabled="signup_form.$invalid">
+            Proceed
+          </button>
+          <button type="submit" class="button button-block auth-action-button-signup" ng-if="signupFlag" ng-click="doSignUp()" ng-disabled="signup_form.$invalid">
             Sign Up
           </button>
+
         </form>
         <div class="alternative-actions">
           <a class="action-link button button-small button-clear" ui-sref="intro.auth-login()">Login</a>

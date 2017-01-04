@@ -87,22 +87,62 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 	$scope.user.name = "";
 	$scope.user.email = "";
-	$scope.user.password = "";
+	$scope.user.mobile = "";
+	$scope.signupFlag = false;
 
-	$scope.doSignUp = function(){
+	$scope.validateSignUp = function(){
 		//Validate, Create an account and login.
+		var isnum = /^\d+$/.test($scope.user.mobile);
+		var ischar = /^[a-zA-Z ]*$/.test($scope.user.name);
+		var isemail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.user.email);
+		if(ischar && $scope.user.name.length >=6){
+			if(isnum && $scope.user.mobile.length ==10){ //Validate OTP and LOG IN				
+				if(isemail){ //Validate OTP and LOG IN				
+					$scope.error="";
+					$scope.signupFlag = true;
+				}else{
+					$scope.error = "Enter a valid email.";
+				}
+			}else{
+				$scope.error = "Enter a valid moile number.";
+			}
+
+		}
+		else
+		{
+			$scope.error = "Name must be atleast 6 characters.";
+		}
 
 		$ionicLoading.show({
 	      template: 'Loading...'
 	    });
 
 		$timeout(function(){
-			// Simulate login OK
-			// $state.go('main.app.feed.fashion');
-      // $ionicLoading.hide();
+			$ionicLoading.hide();
+		}, 800);
+	};
 
-			// Simulate login ERROR
-			$scope.error = "This is an error message";
+	$scope.doSignUp = function(){
+		var isnum = /^\d+$/.test($scope.user.otp);
+		if(isnum && $scope.user.otp.length == 4){
+			if($scope.user.otp == "1111"){ //Validate OTP and LOG IN				
+				$state.go('main.app.feed.arabian');
+      			$ionicLoading.hide();
+				$scope.error="";
+			}else{
+				$scope.error = "Incorrect OTP.";
+			}
+		}
+		else
+		{
+			$scope.error = "OTP must be a 4 digit number.";
+		}
+
+		$ionicLoading.show({
+      		template: 'Loading...'
+    	});
+
+		$timeout(function(){			
 			$ionicLoading.hide();
 		}, 800);
 	};
