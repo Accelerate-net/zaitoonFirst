@@ -456,16 +456,16 @@ angular.module('zaitoonFirst', [
                     }
                   })
 
-          .state('main.app.search', {
-            url: '/search',
+          .state('main.app.deals', {
+            url: '/deals',
             views: {
-              'app-search@main.app': {
-                templateUrl: 'views/search/search.html',
-                controller: 'SearchCtrl'
+              'app-deals@main.app': {
+                templateUrl: 'views/deals/deals.html',
+                controller: 'DealsCtrl'
               }
             },
             resolve: {
-              results: function(FoodService){
+              products: function(FoodService){
                 return FoodService.getProducts();
               }
             }

@@ -1,0 +1,65 @@
+<ion-view class="feed-deals-view feed-sub-view" cache-view="false">
+
+  <ion-header-bar class="myHeaderRed">
+    <h1 class="title myWhiteFont">Deals</h1>
+  </ion-header-bar>
+
+
+  <ion-content padding>
+    
+    <div class="products-row">
+      <div class="card deals-product-container" ng-repeat="deal in deals">
+
+        <div class="row row-center top-row" ng-if="deal.type=='coupon'">
+          <div class="col col-100 shop-col">
+            <button ng-if="deal.code" class="button shop-button">
+              {{deal.code}}
+            </button>
+          </div>
+        </div>
+    
+
+        <div class="row middle-row" ng-if="deal.type=='coupon'">
+          <div class="col col-100">
+            <h5 class="product-title">
+              <a class="product-anchor">COUPON OFFER</a>            
+            </h5>
+            <p class="product-description">
+              {{deal.description}}
+            </p>
+          </div>
+        </div>
+
+        <div class="row middle-row-special" ng-if="deal.type=='promotion'">
+          <div class="col col-100" ng-if="deal.type=='promotion'">
+            <img ng-if="deal.isImageAvailable" src="{{deal.url}}" class="myDealsImg">
+            <p class="product-description">
+              {{deal.description}}
+            </p>
+          </div>
+        </div>
+
+        <div class="row middle-row" ng-if="deal.type=='offer'">
+          <div class="col col-100">
+            <h5 class="product-title">
+              <a class="product-anchor">SPECIAL OFFER</a>            
+            </h5>           
+            <p class="product-description">
+              {{deal.description}}
+            </p>
+          </div>
+        </div>
+
+
+        <div class="row bottom-row" ng-if="deal.type!='promotion'">
+          <div class="col time-col">
+            <div class="time-left-container">
+              <span class="deal-time-left">Valid till {{deal.validTill}}</span>
+              <i class="icon ion-android-time"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

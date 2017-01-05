@@ -1,5 +1,6 @@
 angular.module('zaitoonFirst.feed.controllers', [])
 
+
 .controller('FeedCtrl', function($scope,  $ionicScrollDelegate, ShoppingCartService) {
 	$scope.getProductsInCart = function(){
 		return ShoppingCartService.getProducts().length;
@@ -163,8 +164,13 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	$scope.products = products;
 })
 
-.controller('DealsCtrl', function($scope, products) {
-	$scope.products = products;
+.controller('DealsCtrl', function($scope, $http) { 
+	
+	$http.get('http://localhost/vega-web-app/online/fetchdeals.php')
+	.then(function(response){
+      	$scope.deals = response.data;
+    });
+
 })
 
 .controller('RealStateCtrl', function($scope, products) {
