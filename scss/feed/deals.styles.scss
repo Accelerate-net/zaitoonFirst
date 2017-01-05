@@ -9,7 +9,7 @@
 
 		.deals-product-container
 		{
-			margin: 0px 18px 5px;
+			margin: 10px 10px;
 			box-shadow: none;
 			border-radius: 6px;
 			padding: 0px;
@@ -68,6 +68,7 @@
 						border-radius: $deals-product-shop-button-height/2;
 						@include button-style($deals-shop-button-bg, $deals-shop-button-border, $deals-shop-button-active-bg, $deals-shop-button-active-border, $deals-shop-button-text);
 					}
+
 				}
 			}
 
@@ -113,6 +114,47 @@
 				}
 			}
 
+			.middle-row-special
+			{
+				padding: 0px;
+
+				.product-title
+				{
+					color: $deals-product-color;
+					margin: 0px;
+					margin-bottom: 8px;
+
+					a
+					{
+						color: $deals-product-color;
+					}
+				}
+
+				.product-description
+				{
+					color: #e74c3c;
+					font-size: 15px;
+					padding: 6px;
+				}
+
+				.bookmark-col
+				{
+					text-align: center;
+
+					.bookmark-button
+					{
+						color: $deals-bookmark-button-color;
+
+						&::before
+						{
+							font-size: 28px;
+							line-height: 28px;
+  						margin: 0px;
+						}
+					}
+				}
+			}
+
 			.bottom-row
 			{
 				padding: 0px 8px 12px 14px;
@@ -137,18 +179,16 @@
 
 					.time-left-container
 					{
-						color: $deals-time-left-color;
+						color: #cdcccc;
 						display: block;
 						width: 100%;
 
 						.deal-time-left
 						{
 						  display: inline-block;
-							word-spacing: -1px;
-							letter-spacing: -1px;
-							line-height: 22px;
+							line-height: 24px;
   						float: right;
-							font-size: 12px;
+							font-size: 10px;
 
 							&.days-left-0
 							{
@@ -170,7 +210,7 @@
 
 							&::before
 							{
-								font-size: 22px;
+								font-size: 16px;
 								line-height: 22px;
 	  						margin: 0px;
 							}
