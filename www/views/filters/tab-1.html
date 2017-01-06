@@ -1,30 +1,43 @@
 <ion-scroll direction="y" ng-controller="FiltersCtrl">
   <div class="card list filter-group">
     <div class="item item-divider">
-      Category
+      Show only <a ng-if="clearFlag" ng-click="resetVegNonVeg()" class="myResetLink">Reset</a>
     </div>
     <ion-list class="category-filters filter-options-container">
-      <ion-radio name="category_filter" ng-model="category_filter" ng-value="'Fashion'">
-        <img class="category-icon fashion-icon" ng-src="./img/filters/category-filters_VEG.png"/>
-        <span>Pure Vegetarian</span>
+      <ion-radio name="category_filter" ng-model="category_filter" ng-value="'VEG'" ng-change="typeSelected()">
+          <span ng-if="!clearVegFlag">Pure Vegetarian</span>
+          <span ng-if="clearVegFlag" class="filterActive">Pure Vegetarian</span>     
       </ion-radio>
-      <ion-radio name="category_filter" ng-model="category_filter" ng-value="'RealState'">
-        <img class="category-icon real-state-icon" ng-src="./img/filters/category-filters_NON.png"/>
-        <span>Non Vegetarian</span>
+      <ion-radio name="category_filter" ng-model="category_filter" ng-value="'NONVEG'" ng-change="typeSelected()">
+          <span ng-if="!clearNonVegFlag">Non Vegetarian</span>
+          <span ng-if="clearNonVegFlag" class="filterActive">Non Vegetarian</span>
       </ion-radio>
     </ion-list>
   </div>
 
-  <div class="card list filter-group alt-filter-group">
+
+  <div class="card list filter-group">
     <div class="item item-divider">
-      Show only
-    </div>
-    <ion-list class="show-filters filter-options-container">
-      <ion-radio name="show_filter" ng-model="show_filter" ng-value="'Restaurants'">South Indian</ion-radio>
-      <ion-radio name="show_filter" ng-model="show_filter" ng-value="'Restaurants'">North Indian</ion-radio>
-      <ion-radio name="show_filter" ng-model="show_filter" ng-value="'Cafes'">Arabian</ion-radio>
-      <ion-radio name="show_filter" ng-model="show_filter" ng-value="'Bars'">Chinese</ion-radio>
-    </ion-list>
+      Show dishes contain only
+    </div>    
+      <div ng-if="!nonvegUser">
+        <ion-list class="tags-filters-spl filter-options-container">
+          <tag-checkbox title="Chicken"></tag-checkbox>
+          <tag-checkbox title="Mutton"></tag-checkbox>
+          <tag-checkbox title="Fish"></tag-checkbox>
+          <tag-checkbox title="Prawns"></tag-checkbox>
+          <tag-checkbox title="Egg"></tag-checkbox>
+        </ion-list>
+      </div>    
+      <div ng-if="nonvegUser">
+        <ion-list class="tags-filters filter-options-container">
+          <tag-checkbox ng-model="nonvegcontent_filter.chicken" title="Chicken"></tag-checkbox>
+          <tag-checkbox ng-model="nonvegcontent_filter.mutton" title="Mutton"></tag-checkbox>
+          <tag-checkbox ng-model="nonvegcontent_filter.fish" title="Fish"></tag-checkbox>
+          <tag-checkbox ng-model="nonvegcontent_filter.prawns" title="Prawns"></tag-checkbox>
+          <tag-checkbox ng-model="nonvegcontent_filter.egg" title="Egg"></tag-checkbox>
+        </ion-list>
+      </div>      
   </div>
   
 </ion-scroll>

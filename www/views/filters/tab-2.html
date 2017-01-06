@@ -1,69 +1,61 @@
 <ion-scroll direction="y" ng-controller="FiltersCtrl">
 
-<div class="card list filter-group">
+  <div class="card list filter-group alt-filter-group">
     <div class="item item-divider">
-      Avoid
-    </div>
-    <ion-list class="tags-filters filter-options-container">
-      <tag-checkbox ng-model="tags_filter.meat" title="Chicken"></tag-checkbox>
-      <tag-checkbox ng-model="tags_filter.vegetables" title="Mutton"></tag-checkbox>
-      <tag-checkbox ng-model="tags_filter.eggs" title="Egg"></tag-checkbox>
-      <tag-checkbox ng-model="tags_filter.breakfast" title="Prawns"></tag-checkbox>
-      <tag-checkbox ng-model="tags_filter.asian" title="Fish"></tag-checkbox>
-    </ion-list>
-  </div>
-
-	<div class="card list filter-group alt-filter-group">
-    <div class="item item-divider">
-      Show Items Contain
+      Show dishes which are
     </div>
     <ion-list class="ingredients-filters filter-options-container">
-      <ion-checkbox ng-model="ingredients_filter.salmon">Chicken</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.butter">Mutton</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.rice">Egg</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.tomato">Fish</ion-checkbox>
-      <ion-checkbox ng-model="ingredients_filter.lemon">Prawns</ion-checkbox>
+        <ion-checkbox ng-model="type_filter.gravy">Gravy</ion-checkbox>
+        <ion-checkbox ng-model="type_filter.semi">Semi Gravy</ion-checkbox>
+        <ion-checkbox ng-model="type_filter.dry">Dry Fry</ion-checkbox>
+        <ion-checkbox ng-model="type_filter.deep">Deep Fry</ion-checkbox>
     </ion-list>
   </div>
 
 
-
-<div class="card list filter-group">
-    <div class="item item-divider">
-      Spice Level
-    </div>
-    <ion-list class="budget-filters filter-options-container">
-      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$'">
-        <span class="radio-tag-content">Spicy</span>
-      </tag-radio>
-      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$$'">
-        <span class="radio-tag-content">Sweeten</span>
-      </tag-radio>
-      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$$$'">
-        <span class="radio-tag-content">Non Spicy</span>
-      </tag-radio>
-      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'Any'">
-        <span class="radio-tag-content">Any</span>
-      </tag-radio>      
-    </ion-list>
-  </div>
 
   <div class="card list filter-group">
     <div class="item item-divider">
-      Fry Type
+      Spice Level
     </div>
-    <ion-list class="budget-filters filter-options-container">
-      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'Any'">
-        <span class="radio-tag-content">Tawa Fry</span>
-      </tag-radio>
-      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$'">
-        <span class="radio-tag-content">Oil Fry</span>
-      </tag-radio>
-      <tag-radio name="budget_filter" ng-model="budget_filter" ng-value="'$$'">
+    <ion-list class="budget-filters filter-options-container" style="padding-bottom: 10px;">
+      <tag-radio name="budget_filter" ng-model="spice_filter" ng-value="'any'">
         <span class="radio-tag-content">Any</span>
       </tag-radio>
+      <tag-radio name="budget_filter" ng-model="spice_filter" ng-value="'spicy'">
+        <span class="radio-tag-content">Spicy</span>
+      </tag-radio>    
     </ion-list>
+    <ion-list class="budget-filters filter-options-container" style="padding-top: 0px;">
+      <tag-radio name="budget_filter" ng-model="spice_filter" ng-value="'sweetened'">
+        <span class="radio-tag-content item-text-wrap">Sweetened Spicy</span>
+      </tag-radio>
+      <tag-radio name="budget_filter" ng-model="spice_filter" ng-value="'non'">
+        <span class="radio-tag-content item-text-wrap">Non Spicy</span>
+      </tag-radio>      
+    </ion-list>    
   </div>
+
+
+
+  <div class="card list filter-group">
+    <div class="item item-divider">
+      Meat Type
+    </div>
+    <ion-list class="budget-filters filter-options-container">
+      <tag-radio name="budget_filter2" ng-model="bone_filter" ng-value="'any'">
+        <span class="radio-tag-content">Any</span>
+      </tag-radio>
+      <tag-radio name="budget_filter2" ng-model="bone_filter" ng-value="'bone'">
+        <span class="radio-tag-content">Bone</span>
+      </tag-radio>
+      <tag-radio name="budget_filter2" ng-model="bone_filter" ng-value="'boneless'">
+        <span class="radio-tag-content item-text-wrap">Boneless</span>
+      </tag-radio>   
+    </ion-list>
+  </div>  
+
+
 
   
 </ion-scroll>

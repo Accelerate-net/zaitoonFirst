@@ -2,37 +2,89 @@ angular.module('zaitoonFirst.filters.controllers', [])
 
 .controller('FiltersCtrl', function($scope, $state, $rootScope, $ionicSlideBoxDelegate) {
 
-	$scope.category_filter = 'Fashion';
+	//For Non Veg Content
+	$scope.nonvegUser = true;
 
-	$scope.tags_filter = {};
-	$scope.tags_filter.vegetables = true;
-	$scope.tags_filter.asian = true;
+	//For VEG or NON-VEG
 
-	$scope.color_filter = '#c284e5';
+	$scope.category_filter = '';
 
-	$scope.size_filter = 'M';
+	$scope.clearFlag = false; 	
+	$scope.clearVegFlag	= false;
+	$scope.clearNonVegFlag	= false;
 
-	$scope.ingredients_filter = {};
-	$scope.ingredients_filter.butter = true;
-	$scope.ingredients_filter.lemon = true;
+	$scope.typeSelected = function(){
+		$scope.clearFlag = true;
+		if($scope.category_filter == 'VEG'){
+			$scope.clearVegFlag	= true;
+			$scope.clearNonVegFlag	= false;
 
-	$scope.show_filter = 'Bars';
+			//reset Non Veg Filters
+			this.clearNonFilter();
+		}
+		else{
+			$scope.clearNonVegFlag	= true;
+			$scope.clearVegFlag	= false;
 
-	$scope.budget_filter = '$';
+			this.setNonFilter();
+		}
 
-	$scope.distance_filter = 30;
+	}
+	
+	$scope.resetVegNonVeg = function(){
+		$scope.clearFlag = false;
+		$scope.clearVegFlag	= false;
+		$scope.clearNonVegFlag	= false;
+		$scope.category_filter = '';
 
-	$scope.bedrooms_filter = 3;
-	$scope.bathroom_filter = 1;
+		this.setNonFilter();
+	}
 
-	$scope.price_filter = {
-		from: 144,
-		to: 523
-	};
-	$scope.price_filter_range = {
-		min: 0,
-		max: 800
-	};
+	$scope.clearNonFilter = function(){
+		$scope.nonvegUser = false;
+		$scope.nonvegcontent_filter.chicken = false;
+		$scope.nonvegcontent_filter.mutton = false;
+		$scope.nonvegcontent_filter.fish = false;
+		$scope.nonvegcontent_filter.prawns = false;
+		$scope.nonvegcontent_filter.egg = false;
+	}
+
+	$scope.setNonFilter = function(){
+		$scope.nonvegUser = true;
+	}
+
+
+	//NonVeg Contents.
+	$scope.nonvegcontent_filter = {};
+	$scope.nonvegcontent_filter.chicken = false;
+	$scope.nonvegcontent_filter.mutton = false;
+	$scope.nonvegcontent_filter.fish = false;
+	$scope.nonvegcontent_filter.prawns = false;
+	$scope.nonvegcontent_filter.egg = false;
+
+
+
+	//Cooking Type
+	$scope.type_filter = {};
+	$scope.type_filter.gravy = false;
+	$scope.type_filter.semi = false;
+	$scope.type_filter.dry = false;
+	$scope.type_filter.deep = false;
+
+
+	//Spice Level
+	$scope.spice_filter = {};
+	$scope.spice_filter = 'any';
+
+
+	//Bone Type
+	$scope.bone_filter = {};
+	$scope.bone_filter = 'any';
+	
+
+
+
+
 
 	$scope.cancelRefine = function(){
 		var previous_view = _.last($rootScope.previousView);
@@ -40,13 +92,18 @@ angular.module('zaitoonFirst.filters.controllers', [])
 	};
 
 	$scope.applyRefine = function(){
+		//Create the Filter Object
+
 		var previous_view = _.last($rootScope.previousView);
 		$state.go(previous_view.fromState, previous_view.fromParams );
 	};
 
+
+
+
 	$scope.lockSlide = function () {
-    $ionicSlideBoxDelegate.$getByHandle('filter-tabs-slider').enableSlide(false);
-  };
+    	$ionicSlideBoxDelegate.$getByHandle('filter-tabs-slider').enableSlide(false);
+  	};
 })
 
 ;
