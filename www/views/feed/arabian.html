@@ -20,7 +20,7 @@
     <div class="products-row">
     <div ng-repeat="maintype in menu">
       <div ng-repeat="submenu in subs = (maintype.subCategories | searchField : 'product.itemName' | filter:search.query)">
-      <h1 class="myMenuSubTitle">{{submenu.subType}}</h1>
+      <h1 class="myMenuSubTitle">{{submenu.subName}}</h1>
 
       <div class="food-product-container" ng-repeat="product in results = (submenu.items | searchField : 'product.itemName' | filter:search.query)">
         <div class="row info-row">
