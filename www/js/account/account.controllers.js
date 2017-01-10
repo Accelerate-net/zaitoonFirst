@@ -130,8 +130,32 @@ angular.module('zaitoonFirst.account.controllers', [])
   };
 })
 
-.controller('OrdersCtrl', function($scope, orders, OrderService) {
-  $scope.orders = orders;
+.controller('OrdersCtrl', function($scope, orders, OrderService,$http) {
+
+  $http.get('http://localhost/vega-web-app/online/orderhistory.php?id=0')
+  .then(function(response){
+        console.log('********* am here');
+        console.log(response.data);
+        $scope.orders = response.data;
+        console.log($scope.menu);
+        $scope.left = 1;
+    });
+  $scope.limiter=5;
+  $scope.loadMore = function() {
+    $http.get('http://localhost/vega-web-app/online/orderhistory.php?id='+$scope.limiter).then(function(items) {
+      if(items.data.length == 0){
+        $scope.left = 0;
+      }
+      $scope.orders = $scope.orders.concat(items.data)
+
+    //  $scope.feedsList.push(items);
+      $scope.limiter+=5;
+
+      //$scope.left = 0;
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  };
+
 })
 
 

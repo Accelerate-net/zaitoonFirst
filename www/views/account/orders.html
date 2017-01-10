@@ -3,25 +3,41 @@
     <div class="orders-row">
       <div class="card order-item" ng-repeat="order in orders">
         <div class="item item-divider order-header">
-          <span class="header-title">{{order.date | amDateFormat:'DD MMM, YYYY'}}</span>
+          <span class="header-title">{{order.date | amDateFormat:'DD MMM, YYYY'}}<jafry style="color:white;float:right">{{order.orderID}}</jafry></span>
         </div>
         <div class="item item-text-wrap order-content">
-          <div class="row order-product" ng-repeat="product in order.products track by $index">
+          <div class="row order-product" ng-repeat="product in order.cart.items track by $index">
             <div class="col col-67 col-center name-col">
-              <span class="product-name">{{product.name}}</span>
+              <span class="product-name">{{product.itemName}}</span>
             </div>
             <div class="col col-20 col-center">
-              <span class="product-qty">x NA</span>
+              <span class="product-qty">x {{product.itemQuantity}}</span>
             </div>
             <div class="col col-center">
-              <span class="product-price">Rs {{product.price_sale}}</span>
+              <span class="product-price">Rs {{product.itemPrice}}</span>
             </div>
           </div>
         </div>
-        <div class="item item-divider order-footer" ng-class="'{{order.status}}'">
-          <span class="status-title">{{order.status}}</span>
+        <div class="item item-divider order-footer" ng-if="order.status==0">
+          <span class="status-title" style="color:#d35400">Pending Confirmation</span>
+        </div>
+        <div class="item item-divider order-footer" ng-if="order.status==1">
+          <span class="status-title" style="color:#27ae60">Order Confirmed</span>
+        </div>
+        <div class="item item-divider order-footer" ng-if="order.status==2">
+          <span class="status-title" style="color:#2c3e50">Dispatched</span>
+        </div>
+        <div class="item item-divider order-footer" ng-if="order.status==3">
+          <span class="status-title" style="color:#2c3e50">Delivered</span>
         </div>
       </div>
     </div>
+    <i ng-if="!left"><center><img src=img/common/end.png></center></i>
+    <ion-infinite-scroll
+      immediate-check="false"
+      ng-if="left"
+      on-infinite="loadMore()" 
+      distance="1%">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>
