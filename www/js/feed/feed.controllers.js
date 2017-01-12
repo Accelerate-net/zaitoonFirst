@@ -58,11 +58,17 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 .controller('FoodArabianCtrl', function($scope, $rootScope, $http, FoodArabianService, products, ShoppingCartService, $ionicLoading) {
 	
+	$rootScope.isFilter = false;
 	//Is Filter Applied?
 	$rootScope.$on('filter_applied', function(event, filter) {
 		$rootScope.isFilter = true;
     	console.log(filter);
   	});
+
+  	$rootScope.clearFilter = function(){
+		$rootScope.isFilter = false;
+		//$rootScope.$broadcast('filter_applied','');
+	}
 
 	$http.get('http://localhost/vega-web-app/online/fetchmenu.php')
 	.then(function(response){
