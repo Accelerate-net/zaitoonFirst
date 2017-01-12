@@ -56,15 +56,17 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodArabianCtrl', function($scope, $http, FoodArabianService, products, ShoppingCartService, $ionicLoading) {
+.controller('FoodArabianCtrl', function($scope, $rootScope, $http, FoodArabianService, products, ShoppingCartService, $ionicLoading) {
 	
+	//Is Filter Applied?
+	$rootScope.$on('filter_applied', function(event, filter) {
+		$rootScope.isFilter = true;
+    	console.log(filter);
+  	});
 
 	$http.get('http://localhost/vega-web-app/online/fetchmenu.php')
 	.then(function(response){
-      	console.log('********* am here');
-      	console.log(response.data);
       	$scope.menu = response.data;
-      	console.log($scope.menu);
     });
 
 	$scope.search = { query : '' };
