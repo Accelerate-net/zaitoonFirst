@@ -216,7 +216,10 @@ angular.module('zaitoonFirst.filters.controllers', [])
 			"boneless" : boneless
 		}
 
-		console.log(sampleFilter);
+		//console.log(sampleFilter);
+
+		$rootScope.$broadcast('filter_applied', sampleFilter);
+
 		var previous_view = _.last($rootScope.previousView);
 		$state.go(previous_view.fromState, previous_view.fromParams );
 	};

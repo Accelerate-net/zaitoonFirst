@@ -15,6 +15,18 @@
     </div>
   </ion-header-bar>
 
+  <ion-header-bar class="search-header-filter" ng-if="isFilter">
+    <div class="row item-input-inset search-row-filter">
+      <div class="col col-90">
+          <tag style="color: white;">Filter Applied</tag>
+      </div>
+      <div class="col">
+        <button class="button button-clear cancel-button ion-close" ng-click="clearFilter()">
+        </button>
+      </div>
+    </div>
+  </ion-header-bar>
+
   <ion-content>    
     <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
     <div class="products-row">
