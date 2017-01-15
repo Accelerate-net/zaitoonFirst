@@ -56,7 +56,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodArabianCtrl', function($scope, $rootScope, $http, FoodArabianService, products, ShoppingCartService, $ionicLoading) {
+.controller('FoodArabianCtrl', function($scope, $rootScope, $http, FoodArabianService, products, ShoppingCartService, $ionicLoading, $ionicPopup) {
 	
 	$rootScope.isFilter = false;
 	//Is Filter Applied?
@@ -86,6 +86,46 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		$scope.search = { query : '' };
 		$scope.showSearch = !$scope.showSearch;
 	}
+
+
+	$scope.cs = 'AM HERE';
+
+	  $scope.customOptions = function(product) {
+
+	  	//Render Template
+	  	var i = 0;
+	  	$scope.choiceName = "";
+	  	$scope.choicePrice = "";
+	  	var choiceTemplate = '<div class="padding">';
+	  	while(i < product.custom.length){
+	  		choiceTemplate = choiceTemplate + '<ion-radio ng-click="addCustomItem(\''+product.custom[i].customName+'\', '+product.custom[i].customPrice+')">'+product.custom[i].customName+' <tag style="font-size: 80%; color: #d35400">Rs. '+product.custom[i].customPrice+'</tag></ion-radio>';
+	  		i++;
+	  	}
+	  	choiceTemplate = choiceTemplate + '</div>';
+
+	    var newCustomPopup = $ionicPopup.show({
+	      cssClass: 'popup-outer new-shipping-address-view',
+	      template: choiceTemplate,
+	      title: 'Choose Options',
+	      scope: $scope,
+	      buttons: [
+	        { text: 'Cancel' }      
+	      ]
+	    });
+	    $scope.addCustomItem = function(variant, price){
+	    	$scope.choiceName = variant;
+	  		$scope.choicePrice = price;
+            
+            if($scope.choiceName != "" && $scope.choicePrice != ""){
+            	$scope.addToCart(product);
+            	newCustomPopup.close(); 
+            }  	  		
+	  		
+	    }
+
+	  }
+
+
 
 	$scope.addToCart = function(product) {
 		$ionicLoading.show({
