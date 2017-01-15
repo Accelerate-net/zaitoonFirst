@@ -31,6 +31,7 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	};
 
 	$scope.addCount = function(product) {
+		console.log(product);
 		ShoppingCartService.addProduct(product);
 	};
 
