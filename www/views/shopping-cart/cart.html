@@ -33,7 +33,7 @@
           
           <div class="col col-67 col-center">
             <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span>
-            <span class="product-name item-text-wrap">{{product.itemName}}</span>
+            <span class="product-name item-text-wrap">{{product.itemName}} <tag ng-if="product.isCustom" style="font-size: 70%; color: #7f8c8d; padding-left: 10px;">({{product.variant}})</tag></span>
           </div>
           <div class="col col-20 col-center">
             <span ng-click="lessCount(product)" class="icon ion-ios-minus-outline myMinus"></span>

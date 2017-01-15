@@ -15,8 +15,11 @@ angular.module('zaitoonFirst.shopping-cart.services', [])
     var cart_products = !_.isUndefined(window.localStorage.zaitoonFirst_cart) ?      JSON.parse(window.localStorage.zaitoonFirst_cart) : [];
 
     //check if this product is already saved
-    var existing_product = _.find(cart_products, function(product){      
-      return product.itemCode == productToAdd.itemCode;
+    var existing_product = _.find(cart_products, function(product){
+      if(!product.isCustom)
+        return product.itemCode == productToAdd.itemCode;
+      else
+        return ((product.itemCode == productToAdd.itemCode) && (product.variant == productToAdd.variant));
     });
 
 
