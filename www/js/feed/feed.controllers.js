@@ -117,6 +117,9 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	  		$scope.choicePrice = price;
             
             if($scope.choiceName != "" && $scope.choicePrice != ""){
+            	product.itemPrice = $scope.choicePrice;
+            	product.variant = $scope.choiceName;
+
             	$scope.addToCart(product);
             	newCustomPopup.close(); 
             }  	  		
