@@ -26,10 +26,10 @@
 
     <h3 class="checkout-sub-title">YOUR ORDER</h3>
     <ul class="list checkout-products">
-      <li class="item checkout-product" ng-repeat="product in products">
+      <li class="item checkout-product" ng-repeat="product in products track by $index">
         <div class="row">
           <div class="col col-67 col-center">
-            <span class="product-name">{{product.itemName}}</span>
+            <span class="product-name">{{product.itemName}}<tag ng-if="product.isCustom" style="font-size: 70%; color: #7f8c8d; padding-left: 10px;">({{product.variant}})</tag></span>
           </div>
           <div class="col col-10 col-center">
             <span class="product-name">x {{product.qty}}</span>
