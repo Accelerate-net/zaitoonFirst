@@ -7,6 +7,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 .controller('welcomeCtrl', function($scope, $ionicPopover) {
 
 	var outlet = !_.isUndefined(window.localStorage.outlet) ? window.localStorage.outlet : "";
+	
 	if(outlet == "")
 		$scope.isLocationSet = false;
 	else
@@ -73,6 +74,12 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		var temp = {name:locality};
 		$scope.data.selected_locality = temp;
 		$scope.locality_popover.hide();
+
+		// What's pending?
+		//1. When user makes selection of City, populate locality list based on that.
+		//2. When User selects a locality, assign the nearest OUTLET. Now hardcoded to "VELACHERY"
+
+		window.localStorage.outlet = "VELACHERY";
 	};
 
 })
