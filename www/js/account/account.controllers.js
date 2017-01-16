@@ -7,6 +7,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 
   $scope.user_credit_cards = user.credit_cards;
   $scope.user_shipping_addresses = user.shipping_addresses;
+  console.log(user.shipping_addresses[0]);
   $scope.data = {};
   $scope.data.selected_card = user.credit_cards[0];
 	$scope.data.selected_address = user.shipping_addresses[0];

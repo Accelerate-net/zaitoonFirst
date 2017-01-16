@@ -120,7 +120,8 @@ angular.module('zaitoonFirst', [
         url: '/walkthrough-welcome',
         views: {
           'intro-view@intro': {
-            templateUrl: 'views/walkthrough/welcome.html'
+            templateUrl: 'views/walkthrough/welcome.html',
+            controller: 'welcomeCtrl'
           }
         }
       })

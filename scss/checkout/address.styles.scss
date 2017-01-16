@@ -103,7 +103,28 @@
 		&.ion-chevron-up
 		{
 			border-bottom-left-radius: 0px;
-			border-bottom-right-radius: 0px;
+			border-bottom-right-radius: 0px;			
+		}
+	}
+
+	.addresses-popover-button-forlocation
+	{
+		margin: 0px;
+		border-radius: 6px;
+		text-align: left;
+		padding: 0px 15px;
+
+		@include button-style($addresses-popover-button-bg, $addresses-popover-button-border, $addresses-popover-button-active-bg, $addresses-popover-button-active-border, $addresses-popover-button-color);
+
+		&::before
+		{
+			font-size: 20px;
+		}
+
+		// This means the popover is open
+		&.ion-chevron-up
+		{
+		
 		}
 	}
 
