@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.account.controllers', [])
 
-.controller('ProfileCtrl', function($scope, user, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
+.controller('ProfileCtrl', function($scope, $http, user, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
   
   //Edit Profile
   $scope.isEditMode = false;
@@ -29,11 +29,11 @@ angular.module('zaitoonFirst.account.controllers', [])
   $scope.user = user;
 
   $scope.user.mobile ="9043960876";
-  $scope.user.membersince = "7th January 2017"
+  $scope.user.membersince = "7th January 2017";
 
   $scope.user_credit_cards = user.credit_cards;
   $scope.user_shipping_addresses = user.shipping_addresses;
-  console.log(user.shipping_addresses[0]);
+  console.log(user.shipping_addresses);
   $scope.data = {};
   $scope.data.selected_card = user.credit_cards[0];
 	$scope.data.selected_address = user.shipping_addresses[0];

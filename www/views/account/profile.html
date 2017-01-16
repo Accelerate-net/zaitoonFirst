@@ -18,19 +18,19 @@
       <div class="row">
         <label class="col item item-input myInput item-stacked-label">
           <span class="input-label">Name</span>
-          <input type="text" placeholder="Your name" ng-model="user.name" ng-disabled="!isEditMode">
+          <input type="text" placeholder="Your Name" ng-model="user.name" ng-disabled="!isEditMode">
         </label>
       </div>
       <div class="row underlinedRow">
         <label class="col item item-input item-stacked-label">
-          <span class="input-label">Mobile</span>
+          <span class="input-label">Mobile <span ng-if="1" style="color: #1abc9c" class="ion-checkmark-circled"></span></span>
           <input type="text" placeholder="Mobile Number" ng-model="user.mobile" ng-disabled="true">
         </label>
       </div>
       <div class="row">
         <label class="col item item-input item-stacked-label">
           <span class="input-label">Email</span>
-          <input type="email" placeholder="Your email" ng-model="user.email" ng-disabled="!isEditMode">
+          <input type="email" placeholder="Your Email" ng-model="user.email" ng-disabled="!isEditMode">
         </label>
       </div>      
 
@@ -39,7 +39,7 @@
         <button  ng-click="saveEdit()" class="button button-small" style="background: #27ae60; color: #FFF">SAVE</button>
       </div>
 
-      <div class="row" ng-if="!isEditMode" style="margin-top: -3px;">
+      <div class="row" ng-if="!isEditMode" style="margin: 0px;">
         <span ng-if="!isEditMode" ng-click="editProfile()" style="color: #34495e; padding: 0px; margin: 0px;" class="icon ion-edit"> Edit Profile</span>
       </div>
 
