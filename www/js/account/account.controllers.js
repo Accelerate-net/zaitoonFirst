@@ -1,9 +1,35 @@
 angular.module('zaitoonFirst.account.controllers', [])
 
 .controller('ProfileCtrl', function($scope, user, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
+  
+  //Edit Profile
+  $scope.isEditMode = false;
+
+  $scope.editProfile = function(){
+    //Take back up of current values
+    $scope.temp_name = $scope.user.name;
+    $scope.temp_email = $scope.user.email;
+
+    $scope.isEditMode = true;
+  }
+
+  $scope.cancelEdit = function(){
+    //Reset revious values
+    $scope.user.name = $scope.temp_name;
+    $scope.user.email = $scope.temp_email;
+
+    $scope.isEditMode = false;
+  }
+
+  $scope.saveEdit = function(){
+    $scope.isEditMode = false;
+    //Call http request and make the changes in the servers
+  }  
+
   $scope.user = user;
 
   $scope.user.mobile ="9043960876";
+  $scope.user.membersince = "7th January 2017"
 
   $scope.user_credit_cards = user.credit_cards;
   $scope.user_shipping_addresses = user.shipping_addresses;
@@ -26,12 +52,6 @@ angular.module('zaitoonFirst.account.controllers', [])
     $scope.addresses_popover = popover;
   });
 
-  $ionicPopover.fromTemplateUrl('views/checkout/partials/card-chooser-popover.html', {
-    scope: $scope
-  }).then(function(popover) {
-    $scope.cards_popover = popover;
-  });
-
   $scope.openAddressesPopover = function($event){
 		$scope.addresses_popover.show($event);
 	};
@@ -39,12 +59,6 @@ angular.module('zaitoonFirst.account.controllers', [])
 		$scope.addresses_popover.hide();
 	};
 
-  $scope.openCardsPopover = function($event){
-		$scope.cards_popover.show($event);
-	};
-  $scope.selectCreditCard = function(card){
-		$scope.cards_popover.hide();
-	};
 
   $scope.logout = function(){
     $ionicActionSheet.show({
@@ -57,41 +71,6 @@ angular.module('zaitoonFirst.account.controllers', [])
       destructiveButtonClicked: function() {
         $state.go('intro.auth-login');
       }
-    });
-  };
-
-  $scope.showEditCardPopup = function(card) {
-		$scope.card = card;
-
-    var editCardPopup = $ionicPopup.show({
-      cssClass: 'popup-outer edit-card-view',
-      templateUrl: 'views/checkout/partials/edit-card-popup.html',
-      title: '**** ' + card.number.slice(-4),
-      scope: $scope,
-      buttons: [
-        { text: 'Close' },
-				{
-          text: 'Delete',
-					// type: 'icon-left ion-trash-a delete-button',
-					type: 'delete-button',
-          onTap: function(e) {
-            // return $scope.data;
-          }
-        },
-        {
-          text: 'Edit',
-          onTap: function(e) {
-            // return $scope.data;
-          }
-        }
-      ]
-    });
-    editCardPopup.then(function(res) {
-      if(res)
-      {
-				console.log('hacer algo cuando apreta ADD con los datos llenos')
-      }
-      else {}
     });
   };
 
