@@ -5,6 +5,7 @@ angular.module('zaitoonFirst.search.controllers', [])
 	$scope.search = { query : '' };
 	$scope.products = results;
 
+
 	$scope.cancelSearch = function(){
 		$scope.search = { query : '' };
 	};
