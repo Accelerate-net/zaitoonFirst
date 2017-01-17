@@ -1,32 +1,56 @@
 <ion-view class="account-profile-view account-sub-view" cache-view="false">
   <ion-content>
+   <div class="row user-info-row">    
+      <div class="col col-25">    
+         <pre-img ratio="_1_1">    
+           <img class="profile-image" src="img/common/default_user.png" spinner-on-load/>    
+         </pre-img>    
+      </div>    
+      <div class="col col-75 col-center user-info-col">   
+        <h3 ng-if="!isEditMode" class="user-welcome">Hello {{customer.name}}!</h3>    
+        <h3 ng-if="isEditMode" class="user-welcome">Hello {{temp_name}}!</h3>    
+        <p class="user-email">Member since {{customer.memberSince}}</p>        
+      </div> 
+
+   </div>
+
     <div class="user-data-row">
-      <div class="row">
-        <label class="col item item-input myInput item-stacked-label">
+      <div class="row" id="inputProfileName">
+        <label class="col item item-input item-stacked-label">
           <span class="input-label">Name</span>
-          <input type="text" placeholder="Your name" ng-model="user.name" ng-disabled="true">
+          <input type="text" placeholder="Your Name" ng-model="customer.name" ng-disabled="!isEditMode">
         </label>
       </div>
       <div class="row underlinedRow">
         <label class="col item item-input item-stacked-label">
-          <span class="input-label">Mobile</span>
-          <input type="text" placeholder="Mobile Number" ng-model="user.mobile" ng-disabled="true">
+          <span class="input-label">Mobile <span ng-if="customer.isVerified" style="color: #1abc9c" class="ion-checkmark-circled"></span></span>
+          <input type="text" placeholder="Mobile Number" ng-model="customer.mobile" ng-disabled="true">
         </label>
       </div>
-      <div class="row">
+      <div class="row" id="inputProfileEmail">
         <label class="col item item-input item-stacked-label">
           <span class="input-label">Email</span>
-          <input type="email" placeholder="Your email" ng-model="user.email" ng-disabled="true">
+          <input type="email" placeholder="Your Email" ng-model="customer.email" ng-disabled="!isEditMode">
         </label>
       </div>      
-      <div class="row">
 
+      <div class="row" ng-if="isEditMode" style="margin-top: 10px;">
+        <button ng-click="cancelEdit()" class="button button-small" style="background: #7f8c8d; color: #FFF; margin-right: 5px">CANCEL</button>
+        <button  ng-click="saveEdit()" class="button button-small" style="background: #27ae60; color: #FFF">SAVE</button>
       </div>
+
+      <div class="row" ng-if="!isEditMode" style="margin: 0px;">
+        <span ng-if="!isEditMode" ng-click="editProfile()" style="color: #34495e; padding: 0px; margin: 0px;" class="icon ion-edit"> Edit Profile</span>
+      </div>
+
+
+      
+
     </div>
-    <h3 class="account-sub-title">Default Delivery Address</h3>
+    <h3 class="account-sub-title" style="color: #34495e; text-align: left; padding-left: 20px">Default Delivery Address</h3>
     <div class="address-chooser" ng-click="openAddressesPopover($event)">
       <button class="button button-block icon-right addresses-popover-button" ng-class="{'ion-chevron-up': addresses_popover.isShown(), 'ion-chevron-down' : !addresses_popover.isShown()}">
-        {{data.selected_address.street || 'Select address'}}
+        {{data.selected_address.line1 || 'Select Address'}}
       </button>
     </div>
     
