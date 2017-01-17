@@ -1,50 +1,70 @@
 angular.module('zaitoonFirst.account.controllers', [])
 
-.controller('ProfileCtrl', function($scope, $http, user, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
+.controller('ProfileCtrl', function($scope, $http, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
   
+  $scope.data = {};
+  $scope.addressCount = 0;
+
+  $http.get('http://localhost/vega-web-app/online/fetchusers.php')
+  .then(function(response){
+        $scope.customer = response.data; 
+        $scope.user_shipping_addresses = $scope.customer.savedAddresses;
+        $scope.addressCount = $scope.customer.savedAddresses.length;
+
+        //Set the default address
+        var i = 0;
+        while(i < $scope.user_shipping_addresses.length){
+          if($scope.user_shipping_addresses[i].isDefault){
+            $scope.data.selected_address = $scope.user_shipping_addresses[0];
+            break;
+          }
+          i++;
+        }
+
+        //Show ADD NEW if empty
+        if($scope.user_shipping_addresses.length == 0)
+          $scope.show_new_address_button = true;
+        else
+          $scope.show_new_address_button = false;
+        
+  });
+
+                
+
+  
+
   //Edit Profile
   $scope.isEditMode = false;
 
   $scope.editProfile = function(){
     //Take back up of current values
-    $scope.temp_name = $scope.user.name;
-    $scope.temp_email = $scope.user.email;
+    $scope.temp_name = $scope.customer.name;
+    $scope.temp_email = $scope.customer.email;
+
+    document.getElementById("inputProfileName").style.borderBottom="1px solid #1abc9c";
+    document.getElementById("inputProfileEmail").style.borderBottom="1px solid #1abc9c";
 
     $scope.isEditMode = true;
   }
 
   $scope.cancelEdit = function(){
     //Reset revious values
-    $scope.user.name = $scope.temp_name;
-    $scope.user.email = $scope.temp_email;
+    $scope.customer.name = $scope.temp_name;
+    $scope.customer.email = $scope.temp_email;
+
+    document.getElementById("inputProfileName").style.borderBottom="1px dashed #bdc3c7";
+    document.getElementById("inputProfileEmail").style.borderBottom="1px dashed #bdc3c7";    
 
     $scope.isEditMode = false;
   }
 
   $scope.saveEdit = function(){
     $scope.isEditMode = false;
+    document.getElementById("inputProfileName").style.borderBottom="1px dashed #bdc3c7";
+    document.getElementById("inputProfileEmail").style.borderBottom="1px dashed #bdc3c7";    
     //Call http request and make the changes in the servers
   }  
 
-  $scope.user = user;
-
-  $scope.user.mobile ="9043960876";
-  $scope.user.membersince = "7th January 2017";
-
-  $scope.user_credit_cards = user.credit_cards;
-  $scope.user_shipping_addresses = user.shipping_addresses;
-  console.log(user.shipping_addresses);
-  $scope.data = {};
-  $scope.data.selected_card = user.credit_cards[0];
-	$scope.data.selected_address = user.shipping_addresses[0];
-
-  $scope.user.name = user.first_name;
-  $scope.user.password = 'pepe123456789';
-  $scope.show_new_address_button = false;
-  $scope.show_new_card_button = false;
-  $scope.notifications = {};
-  $scope.notifications.promotions = false;
-  $scope.notifications.shipment_updates = true;
 
   $ionicPopover.fromTemplateUrl('views/checkout/partials/address-chooser-popover.html', {
     scope: $scope
