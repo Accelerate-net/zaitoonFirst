@@ -2,7 +2,10 @@
   "user":{
     "id": 1,
     "first_name": "Abhijith C S",
+    "name": "Abhijith C S",
+    "memberSince": "7 January 2017",
     "password": "billy12345678",
+    "mobile": "9043960876",
     "email": "bfowler0@gmail.com",
     "picture": "https://s3.amazonaws.com/uifaces/faces/twitter/teclaro/128.jpg",
     "orders": [
@@ -117,6 +120,24 @@
       },
       {
         "full_name": "Betty Adams",
+        "street": "50 Northfield Way",
+        "city": "Brooklyn",
+        "state": "NY",
+        "postal_code": "11210",
+        "phone": "1-(347)846-3569"
+      }
+    ],
+    "savedAddresses": [
+      {
+        "line1": "Billy Fowler",
+        "street": "0 Waubesa Junction",
+        "city": "Houston",
+        "state": "TX",
+        "postal_code": "77020",
+        "phone": "1-(713)471-0205"
+      },
+      {
+        "line1": "Betty Adams",
         "street": "50 Northfield Way",
         "city": "Brooklyn",
         "state": "NY",
