@@ -674,6 +674,16 @@ angular.module('zaitoonFirst', [
                   }
                 }
               })
+
+              .state('main.app.checkout.feedback', {
+                url: '/feedback',
+                views: {
+                  'main-view@main': {
+                    templateUrl: 'views/checkout/feedback.html',
+                    controller: 'feedbackCtrl'
+                  }
+                }
+              })
   ;
 
   // if none of the above states are matched, use this as the fallback
