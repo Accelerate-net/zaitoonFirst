@@ -252,4 +252,24 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 })
 
 
+.controller('feedbackCtrl', function($scope) {
+
+  $scope.fillTill = function(id){
+    console.log('Fill til '+id);
+    var i = 1;
+    while(i <= id){
+      document.getElementById("star"+i).className ="icon ion-android-star";    
+      i++;
+    }
+
+    while(i <= 5){
+      document.getElementById("star"+i).className ="icon ion-android-star-outline";    
+      i++;
+    }
+
+  }
+
+})
+
+
 ;
