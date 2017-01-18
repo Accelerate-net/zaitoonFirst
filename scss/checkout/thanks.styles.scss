@@ -1,11 +1,11 @@
 .checkout-thanks-view
 {
-	background-color: $checkout-thanks-bg;
+	background-color: #FFF;
 
 	.checkout-thanks-header
 	{
-		background-color: $checkout-thanks-header-bg !important;
-		background: $checkout-thanks-header-bg !important;
+		background-color: #e74c3c !important;
+		background: #e74c3c !important;
 		border: none !important;
 		background-size: 0px !important; // To remove bottom border on header
 
@@ -46,10 +46,36 @@
 		{
 			font-weight: 300;
 			color: $checkout-thanks-title-color;
-			margin: 0px 0px 50px;
+			margin: 20px 0px 50px 0px;
 			padding: 0px 13%;
 			padding-top: 10px;
 		}
+
+
+		.time-title
+		{
+			font-size: 11px;
+			font-weight: 250;
+			text-transform: uppercase;
+			color: #e74c3c;
+			margin-bottom: 5px;
+			padding: 20px 10px 5px 20px;
+			text-align: left;
+		}
+
+		.past-title
+		{
+			font-size: 11px;
+			font-weight: 300;
+			color: #3d7334;
+			margin: 0px;
+			padding: 2px 5px 2px 20px;
+			text-align: left;
+		}		
+
+
+
+
 
 		.illustration-container
 		{
@@ -62,9 +88,9 @@
 			}
 
 			.illustration-image
-	    {
-	      width: 100%;
-	    }
+		    {
+		      width: 100%;
+		    }
 		}
 	}
 

@@ -1,22 +1,86 @@
 <!-- main.app.feed.fashion -->
-<ion-view class="checkout-thanks-view" cache-view="false">
-  <ion-header-bar class="checkout-thanks-header">
-    <h1 class="title">Checkout</h1>
+<ion-view class="checkout-thanks-view" id="pageTrack" cache-view="false">
+  <ion-header-bar class="shopping-cart-header">
+    <h1 class="title">#112102</h1>
+    <div class="buttons">
+      <button class="button button-clear checkout-button" ui-sref="main.app.checkout()">Back</button>
+    </div>
   </ion-header-bar>
+
   <ion-content has-bouncing="false" class="checkout-thanks-content">
-    <div class="row row-center thanks-row">
+    <div class="row thanks-row">
       <div class="col">
-        <h3 class="thanks-title">Your order is being prepared for shipping!</h3>
+
+      <div ng-if="status == 0">
+        <h3 class="thanks-title" >Hold on while we confirm your order.</h3>
+        <div class="illustration-container">
+          <pre-img ratio="_41_22">
+            <img class="illustration-image" ng-src="./img/common/waiting.gif" spinner-on-load/>
+          </pre-img>
+        </div>  
+        <div class="ok-button-outer" style="padding-top: 20px; ">
+          <a class="button button-block ok-button">
+            Cancel Order
+          </a>
+        </div>              
+      </div>
+
+
+      <div ng-if="status == 1">
+        <h3 class="time-title" style="color: #FFF">14 September 2017</h3>
+        <p class="past-title">03:19 PM <tag style="color: #2a4c24; font-size: 130%">Order Placed</tag></p>
+        <p class="past-title">03:23 PM <tag style="color: #2a4c24; font-size: 130%">Order Confirmed</tag></p>
+      
+        <h3 class="thanks-title" style="color: #FFF; font-weight: bold;">Your order is confirmed. Chef is on it!</h3>
+        <div class="illustration-container">
+          <pre-img ratio="_41_22">
+            <img class="illustration-image" ng-src="./img/common/cooking.png" spinner-on-load/>
+          </pre-img>
+        </div>    
+      </div> 
+
+      <div ng-if="status == 2">
+        <h3 class="time-title" style="color: #7f8c8d">14 September 2017</h3>
+        <p class="past-title" style="color: #bdc3c7">03:19 PM <tag style="color: #7f8c8d; font-size: 130%">Order Placed</tag></p>
+        <p class="past-title" style="color: #bdc3c7">03:23 PM <tag style="color: #7f8c8d; font-size: 130%">Order Confirmed</tag></p>
+        <p class="past-title" style="color: #bdc3c7">03:51 PM <tag style="color: #7f8c8d; font-size: 130%">Order Dispatched</tag></p>
+
+        <h3 class="thanks-title" style="color: #34495e; font-weight: 400; font-size: 18px">Your order is dispatched thorugh Abhijith (9043960876)</h3>
         <div class="illustration-container">
           <pre-img ratio="_41_22">
             <img class="illustration-image" ng-src="./img/common/bike.gif" spinner-on-load/>
           </pre-img>
-        </div>
-        <div class="ok-button-outer">
-          <a class="button button-block ok-button" ui-sref="main.app.feed.fashion">
-            Great!
-          </a>
-        </div>
+        </div>    
+      </div> 
+
+
+      <div ng-if="status == 3">
+        <h3 class="time-title" style="color: #7f8c8d">14 September 2017</h3>
+        <p class="past-title" style="color: #bdc3c7">03:19 PM <tag style="color: #7f8c8d; font-size: 130%">Order Placed</tag></p>
+        <p class="past-title" style="color: #bdc3c7">03:23 PM <tag style="color: #7f8c8d; font-size: 130%">Order Confirmed</tag></p>
+        <p class="past-title" style="color: #bdc3c7">03:51 PM <tag style="color: #7f8c8d; font-size: 130%">Order Dispatched</tag></p>
+        <p class="past-title" style="color: #bdc3c7">04:15 PM <tag style="color: #7f8c8d; font-size: 130%">Order Delivered</tag></p>
+
+        <h3 class="thanks-title" style="color: #27ae60; font-weight: 400; margin-bottom: 10px">Your Order is Completed</h3>
+        <div class="illustration-container">
+          <pre-img ratio="_41_22">
+            <img class="illustration-image" ng-src="./img/common/success.gif" spinner-on-load/>
+          </pre-img>
+        </div>    
+      </div>              
+
+
+      <div ng-if="status == 5">
+        <h3 class="thanks-title" style="color: #e74c3c; font-weight: 400; margin-top: 30px">This order has been cancelled.</h3>
+        <h3 class="thanks-title" ></h3>      
+      </div>   
+     
+
+
+
+
+
+
       </div>
     </div>
   </ion-content>
