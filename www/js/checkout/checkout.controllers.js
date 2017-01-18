@@ -252,22 +252,84 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 })
 
 
-.controller('feedbackCtrl', function($scope) {
+.controller('feedbackCtrl', function($scope, $rootScope) {
+
+  $scope.tag = "";
+  $scope.selection = "";
 
   $scope.fillTill = function(id){
-    console.log('Fill til '+id);
+    //Set a tag which matches the selection
+
+    //Less than 5 means, a negative review.
+    if(id < 5)
+      $scope.selection = 'N';
+    else
+      $scope.selection = 'P';
+
+    $scope.tag = "";
+    switch (id){
+      case 1:
+      {
+        $scope.tag = "Terrible";
+        break;
+      }
+      case 2: 
+      {
+        $scope.tag = "Bad";
+        break;
+      }
+      case 3: 
+      {
+        $scope.tag = "OK";
+        break;
+      }
+      case 4: 
+      {
+        $scope.tag = "Good";
+        break;
+      }
+      case 5: 
+      {
+        $scope.tag = "Awesome";
+        break;
+      }
+    }
+
     var i = 1;
     while(i <= id){
       document.getElementById("star"+i).className ="icon ion-android-star";    
       i++;
     }
-
+    //Empty the remaining stars
     while(i <= 5){
       document.getElementById("star"+i).className ="icon ion-android-star-outline";    
       i++;
     }
-
   }
+
+  //Characters Left in the comments
+  document.getElementById('commentsBox').onkeyup = function(){
+    document.getElementById('characterCount').innerHTML =   (150-(this.value.length))+ ' characters left.';
+  }
+
+
+  //Negative Feedback
+  $rootScope.negative_feedback = {};
+  $rootScope.negative_feedback.packing = false;
+  $rootScope.negative_feedback.service = false;
+  $rootScope.negative_feedback.delivery = false;
+  $rootScope.negative_feedback.food = false;
+  $rootScope.negative_feedback.app = false;
+  $rootScope.negative_feedback.other = false;
+
+  //Positive Feedback
+  $rootScope.positive_feedback = {};
+  $rootScope.positive_feedback.quality = true;
+  $rootScope.positive_feedback.service = false;
+  $rootScope.positive_feedback.delivery = false;
+  $rootScope.positive_feedback.food = false;
+  $rootScope.positive_feedback.app = false;
+  $rootScope.positive_feedback.other = false;
 
 })
 
