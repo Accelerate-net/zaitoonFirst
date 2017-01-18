@@ -670,7 +670,8 @@ angular.module('zaitoonFirst', [
                 url: '/thanks',
                 views: {
                   'main-view@main': {
-                    templateUrl: 'views/checkout/thanks.html'
+                    templateUrl: 'views/checkout/thanks.html',
+                    controller: 'trackCtrl'
                   }
                 }
               })
