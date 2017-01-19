@@ -261,7 +261,13 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 .controller('paymentCtrl', function($scope) {
 
-  $scope.status = 0;
+  $scope.postPayment = false;
+  $scope.paymentMode = "CARD";
+  $scope.status = 1;
+
+  if($scope.postPayment){
+    document.getElementById("paymentPage").style="background-color: #ff7b4a"
+  }
 
 }) 
 

@@ -497,6 +497,7 @@
 }
 
 .new-shipping-address-view,
+.checkout-thanks-view,
 .edit-shipping-address-view,
 .edit-card-view,
 .new-card-view
@@ -547,7 +548,7 @@
 		.item
 		{
 			border: none;
-			margin: -1px 0px;
+			margin: 0px;
 
 			&.col-50,
 			&.col-25
@@ -567,7 +568,7 @@
 				text-transform: uppercase;
 				font-weight: 600;
 				color: $address-popup-color;
-			  padding-top: 5px;
+			    padding-top: 5px;
 			}
 
 			.input-data
