@@ -1,0 +1,58 @@
+<ion-view class="checkout-thanks-view" id="paymentPage" cache-view="false">
+  <ion-header-bar class="checkout-thanks-header">
+    <h1 ng-if="paymentMode == 'CARD'" class="title">CARD PAYMENT</h1>
+  </ion-header-bar>
+
+  <ion-content has-bouncing="false" class="checkout-thanks-content">
+
+  <div ng-if="paymentMode == 'CARD'" class="padding">
+    <div class="card-details-container">
+      <div class="row">
+        <label class="col item item-input item-stacked-label">
+          <span class="input-label">Card Number</span>
+          <input class="input-data" type="text" placeholder="Required">
+        </label>
+      </div>
+      <div class="row">
+        <label class="col item item-input item-stacked-label">
+          <span class="input-label">Name on Card</span>
+          <input class="input-data" type="text" placeholder="Required">
+        </label>
+      </div>
+      <div class="row">
+        <label class="col col-50 item item-input item-stacked-label">
+          <span class="input-label">Expiration</span>
+          <input class="input-data" type="text" placeholder="mm/yy">
+        </label>
+        <label class="col col-50 item item-input item-stacked-label">
+          <span class="input-label">CCV</span>
+          <input class="input-data" type="text" placeholder="Required">
+        </label>
+      </div>
+      <div class="row">
+        <button class="myProceedButton">Proceed to Pay Rs. 540</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <iframe src="http://localhost/vega-web-app/citruscard.html" width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0"></iframe> -->
+
+  <div ng-if="postPayment">
+    <div class="row thanks-row">
+      <div class="col">
+      
+      <div ng-if="status == 1">
+        <h3 class="thanks-title" style="color: white">Hold on while we confirm your payment.</h3>
+        <div class="illustration-container">
+          <pre-img ratio="_41_22">
+            <img class="illustration-image" ng-src="./img/checkout/card.gif" spinner-on-load/>
+          </pre-img>
+        </div>                
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  </ion-content>
+</ion-view>

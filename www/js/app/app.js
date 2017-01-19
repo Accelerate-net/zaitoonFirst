@@ -676,6 +676,16 @@ angular.module('zaitoonFirst', [
                 }
               })
 
+              .state('main.app.checkout.payment', {
+                url: '/payment',
+                views: {
+                  'main-view@main': {
+                    templateUrl: 'views/checkout/payment.html',
+                    controller: 'paymentCtrl'
+                  }
+                }
+              })
+
               .state('main.app.checkout.feedback', {
                 url: '/feedback',
                 views: {

@@ -254,7 +254,20 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 .controller('trackCtrl', function($scope) {
 
-  $scope.status = 5;
+  $scope.status = 2;
+
+}) 
+
+
+.controller('paymentCtrl', function($scope) {
+
+  $scope.postPayment = false;
+  $scope.paymentMode = "CARD";
+  $scope.status = 1;
+
+  if($scope.postPayment){
+    document.getElementById("paymentPage").style="background-color: #ff7b4a"
+  }
 
 }) 
 
