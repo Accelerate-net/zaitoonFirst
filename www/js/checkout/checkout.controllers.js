@@ -254,23 +254,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 .controller('trackCtrl', function($scope) {
 
-  $scope.status = 3;
-
-  if($scope.status == 0){
-    document.getElementById("pageTrack").style="background: #FFF";
-  }
-  if($scope.status == 1){
-    document.getElementById("pageTrack").style="background: #76b46b";
-  }
-  if($scope.status == 2){
-    document.getElementById("pageTrack").style="background: #FFF";
-  }
-  if($scope.status == 3){
-    document.getElementById("pageTrack").style="background: #FFF";
-  }
-  if($scope.status == 5){
-    document.getElementById("pageTrack").style="background: #FFF";
-  }
+  $scope.status = 5;
 
 }) 
 
