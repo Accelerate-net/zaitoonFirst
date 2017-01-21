@@ -259,15 +259,29 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 }) 
 
 
-.controller('paymentCtrl', function($scope) {
+.controller('paymentCtrl', function($scope, $interval, $http) {
 
   $scope.postPayment = false;
-  $scope.paymentMode = "CARD";
+  $scope.paymentMode = "DCARD";
   $scope.status = 1;
 
-  if($scope.postPayment){
-    document.getElementById("paymentPage").style="background-color: #ff7b4a"
-  }
+  $scope.pollCount = 1;
+
+  //Polling to check if payment is done.
+  var pollerFunction = $interval(function () {
+    console.log('------------ POLLING ...'+$scope.pollCount);
+      $http.get('http://localhost/vega-web-app/online/paymentconfirmation.php')
+      .then(function(response){
+        $scope.response = response.data;
+
+        if($scope.response.status){
+         // $scope.postPayment = true;
+          document.getElementById("paymentPage").style="background-color: #ff7b4a";
+          $interval.cancel(pollerFunction);
+        }  
+      });    
+      $scope.pollCount++;
+  }, 4000);
 
 }) 
 
