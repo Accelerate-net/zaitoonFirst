@@ -254,7 +254,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 .controller('trackCtrl', function($scope) {
 
-  $scope.status = 0;
+  $scope.status = 3;
 
 }) 
 
