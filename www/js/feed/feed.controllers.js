@@ -62,6 +62,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	//Is Filter Applied?
 	$rootScope.$on('filter_applied', function(event, filter) {
 		$rootScope.isFilter = true;
+		console.log('-----------');
     	console.log(filter);
   	});
 

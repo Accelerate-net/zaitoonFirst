@@ -79,6 +79,18 @@ angular.module('zaitoonFirst', [
   $ionicPlatform.ready(function() {
     console.log("$ionicPlatform.ready");
 
+    //Push Notifications
+    var notificationOpenedCallback = function(jsonData) {
+      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+    };
+
+    window.plugins.OneSignal
+    .startInit("5898aab6-5781-46b0-9eb2-85d6637699ca")
+    .handleNotificationOpened(notificationOpenedCallback)
+    .endInit();    
+
+
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -363,6 +375,10 @@ angular.module('zaitoonFirst', [
                       }
                     }
                   })
+
+
+
+                  
 
               .state('main.app.feed.travel', {
                 url: '/travel',
