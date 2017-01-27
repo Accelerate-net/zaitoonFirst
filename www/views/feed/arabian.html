@@ -30,7 +30,7 @@
   <ion-content>    
     <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
     <div class="products-row">
-    <div ng-repeat="maintype in menu">
+    <div ng-repeat="maintype in menu track by $index">
       <div ng-repeat="submenu in subs = (maintype.subCategories | searchField : 'product.itemName' | filter:search.query)">
       <h1 class="myMenuSubTitle">{{submenu.subName}}</h1>
 

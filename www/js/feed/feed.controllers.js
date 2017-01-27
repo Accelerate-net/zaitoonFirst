@@ -56,39 +56,67 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodArabianCtrl', function($scope, $rootScope, $http, FoodArabianService, products, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodArabianCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
 	
-	$rootScope.isFilter = false;
-	//Is Filter Applied?
+	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
+	
+	//To display things if filter is applied
+	if(custom_filter.length > 0) 
+		$scope.isFilter = true;
+	else
+		$scope.isFilter = false;
+
+
+	//Receiving Broadcast - If Filter Applied
 	$rootScope.$on('filter_applied', function(event, filter) {
-		$rootScope.isFilter = true;
-    	console.log(filter);
+		window.localStorage.customFilter = JSON.stringify(filter);
+    	$scope.reinitializeMenu();
   	});
 
-  	$rootScope.clearFilter = function(){
-		$rootScope.isFilter = false;
-		//$rootScope.$broadcast('filter_applied','');
+  	$scope.clearFilter = function(){
+		$scope.isFilter = false;
+		window.localStorage.customFilter = "";
+		custom_filter = [];
+		$scope.reinitializeMenu();
 	}
 
-	$http.get('http://localhost/vega-web-app/online/fetchmenu.php')
-	.then(function(response){
-      	$scope.menu = response.data;
-    });
 
+	// Making request to server to fetch-menu
+	var init = $scope.reinitializeMenu = function(){
+        var data = {}; 
+        data.cuisine = "ARABIAN";
+        data.isFilter = false;
+
+        if(custom_filter.length > 0){
+        	data.isFilter = true;
+        	data.filter = custom_filter;     
+        	console.log(data.filter);   	
+    	}
+
+        $http({
+          method  : 'POST',
+          url     : 'http://localhost/vega-web-app/online/fetchmenu.php',
+          data    : data, //forms user object
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+         })
+        .then(function(response) {
+			$scope.menu = response.data;    
+        });  
+    }
+
+    init();
+
+
+    //For Search field
 	$scope.search = { query : '' };
 	$scope.showSearch = false;
 
-
-	//Any filter applied?
-	$scope.filterFlag = false;
 
 	$scope.resetSearch = function(){
 		$scope.search = { query : '' };
 		$scope.showSearch = !$scope.showSearch;
 	}
 
-
-	$scope.cs = 'AM HERE';
 
 	  $scope.customOptions = function(product) {
 

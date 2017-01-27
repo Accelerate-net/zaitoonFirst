@@ -254,7 +254,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 .controller('trackCtrl', function($scope) {
 
-  $scope.status = 2;
+  $scope.status = 3;
 
 }) 
 
@@ -275,7 +275,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         $scope.response = response.data;
 
         if($scope.response.status){
-         // $scope.postPayment = true;
+          $scope.postPayment = true;
           document.getElementById("paymentPage").style="background-color: #ff7b4a";
           $interval.cancel(pollerFunction);
         }  
