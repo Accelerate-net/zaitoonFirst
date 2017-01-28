@@ -300,7 +300,7 @@ angular.module('zaitoonFirst', [
                 url: '/arabian',
                 views: {
                   'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/arabian.html',
+                    templateUrl: 'views/feed/menu.html',
                     controller: 'FoodArabianCtrl'
                   }
                 },
@@ -316,7 +316,7 @@ angular.module('zaitoonFirst', [
                 url: '/chinese',
                 views: {
                   'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/chinese.html',
+                    templateUrl: 'views/feed/menu.html',
                     controller: 'FoodChineseCtrl'
                   }
                 },
@@ -332,7 +332,7 @@ angular.module('zaitoonFirst', [
                 url: '/indian',
                 views: {
                   'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/indian.html',
+                    templateUrl: 'views/feed/menu.html',
                     controller: 'FoodIndianCtrl'
                   }
                 },
@@ -348,7 +348,7 @@ angular.module('zaitoonFirst', [
                 url: '/dessert',
                 views: {
                   'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/desserts.html',
+                    templateUrl: 'views/feed/menu.html',
                     controller: 'FoodDessertCtrl'
                   }
                 },
