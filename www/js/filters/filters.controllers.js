@@ -3,20 +3,17 @@ angular.module('zaitoonFirst.filters.controllers', [])
 .controller('FiltersCtrl', function($scope, $state, $rootScope, $ionicSlideBoxDelegate) {
 
 	//For Non Veg Content
-	$scope.nonvegUser = true;
-	$rootScope.newtest = '';
+	$rootScope.nonvegUser = true;
+
 	//For VEG or NON-VEG
 	$rootScope.typevalue = '';
 	$scope.category_filter = '';
-	$scope.test = '';
 	$scope.clearFlag = false; 	
 	$scope.clearVegFlag	= false;
 	$scope.clearNonVegFlag	= false;
 
 	$scope.typeSelected = function(){
 		$scope.clearFlag = true;
-		$scope.test = 'test';
-		$rootScope.newtest = 'test';
 		if($scope.category_filter == 'VEG'){
 			$rootScope.typevalue = 'VEG';
 			$scope.clearVegFlag	= true;
@@ -48,7 +45,7 @@ angular.module('zaitoonFirst.filters.controllers', [])
 	}
 
 	$scope.clearNonFilter = function(){
-		$scope.nonvegUser = false;
+		$rootScope.nonvegUser = false;
 		$scope.nonvegcontent_filter.chicken = false;
 		$scope.nonvegcontent_filter.mutton = false;
 		$scope.nonvegcontent_filter.fish = false;
@@ -57,7 +54,7 @@ angular.module('zaitoonFirst.filters.controllers', [])
 	}
 
 	$scope.setNonFilter = function(){
-		$scope.nonvegUser = true;
+		$rootScope.nonvegUser = true;
 	}
 
 
