@@ -96,6 +96,37 @@
 }
 
 .button-positive-zaitoon{
-	background: #e74c3c;
-	color: #F0F0F0;
+	background: #2ecc71;
+	color: #FFF;
+}
+
+.bookTable{
+	width: 100%; 
+	background: #2980b9; 
+	color: #FFF; 
+	font-weight: bold; 
+	letter-spacing: 2px; 
+	padding: 10px; 
+	text-align: center;
+}
+
+.bookTable:after{
+	background-color: #3498db; 
+}
+
+
+.itemOutlet{
+	border: none; 
+	padding: 10px 15px; 
+	border-bottom: 1px solid #FFF5F3;
+	font-size: 14px;
+}
+
+.outletTitle{
+	text-transform: uppercase; 
+	font-weight: 400; 
+	text-align: center; 
+	font-size: 16px; 
+	color: #e74c3c; 
+	border-bottom: 1px dashed #e74c3c;
 }

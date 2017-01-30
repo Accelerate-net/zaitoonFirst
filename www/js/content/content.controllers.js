@@ -51,25 +51,9 @@ angular.module('zaitoonFirst.content.controllers', [])
 	};
 })
 
-.controller('FoodContentCtrl', function($scope, $state, $rootScope, $ionicPopup, product, ShoppingCartService, $ionicLoading) {
+.controller('FoodContentCtrl', function($scope, $http, $state, $rootScope, $ionicPopup, product, ShoppingCartService, $ionicLoading) {
 	$scope.dateList = [];
-		// {
-		// 	value:"27-01-2017",
-		// 	name:"Today, 27 January",
-		// }, 
-		// {
-		// 	value:"28-01-2017",
-		// 	name:"Tomorrow, 28 January"
-		// },
-		// {
-		// 	value:"29-01-2017",
-		//  	name:"Sunday, 29 January"
-		//  }, 
-		//  {
-		//  	value:"30-01-2017",
-		//  	name: "Monday, 30 January"
-		//  }
-	 // ];
+
 	//Pre-populate time and date list:
 	
 	var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -268,6 +252,15 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 	}
 
+
+	//Outlet Details
+	$http.get('http://localhost/vega-web-app/online/fetchoutlets.php?id=VELACHERY')
+	.then(function(response){
+      	$scope.info = response.data;
+      	console.log('INFO**********');
+      	console.log($scope.info);
+    });
+
 	$scope.product = product;
 
 	$scope.product.selected_schedule = {
@@ -292,8 +285,8 @@ angular.module('zaitoonFirst.content.controllers', [])
 			state: "TX",
 			postal_code: "77020",
 			phone: "1-(713)471-0205",
-			lat: 43.07493,
-			lng: -89.381388
+			lat: 12.996752,
+			lng: 80.2539273
 		},
 		{
 			street: "50 Northfield Way",
@@ -301,8 +294,8 @@ angular.module('zaitoonFirst.content.controllers', [])
 			state: "NY",
 			postal_code: "11210",
 			phone: "1-(347)846-3569",
-			lat: 43.07493,
-			lng: -88.381388
+			lat: 12.996752,
+			lng: 80.2539273
 		}
 	];
 

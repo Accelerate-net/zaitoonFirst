@@ -296,7 +296,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         $scope.response = response.data;
 
         if($scope.response.status){
-          $scope.postPayment = true;
+         // $scope.postPayment = true;
           document.getElementById("paymentPage").style="background-color: #ff7b4a";
           $interval.cancel(pollerFunction);
         }  
