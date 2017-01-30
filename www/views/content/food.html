@@ -9,7 +9,7 @@
       <ion-slide>
         <div class="image-container" multi-bg="[product.pictures[0]]">
           <div class="product-illustration-container">
-          <h1 style="color: #FFF">Zaitoon Velacheri</h1>
+          <h1 style="color: #FFF">Zaitoon {{info.name}}</h1>
           </div>
         </div>
       </ion-slide>
@@ -20,7 +20,9 @@
     <div class="row brief-info-row">
       <div class="col">
         <h3 class="product-name">Address</h3>
-        <h5 class="product-style">{{product.name}}</h5>
+        <h5 class="product-style">{{info.line1}}</h5>
+        <h5 class="product-style">{{info.line2}}</h5>
+        <h5 class="product-style">{{info.line3}}</h5>
       </div>
     </div>
 
@@ -32,8 +34,8 @@
     <div class="row address-map-row">
       <div class="col">
         <div class="map-wrapper" data-tap-disabled="true">
-          <map center="{{product.selected_address.lat}},{{product.selected_address.lng}}" zoom="15" map-type-control="false" street-view-control="false" zoom-control="true" zoom-control-options="{style:'SMALL'}">
-            <marker position="{{product.selected_address.lat}},{{product.selected_address.lng}}" title="{{ product.selected_address.street }}" visible="true"></marker>
+          <map center="{{info.lat}},{{info.lng}}" zoom="15" map-type-control="false" street-view-control="false" zoom-control="true" zoom-control-options="{style:'SMALL'}">
+            <marker position="{{info.lat}},{{info.lng}}" title="Zaitoon {{info.name}}" visible="true"></marker>
           </map>
         </div>
       </div>
@@ -52,7 +54,7 @@
     <div class="row all-reviews-row">
       <div class="col">
         <button class="button button-block read-all-reviews-button">
-          Contact 9884179675
+          Contact {{info.mobile}}
         </button>
       </div>
     </div>

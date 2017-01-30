@@ -5,7 +5,7 @@
     </div>
     <h1 class="title">Food Cart</h1>
     <div class="buttons">
-      <button class="button button-clear checkout-button" ui-sref="main.app.checkout()" ng-show="products.length > 0">Checkout</button>
+      <button class="button button-clear checkout-button" ui-sref="main.app.checkout()" ng-show="products.length > 0">Proceed</button>
     </div>
   </ion-header-bar>
   <ion-content class="shopping-cart-content" has-bouncing="false">
@@ -23,6 +23,19 @@
       <div class="item item-divider shopping-cart-divider">
         {{ products.length }} {{ products.length === 1 ? 'item' : 'items' }} in Cart
       </div>
+
+      <div class="button-bar padding">
+        <a grouped-radio="'delivery'" ng-click="setCheckoutMode('delivery')" ng-model="orderType">Delivery</a>
+        <a grouped-radio="'takeaway'" ng-click="setCheckoutMode('takeaway')" ng-model="orderType">Take Away</a>
+      </div>
+
+      <div ng-if="orderType == 'takeaway'" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
+        No minimum amount. Container charges apply.
+      </div>
+
+      <div ng-if="orderType == 'delivery'" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
+        Minimum order of Rs. 400. Container charges apply.
+      </div>      
 
 <div class="products-in-cart-row">
 
@@ -92,6 +105,7 @@
           </div>
         </li>
       </ul>
+
 
       
       </div>

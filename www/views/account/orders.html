@@ -30,6 +30,9 @@
         <div class="item item-divider order-footer" ng-if="order.status==3">
           <span class="status-title" style="color:#2c3e50">Delivered</span>
         </div>
+        <div class="item item-divider order-footer" ng-if="order.status==5">
+          <span class="status-title" style="color:#e74c3c">Cancelled</span>
+        </div>        
       </div>
     </div>
     <i ng-if="!left"><center><img src=img/common/end.png></center></i>

@@ -528,7 +528,36 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	$scope.products = products;
 })
 
-.controller('DealsCtrl', function($scope, $http) { 
+.controller('DealsCtrl', function($scope, $http, $ionicPopup, $state) { 
+
+	//Book a Table
+	$scope.showOutlets = function(){
+
+		//Get all the outlets
+		$http.get('http://localhost/vega-web-app/online/fetchoutlets.php')
+		.then(function(response){
+	      	$scope.allList = response.data;
+	      	console.log($scope.allList);
+	    });
+
+		outletsPopup = $ionicPopup.show({
+			cssClass: 'popup-outer edit-shipping-address-view',
+			templateUrl: 'views/content/food/outlets.html',
+			scope: angular.extend($scope, {}),
+			title: 'Select Outlet',
+			buttons: [
+				{
+					text:'Cancel'
+				}
+			]
+		});
+
+			//Goto Outlet's page
+			$scope.gotoOutlet = function(){
+				outletsPopup.close();
+			}
+	}
+
 	
 	$http.get('http://localhost/vega-web-app/online/fetchdeals.php')
 	.then(function(response){

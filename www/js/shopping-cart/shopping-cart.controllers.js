@@ -1,13 +1,21 @@
 angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
-.controller('ShoppingCartCtrl', function($scope, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService) {
+.controller('ShoppingCartCtrl', function($scope, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService, CheckoutService) {
+
+	//Take away OR delivery
+	$scope.orderType = CheckoutService.getCheckoutMode();
+
+	$scope.setCheckoutMode = function(mode){
+		CheckoutService.setCheckoutMode(mode);
+	}
+
 
 	$scope.products = products;
 	var tax = 0.07;
 
 	$scope.$on('cart_updated', function(event, cart_products) {
-    $scope.products = cart_products;
-  });
+    	$scope.products = cart_products;
+  	});
 
 
 	$scope.close = function() {

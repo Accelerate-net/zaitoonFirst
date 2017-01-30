@@ -2,6 +2,27 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 .controller('CheckoutCtrl', function($scope, $state, $rootScope, products, CheckoutService) {
 
+  //Get the checkout mode TAKEAWAY/DELIVERY
+  $scope.checkoutMode = CheckoutService.getCheckoutMode();
+
+  //Set of Outlets Available
+  $scope.outletList = [
+    {
+      value:"VELACHERY",
+      name:"Velachery, Opp. Grand Mall"
+    }, 
+    {
+      value:"ADYAR",
+      name:"Adyar, Near Bus Depot"
+    }, 
+    {
+      value:"ROYAPETTAH",
+      name:"Royapettah, Near EA Mall"
+    }
+  ];
+
+  $scope.outletSelected = $scope.outletList[0];
+
 	$scope.products = products;
 	var tax = 0.07;
 
@@ -275,7 +296,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         $scope.response = response.data;
 
         if($scope.response.status){
-          $scope.postPayment = true;
+         // $scope.postPayment = true;
           document.getElementById("paymentPage").style="background-color: #ff7b4a";
           $interval.cancel(pollerFunction);
         }  
