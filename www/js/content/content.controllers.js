@@ -228,7 +228,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 		schedulesPopup = $ionicPopup.show({
 			cssClass: 'popup-outer edit-shipping-address-view',
-			templateUrl: 'views/content/food/reservation.html',
+			templateUrl: 'views/content/outlet/reservation.html',
 			scope: angular.extend($scope, {}),
 			title: 'Book Table',
 			buttons: [

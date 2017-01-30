@@ -361,11 +361,11 @@ angular.module('zaitoonFirst', [
               })
               
 
-                  .state('main.app.feed.food.content', {
+                  .state('main.app.outlets', {
                     url: '/content/:outletCode',
                     views: {
                       'main-view@main': {
-                        templateUrl: 'views/content/food.html',
+                        templateUrl: 'views/content/outlet.html',
                         controller: 'FoodContentCtrl'
                       }
                     },

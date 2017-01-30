@@ -542,7 +542,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 		outletsPopup = $ionicPopup.show({
 			cssClass: 'popup-outer edit-shipping-address-view',
-			templateUrl: 'views/content/food/outlets.html',
+			templateUrl: 'views/content/outlet/outlets.html',
 			scope: angular.extend($scope, {}),
 			title: 'Select Outlet',
 			buttons: [
