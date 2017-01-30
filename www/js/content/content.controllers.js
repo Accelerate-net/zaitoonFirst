@@ -107,7 +107,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 		{
 			value:"1330",
 			name:"01:30 PM"
-				}, 
+		}, 
 		{
 			value:"1400",
 			name:"02:00 PM"

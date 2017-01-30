@@ -31,9 +31,9 @@ angular.module('zaitoonFirst.shopping-cart.directives', [])
       });
 
       scope.$watch('model', function(newVal) {
-        element.removeClass('button-positive');
+        element.removeClass('button-positive-zaitoon');
         if (newVal === scope.value) {
-          element.addClass('button-positive');
+          element.addClass('button-positive-zaitoon');
         }
       });
     }

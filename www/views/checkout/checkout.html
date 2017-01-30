@@ -6,6 +6,18 @@
     <h1 class="title">Checkout</h1>
   </ion-header-bar>
   <ion-content has-bouncing="false" class="checkout-content">  
+
+  <div ng-if="checkoutMode == 'takeaway'">
+    <h3 class="checkout-sub-title" style="font-weight: 300; line-height: 1.2; font-size: 16px; text-align: left">We have set the pickup location to the nearest outlet. Change it if you want to.</h3>  
+    <div class="row address-row">
+      <div class="col">
+        <select style="width: 100%; padding: 10px; margin-left: 0px; text-align: center; border-color: #e74c3c;  color: #e74c3c" ng-model="outletSelected" ng-options="outlet.name for outlet in outletList">
+        </select>
+      </div>
+    </div>
+  </div>
+    
+  <div ng-if="checkoutMode == 'delivery'">
     <h3 class="checkout-sub-title">Delivery Information</h3>  
     <div class="row address-row">
       <div class="col">
@@ -14,6 +26,8 @@
         </div>
       </div>
     </div>
+  </div>
+
     <h3 class="checkout-sub-title">Payment Information</h3>
     <div class="row promo-code-row">
       <div class="col">

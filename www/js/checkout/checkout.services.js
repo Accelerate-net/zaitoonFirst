@@ -2,6 +2,15 @@ angular.module('zaitoonFirst.checkout.services', [])
 
 .service('CheckoutService', function ($http, $q){
 
+  //Type of Order : Delivery OR Take away
+  var checkoutMode = 'delivery';
+  this.getCheckoutMode = function(){
+    return checkoutMode;
+  }
+  this.setCheckoutMode = function(value){
+    checkoutMode = value;
+  }
+
   this.getUserCreditCards = function(){
     var dfd = $q.defer();
     $http.get('logged_user_db.json').success(function(database) {

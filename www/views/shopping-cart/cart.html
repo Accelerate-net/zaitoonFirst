@@ -25,8 +25,8 @@
       </div>
 
       <div class="button-bar padding">
-        <a grouped-radio="'delivery'" ng-model="orderType">Delivery</a>
-        <a grouped-radio="'takeaway'" ng-model="orderType">Take Away</a>
+        <a grouped-radio="'delivery'" ng-click="setCheckoutMode('delivery')" ng-model="orderType">Delivery</a>
+        <a grouped-radio="'takeaway'" ng-click="setCheckoutMode('takeaway')" ng-model="orderType">Take Away</a>
       </div>
 
       <div ng-if="orderType == 'takeaway'" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
