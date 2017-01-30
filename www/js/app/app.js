@@ -362,7 +362,7 @@ angular.module('zaitoonFirst', [
               
 
                   .state('main.app.feed.food.content', {
-                    url: '/content/:productId',
+                    url: '/content/:outletCode',
                     views: {
                       'main-view@main': {
                         templateUrl: 'views/content/food.html',
@@ -370,8 +370,8 @@ angular.module('zaitoonFirst', [
                       }
                     },
                     resolve: {
-                      product: function(FoodService, $stateParams){
-                        return FoodService.getProduct($stateParams.productId);
+                      outlet: function(OutletService, $stateParams){
+                        return OutletService.getOutlet($stateParams.outletCode);
                       }
                     }
                   })
