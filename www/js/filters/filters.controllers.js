@@ -122,23 +122,19 @@ angular.module('zaitoonFirst.filters.controllers', [])
 
 	$scope.applyRefine = function(){
 		//Create the Filter Object
-		console.log($rootScope.typevalue);
 		if($rootScope.typevalue == ''){
-			console.log('------Success------');
 			var vegtype={
 				"showVeg" : true,
 				"showNonVeg" : true
 			}
 		}
 		else if($rootScope.typevalue == 'VEG'){
-			console.log('------Success VEG------');
 			var vegtype={
 				"showVeg" : true,
 				"showNonVeg" : false
 			}
 		}
 		else if($rootScope.typevalue == 'NONVEG'){
-			console.log('------Success NON VEG------');
 			var vegtype={
 				"showVeg" : false,
 				"showNonVeg" : true
@@ -212,8 +208,6 @@ angular.module('zaitoonFirst.filters.controllers', [])
 			"cookingtype" : cookingtype,
 			"boneless" : boneless
 		}
-
-		//console.log(sampleFilter);
 
 		$rootScope.$broadcast('filter_applied', sampleFilter);
 
