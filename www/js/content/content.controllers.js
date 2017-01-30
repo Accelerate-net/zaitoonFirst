@@ -1,57 +1,6 @@
 angular.module('zaitoonFirst.content.controllers', [])
 
-.controller('FashionContentCtrl', function($scope, $state, $ionicPopup, $rootScope, product, ShoppingCartService, $ionicLoading) {
-	$scope.goBack = function() {
-		var previous_view = _.last($rootScope.previousView);
-		$state.go(previous_view.fromState, previous_view.fromParams );
-  };
-
-	$scope.product = product;
-
-  $scope.addToCart = function(product) {
-		$ionicLoading.show({
-			template: 'Adding to Cart',
-			duration: 1000
-		});
-
-		product.qty = 1;
-		product.size = "M";
-		product.color = "black";
-  	    ShoppingCartService.addProduct(product);
-  };
-
-	var colorPopup = {},
-			sizePopup = {};
-
-	$scope.chosen_color = 'Navy';
-	$scope.chosen_size = 'M';
-
-	$scope.openColorChooser = function(){
-		colorPopup = $ionicPopup.show({
-			cssClass: 'popup-outer color-chooser-view',
-			templateUrl: 'views/content/fashion/color-chooser.html',
-			scope: angular.extend($scope, {chosen_color: $scope.chosen_color}),
-			title: 'Color',
-			buttons: [
-				{ text: 'Close', type: 'close-popup' }
-			]
-		});
-	};
-
-	$scope.openSizeChooser = function(){
-		sizePopup = $ionicPopup.show({
-			cssClass: 'popup-outer size-chooser-view',
-			templateUrl: 'views/content/fashion/size-chooser.html',
-			scope: angular.extend($scope, {chosen_size: $scope.chosen_size}),
-			title: 'Size',
-			buttons: [
-				{ text: 'Close', type: 'close-popup' }
-			]
-		});
-	};
-})
-
-.controller('FoodContentCtrl', function($scope, $http, $state, $rootScope, $ionicPopup, outlet, ShoppingCartService, $ionicLoading) {
+.controller('outletCtrl', function($scope, $http, $state, $rootScope, $ionicPopup, outlet, ShoppingCartService, $ionicLoading) {
 	$scope.dateList = [];
 
 	//Pre-populate time and date list:
