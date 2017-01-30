@@ -254,7 +254,6 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 
 	$scope.info = outlet;
-	//$scope.product = product; /* REMOVE THIS SHIT */ ADD FOTOS
 
 	$scope.$on('mapInitialized', function(event, map) {
 		// If we want to access the map in the future

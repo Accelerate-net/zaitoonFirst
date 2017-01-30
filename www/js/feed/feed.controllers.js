@@ -528,7 +528,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	$scope.products = products;
 })
 
-.controller('DealsCtrl', function($scope, $http, $ionicPopup, $state) { 
+.controller('DealsCtrl', function($scope, $http, $ionicPopup, $state, OutletService) { 
 
 	//Book a Table
 	$scope.showOutlets = function(){
