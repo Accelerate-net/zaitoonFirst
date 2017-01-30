@@ -2,6 +2,10 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 .controller('ShoppingCartCtrl', function($scope, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService) {
 
+	//Take away OR delivery
+	$scope.orderType = "delivery";
+
+
 	$scope.products = products;
 	var tax = 0.07;
 
