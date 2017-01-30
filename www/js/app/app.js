@@ -40,10 +40,6 @@ angular.module('zaitoonFirst', [
   'zaitoonFirst.getting-started.directives',
   'zaitoonFirst.getting-started.services',
 
-  'zaitoonFirst.liked.controllers',
-  'zaitoonFirst.liked.directives',
-  'zaitoonFirst.liked.services',
-
   'zaitoonFirst.search.controllers',
   'zaitoonFirst.search.directives',
   'zaitoonFirst.search.filters',
