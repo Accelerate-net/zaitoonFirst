@@ -30,8 +30,6 @@ angular.module('zaitoonFirst', [
   'zaitoonFirst.feed.filters',
   'zaitoonFirst.feed.services',
 
-  'zaitoonFirst.sort.controllers',
-
   'zaitoonFirst.filters.controllers',
   'zaitoonFirst.filters.directives',
   'zaitoonFirst.filters.services',
@@ -195,9 +193,9 @@ angular.module('zaitoonFirst', [
           }
         }
       })
-      // Aca deberiamos resolver al usuario logueado no?
-      // Como lo haciamos en las otras apps?
-      // DONE
+
+
+
 
           .state('main.app.filters', {
             url: '/filters',
@@ -208,10 +206,8 @@ angular.module('zaitoonFirst', [
               }
             }
           })
-          // Aca va un resolve con los filtros (toda la info y cual corresponde a cada categoria)
-          // Agregar un parametro que sea la categoria desde la que se abrio, o mejor aun,
-          // los filtros que tiene activos, por si el usuario hace click en filters dos veces,
-          // que no se pierda lo que selecciono en un principio
+
+
 
           .state('main.app.feed', {
             url: '/feed',
@@ -231,12 +227,6 @@ angular.module('zaitoonFirst', [
                     templateUrl: 'views/feed/menu.html',
                     controller: 'FoodArabianCtrl'
                   }
-                },
-                resolve: {
-                  products: function(FoodArabianService){
-                    console.log("resolving food");
-                    return FoodArabianService.getProducts();
-                  }
                 }
               })
 
@@ -246,12 +236,6 @@ angular.module('zaitoonFirst', [
                   'category-feed@main.app.feed': {
                     templateUrl: 'views/feed/menu.html',
                     controller: 'FoodChineseCtrl'
-                  }
-                },
-                resolve: {
-                  products: function(FoodChineseService){
-                    console.log("resolving food");
-                    return FoodChineseService.getProducts();
                   }
                 }
               })
@@ -263,12 +247,6 @@ angular.module('zaitoonFirst', [
                     templateUrl: 'views/feed/menu.html',
                     controller: 'FoodIndianCtrl'
                   }
-                },
-                resolve: {
-                  products: function(FoodIndianService){
-                    console.log("resolving food");
-                    return FoodIndianService.getProducts();
-                  }
                 }
               })
 
@@ -278,12 +256,6 @@ angular.module('zaitoonFirst', [
                   'category-feed@main.app.feed': {
                     templateUrl: 'views/feed/menu.html',
                     controller: 'FoodDessertCtrl'
-                  }
-                },
-                resolve: {
-                  products: function(FoodDessertService){
-                    console.log("resolving food");
-                    return FoodDessertService.getProducts();
                   }
                 }
               })
@@ -311,36 +283,6 @@ angular.module('zaitoonFirst', [
 
 
 
-              .state('main.app.feed.deals', {
-                url: '/deals',
-                views: {
-                  'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/deals.html',
-                    controller: 'DealsCtrl'
-                  }
-                },
-                resolve: {
-                  products: function(DealsService){
-                    console.log("resolving deals");
-                    return DealsService.getProducts();
-                  }
-                }
-              })
-
-                  .state('main.app.feed.deals.content', {
-                    url: '/content/:productId',
-                    views: {
-                      'main-view@main': {
-                        templateUrl: 'views/content/deals.html',
-                        controller: 'DealsContentCtrl'
-                      }
-                    },
-                    resolve: {
-                      product: function(DealsService, $stateParams){
-                        return DealsService.getProduct($stateParams.productId);
-                      }
-                    }
-                  })
 
 
 
@@ -350,11 +292,6 @@ angular.module('zaitoonFirst', [
               'app-deals@main.app': {
                 templateUrl: 'views/deals/deals.html',
                 controller: 'DealsCtrl'
-              }
-            },
-            resolve: {
-              products: function(FoodService){
-                return FoodService.getProducts();
               }
             }
           })
@@ -393,18 +330,8 @@ angular.module('zaitoonFirst', [
                     templateUrl: 'views/account/orders.html',
                     controller: 'OrdersCtrl'
                   }
-                },
-                resolve: {
-                  orders: function(OrderService){
-                    return OrderService.getUserOrders();
-                  }
                 }
               })
-              // Resolver el listado de productos comprados, los atributos en un principio deberian ser:
-              //    - product_id
-              //    - fecha de comprado
-              //    - status (shipped, bla bla)
-              // DONE
 
           .state('main.app.shopping-cart', {
             url: '/shopping-cart',

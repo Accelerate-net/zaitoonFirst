@@ -41,8 +41,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
-        	data.filter = custom_filter;     
-        	console.log(data.filter);   	
+        	data.filter = custom_filter;      	
     	}
 
         $http({
@@ -156,8 +155,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
-        	data.filter = custom_filter;     
-        	console.log(data.filter);   	
+        	data.filter = custom_filter;      	
     	}
 
         $http({
@@ -273,7 +271,6 @@ angular.module('zaitoonFirst.feed.controllers', [])
         if(custom_filter.length > 0){
         	data.isFilter = true;
         	data.filter = custom_filter;     
-        	console.log(data.filter);   	
     	}
 
         $http({
@@ -388,7 +385,6 @@ angular.module('zaitoonFirst.feed.controllers', [])
         if(custom_filter.length > 0){
         	data.isFilter = true;
         	data.filter = custom_filter;     
-        	console.log(data.filter);   	
     	}
 
         $http({
@@ -480,7 +476,6 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		$http.get('http://localhost/vega-web-app/online/fetchoutlets.php')
 		.then(function(response){
 	      	$scope.allList = response.data;
-	      	console.log($scope.allList);
 	    });
 
 		outletsPopup = $ionicPopup.show({
