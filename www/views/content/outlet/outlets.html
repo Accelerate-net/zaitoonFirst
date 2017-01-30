@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="list">
-    <div class="itemOutlet" ng-repeat="outlet in city.outlets" ui-sref="main.app.feed.food.content({outletCode: outlet.code})" ng-click="gotoOutlet()">
+    <div class="itemOutlet" ng-repeat="outlet in city.outlets" ui-sref="main.app.outlets({outletCode: outlet.code})" ng-click="gotoOutlet()">
       {{outlet.name}}
     </div>
   </div>

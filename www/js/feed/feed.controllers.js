@@ -7,54 +7,6 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	};
 })
 
-.controller('FashionCtrl', function($scope, $stateParams, products) {
-	$scope.filters = $stateParams.filters;
-
-	$scope.products = products;
-})
-
-.controller('FoodCtrl', function($scope, products, ShoppingCartService, $ionicLoading) {
-		
-		$scope.products = products;
-
-		$scope.addToCart = function(product) {
-		$ionicLoading.show({
-			template: 'Adding to Cartsss',
-			duration: 1000
-		});
-
-		product.qty = 1;
-		product.size = "M";
-		product.color = "black";
-		product.price = 120;
-  	    ShoppingCartService.addProduct(product);
-  	    console.log(product);
-  		};
-
-
-
-
-})
-
-.controller('FoodSoupCtrl', function($scope, products, ShoppingCartService, $ionicLoading) {
-	$scope.products = products;
-
-	$scope.addToCart = function(product) {
-		$ionicLoading.show({
-			template:  '<b style="color: #f1c40f">'+product.name+'</b> is added.',
-			duration: 1000
-		});
-
-		product.qty = 1;
-		product.size = "M";
-		product.color = "black";
-		product.price = 150;
-  	    ShoppingCartService.addProduct(product);
-  	    //console.log(product);
-  };
-
-
-})
 
 .controller('FoodArabianCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
 	
@@ -519,15 +471,6 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 
-
-
-
-
-
-.controller('TravelCtrl', function($scope, products) {
-	$scope.products = products;
-})
-
 .controller('DealsCtrl', function($scope, $http, $ionicPopup, $state, OutletService) { 
 
 	//Book a Table
@@ -542,7 +485,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 		outletsPopup = $ionicPopup.show({
 			cssClass: 'popup-outer edit-shipping-address-view',
-			templateUrl: 'views/content/food/outlets.html',
+			templateUrl: 'views/content/outlet/outlets.html',
 			scope: angular.extend($scope, {}),
 			title: 'Select Outlet',
 			buttons: [
@@ -564,10 +507,6 @@ angular.module('zaitoonFirst.feed.controllers', [])
       	$scope.deals = response.data;
     });
 
-})
-
-.controller('RealStateCtrl', function($scope, products) {
-	$scope.products = products;
 })
 
 ;

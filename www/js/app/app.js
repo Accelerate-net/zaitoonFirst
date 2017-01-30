@@ -40,10 +40,6 @@ angular.module('zaitoonFirst', [
   'zaitoonFirst.getting-started.directives',
   'zaitoonFirst.getting-started.services',
 
-  'zaitoonFirst.liked.controllers',
-  'zaitoonFirst.liked.directives',
-  'zaitoonFirst.liked.services',
-
   'zaitoonFirst.search.controllers',
   'zaitoonFirst.search.directives',
   'zaitoonFirst.search.filters',
@@ -227,75 +223,7 @@ angular.module('zaitoonFirst', [
             }
           })
 
-              .state('main.app.feed.fashion', {
-                url: '/fashion',
-                views: {
-                  'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/fashion.html',
-                    controller: 'FashionCtrl'
-                  }
-                },
-                resolve: {
-                  products: function(FashionService){
-                    console.log("resolving fashion");
-                    return FashionService.getProducts();
-                  }
-                }
-              })
-              // Aca va un resolve con los primeros N posts del feed de esta categoria
-              // DONE
-
-                  .state('main.app.feed.fashion.content', {
-                    url: '/content/:productId',
-                    views: {
-                      'main-view@main': {
-                        templateUrl: 'views/content/fashion.html',
-                        controller: 'FashionContentCtrl'
-                      }
-                    },
-                    resolve: {
-                      product: function(FashionService, $stateParams){
-                        return FashionService.getProduct($stateParams.productId);
-                      }
-                    }
-                  })
-                  // Aca va un resolve con los datos del producto.
-                  // Hay que agregarle a la url el product_id, y la categoria la deberia heredar de la vista padre
-                  // DONE
-
-              .state('main.app.feed.food', {
-                url: '/food',
-                views: {
-                  'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/food.html',
-                    controller: 'FoodCtrl'
-                  }
-                },
-                resolve: {
-                  products: function(FoodService){
-                    console.log("resolving food");
-                    return FoodService.getProducts();
-                  }
-                }
-              })
-
-              .state('main.app.feed.soup', {
-                url: '/soup',
-                views: {
-                  'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/soup.html',
-                    controller: 'FoodSoupCtrl'
-                  }
-                },
-                resolve: {
-                  products: function(FoodSoupService){
-                    console.log("resolving food");
-                    return FoodSoupService.getProducts();
-                  }
-                }
-              })
-
-
+             
               .state('main.app.feed.arabian', {
                 url: '/arabian',
                 views: {
@@ -361,12 +289,12 @@ angular.module('zaitoonFirst', [
               })
               
 
-                  .state('main.app.feed.food.content', {
+                  .state('main.app.outlets', {
                     url: '/content/:outletCode',
                     views: {
                       'main-view@main': {
-                        templateUrl: 'views/content/food.html',
-                        controller: 'FoodContentCtrl'
+                        templateUrl: 'views/content/outlet.html',
+                        controller: 'outletCtrl'
                       }
                     },
                     resolve: {
@@ -380,36 +308,8 @@ angular.module('zaitoonFirst', [
 
                   
 
-              .state('main.app.feed.travel', {
-                url: '/travel',
-                views: {
-                  'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/travel.html',
-                    controller: 'TravelCtrl'
-                  }
-                },
-                resolve: {
-                  products: function(TravelService){
-                    console.log("resolving travel");
-                    return TravelService.getProducts();
-                  }
-                }
-              })
 
-                  .state('main.app.feed.travel.content', {
-                    url: '/content/:productId',
-                    views: {
-                      'main-view@main': {
-                        templateUrl: 'views/content/travel.html',
-                        controller: 'TravelContentCtrl'
-                      }
-                    },
-                    resolve: {
-                      product: function(TravelService, $stateParams){
-                        return TravelService.getProduct($stateParams.productId);
-                      }
-                    }
-                  })
+
 
               .state('main.app.feed.deals', {
                 url: '/deals',
@@ -442,36 +342,7 @@ angular.module('zaitoonFirst', [
                     }
                   })
 
-              .state('main.app.feed.real-state', {
-                url: '/real-state',
-                views: {
-                  'category-feed@main.app.feed': {
-                    templateUrl: 'views/feed/real-state.html',
-                    controller: 'RealStateCtrl'
-                  }
-                },
-                resolve: {
-                  products: function(RealStateService){
-                    console.log("resolving real state");
-                    return RealStateService.getProducts();
-                  }
-                }
-              })
 
-                  .state('main.app.feed.real-state.content', {
-                    url: '/content/:productId',
-                    views: {
-                      'main-view@main': {
-                        templateUrl: 'views/content/real-state.html',
-                        controller: 'RealStateContentCtrl'
-                      }
-                    },
-                    resolve: {
-                      product: function(RealStateService, $stateParams){
-                        return RealStateService.getProduct($stateParams.productId);
-                      }
-                    }
-                  })
 
           .state('main.app.deals', {
             url: '/deals',
@@ -488,82 +359,7 @@ angular.module('zaitoonFirst', [
             }
           })
 
-          .state('main.app.liked', {
-            url: '/liked',
-            views: {
-              'app-liked@main.app': {
-                templateUrl: 'views/liked/liked.html',
-                controller: 'LikedCtrl'
-              }
-            },
-            resolve: {
-              lists: function(ListService){
-                return ListService.getUserLists();
-              }
-            }
-          })
-          // Aca deberiamos resolver las listas salvadas por el usuario.
-          // Cada lista tiene:
-          //    - nombre
-          //    - tags
-          //    - category
-          //    - fecha de creacion de la lista
-          //    - imagen (deberia ser un compilado de las imagenes de los productos que estan en la lista, pero esto es muy complicado, no lo vamos a hacer no?)
-          //    - lista de product_id's
-          // DONE
-
-              .state('main.app.liked.list-details', {
-                url: '/list-details/:listId',
-                views: {
-                  'main-view@main': {
-                    templateUrl: 'views/liked/list-details.html',
-                    controller: 'ListDetailsCtrl'
-                  }
-                },
-                resolve: {
-                  list: function(ListService, $stateParams) {
-                    return ListService.getList($stateParams.listId);
-                  }
-                }
-              })
-              // Tenemos que agregarle un parametro de list_id a esta ruta
-              // Resolver la data de esa lista aca
-              // DONE
-
-              .state('main.app.liked.new-list', {
-                url: '/new-list',
-                views: {
-                  'main-view@main': {
-                    templateUrl: 'views/liked/new-list.html',
-                    controller: 'NewListCtrl'
-                  }
-                }
-              })
-
-              //               .state('main.app.feed.deals', {
-              //   url: '/deals',
-              //   views: {
-              //     'category-feed@main.app.feed': {
-              //       templateUrl: 'views/feed/deals.html',
-              //       controller: 'DealsCtrl'
-              //     }
-              //   },
-              //   resolve: {
-              //     products: function(DealsService){
-              //       console.log("resolving deals");
-              //       return DealsService.getProducts();
-              //     }
-              //   }
-              // })
-
-          // .state('main.app.deals', {
-          //   url: '/deals',
-          //   views: {
-          //     'app-deals@main.app': {
-          //       templateUrl: 'views/feed/account.html'
-          //     }
-          //   }
-          // })
+          
 
 
           .state('main.app.account', {
