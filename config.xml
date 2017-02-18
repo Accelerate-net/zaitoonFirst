@@ -70,4 +70,5 @@
     <plugin name="cordova-plugin-transport-security" spec="^0.1.1" />
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
     <plugin name="onesignal-cordova-plugin" spec="~2.0.11" />
+    <plugin name="com.razorpay.cordova" spec="~0.14.0" />
 </widget>

@@ -8,7 +8,7 @@ angular.module('zaitoonFirst.filters.controllers', [])
 	//For VEG or NON-VEG
 	$rootScope.typevalue = '';
 	$scope.category_filter = '';
-	$scope.clearFlag = false; 	
+	$scope.clearFlag = false;
 	$scope.clearVegFlag	= false;
 	$scope.clearNonVegFlag	= false;
 
@@ -96,21 +96,21 @@ angular.module('zaitoonFirst.filters.controllers', [])
 		if($scope.spice_filter=='spicy')
 			$rootScope.spice = 'spicy';
 		else if($scope.spice_filter=='sweeened')
-			$rootScope.spice = 'sweeened';		
+			$rootScope.spice = 'sweeened';
 		else if($scope.spice_filter=='non')
-			$rootScope.spice = 'non';		
+			$rootScope.spice = 'non';
 	}
 
 	$scope.boneSelected = function(){
 		if($scope.bone_filter=='bone')
-			$rootScope.bone = 'bone';		
+			$rootScope.bone = 'bone';
 		else if($scope.bone_filter=='boneless')
 			$rootScope.bone = 'boneless';
 	}
-	
+
 	$scope.frySelected = function(){
 		if($scope.fry_filter=='tawa')
-			$rootScope.fry = 'tawa';		
+			$rootScope.fry = 'tawa';
 		else if($scope.fry_filter=='oil')
 			$rootScope.fry = 'oil';
 	}
@@ -168,7 +168,7 @@ angular.module('zaitoonFirst.filters.controllers', [])
 			"sweeened" : $rootScope.spice == 'sweeened' ? true : false,
 			"non" :  $rootScope.spice == 'non' ? true : false
 		}
- 		
+
 		//Cooking Type
 		if($rootScope.type_filter.gravy || $rootScope.type_filter.semi || $rootScope.type_filter.dry || $rootScope.type_filter.deep)
 		{

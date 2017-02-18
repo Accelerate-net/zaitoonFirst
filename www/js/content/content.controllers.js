@@ -4,7 +4,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 	$scope.dateList = [];
 
 	//Pre-populate time and date list:
-	
+
 	var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -23,7 +23,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 		}
 		else{ //Day Name
 			$scope.dateList.push({value: date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear(),name:days[date.getDay()]+", "+date.getDate()+' '+months[date.getMonth()]});
-		}		
+		}
 		i++;
 	}
 
@@ -32,83 +32,83 @@ angular.module('zaitoonFirst.content.controllers', [])
 		{
 			value:"1230",
 			name:"12:30 PM"
-		}, 
+		},
 		{
 			value:"1300",
 			name:"01:00 PM"
-		}, 
+		},
 		{
 			value:"1330",
 			name:"01:30 PM"
-		}, 
+		},
 		{
 			value:"1400",
 			name:"02:00 PM"
-		}, 
+		},
 		{
 			value:"1430",
 			name:"02:30 PM"
-		}, 
+		},
 		{
 			value:"1500",
-			name:"03:00 PM"		
-		}, 
+			name:"03:00 PM"
+		},
 		{
 			value:"1530",
-			name:"03:30 PM"		
-		}, 
+			name:"03:30 PM"
+		},
 		{
 			value:"1600",
-			name:"04:00 PM"		
-		}, 
+			name:"04:00 PM"
+		},
 		{
 			value:"1630",
-			name:"04:30 PM"		
-		}, 
+			name:"04:30 PM"
+		},
 		{
 			value:"1700",
-			name:"05:00 PM"		
-		}, 
+			name:"05:00 PM"
+		},
 		{
 			value:"1730",
-			name:"05:30 PM"		
-		}, 
+			name:"05:30 PM"
+		},
 		{
 			value:"1800",
-			name:"06:00 PM"		
-		}, 
+			name:"06:00 PM"
+		},
 		{
 			value:"1830",
-			name:"06:30 PM"		
-		}, 
+			name:"06:30 PM"
+		},
 		{
 			value:"1900",
-			name:"07:00 PM"		
-		}, 
+			name:"07:00 PM"
+		},
 		{
 			value:"1930",
-			name:"07:30 PM"		
-		}, 
+			name:"07:30 PM"
+		},
 		{
 			value:"2000",
-			name:"08:00 PM"		
-		}, 
+			name:"08:00 PM"
+		},
 		{
 			value:"2030",
-			name:"08:30 PM"		
-		}, 
+			name:"08:30 PM"
+		},
 		{
 			value:"2100",
-			name:"09:00 PM"		
-		}, 
+			name:"09:00 PM"
+		},
 		{
 			value:"2130",
-			name:"09:30 PM"		
-		}, 
+			name:"09:30 PM"
+		},
 		{
 			value:"2200",
-			name:"10:00 PM"		
-		}					
+			name:"10:00 PM"
+		}
 
 	];
 
@@ -117,17 +117,17 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 	//Remove past time slots
 	var currentTime = today.getHours();
-	if(currentTime > 12){		
+	if(currentTime > 12){
 		var startIndex = 2*(currentTime - 12);
 
-		//Say, if it's already 9.25 pm do not show 9.30 in the time slot. Skip Index.	
+		//Say, if it's already 9.25 pm do not show 9.30 in the time slot. Skip Index.
 		if(today.getMinutes() > 25)
 			startIndex++;
 
 		if(startIndex < 20){ //If time is less 10 pm (say upto 9.59 pm)
 			$scope.timeList = $scope.timeList.slice(startIndex, 21);
 		}
-	}	
+	}
 
 
 	//Remove TODAY option if it's already 10 PM in the night.
@@ -136,7 +136,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 	}
 
 	$scope.fetchTimeslots = function(data){
-		//If the date is TODAY, and remove time slots already passed. 
+		//If the date is TODAY, and remove time slots already passed.
 		var todayDate = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
 		if(data.dateSelected.value != todayDate){
 			$scope.timeList = $scope.timeDefaultList;
@@ -146,10 +146,10 @@ angular.module('zaitoonFirst.content.controllers', [])
 		{
 			//Remove past time slots
 			var currentTime = today.getHours();
-			if(currentTime > 12){		
+			if(currentTime > 12){
 				var startIndex = 2*(currentTime - 12);
 
-				//Say, if it's already 9.25 pm do not show 9.30 in the time slot. Skip Index.	
+				//Say, if it's already 9.25 pm do not show 9.30 in the time slot. Skip Index.
 				if(today.getMinutes() > 25)
 					startIndex++;
 
@@ -157,8 +157,8 @@ angular.module('zaitoonFirst.content.controllers', [])
 					$scope.timeList = $scope.timeList.slice(startIndex, 21);
 				}
 			}
-			$scope.timeSelected = $scope.timeList[0];				
-		}		
+			$scope.timeSelected = $scope.timeList[0];
+		}
 	}
 
 

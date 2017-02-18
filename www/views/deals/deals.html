@@ -1,12 +1,12 @@
 <ion-view class="feed-deals-view feed-sub-view" cache-view="false">
 
   <ion-header-bar class="myHeaderRed">
-    <h1 class="title myWhiteFont">Deals</h1>
+    <h1 class="title myWhiteFont">Offers</h1>
   </ion-header-bar>
 
 
   <ion-content padding>
-    
+
     <div class="products-row">
 
       <div class="padding">
@@ -24,12 +24,12 @@
             </button>
           </div>
         </div>
-    
+
 
         <div class="row middle-row" ng-if="deal.type=='coupon'">
           <div class="col col-100">
             <h5 class="product-title">
-              <a class="product-anchor">COUPON OFFER</a>            
+              <a class="product-anchor">COUPON OFFER</a>
             </h5>
             <p class="product-description">
               {{deal.description}}
@@ -49,8 +49,8 @@
         <div class="row middle-row" ng-if="deal.type=='offer'">
           <div class="col col-100">
             <h5 class="product-title">
-              <a class="product-anchor">SPECIAL OFFER</a>            
-            </h5>           
+              <a class="product-anchor">SPECIAL OFFER</a>
+            </h5>
             <p class="product-description">
               {{deal.description}}
             </p>
