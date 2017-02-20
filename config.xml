@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.startapplabs.bazaar" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>BAZAAR</name>
+<widget id="com.accelerate.zaitoon" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Zaitoon First</name>
   <description>
-    Amazing Ionic Full app Template
+    Online Ordering App for Zaitoon Restaurant
   </description>
-  <author email="hi@startapplabs.com" href="http://example.com.com/">
-    StartappLabs
+  <author email="anasjafry@accelerate.net.in" href="http://www.accelerate.net.in/">
+    Accelerate
   </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -16,7 +16,7 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="Orientation" value="portrait"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="SplashScreenDelay" value="1500"/>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
