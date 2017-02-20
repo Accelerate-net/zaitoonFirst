@@ -2,6 +2,8 @@
 {
 
 	background: #e74c3c;
+	background-image: url("../img/walkthrough/pattern.png");
+  background-repeat: repeat;
 
 	.item-input{
 		color: #ff4300;
@@ -11,10 +13,15 @@
 		font-size: 18px;
 	}
 
+	img{
+		align: middle;
+	}
+	
 	.images-row
 	{
-		padding-top: 0px;
-		height: 27%;
+		padding-top: 30px;
+		// height: 27%;
+
 
 		.illustration-container
 		{

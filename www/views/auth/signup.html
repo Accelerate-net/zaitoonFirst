@@ -1,17 +1,17 @@
-<ion-view class="signup-view auth-view" cache-view="false">
+<ion-view class="login-view auth-view" cache-view="false">
   <ion-content has-bouncing="false">
-  <div class="form-divider"></div>
-  <div class="row row-bottom images-row">
-      <div class="col">
+
+    <div class="row row-bottom images-row row-center">
+      <div class="col col-center">
         <div class="illustration-container">
-          <pre-img ratio="_17_9" helper-class="square-image">
-            <img class="illustration-image" ng-src="./img/walkthrough/welcome_illustration_white.png" spinner-on-load/>
-          </pre-img>
+          <pre-img>
+            <img class="illustration-image" width="100%" style="max-width: 320px; margin-bottom: 30px; " ng-src="./img/common/white_logo.png" spinner-on-load/>
+        	</pre-img>
         </div>
       </div>
     </div>
-    <div class="form-divider"></div>
-    <div class="row form-row">
+
+    <div class="row form-row" style="padding-top: 200px">
       <div class="col">
         <form name="signup_form" class="form-container" novalidate>
           <div class="input-list list list-inset">
@@ -26,10 +26,10 @@
               <input type="text" placeholder="Email" name="email" ng-model="user.email" required>
             </label>
           </div>
-          <div ng-if="signupFlag">              
+          <div ng-if="signupFlag">
             <label class="item item-input">
               <input type="text" placeholder="Enter OTP" name="otp" ng-model="user.otp" required>
-            </label>            
+            </label>
           </div>
         </div>
           <p ng-show="error" class="message error-signup">{{error}}</p>

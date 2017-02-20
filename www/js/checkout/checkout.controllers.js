@@ -10,11 +10,11 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     {
       value:"VELACHERY",
       name:"Velachery, Opp. Grand Mall"
-    }, 
+    },
     {
       value:"ADYAR",
       name:"Adyar, Near Bus Depot"
-    }, 
+    },
     {
       value:"ROYAPETTAH",
       name:"Royapettah, Near EA Mall"
@@ -270,14 +270,14 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 .controller('CheckoutPromoCodeCtrl', function($scope) {
 
-}) 
+})
 
 
 .controller('trackCtrl', function($scope) {
 
   $scope.status = 3;
 
-}) 
+})
 
 
 .controller('paymentCtrl', function($scope, $interval, $http) {
@@ -296,15 +296,15 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         $scope.response = response.data;
 
         if($scope.response.status){
-         // $scope.postPayment = true;
+          $scope.postPayment = true;
           document.getElementById("paymentPage").style="background-color: #ff7b4a";
           $interval.cancel(pollerFunction);
-        }  
-      });    
+        }
+      });
       $scope.pollCount++;
   }, 4000);
 
-}) 
+})
 
 .controller('feedbackCtrl', function($scope, $rootScope) {
 
@@ -327,22 +327,22 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         $scope.tag = "Terrible";
         break;
       }
-      case 2: 
+      case 2:
       {
         $scope.tag = "Bad";
         break;
       }
-      case 3: 
+      case 3:
       {
         $scope.tag = "OK";
         break;
       }
-      case 4: 
+      case 4:
       {
         $scope.tag = "Good";
         break;
       }
-      case 5: 
+      case 5:
       {
         $scope.tag = "Awesome";
         break;
@@ -351,12 +351,12 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
     var i = 1;
     while(i <= id){
-      document.getElementById("star"+i).className ="icon ion-android-star";    
+      document.getElementById("star"+i).className ="icon ion-android-star";
       i++;
     }
     //Empty the remaining stars
     while(i <= 5){
-      document.getElementById("star"+i).className ="icon ion-android-star-outline";    
+      document.getElementById("star"+i).className ="icon ion-android-star-outline";
       i++;
     }
   }
