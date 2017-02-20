@@ -2,6 +2,14 @@
 {
 	background-color: $welcome-bg;
 	//background-image: url("../img/common/bg.png");
+
+
+	@media screen and (min-width: 560px) {
+	    img {
+	        visibility: hidden;
+	    }
+	}
+
 	.images-row
 	{
 		padding: 0px;
@@ -12,7 +20,7 @@
 		{
 			margin: 0px;
 			margin-top: 50px;
-			
+
 		}
 
 		.images-outer-col

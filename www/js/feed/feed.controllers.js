@@ -9,11 +9,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 .controller('FoodArabianCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
-	
+
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
-	
+
 	//To display things if filter is applied
-	if(custom_filter.length > 0) 
+	if(custom_filter.length > 0)
 		$scope.isFilter = true;
 	else
 		$scope.isFilter = false;
@@ -35,24 +35,24 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
-        var data = {}; 
+        var data = {};
         data.cuisine = "ARABIAN";
         data.isFilter = false;
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
-        	data.filter = custom_filter;      	
+        	data.filter = custom_filter;
     	}
 
         $http({
           method  : 'POST',
-          url     : 'http://localhost/vega-web-app/online/fetchmenu.php',
+          url     : 'http://www.zaitoon.online/services/fetchmenu.php',
           data    : data, //forms user object
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
-			$scope.menu = response.data;    
-        });  
+					$scope.menu = response.data;
+        });
     }
 
     init();
@@ -88,21 +88,21 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	      title: 'Choose Options',
 	      scope: $scope,
 	      buttons: [
-	        { text: 'Cancel' }      
+	        { text: 'Cancel' }
 	      ]
 	    });
 	    $scope.addCustomItem = function(variant, price){
 	    	$scope.choiceName = variant;
 	  		$scope.choicePrice = price;
-            
+
             if($scope.choiceName != "" && $scope.choicePrice != ""){
             	product.itemPrice = $scope.choicePrice;
             	product.variant = $scope.choiceName;
 
             	$scope.addToCart(product);
-            	newCustomPopup.close(); 
-            }  	  		
-	  		
+            	newCustomPopup.close();
+            }
+
 	    }
 
 	  }
@@ -123,11 +123,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
 })
 
 .controller('FoodChineseCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
-	
+
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
-	
+
 	//To display things if filter is applied
-	if(custom_filter.length > 0) 
+	if(custom_filter.length > 0)
 		$scope.isFilter = true;
 	else
 		$scope.isFilter = false;
@@ -149,24 +149,24 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
-        var data = {}; 
+        var data = {};
         data.cuisine = "CHINESE";
         data.isFilter = false;
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
-        	data.filter = custom_filter;      	
+        	data.filter = custom_filter;
     	}
 
         $http({
           method  : 'POST',
-          url     : 'http://localhost/vega-web-app/online/fetchmenu.php',
+          url     : 'http://www.zaitoon.online/services/fetchmenu.php',
           data    : data, //forms user object
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
-			$scope.menu = response.data;    
-        });  
+			$scope.menu = response.data;
+        });
     }
 
     init();
@@ -202,21 +202,21 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	      title: 'Choose Options',
 	      scope: $scope,
 	      buttons: [
-	        { text: 'Cancel' }      
+	        { text: 'Cancel' }
 	      ]
 	    });
 	    $scope.addCustomItem = function(variant, price){
 	    	$scope.choiceName = variant;
 	  		$scope.choicePrice = price;
-            
+
             if($scope.choiceName != "" && $scope.choicePrice != ""){
             	product.itemPrice = $scope.choicePrice;
             	product.variant = $scope.choiceName;
 
             	$scope.addToCart(product);
-            	newCustomPopup.close(); 
-            }  	  		
-	  		
+            	newCustomPopup.close();
+            }
+
 	    }
 
 	  }
@@ -238,11 +238,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 .controller('FoodIndianCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
-	
+
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
-	
+
 	//To display things if filter is applied
-	if(custom_filter.length > 0) 
+	if(custom_filter.length > 0)
 		$scope.isFilter = true;
 	else
 		$scope.isFilter = false;
@@ -264,24 +264,24 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
-        var data = {}; 
+        var data = {};
         data.cuisine = "INDIAN";
         data.isFilter = false;
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
-        	data.filter = custom_filter;     
+        	data.filter = custom_filter;
     	}
 
         $http({
           method  : 'POST',
-          url     : 'http://localhost/vega-web-app/online/fetchmenu.php',
+          url     : 'http://www.zaitoon.online/services/fetchmenu.php',
           data    : data, //forms user object
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
-			$scope.menu = response.data;    
-        });  
+			$scope.menu = response.data;
+        });
     }
 
     init();
@@ -317,21 +317,21 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	      title: 'Choose Options',
 	      scope: $scope,
 	      buttons: [
-	        { text: 'Cancel' }      
+	        { text: 'Cancel' }
 	      ]
 	    });
 	    $scope.addCustomItem = function(variant, price){
 	    	$scope.choiceName = variant;
 	  		$scope.choicePrice = price;
-            
+
             if($scope.choiceName != "" && $scope.choicePrice != ""){
             	product.itemPrice = $scope.choicePrice;
             	product.variant = $scope.choiceName;
 
             	$scope.addToCart(product);
-            	newCustomPopup.close(); 
-            }  	  		
-	  		
+            	newCustomPopup.close();
+            }
+
 	    }
 
 	  }
@@ -352,11 +352,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
 })
 
 .controller('FoodDessertCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
-	
+
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
-	
+
 	//To display things if filter is applied
-	if(custom_filter.length > 0) 
+	if(custom_filter.length > 0)
 		$scope.isFilter = true;
 	else
 		$scope.isFilter = false;
@@ -378,24 +378,24 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
-        var data = {}; 
+        var data = {};
         data.cuisine = "DESSERTS";
         data.isFilter = false;
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
-        	data.filter = custom_filter;     
+        	data.filter = custom_filter;
     	}
 
         $http({
           method  : 'POST',
-          url     : 'http://localhost/vega-web-app/online/fetchmenu.php',
+          url     : 'http://www.zaitoon.online/services/fetchmenu.php',
           data    : data, //forms user object
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
-			$scope.menu = response.data;    
-        });  
+			$scope.menu = response.data;
+        });
     }
 
     init();
@@ -431,21 +431,21 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	      title: 'Choose Options',
 	      scope: $scope,
 	      buttons: [
-	        { text: 'Cancel' }      
+	        { text: 'Cancel' }
 	      ]
 	    });
 	    $scope.addCustomItem = function(variant, price){
 	    	$scope.choiceName = variant;
 	  		$scope.choicePrice = price;
-            
+
             if($scope.choiceName != "" && $scope.choicePrice != ""){
             	product.itemPrice = $scope.choicePrice;
             	product.variant = $scope.choiceName;
 
             	$scope.addToCart(product);
-            	newCustomPopup.close(); 
-            }  	  		
-	  		
+            	newCustomPopup.close();
+            }
+
 	    }
 
 	  }
@@ -467,15 +467,15 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 
-.controller('DealsCtrl', function($scope, $http, $ionicPopup, $state, OutletService) { 
+.controller('DealsCtrl', function($scope, $http, $ionicPopup, $state, OutletService) {
 
 	//Book a Table
 	$scope.showOutlets = function(){
 
 		//Get all the outlets
-		$http.get('http://localhost/vega-web-app/online/fetchoutlets.php')
+		$http.get('http://www.zaitoon.online/services/fetchoutlets.php')
 		.then(function(response){
-	      	$scope.allList = response.data;
+	      	$scope.allList = response.data.response;
 	    });
 
 		outletsPopup = $ionicPopup.show({
@@ -496,10 +496,10 @@ angular.module('zaitoonFirst.feed.controllers', [])
 			}
 	}
 
-	
-	$http.get('http://localhost/vega-web-app/online/fetchdeals.php')
+
+	$http.get('http://www.zaitoon.online/services/fetchdeals.php')
 	.then(function(response){
-      	$scope.deals = response.data;
+      	$scope.deals = response.data.response;
     });
 
 })

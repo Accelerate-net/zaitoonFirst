@@ -71,7 +71,6 @@ angular.module('zaitoonFirst', [
   });
 
   $ionicPlatform.ready(function() {
-    console.log("$ionicPlatform.ready");
 
     //Push Notifications
     var notificationOpenedCallback = function(jsonData) {
@@ -108,7 +107,6 @@ angular.module('zaitoonFirst', [
 
   if(!ionic.Platform.isWebView())
   {
-    console.log("jsScrolling");
     $ionicConfigProvider.scrolling.jsScrolling(false);
   }
 })
