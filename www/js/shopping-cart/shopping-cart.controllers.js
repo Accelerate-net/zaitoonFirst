@@ -25,16 +25,17 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 	$scope.removeFromCart = function(product) {
 		$ionicActionSheet.show({
-			titleText: 'Remove '+product.name+' from the Cart',
-			destructiveText: 'Remove from Cart',
-			cancelText: 'Cancel',
-			cancel: function() {
-				return true;
-			},
-			destructiveButtonClicked: function() {
-				ShoppingCartService.removeProduct(product);
-				return true;
-			}
+			buttons: [
+        { text: '<i class="icon ion-trash-a assertive"></i> <i class="assertive">Remove from the Cart</i>' },
+        { text: '<i class="icon"></i> <i class="dark">Cancel</i>' },
+      ],
+			titleText: 'Remove '+product.itemName+' from the Cart?',
+			buttonClicked: function(index) {
+				if(index == 0){
+					ShoppingCartService.removeProduct(product);
+				}
+        return true;
+      },
 		});
 	};
 
