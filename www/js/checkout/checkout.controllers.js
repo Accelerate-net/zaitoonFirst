@@ -327,13 +327,14 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 })
 
 
-.controller('trackCtrl', function($scope, $http) {
+.controller('trackCtrl', function($scope, $http, trackOrderService) {
 
   var data = {};
 
   //REMOVE this token/orderid hard codes
-  data.token = "QYrNZG20IzMwLFr4mU9UOjS+UozOrLquEQpqSPYETSMheD+cglCUs5FWx4y8u1Tk";
-  data.orderID = "10013053";
+  data.token = JSON.parse(window.localStorage.user).token;
+  data.orderID = trackOrderService.getOrderID();
+  console.log(data.orderID);
 
   $http({
     method  : 'POST',

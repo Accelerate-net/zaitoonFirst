@@ -20,19 +20,22 @@
           </div>
         </div>
         <div class="item item-divider order-footer" ng-if="order.status==0">
-          <span class="status-title" style="color:#d35400">Pending Confirmation</span>
+          <span class="status-title" style="color:#d35400; float: left">Pending Confirmation</span>
+          <div class="button button-small button-outline button-primary" style="float: right; margin-top:5px" ng-click="trackMe(order.orderID)">TRACK ORDER</div>
         </div>
         <div class="item item-divider order-footer" ng-if="order.status==1">
-          <span class="status-title" style="color:#27ae60">Order Confirmed</span>
+          <span class="status-title" style="color:#27ae60; float: left">Order Confirmed</span>
+          <div class="button button-small button-outline button-primary" style="float: right; margin-top:5px" ng-click="trackMe(order.orderID)">TRACK ORDER</div>
         </div>
         <div class="item item-divider order-footer" ng-if="order.status==2">
-          <span class="status-title" style="color:#2c3e50">Dispatched</span>
+          <span class="status-title" style="color:#2c3e50; float: left">Dispatched</span>
+          <div class="button button-small button-outline button-primary" style="float: right; margin-top:5px" ng-click="trackMe(order.orderID)">TRACK ORDER</div>
         </div>
         <div class="item item-divider order-footer" ng-if="order.status==3">
-          <span class="status-title" style="color:#2c3e50">Delivered</span>
+          <span class="status-title" style="color:#2c3e50; float: left">Delivered</span>
         </div>
         <div class="item item-divider order-footer" ng-if="order.status==5">
-          <span class="status-title" style="color:#e74c3c">Cancelled</span>
+          <span class="status-title" style="color:#e74c3c; float: left">Cancelled</span>
         </div>
       </div>
     </div>
