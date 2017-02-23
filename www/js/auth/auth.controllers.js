@@ -5,10 +5,6 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	if(!_.isUndefined(window.localStorage.user)){
 		$state.go('main.app.feed.arabian');
 	}
-	else{
-		alert('ERROR');
-	}
-
 
 	$scope.user = {};
 

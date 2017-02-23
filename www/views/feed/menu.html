@@ -1,5 +1,5 @@
 <ion-view class="feed-food-view feed-sub-view search-view" cache-view="false">
-  
+
   <ion-header-bar class="search-header" ng-if="showSearch">
     <div class="row item-input-inset search-row">
       <div class="col col-90">
@@ -27,9 +27,10 @@
     </div>
   </ion-header-bar>
 
-  <ion-content>    
+  <ion-content>
     <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
     <div class="products-row">
+    <div ng-if="isEmpty" class="padding"><p style="color: #C7C7C7; text-align: center">No items found.</p></div>
     <div ng-repeat="maintype in menu track by $index">
       <div ng-repeat="submenu in subs = (maintype.subCategories | searchField : 'product.itemName' | filter:search.query)">
       <h1 class="myMenuSubTitle">{{submenu.subName}}</h1>
@@ -38,10 +39,10 @@
         <div class="row info-row">
           <div class="col logo-col" ng-if="product.isVeg">
             <span class="icon ion-android-radio-button-on veg"></span>
-          </div> 
+          </div>
           <div class="col logo-col" ng-if="!product.isVeg">
             <span class="icon ion-android-radio-button-on nveg"></span>
-          </div>             
+          </div>
           <div class="col description-col">
             <div class="row">
               <div class="col data-col">
@@ -63,7 +64,7 @@
 
         </div>
       </div>
-        
+
       </div>
     </div>
 
