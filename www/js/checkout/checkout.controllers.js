@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function($scope, $state, $rootScope, products, CheckoutService) {
+.controller('CheckoutCtrl', function($scope, $state, $rootScope, products, CheckoutService, $ionicPopover) {
 
   //Get the checkout mode TAKEAWAY/DELIVERY
   $scope.checkoutMode = CheckoutService.getCheckoutMode();
@@ -22,6 +22,32 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   ];
 
   $scope.outletSelected = $scope.outletList[0];
+
+
+  //To choose the pick up center
+  $scope.data = {};
+  $scope.data.selected_outlet = $scope.outletList[0];
+
+  //Choose Outlet
+  $ionicPopover.fromTemplateUrl('views/checkout/partials/pickup-outlet-chooser-popover.html', {
+    scope: $scope
+  }).then(function(popover) {
+    $scope.outlet_popover = popover;
+  });
+
+  $scope.openOutletPopover = function($event){
+    $scope.outlet_popover.show($event);
+  };
+
+  $scope.setOutlet = function(outletObj){
+    $scope.data.selected_outlet = outletObj;
+    $scope.outlet_popover.hide();
+  };
+
+
+
+
+
 
 	$scope.products = products;
 	var tax = 0.07;

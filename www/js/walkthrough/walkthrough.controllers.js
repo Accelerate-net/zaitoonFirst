@@ -7,7 +7,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 .controller('welcomeCtrl', function($scope, $ionicPopover) {
 
 	var outlet = !_.isUndefined(window.localStorage.outlet) ? window.localStorage.outlet : "";
-	
+
 	if(outlet == "")
 		$scope.isLocationSet = false;
 	else
@@ -21,7 +21,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	console.log($scope.cities);
 
 	//Default Selection
-	$scope.data = {};
+		$scope.data = {};
   	$scope.data.selected_city = $scope.cities[0];
   	console.log($scope.cities[0]);
 

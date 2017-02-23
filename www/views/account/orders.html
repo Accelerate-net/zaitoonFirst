@@ -1,6 +1,7 @@
 <ion-view class="account-orders-view account-sub-view" cache-view="false" view-title="My Orders">
   <ion-content>
     <div class="orders-row">
+      <div ng-if="isEmpty"><p style="color: #C7C7C7; text-align: center">No orders found.</p></div>
       <div class="card order-item" ng-repeat="order in orders">
         <div class="item item-divider order-header">
           <span class="header-title">{{order.date | amDateFormat:'DD MMM, YYYY'}}<jafry style="color:white;float:right">{{order.orderID}}</jafry></span>
@@ -32,14 +33,14 @@
         </div>
         <div class="item item-divider order-footer" ng-if="order.status==5">
           <span class="status-title" style="color:#e74c3c">Cancelled</span>
-        </div>        
+        </div>
       </div>
     </div>
     <i ng-if="!left"><center><img src=img/common/end.png></center></i>
     <ion-infinite-scroll
       immediate-check="false"
       ng-if="left"
-      on-infinite="loadMore()" 
+      on-infinite="loadMore()"
       distance="1%">
     </ion-infinite-scroll>
   </ion-content>

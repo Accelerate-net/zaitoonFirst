@@ -27,7 +27,7 @@
       <h3 class="account-sub-title" style="color: #FFF; font-weight: 300; font-size: 14px;">Select your City and Locality</h3>
 
         <!-- City Chooser -->
-        <div class="address-chooser" ng-click="openCityPopover($event)">
+        <div class="address-chooser" ng-click="openOutletPopover($event)">
           <button class="button button-block icon-right addresses-popover-button-forlocation" style="background: #c0392b; color: #FFF; " ng-class="{'ion-chevron-up': city_popover.isShown(), 'ion-chevron-down' : !city_popover.isShown()}">
             {{data.selected_city.name || 'Select City'}}
           </button>

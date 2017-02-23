@@ -164,6 +164,11 @@ angular.module('zaitoonFirst.account.controllers', [])
   $http.get('http://localhost/vega-web-app/online/orderhistory.php?id=0')
   .then(function(response){
         $scope.orders = response.data;
+        if($scope.orders.length == 0)
+          $scope.isEmpty = true;
+        else
+          $scope.isEmpty = false;
+
         $scope.left = 1;
     });
   $scope.limiter=5;
