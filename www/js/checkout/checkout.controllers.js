@@ -327,9 +327,25 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 })
 
 
-.controller('trackCtrl', function($scope) {
+.controller('trackCtrl', function($scope, $http) {
 
-  $scope.status = 3;
+  var data = {};
+
+  //REMOVE this token/orderid hard codes
+  data.token = "QYrNZG20IzMwLFr4mU9UOjS+UozOrLquEQpqSPYETSMheD+cglCUs5FWx4y8u1Tk";
+  data.orderID = "10013053";
+
+  $http({
+    method  : 'POST',
+    url     : 'http://localhost/vega-web-app/online/orderinfo.php',
+    data    : data, //forms user object
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+   })
+  .then(function(response) {
+    $scope.track = response.data;
+    console.log($scope.track.response);
+    $scope.status = $scope.track.response.status;
+  });
 
 })
 
