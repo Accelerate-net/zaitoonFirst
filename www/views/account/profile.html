@@ -1,16 +1,16 @@
 <ion-view class="account-profile-view account-sub-view" cache-view="false">
   <ion-content>
-   <div class="row user-info-row">    
-      <div class="col col-25">    
-         <pre-img ratio="_1_1">    
-           <img class="profile-image" src="img/common/default_user.png" spinner-on-load/>    
-         </pre-img>    
-      </div>    
-      <div class="col col-75 col-center user-info-col">   
-        <h3 ng-if="!isEditMode" class="user-welcome">Hello {{customer.name}}!</h3>    
-        <h3 ng-if="isEditMode" class="user-welcome">Hello {{temp_name}}!</h3>    
-        <p class="user-email">Member since {{customer.memberSince}}</p>        
-      </div> 
+   <div class="row user-info-row">
+      <div class="col col-25">
+         <pre-img ratio="_1_1">
+           <img class="profile-image" src="img/common/default_user.png" spinner-on-load/>
+         </pre-img>
+      </div>
+      <div class="col col-75 col-center user-info-col">
+        <h3 ng-if="!isEditMode" class="user-welcome">Hello <strong>{{customer.name}}</strong></h3>    
+        <h3 ng-if="isEditMode" class="user-welcome">Hello <strong>{{temp_name}}</strong></h3>
+        <p class="user-email">Member since {{customer.memberSince}}</p>
+      </div>
 
    </div>
 
@@ -32,7 +32,7 @@
           <span class="input-label">Email</span>
           <input type="email" placeholder="Your Email" ng-model="customer.email" ng-disabled="!isEditMode">
         </label>
-      </div>      
+      </div>
 
       <div class="row" ng-if="isEditMode" style="margin-top: 10px;">
         <button ng-click="cancelEdit()" class="button button-small" style="background: #7f8c8d; color: #FFF; margin-right: 5px">CANCEL</button>
@@ -44,7 +44,7 @@
       </div>
 
 
-      
+
 
     </div>
     <h3 class="account-sub-title" ng-if="addressCount" style="color: #34495e; text-align: left; padding-left: 20px">Default Delivery Address</h3>
@@ -53,9 +53,9 @@
         {{data.selected_address.name || 'Select Address'}}
       </button>
     </div>
-    
+
     <div class="row logout-terms-row">
-      <div class="col">        
+      <div class="col">
         <a class="button button-block button-clear logout-button" ng-click="logout()">Logout</a>
       </div>
     </div>
