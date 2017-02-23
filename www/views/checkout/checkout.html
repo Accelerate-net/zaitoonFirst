@@ -31,12 +31,23 @@
   </div>
 
     <h3 class="checkout-sub-title">Payment Information</h3>
+
+
     <div class="row promo-code-row">
       <div class="col">
         <label class="item item-input promo-item">
-          <span class="input-label">Promo Code</span>
-          <input type="text">
+          <span class="input-label">COUPON CODE</span>
+          <input type="text" ng-model="promoCode" ng-blur="validateCoupon()">
         </label>
+      </div>
+    </div>
+    <div class="row" style="padding: 10px">
+      <div class="col col-80">
+        <p ng-if="isSuccess" style="font-size: 11px; color: #16a085; line-height: 120%">{{promoMessage}}</p>
+        <p ng-if="!isSuccess" style="font-size: 11px; color: #e74c3c ; line-height: 120%">{{promoMessage}}</p>
+      </div>
+      <div class="col col-20">
+        <div class="button button-small button-outline button-balanced" style="float: right" ng-click="validateCoupon(promoCode)">APPLY</div>
       </div>
     </div>
 
