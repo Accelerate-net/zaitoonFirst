@@ -7,11 +7,11 @@ angular.module('zaitoonFirst.account.services', [])
     var dfd = $q.defer();
 
     var data = {};
-    data.mobile = "9043960876";
+    data.token = JSON.parse(window.localStorage.user).token;
 
     $http({
       method  : 'POST',
-      url     : 'http://www.zaitoon.online/services/fetchusers.php',
+      url     : 'http://localhost/vega-web-app/online/fetchusers.php',
       data    : data, //forms user object
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
@@ -26,16 +26,36 @@ angular.module('zaitoonFirst.account.services', [])
 
 
   this.updateUserData = function(newName, newEmail){
-    $http.get('http://localhost/vega-web-app/online/updateuser.php?name='+newName+'&email='+newEmail+'&id=9043960876').success(function(response) {
+        var data = {};
+        data.token = JSON.parse(window.localStorage.user).token;
+        data.email = newEmail;
+        data.name = newName;
 
-    });
+        $http({
+          method  : 'POST',
+          url     : 'http://localhost/vega-web-app/online/edituser.php',
+          data    : data, //forms user object
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+         })
+        .then(function(respose) {
+        });
   };
 
   //Delete a saved Address.
   this.deleteSavedAddress = function(id){
-    $http.get('http://localhost/vega-web-app/online/deletesavedaddress.php?id='+id+'&user=9043960876').success(function(response) {
+    var data = {};
+    data.token = JSON.parse(window.localStorage.user).token;
+    data.id = id;
 
+    $http({
+      method  : 'POST',
+      url     : 'http://localhost/vega-web-app/online/deletesavedaddress.php',
+      data    : data, //forms user object
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+     })
+    .then(function(respose) {
     });
+
     return true;
   };
 
