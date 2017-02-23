@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function($scope, $state, $rootScope, products, CheckoutService, $ionicPopover) {
+.controller('CheckoutCtrl', function($scope, $state, $http, $rootScope, products, CheckoutService, $ionicPopover) {
 
   //Get the checkout mode TAKEAWAY/DELIVERY
   $scope.checkoutMode = CheckoutService.getCheckoutMode();
@@ -44,11 +44,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $scope.outlet_popover.hide();
   };
 
-
-
-
-
-
 	$scope.products = products;
 	var tax = 0.07;
 
@@ -81,6 +76,39 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 	$scope.getSelectedCard = function() {
 		return CheckoutService.getUserSelectedCard().number;
 	};
+
+  //Validation of Coupon Code
+  $scope.promoCode = "";
+  $scope.promoMessage = "";
+  $scope.isSuccess = true;
+  $scope.validateCoupon = function(promo) {
+    promo = promo.replace(/\s/g,'');
+    if(promo == ""){
+      $scope.isSuccess = false;
+      $scope.promoMessage = "Coupon Code can not be null.";
+    }
+    else{
+      //Validate Coupon
+      var data = {};
+      data.coupon = "ZAITOONFIRST";
+      $http({
+        method  : 'POST',
+        url     : 'http://localhost/vega-web-app/online/validatecoupon.php',
+        data    : data, //forms user object
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+       })
+      .then(function(response) {
+        $scope.isSuccess = response.data.status;
+        if(response.data.status){
+          $scope.promoMessage = "Coupon applied successfully! You are eligible for a discount of Rs. "+response.data.discount;
+        }
+        else{
+          $scope.promoMessage = "Failed. "+response.data.error;
+        }
+      });
+    }
+
+  };
 
 })
 
