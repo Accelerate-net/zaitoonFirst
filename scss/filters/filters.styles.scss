@@ -1,11 +1,11 @@
 .filters-view
 {
-	background-color: $filters-bg;
+	background-color: #f8f8f8;
 
 	.filters-header
 	{
-		background-color: $filters-header-bg !important;
-		background: $filters-header-bg !important;
+		background-color: #e74c3c !important;
+		background: #e74c3c !important;
 		border: none !important;
 		background-size: 0px !important; // To remove bottom border on header
 
@@ -205,7 +205,7 @@
 							position: absolute;
   						width: 35px;
 							top: 9px;
-  						left: 0px; 
+  						left: 0px;
 						}
 					}
 

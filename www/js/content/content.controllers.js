@@ -187,14 +187,30 @@ angular.module('zaitoonFirst.content.controllers', [])
 				{
 					text:'Confirm',
 					onTap: function(e) {
-			            var date = $scope.dateSelected;
-			            var time = $scope.timeSelected;
 
+									var reservation = {
+										"outlet":outlet,
+										"date": $scope.dateSelected.value,
+										"time": $scope.timeSelected.value,
+										"count":$scope.count
+									};
 
+									var data = {};
+									data.token = JSON.parse(window.localStorage.user).token;
+									data.details = reservation;
 
-
-			            //CALL HTTP SERVICE
-			            //SHOW A CONFIRMATION PAGE!!
+									$http({
+										method  : 'POST',
+										url     : 'http://localhost/vega-web-app/online/newreservation.php',
+										data    : data, //forms user object
+										headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+									 })
+									.then(function(respose) {
+										$ionicLoading.show({
+											template:  '<b style="font-size: 150%">It\'s confirmed!</b><br>We will reserve enough tables for you.',
+											duration: 3000
+										});
+									});
 			        }
 			    }
 			]
