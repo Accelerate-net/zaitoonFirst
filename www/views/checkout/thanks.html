@@ -1,15 +1,16 @@
 <!-- main.app.feed.fashion -->
 <ion-view class="checkout-thanks-view" id="pageTrack" cache-view="false">
-  <ion-header-bar class="shopping-cart-header">
-    <h1 class="title">#112102</h1>
+  <ion-header-bar class="shopping-cart-header" style="background: #e74c3c;">
+    <h1 class="title" style="color: #FFF">#{{track.response.orderID}}</h1>
     <div class="buttons">
-      <button class="button button-clear checkout-button" ui-sref="main.app.checkout()">Back</button>
+      <button class="button button-clear checkout-button" ui-sref="main.app.checkout()" style="color: #ecf0f1">Back</button>
     </div>
   </ion-header-bar>
 
   <ion-content has-bouncing="false" class="checkout-thanks-content">
     <div class="row thanks-row">
       <div class="col">
+      <div class="padding" ng-if="!track.status"><p style="color: #e74c3c; text-align: center">Order Not Found.</p></div>
 
       <div ng-if="status == 0">
         <h3 class="thanks-title" >Hold on while we confirm your order.</h3>
@@ -17,22 +18,22 @@
           <pre-img ratio="_41_22">
             <img class="illustration-image" ng-src="./img/common/waiting.gif" spinner-on-load/>
           </pre-img>
-        </div>  
+        </div>
         <div class="ok-button-outer" style="padding-top: 20px; ">
           <a class="button button-block ok-button">
             Cancel Order
           </a>
-        </div>              
+        </div>
       </div>
 
 
       <div ng-if="status == 1">
-        <h3 class="time-title" style="color: #FFF">14 September 2017</h3>
+        <h3 class="time-title" style="color: #7f8c8d">{{track.response.date}}</h3>
 
           <ul class="timeline" id="timeline">
             <li class="li complete">
               <div class="timestamp">
-                <span class="author">03:07 PM</span>
+                <span class="author">{{track.response.timePlace}}</span>
               </div>
               <div class="status">
                 <h4>Received</h4>
@@ -40,7 +41,7 @@
             </li>
             <li class="li complete">
               <div class="timestamp">
-                <span class="author">03:09 PM</span>
+                <span class="author">{{track.response.timeConfirm}}</span>
               </div>
               <div class="status">
                 <h4>Confirmed</h4>
@@ -56,29 +57,29 @@
             </li>
             <li class="li">
               <div class="timestamp">
-                <span class="author"> - </span>    
+                <span class="author"> - </span>
               </div>
               <div class="status">
                 <h4>Completed</h4>
               </div>
             </li>
            </ul>
-      
-        <h3 class="thanks-title" style="color: #34495e; font-weight: bold;">Your order is confirmed. Our Chef is on it!</h3>
+
+        <h3 class="thanks-title" style="color: #27ae60; font-weight: 250; font-size: 21px">Your order is confirmed.<br>Our Chef is on it!</h3>
         <div class="illustration-container">
           <pre-img ratio="_41_22">
             <img class="illustration-image" ng-src="./img/common/cooking.png" spinner-on-load/>
           </pre-img>
-        </div>    
-      </div> 
+        </div>
+      </div>
 
       <div ng-if="status == 2">
-        <h3 class="time-title" style="color: #7f8c8d">14 September 2017</h3>
+        <h3 class="time-title" style="color: #7f8c8d">{{track.response.date}}</h3>
 
         <ul class="timeline" id="timeline">
           <li class="li complete">
             <div class="timestamp">
-              <span class="author">03:07 PM</span>
+              <span class="author">{{track.response.timePlace}}</span>
             </div>
             <div class="status">
               <h4>Received</h4>
@@ -86,7 +87,7 @@
           </li>
           <li class="li complete">
             <div class="timestamp">
-              <span class="author">03:09 PM</span>
+              <span class="author">{{track.response.timeConfirm}}</span>
             </div>
             <div class="status">
               <h4>Confirmed</h4>
@@ -94,7 +95,7 @@
           </li>
           <li class="li complete">
             <div class="timestamp">
-              <span class="author">03:21 PM</span>
+              <span class="author">{{track.response.timeDispatch}}</span>
             </div>
             <div class="status">
               <h4>Dispatched</h4>
@@ -102,7 +103,7 @@
           </li>
           <li class="li">
             <div class="timestamp">
-              <span class="author"> - </span>    
+              <span class="author"> - </span>
             </div>
             <div class="status">
               <h4>Completed</h4>
@@ -110,22 +111,22 @@
           </li>
          </ul>
 
-        <h3 class="thanks-title" style="color: #34495e; font-weight: 400; font-size: 18px">Your order is dispatched thorugh Abhijith (9043960876)</h3>
+        <h3 class="thanks-title" style="color: #34495e; font-weight: 250; font-size: 18px">Your order is dispatched thorugh<br>{{track.response.agentName}} ({{track.response.agentMobile}})</h3>
         <div class="illustration-container">
           <pre-img ratio="_41_22">
             <img class="illustration-image" ng-src="./img/common/bike.gif" spinner-on-load/>
           </pre-img>
-        </div>    
-      </div> 
+        </div>
+      </div>
 
 
       <div ng-if="status == 3">
-        <h3 class="time-title" style="color: #7f8c8d">14 September 2017</h3>
+        <h3 class="time-title" style="color: #7f8c8d">{{track.response.date}}</h3>
 
         <ul class="timeline" id="timeline">
           <li class="li complete">
             <div class="timestamp">
-              <span class="author">03:07 PM</span>
+              <span class="author">{{track.response.timePlace}}</span>
             </div>
             <div class="status">
               <h4>Received</h4>
@@ -133,7 +134,7 @@
           </li>
           <li class="li complete">
             <div class="timestamp">
-              <span class="author">03:09 PM</span>
+              <span class="author">{{track.response.timeConfirm}}</span>
             </div>
             <div class="status">
               <h4>Confirmed</h4>
@@ -141,7 +142,7 @@
           </li>
           <li class="li complete">
             <div class="timestamp">
-              <span class="author">03:21 PM</span>
+              <span class="author">{{track.response.timeDispatch}}</span>
             </div>
             <div class="status">
               <h4>Dispatched</h4>
@@ -149,7 +150,7 @@
           </li>
           <li class="li complete">
             <div class="timestamp">
-              <span class="author">03:53 PM</span>    
+              <span class="author">{{track.response.timeDeliver}}</span>
             </div>
             <div class="status">
               <h4>Completed</h4>
@@ -157,24 +158,19 @@
           </li>
          </ul>
 
-        <h3 class="thanks-title" style="color: #27ae60; font-weight: 400; margin-bottom: 10px">Your Order is Completed</h3>
+        <h3 class="thanks-title" style="color: #27ae60; font-weight: 250; margin-bottom: 10px">Your Order is Completed</h3>
         <div class="illustration-container">
           <pre-img ratio="_41_22">
             <img class="illustration-image" ng-src="./img/common/success.gif" spinner-on-load/>
           </pre-img>
-        </div>    
-      </div>              
+        </div>
+      </div>
 
 
       <div ng-if="status == 5">
-        <h3 class="thanks-title" style="color: #e74c3c; font-weight: 400; margin-top: 30px">This order has been cancelled.</h3>
-        <h3 class="thanks-title" ></h3>      
-      </div>   
-     
-
-
-
-
+        <h3 class="thanks-title" style="color: #e74c3c; font-weight: 250; margin-top: 30px">This order has been cancelled.</h3>
+        <h3 class="thanks-title" ></h3>
+      </div>
 
 
       </div>
