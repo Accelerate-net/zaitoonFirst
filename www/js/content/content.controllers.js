@@ -190,7 +190,8 @@ angular.module('zaitoonFirst.content.controllers', [])
 			            var date = $scope.dateSelected;
 			            var time = $scope.timeSelected;
 
-			            console.log('Creating a table request...');
+
+
 
 			            //CALL HTTP SERVICE
 			            //SHOW A CONFIRMATION PAGE!!
@@ -203,6 +204,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 
 	$scope.info = outlet;
+
 
 	$scope.$on('mapInitialized', function(event, map) {
 		// If we want to access the map in the future

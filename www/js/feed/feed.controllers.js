@@ -52,6 +52,10 @@ angular.module('zaitoonFirst.feed.controllers', [])
          })
         .then(function(response) {
 					$scope.menu = response.data;
+					if($scope.menu.length == 0)
+						$scope.isEmpty = true;
+					else
+						$scope.isEmpty = false;
         });
     }
 
@@ -165,7 +169,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
-			$scope.menu = response.data;
+					$scope.menu = response.data;
+					if($scope.menu.length == 0)
+						$scope.isEmpty = true;
+					else
+						$scope.isEmpty = false;
         });
     }
 
@@ -280,7 +288,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
-			$scope.menu = response.data;
+					$scope.menu = response.data;
+					if($scope.menu.length == 0)
+						$scope.isEmpty = true;
+					else
+						$scope.isEmpty = false;
         });
     }
 
@@ -394,7 +406,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
-			$scope.menu = response.data;
+					$scope.menu = response.data;
+					if($scope.menu.length == 0)
+						$scope.isEmpty = true;
+					else
+						$scope.isEmpty = false;
         });
     }
 
@@ -500,6 +516,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	$http.get('http://www.zaitoon.online/services/fetchdeals.php')
 	.then(function(response){
       	$scope.deals = response.data.response;
+				$scope.isEmpty = !response.data.status;
     });
 
 })

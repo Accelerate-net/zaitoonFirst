@@ -5,20 +5,22 @@
     </div>
     <h1 class="title">Checkout</h1>
   </ion-header-bar>
-  <ion-content has-bouncing="false" class="checkout-content">  
+  <ion-content has-bouncing="false" class="checkout-content">
 
   <div ng-if="checkoutMode == 'takeaway'">
-    <h3 class="checkout-sub-title" style="font-weight: 300; line-height: 1.2; font-size: 16px; text-align: left">We have set the pickup location to the nearest outlet. Change it if you want to.</h3>  
+    <h3 class="checkout-sub-title" style="font-weight: 300; font-size: 14px; text-align: center; padding-bottom: 0px">We have set the pickup location to your nearest outlet. Change it if you want to.</h3>
     <div class="row address-row">
-      <div class="col">
-        <select style="width: 100%; padding: 10px; margin-left: 0px; text-align: center; border-color: #e74c3c;  color: #e74c3c" ng-model="outletSelected" ng-options="outlet.name for outlet in outletList">
-        </select>
+      <!-- Pickup location Chooser -->
+      <div class="address-chooser" ng-click="openOutletPopover($event)" style="width: 100%">
+        <button class="button button-block icon-right addresses-popover-button-forlocation" style="background: #c0392b; color: #FFF; " ng-class="{'ion-chevron-up': city_popover.isShown(), 'ion-chevron-down' : !city_popover.isShown()}">
+          {{data.selected_outlet.name || 'Select Outlet'}}
+        </button>
       </div>
     </div>
   </div>
-    
+
   <div ng-if="checkoutMode == 'delivery'">
-    <h3 class="checkout-sub-title">Delivery Information</h3>  
+    <h3 class="checkout-sub-title">Delivery Information</h3>
     <div class="row address-row">
       <div class="col">
         <div class="address-chooser">
@@ -43,7 +45,7 @@
       <li class="item checkout-product" ng-repeat="product in products track by $index">
         <div class="row">
           <div class="col col-67 col-center">
-            <span class="product-name">{{product.itemName}}<tag ng-if="product.isCustom" style="font-size: 70%; color: #7f8c8d; padding-left: 10px;">({{product.variant}})</tag></span>
+            <span class="product-name">{{product.itemName}}<tag ng-if="product.isCustom" style="font-size: 70%; color: #7f8c8d; padding-left: 3px;">({{product.variant}})</tag></span>
           </div>
           <div class="col col-10 col-center">
             <span class="product-name">x {{product.qty}}</span>

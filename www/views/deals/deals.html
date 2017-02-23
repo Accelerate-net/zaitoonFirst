@@ -15,7 +15,12 @@
         </div>
       </div>
 
-      <div class="card deals-product-container" ng-repeat="deal in deals">
+      <div ng-if="isEmpty" class="padding">
+        <p style="color: #C7C7C7; text-align: center">There are no offers running.</p>
+      </div>
+
+
+      <div ng-if="!isEmpty" class="card deals-product-container" ng-repeat="deal in deals">
 
         <div class="row row-center top-row" ng-if="deal.type=='coupon'">
           <div class="col col-100 shop-col">

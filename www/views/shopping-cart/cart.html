@@ -35,7 +35,7 @@
 
       <div ng-if="orderType == 'delivery'" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
         Minimum order of Rs. 400. Container charges apply.
-      </div>      
+      </div>
 
 <div class="products-in-cart-row">
 
@@ -43,19 +43,27 @@
     <ul class="list checkout-products">
       <li class="item checkout-product" ng-repeat="product in products track by $index">
         <div class="row">
-          
-          <div class="col col-67 col-center">
-            <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span>
-            <span class="product-name item-text-wrap">{{product.itemName}} <tag ng-if="product.isCustom" style="font-size: 70%; color: #7f8c8d; padding-left: 10px;">({{product.variant}})</tag></span>
+
+          <div class="col col-75 col-center">
+            <div class="row">
+              <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span>
+              <span class="product-name item-text-wrap" style="color: #2d2d2d; font-weight: 300">{{product.itemName}}</span>
+            </div>
+            <div class="row">
+              <p style="font-size: 10px; color: #707778; padding-left:18px; padding-top: 3px">Rs {{product.itemPrice}}<tag ng-if="product.isCustom" style="color: #61C68B;"> x {{product.variant}}</tag></p>
+            </div>
           </div>
-          <div class="col col-20 col-center">
-            <span ng-click="lessCount(product)" class="icon ion-ios-minus-outline myMinus"></span>
-            <span class="product-name">{{product.qty}}</span>
-            <span ng-click="addCount(product)" class="icon ion-ios-plus-outline myPlus"></span>
+          <div class="col col-25">
+            <div class="row">
+                  <a ng-click="lessCount(product)" class="button button-small button-outline" style="border-top-right-radius: 0; border-bottom-right-radius: 0; color: #61C68B; border:1px solid #61C68B">-</a>
+                  <a class="button button-small"  style="color: #FFF; background-color:#61C68B; border-radius: 0; ">{{product.qty}}</a>
+                  <a ng-click="addCount(product)" class="button button-small button-outline" style="border-top-left-radius: 0; border-bottom-left-radius: 0; color: #61C68B; border:1px solid #61C68B">+</a>
+              <!-- <span ng-click="lessCount(product)" class="icon ion-ios-minus-outline myMinus"></span>
+              <span class="product-name">{{product.qty}}</span>
+              <span ng-click="addCount(product)" class="icon ion-ios-plus-outline myPlus"></span> -->
+            </div>
           </div>
-          <div class="col col-center">
-            <span class="product-price">Rs {{product.itemPrice}}</span>
-          </div>
+
         </div>
       </li>
     </ul>
@@ -107,7 +115,7 @@
       </ul>
 
 
-      
+
       </div>
     </div>
   </ion-content>

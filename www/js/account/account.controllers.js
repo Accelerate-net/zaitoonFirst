@@ -1,11 +1,16 @@
 angular.module('zaitoonFirst.account.controllers', [])
 
 .controller('ProfileCtrl', function($scope, $rootScope, $http, user, ProfileService, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
-  
+
+  //if not logged in
+  if(_.isUndefined(window.localStorage.user)){
+    $state.go('intro.auth-login');
+  }
+
   //Settings
   $scope.show_new_address_button = false;   //Don't give a provision to add new address here.
 
-  $scope.customer = user; 
+  $scope.customer = user;
 
   $scope.data = {};
   $scope.addressCount = 0;
@@ -24,9 +29,9 @@ angular.module('zaitoonFirst.account.controllers', [])
       i++;
     }
 
-       
 
-          
+
+
   //Edit Profile
   $scope.isEditMode = false;
 
@@ -47,7 +52,7 @@ angular.module('zaitoonFirst.account.controllers', [])
     $scope.customer.email = $scope.temp_email;
 
     document.getElementById("inputProfileName").style.borderBottom="1px dashed #bdc3c7";
-    document.getElementById("inputProfileEmail").style.borderBottom="1px dashed #bdc3c7";    
+    document.getElementById("inputProfileEmail").style.borderBottom="1px dashed #bdc3c7";
 
     $scope.isEditMode = false;
   }
@@ -55,11 +60,11 @@ angular.module('zaitoonFirst.account.controllers', [])
   $scope.saveEdit = function(){
     $scope.isEditMode = false;
     document.getElementById("inputProfileName").style.borderBottom="1px dashed #bdc3c7";
-    document.getElementById("inputProfileEmail").style.borderBottom="1px dashed #bdc3c7"; 
+    document.getElementById("inputProfileEmail").style.borderBottom="1px dashed #bdc3c7";
 
     //Call http request and make the changes in the servers
     ProfileService.updateUserData($scope.customer.name, $scope.customer.email);
-  }  
+  }
 
 
   $ionicPopover.fromTemplateUrl('views/checkout/partials/address-chooser-popover.html', {
@@ -75,7 +80,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 		$scope.addresses_popover.hide();
 	};
 
-  
+
   $scope.logout = function(){
     $ionicActionSheet.show({
       titleText: 'Are you sure you want to logout?',
@@ -101,7 +106,7 @@ angular.module('zaitoonFirst.account.controllers', [])
       buttons: [
         { text: 'Cancel' },
         {
-          text: 'Delete',					
+          text: 'Delete',
 					type: 'delete-button',
           onTap: function(e) {
             var response = ProfileService.deleteSavedAddress(address.id);
@@ -110,14 +115,14 @@ angular.module('zaitoonFirst.account.controllers', [])
               var i = 0;
               while(i < $scope.user_shipping_addresses.length){
                 if(address.id == $scope.user_shipping_addresses[i].id){
-                  $scope.user_shipping_addresses.splice(i, 1);                                    
-                  $scope.addresses_popover.hide();   
+                  $scope.user_shipping_addresses.splice(i, 1);
+                  $scope.addresses_popover.hide();
 
                   $scope.data.selected_address = "";
 
                   if($scope.user_shipping_addresses.length == 0)
-                    $state.reload();                  
- 
+                    $state.reload();
+
                   //Set the default address
                   var i = 0;
                   while(i < $scope.user_shipping_addresses.length){
@@ -126,11 +131,11 @@ angular.module('zaitoonFirst.account.controllers', [])
                       break;
                     }
                     i++;
-                  } 
+                  }
 
                   break;
-                }                
-                i++;                
+                }
+                i++;
               }
 
             }
@@ -159,6 +164,11 @@ angular.module('zaitoonFirst.account.controllers', [])
   $http.get('http://localhost/vega-web-app/online/orderhistory.php?id=0')
   .then(function(response){
         $scope.orders = response.data;
+        if($scope.orders.length == 0)
+          $scope.isEmpty = true;
+        else
+          $scope.isEmpty = false;
+
         $scope.left = 1;
     });
   $scope.limiter=5;
