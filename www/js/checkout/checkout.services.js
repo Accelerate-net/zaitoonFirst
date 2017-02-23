@@ -1,5 +1,19 @@
 angular.module('zaitoonFirst.checkout.services', [])
 
+.service('trackOrderService', function () {
+        var orderid = '10013053';
+
+        return {
+            getOrderID: function () {
+                return orderid;
+            },
+            setOrderID: function(value) {
+                orderid = value;
+            }
+        };
+})
+
+
 .service('CheckoutService', function ($http, $q){
 
   //Type of Order : Delivery OR Take away

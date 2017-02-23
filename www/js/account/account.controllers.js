@@ -159,7 +159,12 @@ angular.module('zaitoonFirst.account.controllers', [])
   };
 })
 
-.controller('OrdersCtrl', function($scope,$http) {
+.controller('OrdersCtrl', function($scope, $http, trackOrderService, $state) {
+
+  $scope.trackMe = function(id){
+    trackOrderService.setOrderID(id);
+    $state.go('main.app.checkout.thanks');
+  }
 
   $http.get('http://localhost/vega-web-app/online/orderhistory.php?id=0')
   .then(function(response){
