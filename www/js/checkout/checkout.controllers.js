@@ -92,7 +92,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   };
 
 	$scope.getSelectedAddress = function() {
-		return CheckoutService.getUserSelectedAddress().street;
+			return CheckoutService.getUserSelectedAddress().flatName;
 	};
 
 	$scope.getSelectedCard = function() {
@@ -124,8 +124,8 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   $scope.validateCoupon = function(promo) {
     $scope.isCouponEntered = true;
     $scope.isCouponApplied = false;
-    promo = promo.replace(/\s/g,'');
-    if(promo == ""){
+
+    if(promo == "" || promo.length < 1){
       $scope.isSuccess = false;
       $scope.promoMessage = "Coupon Code can not be null.";
     }
@@ -162,7 +162,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 })
 
-.controller('CheckoutAddressCtrl', function($scope, $state, $rootScope, $ionicPopover, user_shipping_addresses, $ionicLoading, $ionicPopup, CheckoutService) {
+.controller('CheckoutAddressCtrl', function($scope, $state, $http, $rootScope, $ionicPopover, ProfileService, user_shipping_addresses, $ionicLoading, $ionicPopup, CheckoutService) {
 	$ionicPopover.fromTemplateUrl('views/checkout/partials/address-chooser-popover.html', {
     scope: $scope
   }).then(function(popover) {
@@ -207,6 +207,16 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 	};
 
   $scope.showNewAddressPopup = function() {
+		$scope.address = {};
+		$scope.address.name = "";
+		$scope.address.flatNo="";
+		$scope.address.flatName="";
+		$scope.address.landmark="";
+		$scope.address.area="";
+		$scope.address.contact="";
+
+		$scope.addresses_popover.hide();
+
     var newAddressPopup = $ionicPopup.show({
       cssClass: 'popup-outer new-shipping-address-view',
       templateUrl: 'views/checkout/partials/new-shipping-address-popup.html',
@@ -217,7 +227,32 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         {
           text: 'Add',
           onTap: function(e) {
-            // return $scope.data;
+
+						var data = {};
+						data.token = JSON.parse(window.localStorage.user).token;
+						data.address = $scope.address;
+
+						$http({
+							method  : 'POST',
+							url     : 'http://localhost/vega-web-app/online/newaddress.php',
+							data    : data, //forms user object
+							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+						 })
+						.then(function(response) {
+							if(response.data.status)
+							{
+								$scope.saveSelectedAddress($scope.address);
+								$state.go('main.app.checkout');
+							}
+							else{
+								$ionicLoading.show({
+									template:  '<b style="color: #e74c3c">Error!</b><br>Failed to add address. '+response.data.error,
+									duration: 2000
+								});
+							}
+						});
+
+
           }
         }
       ]
@@ -234,10 +269,11 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   $scope.showEditAddressPopup = function(address) {
 		$scope.address = address;
 
+		$scope.addresses_popover.hide();
     var editAddressPopup = $ionicPopup.show({
       cssClass: 'popup-outer edit-shipping-address-view',
       templateUrl: 'views/checkout/partials/edit-shipping-address-popup.html',
-      title: address.street,
+      title: address.name,
       scope: $scope,
       buttons: [
         { text: 'Close' },
@@ -246,13 +282,65 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 					// type: 'icon-left ion-trash-a delete-button',
 					type: 'delete-button',
           onTap: function(e) {
-            // return $scope.data;
+						var response = ProfileService.deleteSavedAddress(address.id);
+						if(response){
+							//Successfully deleted. Hide from current list of addresses.
+							var i = 0;
+							while(i < $scope.user_shipping_addresses.length){
+								if(address.id == $scope.user_shipping_addresses[i].id){
+									$scope.user_shipping_addresses.splice(i, 1);
+									$scope.addresses_popover.hide();
+
+									$scope.data.selected_address = "";
+
+									if($scope.user_shipping_addresses.length == 0)
+										$state.reload();
+
+									//Set the default address
+									var i = 0;
+									while(i < $scope.user_shipping_addresses.length){
+										if($scope.user_shipping_addresses[i].isDefault){
+											$scope.data.selected_address = $scope.user_shipping_addresses[i];
+											break;
+										}
+										i++;
+									}
+
+									break;
+								}
+								i++;
+							}
+
+						}
           }
         },
         {
-          text: 'Edit',
+          text: 'Save',
           onTap: function(e) {
-            // return $scope.data;
+						var data = {};
+						data.token = JSON.parse(window.localStorage.user).token;
+						data.address = $scope.address;
+						data.id = $scope.address.id;
+
+						$http({
+							method  : 'POST',
+							url     : 'http://localhost/vega-web-app/online/editaddress.php',
+							data    : data, //forms user object
+							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+						 })
+						.then(function(response) {
+							if(response.data.status)
+							{
+								$scope.saveSelectedAddress($scope.address);
+								$state.go('main.app.checkout');
+							}
+							else{
+								$ionicLoading.show({
+									template:  '<b style="color: #e74c3c">Error!</b><br>Failed to add address. '+response.data.error,
+									duration: 2000
+								});
+							}
+						});
           }
         }
       ]

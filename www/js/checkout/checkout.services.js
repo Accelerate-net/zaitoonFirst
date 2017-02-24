@@ -29,7 +29,6 @@ angular.module('zaitoonFirst.checkout.services', [])
               return couponLock;
           },
           setStatus: function(value) {
-              console.log('TOUCH ME');
               couponLock = value;
           },
           getCoupon: function () {
@@ -62,9 +61,20 @@ angular.module('zaitoonFirst.checkout.services', [])
 
   this.getUserShippingAddresses = function(){
     var dfd = $q.defer();
-    $http.get('logged_user_db.json').success(function(database) {
-      dfd.resolve(database.user.shipping_addresses);
+
+    var data = {};
+    data.token = JSON.parse(window.localStorage.user).token;
+
+    $http({
+      method  : 'POST',
+      url     : 'http://localhost/vega-web-app/online/fetchusers.php',
+      data    : data, //forms user object
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+     })
+    .then(function(response) {
+      dfd.resolve(response.data.savedAddresses);
     });
+
     return dfd.promise;
   };
 
