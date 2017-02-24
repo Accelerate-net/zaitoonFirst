@@ -37,17 +37,17 @@
       <div class="col">
         <label class="item item-input promo-item">
           <span class="input-label">COUPON CODE</span>
-          <input type="text" ng-model="promoCode" ng-blur="validateCoupon()">
+          <input type="text" ng-model="promoCode" ng-blur="validateCoupon()" ng-focus="enteringCoupon()">
         </label>
       </div>
     </div>
     <div class="row" style="padding: 10px">
       <div class="col col-80">
-        <p ng-if="isSuccess" style="font-size: 11px; color: #16a085; line-height: 120%">{{promoMessage}}</p>
+        <p ng-if="isSuccess" style="font-size: 11px; color: #27ae60; line-height: 120%">{{promoMessage}}</p>
         <p ng-if="!isSuccess" style="font-size: 11px; color: #e74c3c ; line-height: 120%">{{promoMessage}}</p>
       </div>
       <div class="col col-20">
-        <div class="button button-small button-outline button-balanced" style="float: right" ng-click="validateCoupon(promoCode)">APPLY</div>
+        <div class="button button-small button-outline button-balanced" style="float: right" ng-if="isCouponEntered" ng-click="validateCoupon(promoCode)">APPLY</div>
       </div>
     </div>
 
@@ -85,6 +85,16 @@
           </div>
           <div class="col">
             <span class="bill-item-value">Rs {{ getTax() | number:2 }}</span>
+          </div>
+        </div>
+      </li>
+      <li class="item" ng-if="isCouponApplied">
+        <div class="row">
+          <div class="col">
+            <span class="bill-item-title" style="color: #27ae60">Coupon Discount</span>
+          </div>
+          <div class="col">
+            <span class="bill-item-value" style="color: #27ae60">- Rs {{couponDiscount}}</span>
           </div>
         </div>
       </li>
