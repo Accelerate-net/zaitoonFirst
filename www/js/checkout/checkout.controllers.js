@@ -1,6 +1,11 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function($scope, $state, $http, $rootScope, products, CheckoutService, couponService, $ionicPopover) {
+.controller('CheckoutCtrl', function($scope, $state, $http, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover) {
+
+
+  //OUTLET INFO
+	$scope.outletSelection = outletService.getInfo();
+
 
   //Get the checkout mode TAKEAWAY/DELIVERY
   $scope.checkoutMode = CheckoutService.getCheckoutMode();
@@ -45,7 +50,13 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   };
 
 	$scope.products = products;
-	var tax = 0.07;
+  if($scope.checkoutMode == 'delivery'){
+	   var tax = 0.07;
+  }
+  else{
+    var tax = 0.05;
+  }
+
 
 	$scope.getSubtotal = function() {
 		$scope.subtotal = _.reduce($scope.products, function(memo, product){
@@ -55,14 +66,25 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 		return $scope.subtotal;
 	};
 
-	$scope.getTax = function() {
-		$scope.tax = $scope.subtotal * tax;
-		return $scope.tax;
-	};
 
-	$scope.getTotal = function() {
-		return $scope.subtotal + $scope.tax;
-	};
+  	$scope.getTax = function() {
+  		$scope.tax = $scope.subtotal * $scope.outletSelection['taxPercentage'];
+  		return $scope.tax;
+  	};
+
+  	$scope.getParcel = function() {
+  		if($scope.checkoutMode == 'delivery'){
+  			$scope.parcel = $scope.subtotal * $scope.outletSelection['parcelPercentageDelivery'];
+  		}
+  		else{
+  			$scope.parcel = $scope.subtotal * $scope.outletSelection['parcelPercentagePickup'];
+  		}
+  		return $scope.parcel;
+  	};
+
+  	$scope.getTotal = function() {
+  		return $scope.subtotal + $scope.tax + $scope.parcel;
+  	};
 
 	$scope.cancel = function() {
 		var previous_view = _.last($rootScope.previousView);
