@@ -1,17 +1,26 @@
 angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
-.controller('ShoppingCartCtrl', function($scope, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService, CheckoutService) {
+.controller('ShoppingCartCtrl', function($scope, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService, CheckoutService, outletService) {
+
+	//OUTLET INFO
+	$scope.outletSelection = outletService.getInfo();
 
 	//Take away OR delivery
 	$scope.orderType = CheckoutService.getCheckoutMode();
 
 	$scope.setCheckoutMode = function(mode){
 		CheckoutService.setCheckoutMode(mode);
+		$scope.orderType = mode;
 	}
 
 
 	$scope.products = products;
-	var tax = 0.07;
+	if($scope.orderType == 'delivery'){
+		$scope.taxPercentage = 0.07;
+	}
+	else{
+		$scope.taxPercentage = 0.05;
+	}
 
 	$scope.$on('cart_updated', function(event, cart_products) {
     	$scope.products = cart_products;
@@ -67,12 +76,22 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	};
 
 	$scope.getTax = function() {
-		$scope.tax = $scope.subtotal * tax;
+		$scope.tax = $scope.subtotal * $scope.outletSelection['taxPercentage'];
 		return $scope.tax;
 	};
 
+	$scope.getParcel = function() {
+		if($scope.orderType == 'delivery'){
+			$scope.parcel = $scope.subtotal * $scope.outletSelection['parcelPercentageDelivery'];
+		}
+		else{
+			$scope.parcel = $scope.subtotal * $scope.outletSelection['parcelPercentagePickup'];
+		}
+		return $scope.parcel;
+	};
+
 	$scope.getTotal = function() {
-		return $scope.subtotal + $scope.tax;
+		return $scope.subtotal + $scope.tax + $scope.parcel;
 	};
 })
 

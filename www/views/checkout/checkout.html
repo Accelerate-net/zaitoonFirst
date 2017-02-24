@@ -78,13 +78,24 @@
           </div>
         </div>
       </li>
+      <li class="item" ng-if="outletSelection['isTaxCollected']">
+        <div class="row">
+          <div class="col">
+            <span class="bill-item-title">VAT ({{outletSelection['taxPercentage']*100}}%)</span>
+          </div>
+          <div class="col">
+            <span class="bill-item-value">Rs. {{ getTax() | number:2 }}</span>
+          </div>
+        </div>
+      </li>
       <li class="item">
         <div class="row">
           <div class="col">
-            <span class="bill-item-title">Estimated Taxes</span>
+            <span ng-if="checkoutMode=='delivery'" class="bill-item-title">Parcel Charges ({{outletSelection['parcelPercentageDelivery']*100}}%)</span>
+            <span ng-if="checkoutMode=='takeaway'" class="bill-item-title">Parcel Charges ({{outletSelection['parcelPercentagePickup']*100}}%)</span>
           </div>
           <div class="col">
-            <span class="bill-item-value">Rs {{ getTax() | number:2 }}</span>
+            <span class="bill-item-value">Rs. {{ getParcel() | number:2 }}</span>
           </div>
         </div>
       </li>
@@ -98,23 +109,15 @@
           </div>
         </div>
       </li>
-      <li class="item">
-        <div class="row">
-          <div class="col">
-            <span class="bill-item-title">Container Charges</span>
-          </div>
-          <div class="col">
-            <span class="bill-item-value">FREE</span>
-          </div>
-        </div>
-      </li>
+
       <li class="item bill-total">
         <div class="row">
           <div class="col">
             <span class="bill-item-title">Order Total</span>
           </div>
           <div class="col">
-            <span class="bill-item-value">Rs {{ getTotal() | number:2 }}</span>
+            <span ng-if="!isCouponApplied" class="bill-item-value">Rs {{ getTotal() | number:2 }}</span>
+            <span ng-if="isCouponApplied" class="bill-item-value">Rs {{ getTotal()-couponDiscount | number:2 }}</span>
           </div>
         </div>
       </li>
