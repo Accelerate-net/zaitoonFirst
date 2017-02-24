@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function($scope, $state, $http, $rootScope, products, CheckoutService, $ionicPopover) {
+.controller('CheckoutCtrl', function($scope, $state, $http, $rootScope, products, CheckoutService, couponService, $ionicPopover) {
 
   //Get the checkout mode TAKEAWAY/DELIVERY
   $scope.checkoutMode = CheckoutService.getCheckoutMode();
@@ -78,10 +78,30 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 	};
 
   //Validation of Coupon Code
-  $scope.promoCode = "";
-  $scope.promoMessage = "";
+  /*Check if coupon is already applied and locked*/
+  $scope.isCouponEntered = false;
+
+  if(couponService.getStatus()){
+    $scope.isCouponApplied = true;
+    $scope.couponDiscount = couponService.getDiscount();
+    $scope.promoMessage = "Coupon was applied successfully.";
+    $scope.promoCode = couponService.getCoupon();
+  }
+  else{
+    $scope.isCouponApplied = false;
+    $scope.promoCode = "";
+    $scope.promoMessage = "";
+  }
+
   $scope.isSuccess = true;
+
+  $scope.enteringCoupon = function(){
+    $scope.isCouponEntered = true;
+  }
+
   $scope.validateCoupon = function(promo) {
+    $scope.isCouponEntered = true;
+    $scope.isCouponApplied = false;
     promo = promo.replace(/\s/g,'');
     if(promo == ""){
       $scope.isSuccess = false;
@@ -100,7 +120,15 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       .then(function(response) {
         $scope.isSuccess = response.data.status;
         if(response.data.status){
-          $scope.promoMessage = "Coupon applied successfully! You are eligible for a discount of Rs. "+response.data.discount;
+          $scope.couponDiscount = response.data.discount;
+
+          $scope.isCouponApplied = true;
+          $scope.promoMessage = "Coupon applied successfully. You are eligible for a discount of Rs. "+$scope.couponDiscount;
+
+          //Add a lock to Cart Object.
+          couponService.setStatus(true);
+          couponService.setCoupon(promo);
+          couponService.setDiscount($scope.couponDiscount);
         }
         else{
           $scope.promoMessage = "Failed. "+response.data.error;

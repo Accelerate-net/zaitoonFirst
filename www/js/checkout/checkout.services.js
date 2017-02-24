@@ -1,7 +1,7 @@
 angular.module('zaitoonFirst.checkout.services', [])
 
 .service('trackOrderService', function () {
-        var orderid = '10013053';
+        var orderid = '';
 
         return {
             getOrderID: function () {
@@ -13,6 +13,33 @@ angular.module('zaitoonFirst.checkout.services', [])
         };
 })
 
+.service('couponService', function () {
+        var couponLock = false;
+        var couponApplied = '';
+        var discount = 0;
+
+        return {
+          getDiscount: function () {
+            return discount;
+          },
+          setDiscount: function (value) {
+            discount = value;
+          },
+          getStatus: function () {
+              return couponLock;
+          },
+          setStatus: function(value) {
+              console.log('TOUCH ME');
+              couponLock = value;
+          },
+          getCoupon: function () {
+                return couponApplied;
+          },
+          setCoupon: function(value) {
+              couponApplied = value;
+          }
+        };
+})
 
 .service('CheckoutService', function ($http, $q){
 
