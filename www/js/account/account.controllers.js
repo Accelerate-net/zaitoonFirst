@@ -163,7 +163,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 
   $scope.trackMe = function(id){
     trackOrderService.setOrderID(id);
-    $state.go('main.app.checkout.thanks');
+    $state.go('main.app.checkout.track');
   }
 
   $http.get('http://localhost/vega-web-app/online/orderhistory.php?id=0')

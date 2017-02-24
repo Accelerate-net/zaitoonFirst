@@ -19,7 +19,7 @@
           <h3 class="shipping-address-title">Select Delivery Address</h3>
           <div class="address-chooser" ng-click="openAddressesPopover($event)">
             <button class="button button-block icon-right addresses-popover-button" ng-class="{'ion-chevron-up': addresses_popover.isShown(), 'ion-chevron-down' : !addresses_popover.isShown()}">
-              {{data.selected_address.street || 'Select Address'}}
+              {{data.selected_address.name || 'Choose an Address'}}
             </button>
           </div>
         </div>
@@ -28,33 +28,33 @@
           <div class="row">
             <label class="col item item-input item-stacked-label">
               <span class="input-label">Full Name</span>
-              <p class="input-data">{{data.selected_address.full_name}}</p>
+              <p class="input-data">{{data.selected_address.name}}</p>
             </label>
           </div>
           <div class="row">
             <label class="col col-50 item item-input item-stacked-label">
               <span class="input-label">Flat/House No.</span>
-              <p class="input-data">{{data.selected_address.street}}</p>
+              <p class="input-data">{{data.selected_address.flatNo}}</p>
             </label>
             <label class="col col-50 item item-input item-stacked-label">
               <span class="input-label">House Name</span>
-              <p class="input-data">{{data.selected_address.apt_suite}}</p>
+              <p class="input-data">{{data.selected_address.flatName}}</p>
             </label>
           </div>
           <div class="row">
             <label class="col col-50 item item-input item-stacked-label">
               <span class="input-label">Landmark</span>
-              <p class="input-data">{{data.selected_address.city}}</p>
+              <p class="input-data">{{data.selected_address.landmark}}</p>
             </label>
             <label class="col col-50 item item-input item-stacked-label">
               <span class="input-label">Locality</span>
-              <p class="input-data">{{data.selected_address.state}}</p>
+              <p class="input-data">{{data.selected_address.area}}</p>
             </label>
           </div>
           <div class="row">
             <label class="col item item-input item-stacked-label">
               <span class="input-label">Phone</span>
-              <p class="input-data">{{data.selected_address.phone}}</p>
+              <p class="input-data">{{data.selected_address.contact}}</p>
             </label>
           </div>
         </div>
