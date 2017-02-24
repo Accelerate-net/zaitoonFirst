@@ -50,13 +50,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   };
 
 	$scope.products = products;
-  if($scope.checkoutMode == 'delivery'){
-	   var tax = 0.07;
-  }
-  else{
-    var tax = 0.05;
-  }
-
 
 	$scope.getSubtotal = function() {
 		$scope.subtotal = _.reduce($scope.products, function(memo, product){
@@ -160,6 +153,13 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   };
 
+
+	//Validate and place order
+	$scope.placeOrder = function(){
+		console.log('ORDER PLACED!');
+		$state.go('main.app.checkout.track');
+	};
+
 })
 
 .controller('CheckoutAddressCtrl', function($scope, $state, $http, $rootScope, $ionicPopover, ProfileService, user_shipping_addresses, $ionicLoading, $ionicPopup, CheckoutService) {
@@ -190,7 +190,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 	};
 
 	$scope.openAddressesPopover = function($event){
-		console.log("opening addresses popover");
 		$scope.addresses_popover.show($event);
 	};
 
@@ -346,124 +345,11 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       ]
     });
     editAddressPopup.then(function(res) {
-      if(res)
-      {
-				console.log('hacer algo cuando apreta ADD con los datos llenos')
-      }
+      if(res){}
       else {}
     });
   };
 })
-
-.controller('CheckoutCardCtrl', function($scope, $state, $rootScope, $ionicPopover, user_credit_cards, $ionicLoading, $ionicPopup, CheckoutService) {
-
-	$ionicPopover.fromTemplateUrl('views/checkout/partials/card-chooser-popover.html', {
-    scope: $scope
-  }).then(function(popover) {
-    $scope.cards_popover = popover;
-  });
-
-	$scope.cancel = function() {
-		var previous_view = _.last($rootScope.previousView);
-		$state.go(previous_view.fromState, previous_view.fromParams );
-  };
-
-	$scope.user_credit_cards = user_credit_cards;
-	$scope.data = {};
-	$scope.data.selected_card = {};
-	$scope.show_new_card_button = true;
-
-	$scope.selectCreditCard = function(card){
-		$scope.cards_popover.hide();
-	};
-
-	$scope.saveSelectedCreditCard = function(card){
-		CheckoutService.saveUserSelectedCard(card);
-		$scope.cancel();
-	};
-
-	$scope.openCardsPopover = function($event){
-		console.log("opening cards popover");
-		$scope.cards_popover.show($event);
-	};
-
-	$scope.deleteCreditCard = function(card){
-		//do something and then close popup
-	}
-
-	$scope.addCreditCard = function(card){
-			//do something and then close popup
-	}
-
-	$scope.editCreditCard = function(card){
-			//do something and then close popup
-	}
-
-  $scope.showNewCardPopup = function() {
-    var newCardPopup = $ionicPopup.show({
-      cssClass: 'popup-outer new-card-view',
-      templateUrl: 'views/checkout/partials/new-card-popup.html',
-      title: 'New Card',
-      scope: $scope,
-      buttons: [
-        { text: 'Close' },
-        {
-          text: 'Add',
-          onTap: function(e) {
-            // return $scope.data;
-          }
-        }
-      ]
-    });
-    newCardPopup.then(function(res) {
-      if(res)
-      {
-				console.log('hacer algo cuando apreta ADD con los datos llenos')
-      }
-      else {}
-    });
-  };
-
-  $scope.showEditCardPopup = function(card) {
-		$scope.card = card;
-
-    var editCardPopup = $ionicPopup.show({
-      cssClass: 'popup-outer edit-card-view',
-      templateUrl: 'views/checkout/partials/edit-card-popup.html',
-      title: '**** ' + card.number.slice(-4),
-      scope: $scope,
-      buttons: [
-        { text: 'Close' },
-				{
-          text: 'Delete',
-					// type: 'icon-left ion-trash-a delete-button',
-					type: 'delete-button',
-          onTap: function(e) {
-            // return $scope.data;
-          }
-        },
-        {
-          text: 'Edit',
-          onTap: function(e) {
-            // return $scope.data;
-          }
-        }
-      ]
-    });
-    editCardPopup.then(function(res) {
-      if(res)
-      {
-				console.log('hacer algo cuando apreta ADD con los datos llenos')
-      }
-      else {}
-    });
-  };
-})
-
-.controller('CheckoutPromoCodeCtrl', function($scope) {
-
-})
-
 
 .controller('trackCtrl', function($scope, $http, trackOrderService) {
 

@@ -80,7 +80,7 @@ angular.module('zaitoonFirst', [
     window.plugins.OneSignal
     .startInit("5898aab6-5781-46b0-9eb2-85d6637699ca")
     .handleNotificationOpened(notificationOpenedCallback)
-    .endInit();    
+    .endInit();
 
 
 
@@ -217,7 +217,7 @@ angular.module('zaitoonFirst', [
             }
           })
 
-             
+
               .state('main.app.feed.arabian', {
                 url: '/arabian',
                 views: {
@@ -257,7 +257,7 @@ angular.module('zaitoonFirst', [
                   }
                 }
               })
-              
+
 
                   .state('main.app.outlets', {
                     url: '/content/:outletCode',
@@ -276,7 +276,7 @@ angular.module('zaitoonFirst', [
 
 
 
-                  
+
 
 
 
@@ -294,7 +294,7 @@ angular.module('zaitoonFirst', [
             }
           })
 
-          
+
 
 
           .state('main.app.account', {
@@ -375,39 +375,12 @@ angular.module('zaitoonFirst', [
                   }
                 }
               })
-              // Aca deberiamos resolver un listado de direcciones que el usuario guardo
 
-              .state('main.app.checkout.card', {
-                url: '/card',
+              .state('main.app.checkout.track', {
+                url: '/track',
                 views: {
                   'main-view@main': {
-                    templateUrl: 'views/checkout/card.html',
-                    controller: 'CheckoutCardCtrl'
-                  }
-                },
-                resolve: {
-                  user_credit_cards: function(CheckoutService){
-                    return CheckoutService.getUserCreditCards();
-                  }
-                }
-              })
-              // Aca deberiamos resolver un listado de tarjetas de credito que el usuario guardo
-
-              .state('main.app.checkout.promo-code', {
-                url: '/promo-code',
-                views: {
-                  'main-view@main': {
-                    templateUrl: 'views/checkout/promo-code.html',
-                    controller: 'CheckoutPromoCodeCtrl'
-                  }
-                }
-              })
-
-              .state('main.app.checkout.thanks', {
-                url: '/thanks',
-                views: {
-                  'main-view@main': {
-                    templateUrl: 'views/checkout/thanks.html',
+                    templateUrl: 'views/checkout/track.html',
                     controller: 'trackCtrl'
                   }
                 }
