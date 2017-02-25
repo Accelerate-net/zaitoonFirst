@@ -141,3 +141,18 @@
 	height: 47px;
 	line-height: 47px;
 }
+
+.paymentRadio{
+	.item {
+					border: 1px solid #27ae60;
+					color: #FFF;
+	}
+	.item-radio .item-content {
+	  color: #86BF9F;
+	}
+
+	.item-radio input:checked + .radio-content .item-content {
+			background: #27ae60;
+			color: #FFF;
+	}
+}

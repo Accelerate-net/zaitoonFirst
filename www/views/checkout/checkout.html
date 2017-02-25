@@ -20,7 +20,7 @@
   </div>
 
   <div ng-if="checkoutMode == 'delivery'">
-    <h3 class="checkout-sub-title">Delivery Information</h3>
+    <h3 class="checkout-sub-title" style="font-weight: 250;">Delivery Address</h3>
     <div class="row address-row">
       <div class="col">
         <div class="address-chooser">
@@ -30,9 +30,26 @@
     </div>
   </div>
 
-    <h3 class="checkout-sub-title">Payment Information</h3>
+    <h3 class="checkout-sub-title" style="font-weight: 250;">Payment Information</h3>
+
+    <div class="row paymentRadio" style="padding: 0px 10px" ng-if="onlinePayFlag">
+      <div class="col col-50">
+        <ion-radio ng-model="paychoice" ng-value="'PRE'">Pay Online</ion-radio>
+      </div>
+      <div class="col col-50">
+        <ion-radio ng-model="paychoice" ng-value="'COD'">COD (Cash)</ion-radio>
+      </div>
+    </div>
+
+    <!-- Only COD option available -->
+    <div class="row paymentRadio" style="padding: 0px 10px" ng-if="!onlinePayFlag">
+      <div class="col col-100">
+        <ion-radio ng-model="paychoice" ng-value="'COD'">Cash on Delivery (COD)</ion-radio>
+      </div>
+    </div>
 
 
+    <h3 class="checkout-sub-title" style="font-weight: 250;">Promotional Offers</h3>
     <div class="row promo-code-row">
       <div class="col">
         <label class="item item-input promo-item">

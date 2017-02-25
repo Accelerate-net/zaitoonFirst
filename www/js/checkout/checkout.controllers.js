@@ -153,6 +153,15 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   };
 
+	//Payment Options
+	$scope.onlinePayFlag = $scope.outletSelection['isAcceptingOnlinePayment'];
+	console.log($scope.onlinePayFlag)
+	if($scope.onlinePayFlag)
+		$scope.paychoice = 'PRE';
+	else
+		$scope.paychoice = 'COD';
+
+
 
 	//Validate and place order
 	$scope.placeOrder = function(){

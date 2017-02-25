@@ -17,6 +17,8 @@ angular.module('zaitoonFirst.auth.services', [])
   var city = "CHENNAI";
   var location = "Vijaya Nagar Bus Stand";
 
+  var isAcceptingOnlinePayment = true;
+
   var isTaxCollected = true;
   var taxPercentage = 0.02;
 
@@ -38,7 +40,8 @@ angular.module('zaitoonFirst.auth.services', [])
       "parcelPercentageDelivery": parcelPercentageDelivery,
       "parcelPercentagePickup": parcelPercentagePickup,
       "minTime": minTime,
-      "minAmount": minAmount
+      "minAmount": minAmount,
+      "isAcceptingOnlinePayment": isAcceptingOnlinePayment
     }
     return data;
   }
