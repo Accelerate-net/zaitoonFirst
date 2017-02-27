@@ -1,6 +1,13 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function($scope, $state, $http, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform) {
+.controller('CheckoutCtrl', function($scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform) {
+
+	//User Info
+	$scope.user = "";
+ ProfileService.getUserData()
+ .then(function(response){
+	 $scope.user = response;
+ })
 
 
   //OUTLET INFO
@@ -165,16 +172,16 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 		//RAZORPAY testing...
 		var options = {
-    description: 'Credits towards consultation',
-    image: 'https://i.imgur.com/3g7nmJC.png',
+    description: '#100132',
+    image: './img/common/white_logo_full.png',
     currency: 'INR',
     key: 'rzp_test_1DP5mmOlF5G5ag',
-    amount: '5000',
+    amount: '1000',
     name: 'foo',
     prefill: {
-      email: 'pranav@razorpay.com',
-      contact: '8879524924',
-      name: 'Pranav Gupta'
+      email: $scope.user.email,
+      contact: $scope.user.mobile,
+      name: $scope.user.name
     },
     theme: {
       color: '#F37254'

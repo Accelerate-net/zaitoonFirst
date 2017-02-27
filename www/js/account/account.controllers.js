@@ -6,9 +6,11 @@ angular.module('zaitoonFirst.account.controllers', [])
   //Network Status
 	if(ConnectivityMonitor.isOffline()){
 		$scope.isOfflineFlag = true;
+    $scope.customer = JSON.parse(window.localStorage.user); //display offline content
 	}
 	else{
 		$scope.isOfflineFlag = false;
+    $scope.customer = user; //Fetch user info if online
 	}
 
 
@@ -20,12 +22,6 @@ angular.module('zaitoonFirst.account.controllers', [])
 
   //Settings
   $scope.show_new_address_button = false;   //Don't give a provision to add new address here.
-
-  $scope.customer = user;
-  //Offline Profile Info 
-  if(ConnectivityMonitor.isOffline()){
-		$scope.customer = JSON.parse(window.localStorage.user);
-	}
 
   $scope.data = {};
   $scope.addressCount = 0;
