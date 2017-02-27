@@ -521,8 +521,18 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 
-.controller('DealsCtrl', function($scope, $http, $ionicPopup, $state, OutletService) {
+.controller('DealsCtrl', function(ConnectivityMonitor, $scope, $http, $ionicPopup, $state, OutletService) {
 
+
+	//Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+
+	
 	//Book a Table
 	$scope.showOutlets = function(){
 

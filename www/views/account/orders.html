@@ -2,6 +2,7 @@
   <ion-content>
     <div class="orders-row">
       <div ng-if="isEmpty"><p style="color: #C7C7C7; text-align: center">No orders found.</p></div>
+      <div ng-if="isOfflineFlag" class="padding"><p style="color: #6F6F6F; text-align: center; font-size: 18px;"><i style="color: #FFC300; font-size: 130%" class="icon ion-alert-circled"></i> Not connected to internet.</p></div>
       <div ng-if="isFail"><p style="color: #C7C7C7; text-align: center">{{failMsg}}</p></div>
       <div class="card order-item" ng-repeat="order in orders">
         <div class="item item-divider order-header">
