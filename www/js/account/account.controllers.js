@@ -166,23 +166,50 @@ angular.module('zaitoonFirst.account.controllers', [])
     $state.go('main.app.checkout.track');
   }
 
-  $http.get('http://localhost/vega-web-app/online/orderhistory.php?id=0')
-  .then(function(response){
-        $scope.orders = response.data;
-        if($scope.orders.length == 0)
-          $scope.isEmpty = true;
-        else
-          $scope.isEmpty = false;
 
-        $scope.left = 1;
-    });
-  $scope.limiter=5;
+  var data = {};
+  data.token = JSON.parse(window.localStorage.user).token;
+  data.id = 0;
+
+  $http({
+    method  : 'POST',
+    url     : 'http://localhost/vega-web-app/online/orderhistory.php',
+    data    : data, //forms user object
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+   })
+  .then(function(response) {
+    
+    $scope.orders = response.data.response;
+    $scope.isFail= !response.data.status;
+    $scope.failMsg= response.data.error;
+
+    if($scope.orders.length == 0)
+      $scope.isEmpty = true;
+    else
+      $scope.isEmpty = false;
+
+    $scope.left = 1;
+  });
+
+
+  $scope.limiter = 5;
   $scope.loadMore = function() {
-    $http.get('http://localhost/vega-web-app/online/orderhistory.php?id='+$scope.limiter).then(function(items) {
-      if(items.data.length == 0){
+    var data = {};
+    data.token = JSON.parse(window.localStorage.user).token;
+    data.id = $scope.limiter;
+
+    $http({
+      method  : 'POST',
+      url     : 'http://localhost/vega-web-app/online/orderhistory.php',
+      data    : data, //forms user object
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+     })
+    .then(function(items) {
+
+      if(items.data.response.length == 0){
         $scope.left = 0;
       }
-      $scope.orders = $scope.orders.concat(items.data)
+      $scope.orders = $scope.orders.concat(items.data.response)
 
     //  $scope.feedsList.push(items);
       $scope.limiter+=5;
@@ -190,7 +217,39 @@ angular.module('zaitoonFirst.account.controllers', [])
       //$scope.left = 0;
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
+
   };
+
+
+
+
+  //
+  // $http.get('http://localhost/vega-web-app/online/orderhistory.php?id=0&token='+token)
+  // .then(function(response){
+  //       $scope.orders = response.data.response;
+  //       if($scope.orders.length == 0)
+  //         $scope.isEmpty = true;
+  //       else
+  //         $scope.isEmpty = false;
+  //
+  //       $scope.left = 1;
+  //   });
+  // $scope.limiter=5;
+  // $scope.loadMore = function() {
+  //   $http.get('http://localhost/vega-web-app/online/orderhistory.php?id='+$scope.limiter+'&token='+token)
+  //   .then(function(items) {
+  //     if(items.data.response.length == 0){
+  //       $scope.left = 0;
+  //     }
+  //     $scope.orders = $scope.orders.concat(items.data.response)
+  //
+  //   //  $scope.feedsList.push(items);
+  //     $scope.limiter+=5;
+  //
+  //     //$scope.left = 0;
+  //     $scope.$broadcast('scroll.infiniteScrollComplete');
+  //   });
+  // };
 
 })
 
