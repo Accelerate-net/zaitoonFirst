@@ -1,6 +1,17 @@
 angular.module('zaitoonFirst.account.controllers', [])
 
-.controller('ProfileCtrl', function($scope, $rootScope, $http, user, ProfileService, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
+.controller('ProfileCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, user, ProfileService, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
+
+
+  //Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+
+
 
   //if not logged in
   if(_.isUndefined(window.localStorage.user)){
@@ -11,6 +22,10 @@ angular.module('zaitoonFirst.account.controllers', [])
   $scope.show_new_address_button = false;   //Don't give a provision to add new address here.
 
   $scope.customer = user;
+  //Offline Profile Info 
+  if(ConnectivityMonitor.isOffline()){
+		$scope.customer = JSON.parse(window.localStorage.user);
+	}
 
   $scope.data = {};
   $scope.addressCount = 0;
@@ -159,7 +174,18 @@ angular.module('zaitoonFirst.account.controllers', [])
   };
 })
 
-.controller('OrdersCtrl', function($scope, $http, trackOrderService, $state) {
+.controller('OrdersCtrl', function(ConnectivityMonitor, $scope, $http, trackOrderService, $state) {
+
+
+
+    //Network Status
+  	if(ConnectivityMonitor.isOffline()){
+  		$scope.isOfflineFlag = true;
+  	}
+  	else{
+  		$scope.isOfflineFlag = false;
+  	}
+
 
   $scope.trackMe = function(id){
     trackOrderService.setOrderID(id);
@@ -178,7 +204,7 @@ angular.module('zaitoonFirst.account.controllers', [])
     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
    })
   .then(function(response) {
-    
+
     $scope.orders = response.data.response;
     $scope.isFail= !response.data.status;
     $scope.failMsg= response.data.error;

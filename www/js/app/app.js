@@ -4,6 +4,8 @@ angular.module('underscore', [])
 });
 
 angular.module('zaitoonFirst', [
+  'ngCordova',
+
   'ionic',
   'zaitoonFirst.views',
   'zaitoonFirst.common.controllers',
@@ -58,6 +60,8 @@ angular.module('zaitoonFirst', [
 ])
 
 .run(function($ionicPlatform, amMoment, $rootScope) {
+
+
   $rootScope.previousView = [];
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
