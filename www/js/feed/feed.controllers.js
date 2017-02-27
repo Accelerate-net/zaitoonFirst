@@ -8,7 +8,15 @@ angular.module('zaitoonFirst.feed.controllers', [])
 })
 
 
-.controller('FoodArabianCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodArabianCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+
+	//Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
 
@@ -126,7 +134,17 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodChineseCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodChineseCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+
+
+	//Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
 
@@ -245,7 +263,17 @@ angular.module('zaitoonFirst.feed.controllers', [])
 })
 
 
-.controller('FoodIndianCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodIndianCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+
+
+	//Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
 
@@ -363,7 +391,17 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodDessertCtrl', function($scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodDessertCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+
+
+	//Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
 

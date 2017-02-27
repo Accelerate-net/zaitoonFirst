@@ -31,6 +31,7 @@
     <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
     <div class="products-row">
     <div ng-if="isEmpty" class="padding"><p style="color: #C7C7C7; text-align: center">No items found.</p></div>
+    <div ng-if="isOfflineFlag" class="padding"><p style="color: #9b59b6; text-align: center; font-size: 18px;"><i style="color: #FFC300; font-size: 130%" class="icon ion-alert-circled"></i> Not connected to internet.</p></div>
     <div ng-repeat="maintype in menu track by $index">
       <div ng-repeat="submenu in subs = (maintype.subCategories | searchField : 'product.itemName' | filter:search.query)">
       <h1 class="myMenuSubTitle">{{submenu.subName}}</h1>

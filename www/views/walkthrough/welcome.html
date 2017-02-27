@@ -18,7 +18,8 @@
     <div class="row actions-row" ng-if="isLocationSet">
       <div class="col">
         <a class="button button-block get-started-button" ui-sref="intro.walkthrough-learn()">EXPLORE</a>
-        <a class="button button-block button-clear auth-button" ui-sref="intro.auth-login()">Login</a>
+        <a ng-if="!isLoggedIn" class="button button-block button-clear auth-button" ui-sref="intro.auth-login()">Login</a>
+        <a ng-if="isLoggedIn" class="button button-block button-clear auth-button" ui-sref="main.app.feed.arabian">Continue as <b style="color: #FFC300">{{loggedUser}}</b></a>
       </div>
     </div>
 

@@ -1,10 +1,17 @@
 angular.module('zaitoonFirst.walkthrough.controllers', [])
 
-.controller('TestCtrl', function($scope) {
-
-})
-
 .controller('welcomeCtrl', function($scope, $ionicPopover) {
+
+	//If already logged in?
+	if(!_.isUndefined(window.localStorage.user)){
+		$scope.isLoggedIn = true;
+
+		$scope.loggedUser = JSON.parse(window.localStorage.user).name;
+	}
+	else{
+		$scope.isLoggedIn = false;
+	}
+
 
 	var outlet = !_.isUndefined(window.localStorage.outlet) ? window.localStorage.outlet : "";
 
