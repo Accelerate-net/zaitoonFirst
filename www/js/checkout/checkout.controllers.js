@@ -3,10 +3,10 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 .controller('CheckoutCtrl', function($scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform) {
 
 	//User Info
-	$scope.user = "";
+$rootScope.user = "";
  ProfileService.getUserData()
  .then(function(response){
-	 $scope.user = response;
+	 $rootScope.user = response;
  })
 
 
@@ -177,11 +177,11 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     currency: 'INR',
     key: 'rzp_test_1DP5mmOlF5G5ag',
     amount: '1000',
-    name: 'foo',
+    name: 'Zaitoon First',
     prefill: {
-      email: $scope.user.email,
-      contact: $scope.user.mobile,
-      name: $scope.user.name
+      email: $rootScope.user.email,
+      contact: $rootScope.user.mobile,
+      name: $rootScope.user.name
     },
     theme: {
       color: '#F37254'
