@@ -73,5 +73,14 @@
         </div>
       </div>
     </div>
+
+    <i ng-if="!left"><center><img src=img/common/end.png></center></i>
+    <ion-infinite-scroll
+      immediate-check="false"
+      ng-if="left"
+      on-infinite="loadMore()"
+      distance="1%">
+    </ion-infinite-scroll>
+    
   </ion-content>
 </ion-view>

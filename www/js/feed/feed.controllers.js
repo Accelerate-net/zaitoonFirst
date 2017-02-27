@@ -513,11 +513,37 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	}
 
 
-	$http.get('http://www.zaitoon.online/services/fetchdeals.php')
-	.then(function(response){
-      	$scope.deals = response.data.response;
-				$scope.isEmpty = !response.data.status;
-    });
+	// $http.get('http://www.zaitoon.online/services/fetchdeals.php')
+	// .then(function(response){
+  //     	$scope.deals = response.data.response;
+	// 			$scope.isEmpty = !response.data.status;
+  // });
+
+
+
+
+		$http.get('http://localhost/vega-web-app/online/fetchdeals.php?id=0')
+	  .then(function(response) {
+			$scope.deals = response.data.response;
+			$scope.isEmpty = !response.data.status;
+
+	    $scope.left = 1;
+	  });
+
+
+	  $scope.limiter = 5;
+	  $scope.loadMore = function() {
+			$http.get('http://localhost/vega-web-app/online/fetchdeals.php?id='+$scope.limiter)
+		  .then(function(items) {
+				if(items.data.response.length == 0){
+	        $scope.left = 0;
+	      }
+	      $scope.deals = $scope.deals.concat(items.data.response)
+	      $scope.limiter+=5;
+	      $scope.$broadcast('scroll.infiniteScrollComplete');
+		  });
+	  };
+
 
 })
 
