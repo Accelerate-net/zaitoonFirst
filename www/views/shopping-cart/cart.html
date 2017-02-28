@@ -1,11 +1,11 @@
 <ion-view class="shopping-cart-view" cache-view="false">
   <ion-header-bar class="shopping-cart-header">
     <div class="buttons">
-      <button class="button button-clear close-button" ng-click="close()">Close</button>
+      <button class="button button-clear close-button" ng-click="close()">Back</button>
     </div>
-    <h1 class="title">Food Cart</h1>
+    <h1 class="title"></h1>
     <div class="buttons">
-      <button class="button button-clear checkout-button" ui-sref="main.app.checkout()" ng-show="products.length > 0">Proceed</button>
+      <button class="button button-clear checkout-button" ng-click="goCheckout()" ng-show="products.length > 0">Proceed</button>
     </div>
   </ion-header-bar>
   <ion-content class="shopping-cart-content" has-bouncing="false">
@@ -21,7 +21,7 @@
     </div>
     <div ng-if="products.length > 0">
       <div class="item item-divider shopping-cart-divider">
-        {{ products.length }} {{ products.length === 1 ? 'item' : 'items' }} in Cart
+        <b>{{ products.length }}</b> <tag style="font-weight: 300;">{{ products.length === 1 ? 'item' : 'items' }} in Cart</tag>
       </div>
 
       <div class="button-bar padding">
@@ -49,8 +49,14 @@
               <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span>
               <span class="product-name item-text-wrap" style="color: #2d2d2d; font-weight: 300">{{product.itemName}}</span>
             </div>
+            <div class="row" ng-if="product.isCombo">
+              <p style="font-size: 10px; color: #707778; padding-left:18px; padding-top: 3px"><tag style="color: #8C8C8C;">{{product.combo}}</tag></p>
+            </div>
+            <div class="row" ng-if="product.isCustom">
+              <p style="font-size: 10px; color: #707778; padding-left:18px; padding-top: 3px">Choice: <tag style="color: #61C68B;">{{product.variant}}</tag></p>
+            </div>
             <div class="row">
-              <p style="font-size: 10px; color: #707778; padding-left:18px; padding-top: 3px">Rs {{product.itemPrice}}<tag ng-if="product.isCustom" style="color: #61C68B;"> x {{product.variant}}</tag></p>
+              <p style="font-size: 10px; color: #707778; padding-left:18px; padding-top: 3px">Rs {{product.itemPrice}}</p>
             </div>
           </div>
           <div class="col col-25">

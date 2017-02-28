@@ -88,16 +88,18 @@
 
 .button-bar > .button{
   border: none;
-  color: #F0F0F0;
+  color: #B8B8B8;
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   padding-top: 3px;
 }
-
+//4F4F4F
 .button-positive-zaitoon{
 	background: #2ecc71;
+	.button{
 	color: #FFF;
+	}
 }
 
 .bookTable{

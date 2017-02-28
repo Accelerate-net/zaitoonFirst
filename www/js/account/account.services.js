@@ -15,10 +15,17 @@ angular.module('zaitoonFirst.account.services', [])
       data    : data, //forms user object
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
-    .then(function(respose) {
-        if(respose.data.savedAddresses == null)
-          respose.data.savedAddresses=[];
-        dfd.resolve(respose.data);
+    .then(function(response) {
+        if(response.data.savedAddresses == null)
+          response.data.savedAddresses=[];
+
+          //Update the Offline Cache
+          var temp = {};
+          temp = response.data;
+          temp.token = JSON.parse(window.localStorage.user).token;
+          window.localStorage.user = JSON.stringify(temp);
+
+        dfd.resolve(response.data);
     });
 
     return dfd.promise;
@@ -37,7 +44,13 @@ angular.module('zaitoonFirst.account.services', [])
           data    : data, //forms user object
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
-        .then(function(respose) {
+        .then(function(response) {
+          //Update the Offline Cache
+          var temp = {};
+          temp = JSON.parse(window.localStorage.user);
+          temp.name = data.name;
+          temp.email = data.email;
+          window.localStorage.user = JSON.stringify(temp);
         });
   };
 
@@ -53,7 +66,7 @@ angular.module('zaitoonFirst.account.services', [])
       data    : data, //forms user object
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
-    .then(function(respose) {
+    .then(function(response) {
     });
 
     return true;

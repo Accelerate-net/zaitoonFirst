@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.walkthrough.controllers', [])
 
-.controller('welcomeCtrl', function($scope, $ionicPopover) {
+.controller('welcomeCtrl', function($scope, $state, $ionicPopover) {
 
 	//If already logged in?
 	if(!_.isUndefined(window.localStorage.user)){
@@ -77,6 +77,13 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	};
 
 	$scope.setLocality = function(locality){
+
+		if(window.localStorage.backFlag){
+			window.localStorage.backFlag = [];
+			window.localStorage.outlet = "VELACHERY";
+			$state.go('main.app.checkout');
+		}
+
 		$scope.isLocationSet = true;
 		var temp = {name:locality};
 		$scope.data.selected_locality = temp;
@@ -87,6 +94,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		//2. When User selects a locality, assign the nearest OUTLET. Now hardcoded to "VELACHERY"
 
 		window.localStorage.outlet = "VELACHERY";
+
 	};
 
 })

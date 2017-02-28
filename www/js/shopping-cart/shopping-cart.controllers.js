@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
-.controller('ShoppingCartCtrl', function($scope, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService, CheckoutService, outletService) {
+.controller('ShoppingCartCtrl', function($scope, $ionicLoading, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService, CheckoutService, outletService) {
 
 	//OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
@@ -15,12 +15,6 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 
 	$scope.products = products;
-	if($scope.orderType == 'delivery'){
-		$scope.taxPercentage = 0.07;
-	}
-	else{
-		$scope.taxPercentage = 0.05;
-	}
 
 	$scope.$on('cart_updated', function(event, cart_products) {
     	$scope.products = cart_products;
@@ -93,6 +87,27 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	$scope.getTotal = function() {
 		return $scope.subtotal + $scope.tax + $scope.parcel;
 	};
+
+	//Go to checkout - validate cart total
+	$scope.goCheckout = function(){
+
+		if($scope.orderType == 'delivery'){ //Check for minimum order criteria
+			var total = this.getSubtotal();
+			var min = $scope.outletSelection['minAmount'];
+			if(total >= min){
+				$state.go('main.app.checkout');
+			}
+			else{
+				$ionicLoading.show({
+					template:  '<b style="color: #FFE800; font-size: 160%">Oops!</b><br>The minimum order amount is Rs. '+min,
+					duration: 3000
+				});
+			}
+		}
+		else{
+			$state.go('main.app.checkout');
+		}
+	}
 })
 
 

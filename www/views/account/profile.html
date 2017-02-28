@@ -1,6 +1,6 @@
 <ion-view class="account-profile-view account-sub-view" cache-view="false">
   <ion-content>
-    
+
    <div class="row user-info-row">
       <div class="col col-25">
          <pre-img ratio="_1_1">
@@ -48,7 +48,7 @@
 
 
     </div>
-    <h3 class="account-sub-title" ng-if="addressCount" style="color: #34495e; text-align: left; padding-left: 20px">Default Delivery Address</h3>
+    <h3 class="account-sub-title" ng-if="addressCount" style="color: #34495e; text-align: left; padding-left: 20px">Delivery Addresses</h3>
     <div ng-if="addressCount" class="address-chooser" ng-click="openAddressesPopover($event)">
       <button class="button button-block icon-right addresses-popover-button" ng-class="{'ion-chevron-up': addresses_popover.isShown(), 'ion-chevron-down' : !addresses_popover.isShown()}">
         {{data.selected_address.name || 'Select Address'}}
