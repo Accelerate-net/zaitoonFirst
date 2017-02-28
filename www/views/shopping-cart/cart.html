@@ -3,9 +3,9 @@
     <div class="buttons">
       <button class="button button-clear close-button" ng-click="close()">Close</button>
     </div>
-
+    <h1 class="title"></h1>
     <div class="buttons">
-      <button class="button button-clear checkout-button" ui-sref="main.app.checkout()" ng-show="products.length > 0">Proceed</button>
+      <button class="button button-clear checkout-button" ng-click="goCheckout()" ng-show="products.length > 0">Proceed</button>
     </div>
   </ion-header-bar>
   <ion-content class="shopping-cart-content" has-bouncing="false">
@@ -21,7 +21,7 @@
     </div>
     <div ng-if="products.length > 0">
       <div class="item item-divider shopping-cart-divider">
-        {{ products.length }} {{ products.length === 1 ? 'item' : 'items' }} in Cart
+        <b>{{ products.length }}</b> <tag style="font-weight: 300;">{{ products.length === 1 ? 'item' : 'items' }} in Cart</tag>
       </div>
 
       <div class="button-bar padding">

@@ -5,16 +5,16 @@
 
 	.checkout-products
 	{
-		background-color: $checkout-products-bg;	
+		background-color: $checkout-products-bg;
 		margin: 0px;
-		padding: 10px 5px 0px;		
+		padding: 10px 5px 0px;
 
 		.item.checkout-product
 		{
 			border: none;
 			margin: 0px;
 			padding: 15px 5px;
-			border-bottom: 1px solid $shopping-bill-border;
+			border-bottom: 1px solid #ecf0f1;
 
 
 			&:last-child
@@ -153,8 +153,8 @@
 		  border-left-style: none;
 			margin: 0px;
 			padding: 8px 2px;
-			border-color: $shopping-bill-border;
-			color: $shopping-bill-color;
+			border-color: #ecf0f1;
+			color: #2c3e50;
 
 			&:last-child
 			{
@@ -253,7 +253,7 @@
 				background: $shopping-cart-product-bg;
 				padding: 8px 15px;
 				border: none;
-				border-bottom: 1px solid $shopping-cart-product-footer-bg;
+				border-bottom: 1px solid #ecf0f1;
 				margin-bottom: 0px;
 
 				.row
@@ -424,9 +424,9 @@
 				.mycount
 				{
 					font-size: 14px;
-					color: $shopping-cart-header-dull;	
+					color: $shopping-cart-header-dull;
 					line-height: 15px;
-					font-weight: 300;				
+					font-weight: 300;
 				}
 
 				.order-total
@@ -439,7 +439,7 @@
 				}
 
 
-							
+
 			}
 		}
 	}
