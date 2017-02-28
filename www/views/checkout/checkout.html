@@ -11,7 +11,7 @@
 
     <!-- Confirm the preset location of the user -->
     <div ng-if="checkoutMode == 'delivery'">
-      <h3 class="checkout-sub-title" style="color: #34495e; font-weight: 300; font-size: 14px; text-align: center; padding-bottom: 0px">You have set your location as <b>{{outletSelection['location']}} ({{outletSelection['city']}})</b>. Please ensure that it is accurate before you continue. <tag ng-click="changeLocation()" style="text-decoration: underline">Change My Location</tag></h3>
+      <h3 class="checkout-sub-title" style="color: #BDBDBD; font-weight: 300; font-size: 14px; text-align: center; padding-bottom: 0px">You have set your location as <b>{{outletSelection['location']}} ({{outletSelection['city']}})</b>. Please ensure that it is accurate before you continue. <tag ng-click="changeLocation()" style="text-decoration: underline">Change My Location</tag></h3>
       <div class="row address-row">
       </div>
     </div>
@@ -45,10 +45,10 @@
 
     <div class="row paymentRadio" style="padding: 0px 10px" ng-if="onlinePayFlag">
       <div class="col col-50">
-        <ion-radio ng-model="paychoice" ng-value="'PRE'">Pay Online</ion-radio>
+        <ion-radio ng-model="paychoice" ng-value="'PRE'" ng-click="setPay('PRE')">Pay Online</ion-radio>
       </div>
       <div class="col col-50">
-        <ion-radio ng-model="paychoice" ng-value="'COD'">COD (Cash)</ion-radio>
+        <ion-radio ng-model="paychoice" ng-value="'COD'" ng-click="setPay('COD')">COD (Cash)</ion-radio>
       </div>
     </div>
 

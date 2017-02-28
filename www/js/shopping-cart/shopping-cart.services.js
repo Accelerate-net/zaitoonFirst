@@ -107,7 +107,7 @@ angular.module('zaitoonFirst.shopping-cart.services', [])
     couponService.setStatus(false);
     couponService.setCoupon('');
 
-    
+
     var cart_products = JSON.parse(window.localStorage.zaitoonFirst_cart);
 
     //Check if a customisable item.

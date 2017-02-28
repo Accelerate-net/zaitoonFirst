@@ -21,6 +21,34 @@
         <p style="color: #C7C7C7; text-align: center">There are no offers running.</p>
       </div>
 
+      <div ng-if="!isCombosEmpty" class="card deals-product-container" ng-repeat="combo in combos">
+        <div class="row row-center top-row">
+          <div class="col col-100 shop-col">
+            <button class="button shop-button-combo" style="float: left">
+              COMBO OFFER
+            </button>
+            <button ng-click=addComboToCart(combo) class="button button-small button-outline button-balanced" style="float: right;">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <div class="row" ng-if="combo.isImageAvailable" style="padding-top: 1px">
+          <img width="100%" height="100%" src="{{combo.url}}">
+        </div>
+
+        <div class="row middle-row">
+          <div class="col col-100">
+            <h5 class="product-title">
+              <a class="product-anchor">{{combo.itemName}}</a>
+            </h5>
+            <p class="product-description">
+              {{combo.combo}}
+            </p>
+          </div>
+        </div>
+
+      </div>
 
       <div ng-if="!isEmpty" class="card deals-product-container" ng-repeat="deal in deals">
 
@@ -73,6 +101,8 @@
             </div>
           </div>
         </div>
+
+
       </div>
     </div>
 

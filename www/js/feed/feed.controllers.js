@@ -128,6 +128,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		});
 
 		product.qty = 1;
+		console.log(product)
   	    ShoppingCartService.addProduct(product);
   	};
 
@@ -521,7 +522,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 
-.controller('DealsCtrl', function(ConnectivityMonitor, $scope, $http, $ionicPopup, $state, OutletService) {
+.controller('DealsCtrl', function($ionicLoading, ShoppingCartService, ConnectivityMonitor, $scope, $http, $ionicPopup, $state, OutletService) {
 
 
 	//Network Status
@@ -532,7 +533,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		$scope.isOfflineFlag = false;
 	}
 
-	
+
 	//Book a Table
 	$scope.showOutlets = function(){
 
@@ -566,6 +567,27 @@ angular.module('zaitoonFirst.feed.controllers', [])
   //     	$scope.deals = response.data.response;
 	// 			$scope.isEmpty = !response.data.status;
   // });
+
+
+//Fetch COMBO OFFERS
+$http.get('http://localhost/vega-web-app/online/fetchcombos.php?outlet=VELACHERY')
+.then(function(response) {
+	$scope.combos = response.data.response;
+	$scope.isCombosEmpty = !response.data.status;
+	console.log($scope.itemName)
+});
+
+$scope.addComboToCart = function(combo) {
+	$ionicLoading.show({
+		template:  '<b style="color: #f1c40f">'+combo.itemName+'</b> is added to cart.',
+		duration: 2000
+	});
+
+			combo.qty = 1;
+			console.log(combo)
+			ShoppingCartService.addProduct(combo);
+};
+
 
 
 
