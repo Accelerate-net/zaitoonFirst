@@ -253,7 +253,7 @@
 			border: none;
 			margin: 0px;
 			padding: 5px 2px;
-			border-bottom: 1px solid $shopping-bill-border;
+			border-bottom: 1px solid #ecf0f1;
 
 			&:last-child
 			{
@@ -320,8 +320,8 @@
 		  border-left-style: none;
 			margin: 0px;
 			padding: 15px 2px;
-			border-color: $shopping-bill-border;
-			color: $shopping-bill-color;
+			border-color: #ecf0f1;
+			color: #2c3e50;
 
 			&:last-child
 			{

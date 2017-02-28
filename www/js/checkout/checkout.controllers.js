@@ -3,7 +3,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 .controller('CheckoutCtrl', function($scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform) {
 
 	//User Info
-$rootScope.user = "";
+ $rootScope.user = "";
  ProfileService.getUserData()
  .then(function(response){
 	 $rootScope.user = response;
@@ -12,6 +12,13 @@ $rootScope.user = "";
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
+
+  //Change location
+  $scope.changeLocation = function(){
+    window.localStorage.outlet = [];
+    window.localStorage.backFlag = true;
+    $state.go('intro.walkthrough-welcome');
+  }
 
 
   //Get the checkout mode TAKEAWAY/DELIVERY

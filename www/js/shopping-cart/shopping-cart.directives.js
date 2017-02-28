@@ -37,7 +37,6 @@ angular.module('zaitoonFirst.shopping-cart.directives', [])
         if (newVal === scope.value) {
           element.addClass('button-positive-zaitoon');
           element.css({'color': '#FFF'});
-          console.log(element)
         }
       });
 
