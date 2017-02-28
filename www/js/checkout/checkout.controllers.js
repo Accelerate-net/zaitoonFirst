@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function($scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform) {
+.controller('CheckoutCtrl', function(trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
 
 	//User Info
  $rootScope.user = "";
@@ -139,7 +139,15 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     else{
       //Validate Coupon
       var data = {};
-      data.coupon = "ZAITOONFIRST";
+      data.coupon = promo;
+      data.token = JSON.parse(window.localStorage.user).token;
+
+      //Formatting Cart Object in the service required way
+      var formattedcart = {};
+      formattedcart.cartTotal = this.getSubtotal();
+      formattedcart.cartCoupon = promo;
+      formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
+      data.cart = formattedcart;
       $http({
         method  : 'POST',
         url     : 'http://localhost/vega-web-app/online/validatecoupon.php',
@@ -175,12 +183,16 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 	else
 		$scope.paychoice = 'COD';
 
+  $scope.setPay = function (value) {
+    $scope.paychoice = value;
+  }
+
 
 
 		//RAZORPAY testing...
 		var options = {
     description: '#100132',
-    image: './img/common/white_logo_full.png',
+    image: 'http://www.zaitoon.online/services/images/razorpay.png',
     currency: 'INR',
     key: 'rzp_test_1DP5mmOlF5G5ag',
     amount: '1000',
@@ -191,7 +203,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       name: $rootScope.user.name
     },
     theme: {
-      color: '#F37254'
+      color: '#e74c3c'
     }
   };
 
@@ -211,9 +223,90 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   $ionicPlatform.ready(function(){
     $scope.placeOrder = function() {
-      if (!called) {
-        RazorpayCheckout.open(options, successCallback, cancelCallback);
-        called = true
+      //If PREPAID
+      if($scope.paychoice == 'PRE'){
+        if (!called) {
+          //Step 1 - Create ORDER
+          //Create Order
+          var data = {};
+          data.token = JSON.parse(window.localStorage.user).token;
+          data.comments = "Nothing";
+          data.address = !_.isUndefined(window.localStorage.zaitoonFirst_selected_address)? JSON.parse(window.localStorage.zaitoonFirst_selected_address): [];
+          data.modeOfPayment = $scope.paychoice;
+          data.outlet = window.localStorage.outlet;
+          data.isTakeAway = $scope.checkoutMode =='takeaway'? true: false;
+
+          var formattedcart = {};
+          formattedcart.cartTotal = this.getSubtotal();
+          formattedcart.cartCoupon = $scope.couponDiscount;
+          formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
+          data.cart = formattedcart;
+
+          console.log(data);
+
+          $http({
+            method  : 'POST',
+            url     : 'http://localhost/vega-web-app/online/createorder.php',
+            data    : data, //forms user object
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+           })
+          .then(function(response) {
+            console.log('***********')
+            console.log(response.data);
+            if(!response.data.status){
+              $ionicLoading.show({
+                template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,
+                duration: 3000
+              });
+            }
+          });
+
+
+          //Step 2 - Make Payment
+          RazorpayCheckout.open(options, successCallback, cancelCallback);
+          called = true
+        }
+      }
+      else{ //Cash on Delivery
+        //Create Order
+        var data = {};
+        data.token = JSON.parse(window.localStorage.user).token;
+        data.address = !_.isUndefined(window.localStorage.zaitoonFirst_selected_address)? JSON.parse(window.localStorage.zaitoonFirst_selected_address): [];
+        data.comments = "Nothing";
+        data.modeOfPayment = $scope.paychoice;
+        data.outlet = window.localStorage.outlet;
+        data.isTakeAway = $scope.checkoutMode =='takeaway'? true: false;
+
+        var formattedcart = {};
+        formattedcart.cartTotal = this.getSubtotal();
+        formattedcart.cartCoupon = $scope.couponDiscount;
+        formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
+        data.cart = formattedcart;
+
+        console.log(data);
+
+        $http({
+          method  : 'POST',
+          url     : 'http://localhost/vega-web-app/online/createorder.php',
+          data    : data, //forms user object
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+         })
+        .then(function(response) {
+          console.log('***********')
+          console.log(response.data);
+          if(!response.data.status){
+            $ionicLoading.show({
+              template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,
+              duration: 3000
+            });
+          }
+          else{
+            //Go to track page
+            trackOrderService.setOrderID(response.data.orderid);
+            $state.go('main.app.checkout.track');
+          }
+        });
+
       }
     }
   });

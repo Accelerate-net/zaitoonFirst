@@ -69,6 +69,15 @@
 						@include button-style($deals-shop-button-bg, $deals-shop-button-border, $deals-shop-button-active-bg, $deals-shop-button-active-border, $deals-shop-button-text);
 					}
 
+					.shop-button-combo
+					{
+						min-height: 0px;
+						height: $deals-product-shop-button-height;
+						line-height: $deals-product-shop-button-height - 5px;
+						border-radius: $deals-product-shop-button-height/2;
+						@include button-style(#3498db, #3498db, #2980b9, #2980b9, $deals-shop-button-text); //BLUE
+					}
+
 				}
 			}
 
