@@ -212,12 +212,35 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   var called = false
 
   var successCallback = function(payment_id) {
-    alert('payment_id: ' + payment_id);
+    var data = {};
+    data.token = JSON.parse(window.localStorage.user).token;
+    data.orderID = $scope.orderID;
+    data.transactionID = payment_id;
+
+    $http({
+      method  : 'POST',
+      url     : 'http://localhost/vega-web-app/online/paymentconfirmation.php',
+      data    : data, //forms user object
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+     })
+    .then(function(response) {
+      if(response.data.status){
+        //Go to track page
+        trackOrderService.setOrderID(response.data.orderid);
+        $state.go('main.app.checkout.track');
+      }
+    });
+
     called = false
   };
 
   var cancelCallback = function(error) {
-    alert(error.description + ' (Error ' + error.code + ')');
+
+    $ionicLoading.show({
+      template:  '<b style="color: #e74c3c; font-size: 150%">Error #'+error.code+'</b><br>'+error.description,
+      duration: 3000
+    });
+
     called = false
   };
 
@@ -242,8 +265,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
           formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
           data.cart = formattedcart;
 
-          console.log(data);
-
           $http({
             method  : 'POST',
             url     : 'http://localhost/vega-web-app/online/createorder.php',
@@ -251,13 +272,14 @@ angular.module('zaitoonFirst.checkout.controllers', [])
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
            })
           .then(function(response) {
-            console.log('***********')
-            console.log(response.data);
             if(!response.data.status){
               $ionicLoading.show({
                 template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,
                 duration: 3000
               });
+            }
+            else{
+              $scope.orderID = response.data.orderid;
             }
           });
 
@@ -283,7 +305,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
         data.cart = formattedcart;
 
-        console.log(data);
 
         $http({
           method  : 'POST',
@@ -292,8 +313,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
-          console.log('***********')
-          console.log(response.data);
           if(!response.data.status){
             $ionicLoading.show({
               template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,
