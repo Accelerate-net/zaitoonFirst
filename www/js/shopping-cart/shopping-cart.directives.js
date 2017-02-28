@@ -23,6 +23,7 @@ angular.module('zaitoonFirst.shopping-cart.directives', [])
       value: '=groupedRadio'
     },
     link: function(scope, element, attrs, ngModelCtrl) {
+
       element.addClass('button');
       element.on('click', function(e) {
         scope.$apply(function() {
@@ -32,10 +33,15 @@ angular.module('zaitoonFirst.shopping-cart.directives', [])
 
       scope.$watch('model', function(newVal) {
         element.removeClass('button-positive-zaitoon');
+        element.css({'color': '#B8B8B8'});
         if (newVal === scope.value) {
           element.addClass('button-positive-zaitoon');
+          element.css({'color': '#FFF'});
+          console.log(element)
         }
       });
+
+
     }
   };
 })
