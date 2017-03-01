@@ -1,19 +1,20 @@
 <!-- main.app.feed.fashion -->
 <ion-view class="checkout-thanks-view" id="pageTrack" cache-view="false">
   <ion-header-bar class="shopping-cart-header" style="background: #e74c3c;">
-    <h1 class="title" style="color: #FFF">#{{track.response.orderID}}</h1>
     <div class="buttons">
-      <button class="button button-clear checkout-button" ui-sref="main.app.account.orders()" style="color: #ecf0f1">Back</button>
+      <button class="button button-clear checkout-button" ui-sref="main.app.account.orders()" style="color: #FFF">Back</button>
     </div>
+    <h1 class="title" ng-if="track.status" style="color: #FFF">#{{track.response.orderID}}</h1>
+
   </ion-header-bar>
 
   <ion-content has-bouncing="false" class="checkout-thanks-content">
     <div class="row thanks-row">
       <div class="col">
-      <div class="padding" ng-if="!track.status"><p style="color: #e74c3c; text-align: center">Order Not Found.</p></div>
+      <div class="padding" ng-if="!track.status"><p style="color: #e74c3c; font-size: 18px; text-align: center; margin-top: 50px;">Order Not Found.</p></div>
 
       <div ng-if="status == 0">
-        <h3 class="thanks-title" >Hold on while we confirm your order.</h3>
+        <h3 class="thanks-title" >Your order is placed. Hold on while we confirm your order.</h3>
         <div class="illustration-container">
           <pre-img ratio="_41_22">
             <img class="illustration-image" ng-src="./img/common/waiting.gif" spinner-on-load/>

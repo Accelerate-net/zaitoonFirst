@@ -37,6 +37,12 @@
         Minimum order of Rs. {{outletSelection['minAmount']}}. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and VAT</tag> apply.
       </div>
 
+      <!-- Set Location -->
+      <div ng-if="!isLocationSet" ng-click="changeLocation()" style="color: #f39c12; font-weight: bold; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center;">
+        <i style="font-size: 130%" class="icon ion-alert-circled"></i> <tag style="text-decoration: underline">PLEASE SET YOUR LOCATION</tag>
+      </div>
+
+
 <div class="products-in-cart-row">
 
     <div class="shopping-cart-view">

@@ -5,6 +5,29 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	//OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
 
+	//Check if location, outlet are set: if not ask user to set it.
+	if($scope.outletSelection.outlet == "" || $scope.outletSelection.location == ""){
+		$ionicLoading.show({
+			template:  '<i style="color: #FFE800; font-size: 300%"><i class="icon ion-android-alert"></i></i><br>You have not set your location. Please update it before you checkout.',
+			duration: 4000
+		});
+		$scope.isLocationSet = false;
+	}
+	else{
+		$scope.isLocationSet = true;
+	}
+
+	//Change location
+	$scope.changeLocation = function(){
+		window.localStorage.outlet = "";
+		window.localStorage.location = "";
+		window.localStorage.locationCode = "";
+		window.localStorage.backFlagCart = true;
+		$state.go('intro.walkthrough-welcome');
+	}
+
+
+
 	//Take away OR delivery
 	$scope.orderType = CheckoutService.getCheckoutMode();
 

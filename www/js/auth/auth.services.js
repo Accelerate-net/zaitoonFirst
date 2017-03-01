@@ -13,9 +13,11 @@ angular.module('zaitoonFirst.auth.services', [])
 
 .service('outletService', function ($http, $q){
 
-  var outlet = "VELACHERY";
-  var city = "CHENNAI";
-  var location = "Vijaya Nagar Bus Stand";
+  //Default Parameters
+  var outlet = "";
+  var city = "";
+  var location = "";
+  var locationCode = "";
 
   var isAcceptingOnlinePayment = true;
 
@@ -27,13 +29,29 @@ angular.module('zaitoonFirst.auth.services', [])
   var parcelPercentagePickup = 0.03;
 
   var minAmount = 300;
-  var minTime = 60;
+  var minTime = 45;
+
+  this.setOutletInfo = function(info){
+    outlet = info.outlet;
+    city = info.city;
+    location = info.location;
+    locationCode = info.locationCode;
+    isAcceptingOnlinePayment = info.isAcceptingOnlinePayment;
+    isTaxCollected = info.isTaxCollected;
+    taxPercentage = info.taxPercentage;
+    isParcelCollected = info.isParcelCollected;
+    parcelPercentageDelivery = info.parcelPercentageDelivery;
+    parcelPercentagePickup = info.parcelPercentagePickup;
+    minAmount = info.minAmount;
+    minTime = info.minTime;
+  }
 
   this.getInfo = function(){
     var data = {
       "outlet":outlet,
       "city":city,
       "location":location,
+      "locationCode":locationCode,
       "isTaxCollected": isTaxCollected,
       "taxPercentage": taxPercentage,
       "isParcelCollected":isParcelCollected,
