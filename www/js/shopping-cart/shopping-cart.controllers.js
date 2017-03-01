@@ -4,6 +4,9 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 	//OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
+	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
+	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
+	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
 
 	//Check if location, outlet are set: if not ask user to set it.
 	if($scope.outletSelection.outlet == "" || $scope.outletSelection.location == ""){
@@ -92,6 +95,7 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 		return $scope.subtotal;
 	};
 
+	$scope.tax = 0;
 	$scope.getTax = function() {
 		$scope.tax = $scope.subtotal * $scope.outletSelection['taxPercentage'];
 		return $scope.tax;

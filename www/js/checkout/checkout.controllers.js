@@ -21,6 +21,9 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
+	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
+	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
+	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
 
 
   //Change location
@@ -95,7 +98,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 		return $scope.subtotal;
 	};
 
-
+    $scope.tax = 0;
   	$scope.getTax = function() {
   		$scope.tax = $scope.subtotal * $scope.outletSelection['taxPercentage'];
   		return $scope.tax;

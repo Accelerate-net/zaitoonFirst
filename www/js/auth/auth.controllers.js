@@ -75,11 +75,11 @@ angular.module('zaitoonFirst.auth.controllers', [])
 				$scope.validated = response.data;
 
 				if($scope.validated.status){ //Validate OTP and LOG IN
-					$state.go('main.app.feed.arabian');
 					$scope.error="";
-
 					//Set User Credentials
 					window.localStorage.user = JSON.stringify($scope.validated.response);
+
+					$state.go('main.app.feed.arabian');
 				}else{
 					console.log('ERROR');
 					$scope.error = $scope.validated.error;
@@ -97,7 +97,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 })
 
-.controller('SignupCtrl', function($scope, $state, $ionicLoading, $timeout, $ionicModal) {
+.controller('SignupCtrl', function($scope, $http, $state, $ionicLoading, $timeout, $ionicModal) {
 	$scope.user = {};
 
 	$scope.user.name = "";
@@ -110,11 +110,33 @@ angular.module('zaitoonFirst.auth.controllers', [])
 		var isnum = /^\d+$/.test($scope.user.mobile);
 		var ischar = /^[a-zA-Z ]*$/.test($scope.user.name);
 		var isemail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.user.email);
-		if(ischar && $scope.user.name.length >=6){
+		if(ischar && $scope.user.name.length >=5){
 			if(isnum && $scope.user.mobile.length ==10){ //Validate OTP and LOG IN
-				if(isemail){ //Validate OTP and LOG IN
+				if(isemail){ //Validate OTP and SIGN UP
 					$scope.error="";
-					$scope.signupFlag = true;
+
+					var data = {};
+					data.mobile = $scope.user.mobile;
+
+					$http({
+						method  : 'POST',
+						url     : 'http://localhost/vega-web-app/online/usersignup.php',
+						data    : data, //forms user object
+						headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+					 })
+					.then(function(response) {
+						$scope.main = response.data.response;
+						console.log($scope.main)
+						if($scope.main.isOTPSent){
+							$scope.signupFlag = true;
+							$scope.error="";
+							$scope.otpapi = $scope.main.otp;
+						}else{
+							$scope.error = response.data.error;
+						}
+					});
+
+
 				}else{
 					$scope.error = "Enter a valid email.";
 				}
@@ -125,28 +147,38 @@ angular.module('zaitoonFirst.auth.controllers', [])
 		}
 		else
 		{
-			$scope.error = "Name must be atleast 6 characters.";
+			$scope.error = "Name must be atleast 5 characters.";
 		}
 
-		$ionicLoading.show({
-	      template: 'Loading...'
-	    });
-
-		$timeout(function(){
-			$ionicLoading.hide();
-		}, 800);
 	};
 
 	$scope.doSignUp = function(){
 		var isnum = /^\d+$/.test($scope.user.otp);
 		if(isnum && $scope.user.otp.length == 4){
-			if($scope.user.otp == "1111"){ //Validate OTP and LOG IN
-				$state.go('main.app.feed.arabian');
-      			$ionicLoading.hide();
-				$scope.error="";
-			}else{
-				$scope.error = "Incorrect OTP.";
-			}
+			var data = {};
+			data.mobile = $scope.user.mobile;
+			data.name = $scope.user.name;
+			data.email = $scope.user.email;
+			data.otpapi = $scope.otpapi;
+			data.otpuser = $scope.user.otp;
+
+			$http({
+				method  : 'POST',
+				url     : 'http://localhost/vega-web-app/online/validatesignup.php',
+				data    : data, //forms user object
+				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+			 })
+			.then(function(response) {
+				$scope.main = response.data.response;
+				if(response.data.status){
+					//Set User info
+					window.localStorage.user = JSON.stringify(response.data.response);
+					$state.go('main.app.feed.arabian');
+				}else{
+					$scope.error = response.data.error;
+				}
+			});
+
 		}
 		else
 		{
