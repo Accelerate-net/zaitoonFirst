@@ -12,10 +12,13 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
+  console.log($scope.outletSelection)
 
   //Change location
   $scope.changeLocation = function(){
-    window.localStorage.outlet = [];
+    window.localStorage.outlet = "";
+    window.localStorage.location = "";
+    window.localStorage.locationCode = "";
     window.localStorage.backFlag = true;
     $state.go('intro.walkthrough-welcome');
   }
