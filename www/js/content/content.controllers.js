@@ -173,6 +173,18 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 
 	$scope.bookTable = function(outlet){
+
+		//Check if not logged in
+		if(_.isUndefined(window.localStorage.user)){
+			$ionicLoading.show({
+				template:  'Please login to make a table reservation',
+				duration: 3000
+			});
+			$state.go('intro.auth-login');
+		}
+		else{
+
+
 		$scope.count = 1;
 
 		schedulesPopup = $ionicPopup.show({
@@ -215,6 +227,8 @@ angular.module('zaitoonFirst.content.controllers', [])
 			    }
 			]
 		});
+
+	} //else
 
 	}
 

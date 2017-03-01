@@ -2,7 +2,6 @@ angular.module('zaitoonFirst.account.controllers', [])
 
 .controller('ProfileCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, user, ProfileService, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
 
-
   //Network Status
 	if(ConnectivityMonitor.isOffline()){
 		$scope.isOfflineFlag = true;

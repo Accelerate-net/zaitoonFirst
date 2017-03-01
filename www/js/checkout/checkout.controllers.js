@@ -551,7 +551,16 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   };
 })
 
-.controller('trackCtrl', function($scope, $http, trackOrderService) {
+.controller('trackCtrl', function($scope, $state, $http, $ionicLoading, trackOrderService) {
+
+  //If not logged in (meaning, does not have a token)?
+  if(_.isUndefined(window.localStorage.user)){
+    $ionicLoading.show({
+      template:  'Please login to view this page',
+      duration: 3000
+    });
+    $state.go('intro.auth-login');
+  }
 
   var data = {};
 
@@ -601,7 +610,17 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 })
 
-.controller('feedbackCtrl', function($scope, $rootScope) {
+.controller('feedbackCtrl', function($scope, $state, $rootScope, $ionicLoading) {
+
+  //If not logged in (meaning, does not have a token)?
+  if(_.isUndefined(window.localStorage.user)){
+    $ionicLoading.show({
+      template:  'Please login to view this page',
+      duration: 3000
+    });
+    $state.go('intro.auth-login');
+  }
+
 
   $scope.tag = "";
   $scope.selection = "";
