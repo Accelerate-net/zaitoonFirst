@@ -1,4 +1,4 @@
-<ion-popover-view class="address-chooser-popover" style="background: #FFF;" ng-init="total_items = cities.length + 1" ng-class="{'contains-3-items' : true, 'contains-more-than-6-items' : (total_items > 5)}">
+<ion-popover-view class="address-chooser-popover" style="background: #FFF;" ng-init="total_items = cities.length" ng-class="{'contains-{{total_items}}-items' : true, 'contains-more-than-6-items' : (total_items > 5)}">
 
   <ion-content has-bouncing="false">
     <ion-scroll class="addresses-scroller" direction="y">

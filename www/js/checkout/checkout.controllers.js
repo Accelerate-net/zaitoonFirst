@@ -1,6 +1,15 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function(trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
+.controller('CheckoutCtrl', function($timeout, trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
+
+  //If not logged in (meaning, does not have a token)?
+  if(_.isUndefined(window.localStorage.user)){
+    $ionicLoading.show({
+      template:  'Please login to place an order',
+      duration: 3000
+    });
+    $state.go('intro.auth-login');
+  }
 
 	//User Info
  $rootScope.user = "";
@@ -12,7 +21,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
-  console.log($scope.outletSelection)
+
 
   //Change location
   $scope.changeLocation = function(){
@@ -28,34 +37,44 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   $scope.checkoutMode = CheckoutService.getCheckoutMode();
 
   //Set of Outlets Available
-  $scope.outletList = [
-    {
-      value:"VELACHERY",
-      name:"Velachery, Opp. Grand Mall"
-    },
-    {
-      value:"ADYAR",
-      name:"Adyar, Near Bus Depot"
-    },
-    {
-      value:"ROYAPETTAH",
-      name:"Royapettah, Near EA Mall"
+
+  $http.get('http://localhost/vega-web-app/online/fetchoutletssimple.php?city='+$scope.outletSelection.city)
+  .then(function(response){
+    $scope.outletList = response.data.response;
+
+    //For UI enhancement in popup
+    $scope.outletListSize = Object.keys($scope.outletList).length;
+    console.log(  $scope.outletListSize)
+
+    //Set what to display for the default pickup outlet
+    var default_outlet = window.localStorage.outlet;
+    var i = 0;
+    while (i < Object.keys($scope.outletList).length){
+      if($scope.outletList[0].value == default_outlet){
+        window.localStorage.outletInfo = $scope.outletList[0].name;
+        break;
+      }
     }
-  ];
+  });
 
-  $scope.outletSelected = $scope.outletList[0];
+    //Nearest Oulet
+    var temp_nearest = {};
+    temp_nearest.value = $scope.outletSelection.outlet;
+    temp_nearest.name = window.localStorage.outletInfo;
 
+    //To choose the pick up center
+    $scope.data = {};
+    $scope.data.selected_outlet = temp_nearest;
 
-  //To choose the pick up center
-  $scope.data = {};
-  $scope.data.selected_outlet = $scope.outletList[0];
 
   //Choose Outlet
-  $ionicPopover.fromTemplateUrl('views/checkout/partials/pickup-outlet-chooser-popover.html', {
-    scope: $scope
-  }).then(function(popover) {
-    $scope.outlet_popover = popover;
-  });
+  $timeout(function () { //Time delay is added to give time gap for popup to load!!
+    $ionicPopover.fromTemplateUrl('views/checkout/partials/pickup-outlet-chooser-popover.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.outlet_popover = popover;
+    });
+  }, 1000);
 
   $scope.openOutletPopover = function($event){
     $scope.outlet_popover.show($event);

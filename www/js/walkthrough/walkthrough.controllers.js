@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.walkthrough.controllers', [])
 
-.controller('welcomeCtrl', function($timeout, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicLoading) {
+.controller('welcomeCtrl', function(ConnectivityMonitor, $timeout, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicLoading) {
 
 	//If already logged in?
 	if(!_.isUndefined(window.localStorage.user)){
@@ -9,6 +9,14 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	}
 	else{
 		$scope.isLoggedIn = false;
+	}
+
+	//Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
 	}
 
 
@@ -33,14 +41,24 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	});
 
 	  //Choose City
-	  $ionicPopover.fromTemplateUrl('views/checkout/partials/outlet-chooser-popover.html', {
-	    scope: $scope
-	  }).then(function(popover) {
-	    $scope.city_popover = popover;
-	  });
+		$timeout(function () { //Time delay is added to give time gap for popup to load!!
+		  $ionicPopover.fromTemplateUrl('views/checkout/partials/outlet-chooser-popover.html', {
+		    scope: $scope
+		  }).then(function(popover) {
+		    $scope.city_popover = popover;
+		  });
+		}, 1000);
 
 	$scope.openCityPopover = function($event){
-		$scope.city_popover.show($event);
+		if($scope.isOfflineFlag){
+			$ionicLoading.show({
+				template:  'Please connect to Internet.',
+				duration: 3000
+			});
+		}else{
+			$scope.city_popover.show($event);
+		}
+
 	};
 
 	$scope.setCity = function(city){
@@ -63,18 +81,20 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		var temp_outlet = outletService.getInfo();
 		$http.get('http://localhost/vega-web-app/online/fetchareas.php?city='+temp_outlet.city)
 		.then(function(response){
-			$scope.localities = response.data.response;
+			$scope.localities = response.data.response;					
 		});
 	}
 
 
 
 	  //Choose Locality
-	  $ionicPopover.fromTemplateUrl('views/checkout/partials/location-chooser-popover.html', {
-	    scope: $scope
-	  }).then(function(popover) {
-	    $scope.locality_popover = popover;
-	  });
+		$timeout(function () { //Time delay is added to give time gap for popup to load!!
+		  $ionicPopover.fromTemplateUrl('views/checkout/partials/location-chooser-popover.html', {
+		    scope: $scope
+		  }).then(function(popover) {
+		    $scope.locality_popover = popover;
+		  });
+		}, 1000);
 
  	$scope.openLocalityPopover = function($event){
 		var temp_outlet = outletService.getInfo();
@@ -116,6 +136,8 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		});
 
 		$scope.locality_popover.hide();
+		var temp = {name:locationName};
+		$scope.data.selected_locality = temp;
 
 
 		//Go back to the checkout page (if it was redirected to set location)
@@ -130,8 +152,6 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 			}
 			else{
 				$scope.isLocationSet = true;
-				var temp = {name:locationName};
-				$scope.data.selected_locality = temp;
 			}
 		}, 1000);
 
