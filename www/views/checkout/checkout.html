@@ -22,8 +22,8 @@
     <h3 class="checkout-sub-title" style="font-weight: 300; font-size: 14px; text-align: center; padding-bottom: 0px">We have set the pickup location to your nearest outlet. Change it if you want to.</h3>
     <div class="row address-row">
       <!-- Pickup location Chooser -->
-      <div class="address-chooser" ng-click="openOutletPopover($event)" style="width: 100%">
-        <button class="button button-block icon-right addresses-popover-button-forlocation" style="background: #c0392b; color: #FFF; " ng-class="{'ion-chevron-up': city_popover.isShown(), 'ion-chevron-down' : !city_popover.isShown()}">
+      <div class="address-chooser" ng-click="openOutletPopover($event)" style="width: 100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+        <button class="button button-block icon-right addresses-popover-button-forlocation" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;background: #c0392b; color: #FFF; " ng-class="{'ion-chevron-up': city_popover.isShown(), 'ion-chevron-down' : !city_popover.isShown()}">
           {{data.selected_outlet.name || 'Select Outlet'}}
         </button>
       </div>
