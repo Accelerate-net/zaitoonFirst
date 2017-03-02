@@ -6,12 +6,12 @@
       <div ng-if="isFail"><p style="color: #C7C7C7; text-align: center">{{failMsg}}</p></div>
       <div class="card order-item" ng-repeat="order in orders">
         <div class="item item-divider order-header">
-          <span class="header-title">{{order.date | amDateFormat:'DD MMM, YYYY'}}<jafry style="color:white;float:right">{{order.orderID}}</jafry></span>
+          <span class="header-title">{{order.date | amDateFormat:'DD MMM, YYYY'}}<jafry style="color:white; float:right">#{{order.orderID}}</jafry></span>
         </div>
         <div class="item item-text-wrap order-content">
           <div class="row order-product" ng-repeat="product in order.cart.items track by $index">
             <div class="col col-67 col-center name-col">
-              <span class="product-name">{{product.itemName}}</span>
+              <span class="product-name">{{product.itemName}}<tag ng-if="product.isCustom" style="font-size: 80%"> ({{product.variant}})</tag></span>
             </div>
             <div class="col col-20 col-center">
               <span class="product-qty">x {{product.qty}}</span>

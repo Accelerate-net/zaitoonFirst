@@ -52,6 +52,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner name="bubbles"></ion-spinner>'
+			});
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
@@ -59,6 +64,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
+					$ionicLoading.hide();
+
 					$scope.menu = response.data;
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
@@ -181,6 +188,12 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
+
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner name="bubbles"></ion-spinner>'
+			});
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
@@ -188,6 +201,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
+					$ionicLoading.hide();
+
 					$scope.menu = response.data;
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
@@ -310,6 +325,12 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner name="bubbles"></ion-spinner>'
+			});
+
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
@@ -317,6 +338,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
+					$ionicLoading.hide();
+
 					$scope.menu = response.data;
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
@@ -438,6 +461,13 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
+
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner name="bubbles"></ion-spinner>'
+			});
+
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
@@ -445,6 +475,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
+					$ionicLoading.hide();
+
 					$scope.menu = response.data;
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
