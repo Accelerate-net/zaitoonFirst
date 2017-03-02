@@ -1,10 +1,19 @@
 angular.module('zaitoonFirst.auth.controllers', [])
 
-.controller('LoginCtrl', function($scope, $state, $http, $ionicLoading, $timeout) {
+.controller('LoginCtrl', function(ConnectivityMonitor, $scope, $state, $http, $ionicLoading, $timeout) {
 	//If already logged in?
 	if(!_.isUndefined(window.localStorage.user)){
 		$state.go('main.app.feed.arabian');
 	}
+
+	//Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+	
 
 	$scope.user = {};
 
