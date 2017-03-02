@@ -31,8 +31,10 @@ angular.module('zaitoonFirst.feed.controllers', [])
 			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 		 })
 		.then(function(response) {
-			reviewOrderService.setLatest(response.data.response);
-			$state.go('main.app.checkout.feedback');
+			if(response.data.status){
+				reviewOrderService.setLatest(response.data.response);
+				$state.go('main.app.checkout.feedback');
+			}
 		});
 	}
 
