@@ -194,7 +194,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 
   $http({
     method  : 'POST',
-    url     : 'http://localhost/vega-web-app/online/orderhistory.php',
+    url     : 'http://www.zaitoon.online/services/orderhistory.php',
     data    : data, //forms user object
     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
    })
@@ -221,7 +221,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 
     $http({
       method  : 'POST',
-      url     : 'http://localhost/vega-web-app/online/orderhistory.php',
+      url     : 'http://www.zaitoon.online/services/orderhistory.php',
       data    : data, //forms user object
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
@@ -245,7 +245,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 
 
   //
-  // $http.get('http://localhost/vega-web-app/online/orderhistory.php?id=0&token='+token)
+  // $http.get('http://www.zaitoon.online/services/orderhistory.php?id=0&token='+token)
   // .then(function(response){
   //       $scope.orders = response.data.response;
   //       if($scope.orders.length == 0)
@@ -257,7 +257,7 @@ angular.module('zaitoonFirst.account.controllers', [])
   //   });
   // $scope.limiter=5;
   // $scope.loadMore = function() {
-  //   $http.get('http://localhost/vega-web-app/online/orderhistory.php?id='+$scope.limiter+'&token='+token)
+  //   $http.get('http://www.zaitoon.online/services/orderhistory.php?id='+$scope.limiter+'&token='+token)
   //   .then(function(items) {
   //     if(items.data.response.length == 0){
   //       $scope.left = 0;

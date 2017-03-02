@@ -120,7 +120,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 					$http({
 						method  : 'POST',
-						url     : 'http://localhost/vega-web-app/online/usersignup.php',
+						url     : 'http://www.zaitoon.online/services/usersignup.php',
 						data    : data, //forms user object
 						headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 					 })
@@ -164,7 +164,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 			$http({
 				method  : 'POST',
-				url     : 'http://localhost/vega-web-app/online/validatesignup.php',
+				url     : 'http://www.zaitoon.online/services/validatesignup.php',
 				data    : data, //forms user object
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			 })

@@ -602,7 +602,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 //Fetch COMBO OFFERS
-$http.get('http://localhost/vega-web-app/online/fetchcombos.php?outlet=VELACHERY')
+$http.get('http://www.zaitoon.online/services/fetchcombos.php?outlet=VELACHERY')
 .then(function(response) {
 	$scope.combos = response.data.response;
 	$scope.isCombosEmpty = !response.data.status;
@@ -624,7 +624,7 @@ $scope.addComboToCart = function(combo) {
 
 
 
-		$http.get('http://localhost/vega-web-app/online/fetchdeals.php?id=0')
+		$http.get('http://www.zaitoon.online/services/fetchdeals.php?id=0')
 	  .then(function(response) {
 			$scope.deals = response.data.response;
 			$scope.isEmpty = !response.data.status;
@@ -635,7 +635,7 @@ $scope.addComboToCart = function(combo) {
 
 	  $scope.limiter = 5;
 	  $scope.loadMore = function() {
-			$http.get('http://localhost/vega-web-app/online/fetchdeals.php?id='+$scope.limiter)
+			$http.get('http://www.zaitoon.online/services/fetchdeals.php?id='+$scope.limiter)
 		  .then(function(items) {
 				if(items.data.response.length == 0){
 	        $scope.left = 0;

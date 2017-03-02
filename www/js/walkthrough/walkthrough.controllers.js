@@ -35,7 +35,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 	//Avaialble Cities
 	$scope.data = {};
-	$http.get('http://localhost/vega-web-app/online/fetchcities.php')
+	$http.get('http://www.zaitoon.online/services/fetchcities.php')
 	.then(function(response){
 		$scope.cities = response.data.response;
 	});
@@ -79,7 +79,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	$scope.updateLocations = function(){
 		$scope.search = { query : '' };
 		var temp_outlet = outletService.getInfo();
-		$http.get('http://localhost/vega-web-app/online/fetchareas.php?city='+temp_outlet.city)
+		$http.get('http://www.zaitoon.online/services/fetchareas.php?city='+temp_outlet.city)
 		.then(function(response){
 			$scope.localities = response.data.response;					
 		});
@@ -112,7 +112,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	};
 
 	$scope.setLocality = function(locationCode, locationName){
-		$http.get('http://localhost/vega-web-app/online/fetchoutlets.php?locationCode='+locationCode)
+		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+locationCode)
 		.then(function(response){
 			//Set outlet and location
 			window.localStorage.outlet = response.data.response.outlet;

@@ -41,7 +41,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //Set of Outlets Available
 
-  $http.get('http://localhost/vega-web-app/online/fetchoutletssimple.php?city='+$scope.outletSelection.city)
+  $http.get('http://www.zaitoon.online/services/fetchoutletssimple.php?city='+$scope.outletSelection.city)
   .then(function(response){
     $scope.outletList = response.data.response;
 
@@ -175,7 +175,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       data.cart = formattedcart;
       $http({
         method  : 'POST',
-        url     : 'http://localhost/vega-web-app/online/validatecoupon.php',
+        url     : 'http://www.zaitoon.online/services/validatecoupon.php',
         data    : data, //forms user object
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
        })
@@ -244,7 +244,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
     $http({
       method  : 'POST',
-      url     : 'http://localhost/vega-web-app/online/paymentconfirmation.php',
+      url     : 'http://www.zaitoon.online/services/paymentconfirmation.php',
       data    : data, //forms user object
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
@@ -292,7 +292,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
           $http({
             method  : 'POST',
-            url     : 'http://localhost/vega-web-app/online/createorder.php',
+            url     : 'http://www.zaitoon.online/services/createorder.php',
             data    : data, //forms user object
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
            })
@@ -333,7 +333,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
         $http({
           method  : 'POST',
-          url     : 'http://localhost/vega-web-app/online/createorder.php',
+          url     : 'http://www.zaitoon.online/services/createorder.php',
           data    : data, //forms user object
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
@@ -436,7 +436,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 						$http({
 							method  : 'POST',
-							url     : 'http://localhost/vega-web-app/online/newaddress.php',
+							url     : 'http://www.zaitoon.online/services/newaddress.php',
 							data    : data, //forms user object
 							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 						 })
@@ -526,7 +526,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 						$http({
 							method  : 'POST',
-							url     : 'http://localhost/vega-web-app/online/editaddress.php',
+							url     : 'http://www.zaitoon.online/services/editaddress.php',
 							data    : data, //forms user object
 							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 						 })
@@ -573,7 +573,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   $http({
     method  : 'POST',
-    url     : 'http://localhost/vega-web-app/online/orderinfo.php',
+    url     : 'http://www.zaitoon.online/services/orderinfo.php',
     data    : data, //forms user object
     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
    })
@@ -598,7 +598,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   //Polling to check if payment is done.
   var pollerFunction = $interval(function () {
     console.log('------------ POLLING ...'+$scope.pollCount);
-      $http.get('http://localhost/vega-web-app/online/paymentconfirmation.php')
+      $http.get('http://www.zaitoon.online/services/paymentconfirmation.php')
       .then(function(response){
         $scope.response = response.data;
 
