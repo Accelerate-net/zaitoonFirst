@@ -213,7 +213,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 									$http({
 										method  : 'POST',
-										url     : 'http://localhost/vega-web-app/online/newreservation.php',
+										url     : 'http://www.zaitoon.online/services/newreservation.php',
 										data    : data, //forms user object
 										headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 									 })

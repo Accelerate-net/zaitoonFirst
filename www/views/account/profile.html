@@ -48,16 +48,16 @@
 
 
     </div>
-    <h3 class="account-sub-title" ng-if="addressCount" style="color: #34495e; text-align: left; padding-left: 20px">Delivery Addresses</h3>
+    <h3 class="account-sub-title" ng-if="addressCount" style="color: #34495e; text-align: left; padding-left: 20px;">Manage Saved Addresses</h3>
     <div ng-if="addressCount" class="address-chooser" ng-click="openAddressesPopover($event)">
       <button class="button button-block icon-right addresses-popover-button" ng-class="{'ion-chevron-up': addresses_popover.isShown(), 'ion-chevron-down' : !addresses_popover.isShown()}">
-        {{data.selected_address.name || 'Select Address'}}
+        {{'All Saved Addresses'}}
       </button>
     </div>
 
     <div class="row logout-terms-row">
       <div class="col">
-        <a class="button button-block button-clear logout-button" ng-click="logout()">Logout</a>
+        <a class="button button-block button-clear logout-button" ng-click="logout()">Logout</a>        
       </div>
     </div>
   </ion-content>

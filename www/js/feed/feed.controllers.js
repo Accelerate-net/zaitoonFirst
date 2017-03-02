@@ -52,6 +52,15 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner></ion-spinner>'
+			});
+
+			if(ConnectivityMonitor.isOffline()){
+				$ionicLoading.hide();
+			}
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
@@ -59,6 +68,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
+					$ionicLoading.hide();
+
 					$scope.menu = response.data;
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
@@ -181,6 +192,16 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
+
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner></ion-spinner>'
+			});
+			
+			if(ConnectivityMonitor.isOffline()){
+				$ionicLoading.hide();
+			}
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
@@ -188,6 +209,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
+					$ionicLoading.hide();
+
 					$scope.menu = response.data;
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
@@ -310,6 +333,16 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner></ion-spinner>'
+			});
+
+			if(ConnectivityMonitor.isOffline()){
+				$ionicLoading.hide();
+			}
+
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
@@ -317,6 +350,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
+					$ionicLoading.hide();
+
 					$scope.menu = response.data;
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
@@ -438,6 +473,17 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
+
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner></ion-spinner>'
+			});
+
+			if(ConnectivityMonitor.isOffline()){
+				$ionicLoading.hide();
+			}
+
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
@@ -445,6 +491,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
+					$ionicLoading.hide();
+
 					$scope.menu = response.data;
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
@@ -570,7 +618,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 //Fetch COMBO OFFERS
-$http.get('http://localhost/vega-web-app/online/fetchcombos.php?outlet=VELACHERY')
+$http.get('http://www.zaitoon.online/services/fetchcombos.php?outlet=VELACHERY')
 .then(function(response) {
 	$scope.combos = response.data.response;
 	$scope.isCombosEmpty = !response.data.status;
@@ -592,7 +640,7 @@ $scope.addComboToCart = function(combo) {
 
 
 
-		$http.get('http://localhost/vega-web-app/online/fetchdeals.php?id=0')
+		$http.get('http://www.zaitoon.online/services/fetchdeals.php?id=0')
 	  .then(function(response) {
 			$scope.deals = response.data.response;
 			$scope.isEmpty = !response.data.status;
@@ -603,7 +651,7 @@ $scope.addComboToCart = function(combo) {
 
 	  $scope.limiter = 5;
 	  $scope.loadMore = function() {
-			$http.get('http://localhost/vega-web-app/online/fetchdeals.php?id='+$scope.limiter)
+			$http.get('http://www.zaitoon.online/services/fetchdeals.php?id='+$scope.limiter)
 		  .then(function(items) {
 				if(items.data.response.length == 0){
 	        $scope.left = 0;

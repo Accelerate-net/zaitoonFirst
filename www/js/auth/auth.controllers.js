@@ -1,10 +1,19 @@
 angular.module('zaitoonFirst.auth.controllers', [])
 
-.controller('LoginCtrl', function($scope, $state, $http, $ionicLoading, $timeout) {
+.controller('LoginCtrl', function(ConnectivityMonitor, $scope, $state, $http, $ionicLoading, $timeout) {
 	//If already logged in?
 	if(!_.isUndefined(window.localStorage.user)){
 		$state.go('main.app.feed.arabian');
 	}
+
+	//Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+
 
 	$scope.user = {};
 
@@ -120,7 +129,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 					$http({
 						method  : 'POST',
-						url     : 'http://localhost/vega-web-app/online/usersignup.php',
+						url     : 'http://www.zaitoon.online/services/usersignup.php',
 						data    : data, //forms user object
 						headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 					 })
@@ -164,7 +173,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 			$http({
 				method  : 'POST',
-				url     : 'http://localhost/vega-web-app/online/validatesignup.php',
+				url     : 'http://www.zaitoon.online/services/validatesignup.php',
 				data    : data, //forms user object
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			 })
@@ -233,6 +242,8 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	$scope.showPrivacyPolicy = function(){
 		$scope.privacy_policy_modal.show();
 	};
+
+
 })
 
 .controller('ForgotPasswordCtrl', function($scope, $state, $ionicLoading, $timeout) {

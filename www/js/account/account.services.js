@@ -11,7 +11,7 @@ angular.module('zaitoonFirst.account.services', [])
 
     $http({
       method  : 'POST',
-      url     : 'http://localhost/vega-web-app/online/fetchusers.php',
+      url     : 'http://www.zaitoon.online/services/fetchusers.php',
       data    : data, //forms user object
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
@@ -40,7 +40,7 @@ angular.module('zaitoonFirst.account.services', [])
 
         $http({
           method  : 'POST',
-          url     : 'http://localhost/vega-web-app/online/edituser.php',
+          url     : 'http://www.zaitoon.online/services/edituser.php',
           data    : data, //forms user object
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
@@ -62,7 +62,7 @@ angular.module('zaitoonFirst.account.services', [])
 
     $http({
       method  : 'POST',
-      url     : 'http://localhost/vega-web-app/online/deletesavedaddress.php',
+      url     : 'http://www.zaitoon.online/services/deletesavedaddress.php',
       data    : data, //forms user object
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
