@@ -13,6 +13,20 @@ angular.module('zaitoonFirst.checkout.services', [])
         };
 })
 
+
+.service('reviewOrderService', function () {
+        var orderid = '';
+
+        return {
+            getLatest: function () {
+                return orderid;
+            },
+            setLatest: function(value) {
+                orderid = value;
+            }
+        };
+})
+
 .service('couponService', function () {
         var couponLock = false;
         var couponApplied = '';

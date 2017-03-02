@@ -8,7 +8,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 })
 
 
-.controller('FoodArabianCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodArabianCtrl', function(ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
 
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -17,6 +17,23 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+
+	//Check if feedback is submited for latest completed order
+	var mydata = {};
+	mydata.token = JSON.parse(window.localStorage.user).token;
+
+	$http({
+		method  : 'POST',
+		url     : 'http://www.zaitoon.online/services/getlatestorderid.php',
+		data    : mydata, //forms user object
+		headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+	 })
+	.then(function(response) {
+		reviewOrderService.setLatest(response.data.response);
+		$state.go('main.app.checkout.feedback');
+	});
+
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
 
@@ -197,7 +214,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 			$ionicLoading.show({
 				template:  '<ion-spinner></ion-spinner>'
 			});
-			
+
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
 			}

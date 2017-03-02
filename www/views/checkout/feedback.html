@@ -1,7 +1,7 @@
 <!-- main.app.feed.fashion -->
 <ion-view class="checkout-feedback-view" cache-view="false">
   <ion-header-bar class="checkout-thanks-header">
-    <h1 class="title">Submit Feedback</h1>
+    <h1 class="title">Feedback</h1>
   </ion-header-bar>
   <ion-content has-bouncing="false" class="checkout-thanks-content">
     <div class="row thanks-row" style="margin-top: 50px">
@@ -17,8 +17,8 @@
 
         <div ng-if="selection=='N'" class="card list filter-group">
           <div class="item item-divider">
-            What really went wrong?
-          </div>    
+            Where can we improve?
+          </div>
             <div ng-if="1">
               <ion-list class="tags-filters filter-options-container">
                 <tag-checkbox ng-model="negative_feedback.delivery" title="Delivery Time"></tag-checkbox>
@@ -28,13 +28,13 @@
                 <tag-checkbox ng-model="negative_feedback.app" title="App Experience"></tag-checkbox>
                 <tag-checkbox ng-model="negative_feedback.other" title="Other"></tag-checkbox>
               </ion-list>
-            </div>      
+            </div>
         </div>
 
         <div ng-if="selection=='P'" class="card list filter-group">
           <div class="item item-divider">
             What made it more awesome?
-          </div>    
+          </div>
             <div ng-if="1">
               <ion-list class="tags-filters filter-options-container">
                 <tag-checkbox ng-model="positive_feedback.delivery" title="Quick Delivery"></tag-checkbox>
@@ -44,17 +44,16 @@
                 <tag-checkbox ng-model="positive_feedback.app" title="Cool App"></tag-checkbox>
                 <tag-checkbox ng-model="positive_feedback.other" title="Other"></tag-checkbox>
               </ion-list>
-            </div>      
+            </div>
         </div>
 
         <div style="padding: 10px">
-          <textarea class="feedbackComments" resize: none;
-  ; line-height: 21px;" rows="2" id="commentsBox" placeholder="Any comments?"></textarea>
+          <textarea class="feedbackComments" style="resize: none; line-height: 21px;" rows="2" id="commentsBox" placeholder="Any comments?" ng-model="commentsFeed"></textarea>
           <p id="characterCount" style="float: left; padding: 5px 0px; color: #95a5a6; font-size: 80%"></p>
         </div>
 
         <div class="ok-button-outer">
-          <a class="button button-block ok-button" ui-sref="main.app.feed.fashion">
+          <a class="button button-block ok-button" ng-click="submitFeedback(commentsFeed)">
             Submit
           </a>
         </div>
@@ -62,4 +61,3 @@
     </div>
   </ion-content>
 </ion-view>
- 
