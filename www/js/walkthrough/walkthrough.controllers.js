@@ -46,6 +46,11 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	// }
 
 
+	$scope.logout = function() {
+		window.localStorage.clear();
+		$state.go('intro.auth-login');
+	};
+
 	var outlet = !_.isUndefined(window.localStorage.outlet) ? window.localStorage.outlet : "";
 	var locationCode = !_.isUndefined(window.localStorage.locationCode) ? window.localStorage.locationCode : "";
 

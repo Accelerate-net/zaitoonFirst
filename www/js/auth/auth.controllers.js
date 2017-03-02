@@ -13,7 +13,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	else{
 		$scope.isOfflineFlag = false;
 	}
-	
+
 
 	$scope.user = {};
 
@@ -242,6 +242,8 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	$scope.showPrivacyPolicy = function(){
 		$scope.privacy_policy_modal.show();
 	};
+
+
 })
 
 .controller('ForgotPasswordCtrl', function($scope, $state, $ionicLoading, $timeout) {

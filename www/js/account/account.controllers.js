@@ -91,7 +91,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 	};
 
 
-	$scope.logout = function(product) {
+	$scope.logout = function() {
 		$ionicActionSheet.show({
 			buttons: [
         { text: '<i class="icon ion-log-out assertive"></i> <i class="assertive">Logout</i>' },
