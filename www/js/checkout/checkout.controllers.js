@@ -613,7 +613,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 })
 
-.controller('feedbackCtrl', function($scope, $state, $rootScope, $ionicLoading) {
+.controller('feedbackCtrl', function(reviewOrderService, $scope, $http, $state, $rootScope, $ionicLoading) {
 
   //If not logged in (meaning, does not have a token)?
   if(_.isUndefined(window.localStorage.user)){
@@ -629,6 +629,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   $scope.selection = "";
 
   $scope.fillTill = function(id){
+    $scope.starRating = id;
     //Set a tag which matches the selection
 
     //Less than 5 means, a negative review.
@@ -678,6 +679,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     }
   }
 
+  $scope.commentsFeed = "";
   //Characters Left in the comments
   document.getElementById('commentsBox').onkeyup = function(){
     document.getElementById('characterCount').innerHTML =   (150-(this.value.length))+ ' characters left.';
@@ -695,12 +697,55 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //Positive Feedback
   $rootScope.positive_feedback = {};
-  $rootScope.positive_feedback.quality = true;
+  $rootScope.positive_feedback.quality = false;
   $rootScope.positive_feedback.service = false;
   $rootScope.positive_feedback.delivery = false;
   $rootScope.positive_feedback.food = false;
   $rootScope.positive_feedback.app = false;
   $rootScope.positive_feedback.other = false;
+
+  $scope.submitFeedback = function (comments){
+    if(!$scope.starRating){
+      $ionicLoading.show({
+        template:  'Please rate us to continue!',
+        duration: 2000
+      });
+    }
+    else{
+      if($scope.starRating < 5){
+        var reviewObject = {
+          "rating" : $scope.starRating,
+          "negative" : $rootScope.negative_feedback,
+          "positive" : "",
+          "comment" : comments
+        }
+      }
+      else{
+        var reviewObject = {
+          "rating" : $scope.starRating,
+          "negative" : "",
+          "positive" : $rootScope.positive_feedback,
+          "comment" : comments
+        }
+      }
+      //POST review
+      var data = {};
+      data.token = JSON.parse(window.localStorage.user).token;
+      data.orderID = reviewOrderService.getLatest();
+      data.review = reviewObject;
+
+      $http({
+        method  : 'POST',
+        url     : 'http://www.zaitoon.online/services/postreview.php',
+        data    : data, //forms user object
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+       })
+      .then(function(response) {
+        $state.go('main.app.feed.arabian');
+      });
+
+    }
+  };
 
 })
 
