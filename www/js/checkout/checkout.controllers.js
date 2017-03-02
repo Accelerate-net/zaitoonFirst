@@ -120,7 +120,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 	$scope.cancel = function() {
 		var previous_view = _.last($rootScope.previousView);
-		$state.go(previous_view.fromState, previous_view.fromParams );
+		$state.go(previous_view.fromState, previous_view.fromParams);
   };
 
 	$scope.getSelectedAddress = function() {

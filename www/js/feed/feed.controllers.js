@@ -54,8 +54,12 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 			//LOADING
 			$ionicLoading.show({
-				template:  '<ion-spinner name="bubbles"></ion-spinner>'
+				template:  '<ion-spinner></ion-spinner>'
 			});
+
+			if(ConnectivityMonitor.isOffline()){
+				$ionicLoading.hide();
+			}
 
         $http({
           method  : 'POST',
@@ -191,8 +195,12 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 			//LOADING
 			$ionicLoading.show({
-				template:  '<ion-spinner name="bubbles"></ion-spinner>'
+				template:  '<ion-spinner></ion-spinner>'
 			});
+			
+			if(ConnectivityMonitor.isOffline()){
+				$ionicLoading.hide();
+			}
 
         $http({
           method  : 'POST',
@@ -327,8 +335,12 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 			//LOADING
 			$ionicLoading.show({
-				template:  '<ion-spinner name="bubbles"></ion-spinner>'
+				template:  '<ion-spinner></ion-spinner>'
 			});
+
+			if(ConnectivityMonitor.isOffline()){
+				$ionicLoading.hide();
+			}
 
 
         $http({
@@ -464,8 +476,12 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 			//LOADING
 			$ionicLoading.show({
-				template:  '<ion-spinner name="bubbles"></ion-spinner>'
+				template:  '<ion-spinner></ion-spinner>'
 			});
+
+			if(ConnectivityMonitor.isOffline()){
+				$ionicLoading.hide();
+			}
 
 
         $http({

@@ -1,23 +1,49 @@
 angular.module('zaitoonFirst.walkthrough.controllers', [])
 
-.controller('welcomeCtrl', function(ConnectivityMonitor, $timeout, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicLoading) {
+.controller('welcomeCtrl', function($timeout, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicLoading) {
 
 	//If already logged in?
 	if(!_.isUndefined(window.localStorage.user)){
 		$scope.isLoggedIn = true;
 		$scope.loggedUser = JSON.parse(window.localStorage.user).name;
+
+		if(!_.isUndefined(window.localStorage.locationCode)){
+			$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+window.localStorage.locationCode)
+			.then(function(response){
+				//Set outlet and location
+				window.localStorage.outlet = response.data.response.outlet;
+				window.localStorage.location = response.data.response.location;
+				window.localStorage.locationCode = response.data.response.locationCode;
+
+				var info = {};
+				info.outlet = response.data.response.outlet;
+		    info.city = response.data.response.city;
+		    info.location = response.data.response.location;
+				info.locationCode = response.data.response.locationCode;
+		    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+		    info.isTaxCollected = response.data.response.isTaxCollected;
+		    info.taxPercentage = response.data.response.taxPercentage;
+		    info.isParcelCollected = response.data.response.isParcelCollected;
+		    info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
+		    info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
+		    info.minAmount = response.data.response.minAmount;
+		    info.minTime = response.data.response.minTime;
+				outletService.setOutletInfo(info);
+			});
+			console.log('LOCATION SET');
+		}
 	}
 	else{
 		$scope.isLoggedIn = false;
 	}
 
 	//Network Status
-	if(ConnectivityMonitor.isOffline()){
-		$scope.isOfflineFlag = true;
-	}
-	else{
-		$scope.isOfflineFlag = false;
-	}
+	// if(ConnectivityMonitor.isOffline()){
+	// 	$scope.isOfflineFlag = true;
+	// }
+	// else{
+	// 	$scope.isOfflineFlag = false;
+	// }
 
 
 	var outlet = !_.isUndefined(window.localStorage.outlet) ? window.localStorage.outlet : "";
@@ -81,7 +107,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		var temp_outlet = outletService.getInfo();
 		$http.get('http://www.zaitoon.online/services/fetchareas.php?city='+temp_outlet.city)
 		.then(function(response){
-			$scope.localities = response.data.response;					
+			$scope.localities = response.data.response;
 		});
 	}
 
@@ -111,7 +137,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 	};
 
-	$scope.setLocality = function(locationCode, locationName){
+	$rootScope.setLocality = function(locationCode, locationName){
 		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+locationCode)
 		.then(function(response){
 			//Set outlet and location

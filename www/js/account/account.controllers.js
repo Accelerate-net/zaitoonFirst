@@ -91,19 +91,23 @@ angular.module('zaitoonFirst.account.controllers', [])
 	};
 
 
-  $scope.logout = function(){
-    $ionicActionSheet.show({
-      titleText: 'Are you sure you want to logout?',
-      destructiveText: 'Logout',
-      cancelText: 'Cancel',
-      cancel: function() {
+	$scope.logout = function(product) {
+		$ionicActionSheet.show({
+			buttons: [
+        { text: '<i class="icon ion-log-out assertive"></i> <i class="assertive">Logout</i>' },
+        { text: '<i class="icon"></i> <i class="dark">Cancel</i>' },
+      ],
+			titleText: 'Are you sure you want to logout?',
+			buttonClicked: function(index) {
+				if(index == 0){
+					window.localStorage.clear();
+					$state.go('intro.auth-login');
+				}
         return true;
       },
-      destructiveButtonClicked: function() {
-        $state.go('intro.auth-login');
-      }
-    });
-  };
+		});
+	};
+
 
   $scope.showEditAddressPopup = function(address) {
 		$scope.address = address;
