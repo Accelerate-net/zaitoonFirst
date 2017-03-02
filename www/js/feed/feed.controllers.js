@@ -20,19 +20,21 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 	//Check if feedback is submited for latest completed order
-	var mydata = {};
-	mydata.token = JSON.parse(window.localStorage.user).token;
+	if(!_.isUndefined(window.localStorage.user)){
+		var mydata = {};
+		mydata.token = JSON.parse(window.localStorage.user).token;
 
-	$http({
-		method  : 'POST',
-		url     : 'http://www.zaitoon.online/services/getlatestorderid.php',
-		data    : mydata, //forms user object
-		headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-	 })
-	.then(function(response) {
-		reviewOrderService.setLatest(response.data.response);
-		$state.go('main.app.checkout.feedback');
-	});
+		$http({
+			method  : 'POST',
+			url     : 'http://www.zaitoon.online/services/getlatestorderid.php',
+			data    : mydata, //forms user object
+			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+		 })
+		.then(function(response) {
+			reviewOrderService.setLatest(response.data.response);
+			$state.go('main.app.checkout.feedback');
+		});
+	}
 
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
