@@ -570,7 +570,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   //REMOVE this token/orderid hard codes
   data.token = JSON.parse(window.localStorage.user).token;
   data.orderID = trackOrderService.getOrderID();
-  console.log(data.orderID);
 
   $http({
     method  : 'POST',
@@ -582,6 +581,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $scope.track = response.data;
     console.log($scope.track.response);
     $scope.status = $scope.track.response.status;
+    $scope.isTakeAway = $scope.track.response.isTakeaway;
   });
 
 })
