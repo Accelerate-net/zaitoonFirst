@@ -53,7 +53,8 @@
                 <span class="author"> - </span>
               </div>
               <div class="status">
-                <h4>Dispatched</h4>
+                <h4 ng-if="!isTakeAway">Dispatched</h4>
+                <h4 ng-if="isTakeAway">Ready</h4>
               </div>
             </li>
             <li class="li">
@@ -99,7 +100,8 @@
               <span class="author">{{track.response.timeDispatch}}</span>
             </div>
             <div class="status">
-              <h4>Dispatched</h4>
+              <h4 ng-if="!isTakeAway">Dispatched</h4>
+              <h4 ng-if="isTakeAway">Ready</h4>
             </div>
           </li>
           <li class="li">
@@ -112,10 +114,12 @@
           </li>
          </ul>
 
-        <h3 class="thanks-title" style="color: #34495e; font-weight: 250; font-size: 18px">Your order is dispatched thorugh<br>{{track.response.agentName}} ({{track.response.agentMobile}})</h3>
+        <h3 class="thanks-title" ng-if="!isTakeAway" style="color: #34495e; font-weight: 250; font-size: 18px">Your order is dispatched thorugh<br>{{track.response.agentName}} ({{track.response.agentMobile}})</h3>
+        <h3 class="thanks-title" ng-if="isTakeAway" style="color: #34495e; font-weight: 250; font-size: 18px">Your order is ready for pickup!</h3>
         <div class="illustration-container">
           <pre-img ratio="_41_22">
-            <img class="illustration-image" ng-src="./img/common/bike.gif" spinner-on-load/>
+            <img ng-if="!isTakeAway" class="illustration-image" ng-src="./img/common/bike.gif" spinner-on-load/>
+            <img ng-if="isTakeAway" class="illustration-image" ng-src="./img/common/box.jpg" spinner-on-load/>
           </pre-img>
         </div>
       </div>
@@ -146,7 +150,8 @@
               <span class="author">{{track.response.timeDispatch}}</span>
             </div>
             <div class="status">
-              <h4>Dispatched</h4>
+              <h4 ng-if="!isTakeAway">Dispatched</h4>
+              <h4 ng-if="isTakeAway">Ready</h4>
             </div>
           </li>
           <li class="li complete">
