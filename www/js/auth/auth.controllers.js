@@ -73,6 +73,14 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 	$scope.doLogIn = function(){
 
+		if($scope.isOfflineFlag)
+		{
+			$ionicLoading.show({
+				template:  'Please connect to Internet',
+				duration: 2000
+			});
+		}
+
 		$scope.error="";
 
 		var isnum = /^\d+$/.test($scope.user.otp);
@@ -190,6 +198,15 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	};
 
 	$scope.doSignUp = function(){
+
+		if($scope.isOfflineFlag)
+		{
+			$ionicLoading.show({
+				template:  'Please connect to Internet',
+				duration: 2000
+			});
+		}
+
 		var isnum = /^\d+$/.test($scope.user.otp);
 		if(isnum && $scope.user.otp.length == 4){
 			var data = {};
