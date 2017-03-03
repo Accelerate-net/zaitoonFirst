@@ -9,7 +9,7 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
 
 	//Check if location, outlet are set: if not ask user to set it.
-	if($scope.outletSelection.outlet == "" || $scope.outletSelection.location == ""){
+	if($scope.outletSelection.outlet == "" || $scope.outletSelection.location == "" || _.isUndefined(window.localStorage.locationCode)){
 		$ionicLoading.show({
 			template:  '<i style="color: #FFE800; font-size: 300%"><i class="icon ion-android-alert"></i></i><br>You have not set your location. Please update it before you checkout.',
 			duration: 4000
@@ -117,23 +117,32 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 	//Go to checkout - validate cart total
 	$scope.goCheckout = function(){
-
-		if($scope.orderType == 'delivery'){ //Check for minimum order criteria
-			var total = this.getSubtotal();
-			var min = $scope.outletSelection['minAmount'];
-			if(total >= min){
-				$state.go('main.app.checkout');
-			}
-			else{
-				$ionicLoading.show({
-					template:  '<b style="color: #FFE800; font-size: 160%">Oops!</b><br>The minimum order amount is Rs. '+min,
-					duration: 3000
-				});
-			}
+		console.log('GO TO CHECKOUT');
+		if(_.isUndefined(window.localStorage.locationCode)){
+			$ionicLoading.show({
+				template:  'Please set your location to Proceed',
+				duration: 2000
+			});
 		}
 		else{
-			$state.go('main.app.checkout');
+			if($scope.orderType == 'delivery'){ //Check for minimum order criteria
+				var total = this.getSubtotal();
+				var min = $scope.outletSelection['minAmount'];
+				if(total >= min){
+					$state.go('main.app.checkout');
+				}
+				else{
+					$ionicLoading.show({
+						template:  '<b style="color: #FFE800; font-size: 160%">Oops!</b><br>The minimum order amount is Rs. '+min,
+						duration: 3000
+					});
+				}
+			}
+			else{
+				$state.go('main.app.checkout');
+			}
 		}
+
 	}
 })
 

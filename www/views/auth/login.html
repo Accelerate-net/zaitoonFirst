@@ -33,7 +33,6 @@
 
           </div>
           <p ng-show="error" class="message error">{{error}}</p>
-          <p ng-if="isOfflineFlag">PLEASE CONNECT TO INTERNET</p>
           <button type="submit" ng-if="!otpFlag" class="button button-block auth-action-button" ng-click="validateNumber()" ng-disabled="login_form.$invalid">
             Proceed
           </button>

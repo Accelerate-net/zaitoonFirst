@@ -8,7 +8,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 })
 
 
-.controller('FoodArabianCtrl', function(ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodArabianCtrl', function(outletService, ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
 
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -16,6 +16,32 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	}
 	else{
 		$scope.isOfflineFlag = false;
+	}
+
+	//Check if location code is set in localStorage and update it
+	if(!_.isUndefined(window.localStorage.locationCode)){
+		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+window.localStorage.locationCode)
+		.then(function(response){
+			//Set outlet and location
+			window.localStorage.outlet = response.data.response.outlet;
+			window.localStorage.location = response.data.response.location;
+			window.localStorage.locationCode = response.data.response.locationCode;
+
+			var info = {};
+			info.outlet = response.data.response.outlet;
+			info.city = response.data.response.city;
+			info.location = response.data.response.location;
+			info.locationCode = response.data.response.locationCode;
+			info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+			info.isTaxCollected = response.data.response.isTaxCollected;
+			info.taxPercentage = response.data.response.taxPercentage;
+			info.isParcelCollected = response.data.response.isParcelCollected;
+			info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
+			info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
+			info.minAmount = response.data.response.minAmount;
+			info.minTime = response.data.response.minTime;
+			outletService.setOutletInfo(info);
+		});
 	}
 
 
