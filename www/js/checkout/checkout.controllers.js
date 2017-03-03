@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function($timeout, trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
+.controller('CheckoutCtrl', function(ConnectivityMonitor, $timeout, trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
 
   //If not logged in (meaning, does not have a token)?
   if(_.isUndefined(window.localStorage.user)){
@@ -9,6 +9,18 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       duration: 3000
     });
     $state.go('intro.auth-login');
+  }
+
+  //Network Status
+  if(ConnectivityMonitor.isOffline()){
+    $scope.isOfflineFlag = true;
+    $ionicLoading.show({
+      template:  'Please connect to Internet',
+      duration: 3000
+    });
+  }
+  else{
+    $scope.isOfflineFlag = false;
   }
 
 	//User Info
@@ -271,6 +283,12 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   $ionicPlatform.ready(function(){
     $scope.placeOrder = function() {
+      if($scope.isOfflineFlag){
+        $ionicLoading.show({
+          template:  'Please connect to Internet',
+          duration: 2000
+        });
+      }
       //If PREPAID
       if($scope.paychoice == 'PRE'){
         if (!called) {
@@ -728,6 +746,11 @@ angular.module('zaitoonFirst.checkout.controllers', [])
           "comment" : comments
         }
       }
+
+      $ionicLoading.show({
+        template:  '<ion-spinner></ion-spinner>'
+      });
+
       //POST review
       var data = {};
       data.token = JSON.parse(window.localStorage.user).token;
@@ -741,6 +764,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
        })
       .then(function(response) {
+        $ionicLoading.hide();
         $state.go('main.app.feed.arabian');
       });
 

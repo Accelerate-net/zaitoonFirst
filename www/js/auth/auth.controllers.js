@@ -32,6 +32,14 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 	$scope.validateNumber = function(){
 
+		if($scope.isOfflineFlag)
+		{
+			$ionicLoading.show({
+				template:  'Please connect to Internet',
+				duration: 2000
+			});
+		}
+
 		var isnum = /^\d+$/.test($scope.user.mobile);
 		if(isnum && $scope.user.mobile.length == 10){
 
@@ -106,7 +114,18 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 })
 
-.controller('SignupCtrl', function($scope, $http, $state, $ionicLoading, $timeout, $ionicModal) {
+.controller('SignupCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading, $timeout, $ionicModal) {
+
+
+		//Network Status
+		if(ConnectivityMonitor.isOffline()){
+			$scope.isOfflineFlag = true;
+		}
+		else{
+			$scope.isOfflineFlag = false;
+		}
+
+
 	$scope.user = {};
 
 	$scope.user.name = "";
@@ -115,6 +134,15 @@ angular.module('zaitoonFirst.auth.controllers', [])
 	$scope.signupFlag = false;
 
 	$scope.validateSignUp = function(){
+
+		if($scope.isOfflineFlag)
+		{
+			$ionicLoading.show({
+				template:  'Please connect to Internet',
+				duration: 2000
+			});
+		}
+
 		//Validate, Create an account and login.
 		var isnum = /^\d+$/.test($scope.user.mobile);
 		var ischar = /^[a-zA-Z ]*$/.test($scope.user.name);
