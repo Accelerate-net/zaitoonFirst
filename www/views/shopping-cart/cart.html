@@ -52,17 +52,34 @@
 
           <div class="col col-75 col-center">
             <div class="row">
-              <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span>
-              <span class="product-name item-text-wrap" style="color: #2d2d2d; font-weight: 300">{{product.itemName}}</span>
+              <div class="col col-10 col-center">
+                <!-- <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span> -->
+                  <a ng-click="removeFromCart(product)" class="button button-small button-outline" style="border-top-right-radius: 0; border-bottom-right-radius: 0; color: #DE8F8F; border:none"><i class="icon ion-ios-close-outline"></i></a>
+              </div>
+              <div class="col col-90 col-center">
+                <span class="product-name item-text-wrap" style="color: #2d2d2d; font-weight: 300;">{{product.itemName}}</span>
+              </div>
             </div>
             <div class="row" ng-if="product.isCombo">
-              <p style="font-size: 10px; color: #707778; padding-left:18px; padding-top: 3px"><tag style="color: #8C8C8C;">{{product.combo}}</tag></p>
+              <div class="col col-10 col-center">
+              </div>
+              <div class="col col-90 col-center">
+                <p style="font-size: 10px; color: #707778; padding-top: 3px"><tag style="color: #8C8C8C;">{{product.combo}}</tag></p>
+              </div>
             </div>
             <div class="row" ng-if="product.isCustom">
-              <p style="font-size: 10px; color: #707778; padding-left:18px; padding-top: 3px">Choice: <tag style="color: #61C68B;">{{product.variant}}</tag></p>
+              <div class="col col-10 col-center">
+              </div>
+              <div class="col col-90 col-center">
+                <p style="font-size: 10px; color: #707778; padding-top: 3px">Choice: <tag style="color: #61C68B;">{{product.variant}}</tag></p>
+              </div>
             </div>
             <div class="row">
-              <p style="font-size: 10px; color: #707778; padding-left:18px; padding-top: 3px">Rs {{product.itemPrice}}</p>
+              <div class="col col-10 col-center">
+              </div>
+              <div class="col col-90 col-center">
+                <p style="font-size: 10px; color: #707778; padding-top: 3px">Rs {{product.itemPrice}}</p>
+              </div>
             </div>
           </div>
           <div class="col col-25">

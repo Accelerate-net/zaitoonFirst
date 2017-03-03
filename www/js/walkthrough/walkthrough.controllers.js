@@ -84,7 +84,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	$scope.updateLocations = function(){
 		$scope.search = { query : '' };
 		var temp_outlet = outletService.getInfo();
-		$http.get('http://www.zaitoon.online/services/fetchareas.php?city='+temp_outlet.city)
+		$http.get(temp_outlet.city+'.json')
 		.then(function(response){
 			$scope.localities = response.data.response;
 		});
@@ -141,7 +141,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		});
 
 		$scope.locality_popover.hide();
-		
+
 		var temp = {name:locationName};
 		$scope.data.selected_locality = temp;
 
