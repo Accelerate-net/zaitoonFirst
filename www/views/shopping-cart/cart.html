@@ -52,9 +52,9 @@
 
           <div class="col col-75 col-center">
             <div class="row">
-              <div class="col col-10 col-center">
+              <div class="col col-10 col-center noColorButton">
                 <!-- <span ng-click="removeFromCart(product)" class="icon ion-ios-close-outline myDelete"></span> -->
-                  <a ng-click="removeFromCart(product)" class="button button-small button-outline" style="border-top-right-radius: 0; border-bottom-right-radius: 0; color: #DE8F8F; border:none"><i class="icon ion-ios-close-outline"></i></a>
+                  <a ng-click="removeFromCart(product)" class="button button-small noColorButton" style="border-top-right-radius: 0; border-bottom-right-radius: 0; color: #DE8F8F; border:none"><i class="icon ion-ios-close-outline"></i></a>
               </div>
               <div class="col col-90 col-center">
                 <span class="product-name item-text-wrap" style="color: #2d2d2d; font-weight: 300;">{{product.itemName}}</span>
@@ -84,9 +84,13 @@
           </div>
           <div class="col col-25">
             <div class="row">
+                <tag class="noColorButton">
                   <a ng-click="lessCount(product)" class="button button-small button-outline" style="border-top-right-radius: 0; border-bottom-right-radius: 0; color: #61C68B; border:1px solid #61C68B">-</a>
+                </tag>
                   <a class="button button-small"  style="color: #FFF; background-color:#61C68B; border-radius: 0; ">{{product.qty}}</a>
+                <tag class="noColorButton">
                   <a ng-click="addCount(product)" class="button button-small button-outline" style="border-top-left-radius: 0; border-bottom-left-radius: 0; color: #61C68B; border:1px solid #61C68B">+</a>
+                </tag>
               <!-- <span ng-click="lessCount(product)" class="icon ion-ios-minus-outline myMinus"></span>
               <span class="product-name">{{product.qty}}</span>
               <span ng-click="addCount(product)" class="icon ion-ios-plus-outline myPlus"></span> -->

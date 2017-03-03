@@ -84,9 +84,10 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	$scope.updateLocations = function(){
 		$scope.search = { query : '' };
 		var temp_outlet = outletService.getInfo();
-		$http.get(temp_outlet.city+'.json')
+		$http.get('chennai.json')
 		.then(function(response){
 			$scope.localities = response.data.response;
+			console.log(response.data.response)
 		});
 	}
 

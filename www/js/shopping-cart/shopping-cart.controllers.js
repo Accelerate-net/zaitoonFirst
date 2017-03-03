@@ -11,8 +11,8 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	//Check if location, outlet are set: if not ask user to set it.
 	if($scope.outletSelection.outlet == "" || $scope.outletSelection.location == "" || _.isUndefined(window.localStorage.locationCode)){
 		$ionicLoading.show({
-			template:  '<i style="color: #FFE800; font-size: 300%"><i class="icon ion-android-alert"></i></i><br>You have not set your location. Please update it before you checkout.',
-			duration: 4000
+			template:  '<b style="color: #FFE800;">WARNING</b><br>Please set your location before you checkout.',
+			duration: 3000
 		});
 		$scope.isLocationSet = false;
 	}
