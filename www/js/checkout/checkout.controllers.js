@@ -572,7 +572,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   };
 })
 
-.controller('trackCtrl', function($scope, $state, $http, $ionicLoading, trackOrderService) {
+.controller('trackCtrl', function($scope, $state, $interval, $http, $ionicLoading, trackOrderService) {
 
   //If not logged in (meaning, does not have a token)?
   if(_.isUndefined(window.localStorage.user)){
@@ -585,7 +585,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   var data = {};
 
-  //REMOVE this token/orderid hard codes
   data.token = JSON.parse(window.localStorage.user).token;
   data.orderID = trackOrderService.getOrderID();
 
@@ -597,10 +596,26 @@ angular.module('zaitoonFirst.checkout.controllers', [])
    })
   .then(function(response) {
     $scope.track = response.data;
-    console.log($scope.track.response);
     $scope.status = $scope.track.response.status;
     $scope.isTakeAway = $scope.track.response.isTakeaway;
   });
+
+  //Repeated Pooling of Track Page
+  $interval(function () {
+    $http({
+      method  : 'POST',
+      url     : 'http://www.zaitoon.online/services/orderinfo.php',
+      data    : data, //forms user object
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+     })
+    .then(function(response) {
+      $scope.track = response.data;
+      $scope.status = $scope.track.response.status;
+      $scope.isTakeAway = $scope.track.response.isTakeaway;
+    });
+  }, 15000);
+
+
 
 })
 

@@ -1,5 +1,5 @@
 <ion-view class="feed-view" cache-view="false">
-  <ion-header-bar class="feed-header">    
+  <ion-header-bar class="feed-header">
     <div class="logo-container">
       <img class="logo-image" ng-src="./img/feed/logo.png"/>
     </div>
@@ -10,20 +10,20 @@
       </button>
     </div>
   </ion-header-bar>
-  <ion-content class="categories-feeds-content" has-bouncing="false" delegate-handle="feeds-content">
+  <ion-content class="categories-feeds-content" overflow-scroll="true" has-bouncing="false" delegate-handle="feeds-content">
     <sliding-list>
     	<ul center-edges class="sliding-list">
         <sliding-item state="main.app.feed.arabian">
-          <a nav-transition="none" ui-sref="main.app.feed.arabian()">Arabian</a>
+          <a nav-transition="android" ui-sref="main.app.feed.arabian()">Arabian</a>
         </sliding-item>
         <sliding-item state="main.app.feed.chinese">
-          <a nav-transition="none" ui-sref="main.app.feed.chinese()">Chinese</a>
+          <a nav-transition="android" ui-sref="main.app.feed.chinese()">Chinese</a>
         </sliding-item>
         <sliding-item state="main.app.feed.indian">
-          <a nav-transition="none" ui-sref="main.app.feed.indian()">Indian</a>
+          <a nav-transition="android" ui-sref="main.app.feed.indian()">Indian</a>
         </sliding-item>
         <sliding-item state="main.app.feed.dessert">
-          <a nav-transition="none" ui-sref="main.app.feed.dessert()">Desserts</a>
+          <a nav-transition="android" ui-sref="main.app.feed.dessert()">Desserts</a>
         </sliding-item>
     	</ul>
     </sliding-list>

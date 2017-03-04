@@ -45,6 +45,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	}
 
 
+	//Swipe left
+	$scope.onSwipeLeft = function(){
+		alert('Swipped Left')
+	}
+
 	//Check if feedback is submited for latest completed order
 	if(!_.isUndefined(window.localStorage.user)){
 		var mydata = {};
@@ -632,28 +637,36 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	//Book a Table
 	$scope.showOutlets = function(){
 
-		//Get all the outlets
-		$http.get('http://www.zaitoon.online/services/fetchoutlets.php')
-		.then(function(response){
-	      	$scope.allList = response.data.response;
-	    });
+		if($scope.isOfflineFlag){
+			$ionicLoading.show({
+				template:  'Please connect to Internet',
+				duration: 2000
+			});
+		}
+		else{
+			//Get all the outlets
+			$http.get('http://www.zaitoon.online/services/fetchoutlets.php')
+			.then(function(response){
+						$scope.allList = response.data.response;
+				});
 
-		outletsPopup = $ionicPopup.show({
-			cssClass: 'popup-outer edit-shipping-address-view',
-			templateUrl: 'views/content/outlet/outlets.html',
-			scope: angular.extend($scope, {}),
-			title: 'Select Outlet',
-			buttons: [
-				{
-					text:'Cancel'
+			outletsPopup = $ionicPopup.show({
+				cssClass: 'popup-outer edit-shipping-address-view',
+				templateUrl: 'views/content/outlet/outlets.html',
+				scope: angular.extend($scope, {}),
+				title: 'Select Outlet',
+				buttons: [
+					{
+						text:'Cancel'
+					}
+				]
+			});
+
+				//Goto Outlet's page
+				$scope.gotoOutlet = function(){
+					outletsPopup.close();
 				}
-			]
-		});
-
-			//Goto Outlet's page
-			$scope.gotoOutlet = function(){
-				outletsPopup.close();
-			}
+		}
 	}
 
 

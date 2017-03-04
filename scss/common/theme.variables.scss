@@ -13,9 +13,16 @@
 	padding-left: 5px;
 }
 
-.myDelete{
-	padding-right: 3px;
-	color: #bdc3c7;
+.noColorButton{
+	.button{
+		background: none !important;
+		&:active{
+			background: none !important;
+		}
+		&:focus{
+			background: none !important;
+		}
+	}
 }
 
 .myMinus{

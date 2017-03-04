@@ -20,7 +20,7 @@
               <input type="text" placeholder="Name" name="name" ng-model="user.name" required>
             </label>
             <label class="item item-input">
-              <input type="text" placeholder="Mobile Number" name="mobile" ng-model="user.mobile" required maxlength="10">
+              <input type="tel" placeholder="Mobile Number" name="mobile" ng-model="user.mobile" required maxlength="10">
             </label>
             <label class="item item-input">
               <input type="text" placeholder="Email" name="email" ng-model="user.email" required>
@@ -28,7 +28,7 @@
           </div>
           <div ng-if="signupFlag">
             <label class="item item-input">
-              <input type="text" placeholder="Enter OTP" name="otp" ng-model="user.otp" required>
+              <input type="tel" placeholder="Enter OTP" name="otp" ng-model="user.otp" required>
             </label>
           </div>
         </div>
