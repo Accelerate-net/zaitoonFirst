@@ -28,6 +28,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	var outlet = !_.isUndefined(window.localStorage.outlet) ? window.localStorage.outlet : "";
 	var locationCode = !_.isUndefined(window.localStorage.locationCode) ? window.localStorage.locationCode : "";
 
+	$scope.isCitySet = false;
 	if(outlet == "")
 		$scope.isLocationSet = false;
 	else
@@ -74,23 +75,37 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		var info = {};
 		info.city = city;
 		outletService.setOutletInfo(info);
+
+		$scope.isCitySet = true;
 		this.updateLocations();
 
 		$scope.city_popover.hide();
 	};
 
 
-	//Choose Locality Search
+	// Choose Location Search
 	$scope.updateLocations = function(){
 		$scope.search = { query : '' };
+
 		var temp_outlet = outletService.getInfo();
-		$http.get('chennai.json')
+		$http.get('http://www.zaitoon.online/services/popularareas.php?city='+temp_outlet.city)
 		.then(function(response){
 			$scope.localities = response.data.response;
-			console.log(response.data.response)
 		});
 	}
 
+	//Suggestion function
+	$scope.suggest = function() {
+		var temp_outlet = outletService.getInfo();
+		console.log($scope.search.query.length)
+		if($scope.search.query.length > 1){
+			$http.get('http://www.zaitoon.online/services/searchareasmobile.php?city='+temp_outlet.city+'&key='+$scope.search.query)
+			.then(function(response){
+				console.log(response)
+				$scope.localities = response.data;
+			});
+		}
+	}
 
 
 	  //Choose Locality

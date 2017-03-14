@@ -123,6 +123,7 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 		}
 		else{
 			if($scope.orderType == 'delivery'){ //Check for minimum order criteria
+				console.log('DELIVERY...')
 				var total = this.getSubtotal();
 				var min = $scope.outletSelection['minAmount'];
 				if(total >= min){

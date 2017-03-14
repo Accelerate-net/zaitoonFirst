@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.checkout.controllers', [])
 
-.controller('CheckoutCtrl', function(ConnectivityMonitor, $timeout, trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
+.controller('CheckoutCtrl', function($timeout, ConnectivityMonitor, trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
 
   //If not logged in (meaning, does not have a token)?
   if(_.isUndefined(window.localStorage.user)){
@@ -10,6 +10,14 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     });
     $state.go('intro.auth-login');
   }
+
+  //User Info
+ $rootScope.user = "";
+ ProfileService.getUserData()
+ .then(function(response){
+   $rootScope.user = response;
+ })
+
 
   //Network Status
   if(ConnectivityMonitor.isOffline()){
@@ -23,16 +31,11 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $scope.isOfflineFlag = false;
   }
 
-	//User Info
- $rootScope.user = "";
- ProfileService.getUserData()
- .then(function(response){
-	 $rootScope.user = response;
- })
 
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
+  console.log($scope.outletSelection);
 	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
 	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
 	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
@@ -50,6 +53,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //Get the checkout mode TAKEAWAY/DELIVERY
   $scope.checkoutMode = CheckoutService.getCheckoutMode();
+
 
   //Set of Outlets Available
 

@@ -45,11 +45,6 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	}
 
 
-	//Swipe left
-	$scope.onSwipeLeft = function(){
-		alert('Swipped Left')
-	}
-
 	//Check if feedback is submited for latest completed order
 	if(!_.isUndefined(window.localStorage.user)){
 		var mydata = {};
