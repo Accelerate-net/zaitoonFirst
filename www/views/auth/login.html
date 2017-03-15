@@ -24,7 +24,7 @@
           </div>
           <div ng-if="otpFlag">
             <div class="myOTP">
-              {{user.mobile}} <span class="myWhite icon ion-edit" ng-click="resetNumber()"></span>
+              {{user.mobile}} <span class="myWhite icon ion-edit" ng-click="resetNumber()" style="float: right"></span>
             </div>
             <label ng-if="otpFlag" class="item item-input">
               <input type="tel" placeholder="Enter OTP" name="otp" ng-model="user.otp" required>

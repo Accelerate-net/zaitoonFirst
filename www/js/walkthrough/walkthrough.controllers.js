@@ -28,7 +28,8 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	var outlet = !_.isUndefined(window.localStorage.outlet) ? window.localStorage.outlet : "";
 	var locationCode = !_.isUndefined(window.localStorage.locationCode) ? window.localStorage.locationCode : "";
 
-	$scope.isCitySet = false;
+	$scope.changeLocationFlag = !_.isUndefined(window.localStorage.changeLocationFlag) ? window.localStorage.changeLocationFlag : "";
+
 	if(outlet == "")
 		$scope.isLocationSet = false;
 	else
@@ -76,7 +77,6 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		info.city = city;
 		outletService.setOutletInfo(info);
 
-		$scope.isCitySet = true;
 		this.updateLocations();
 
 		$scope.city_popover.hide();
@@ -133,49 +133,70 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	};
 
 	$rootScope.setLocality = function(locationCode, locationName){
-		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+locationCode)
-		.then(function(response){
-			//Set outlet and location
-			window.localStorage.outlet = response.data.response.outlet;
-			window.localStorage.location = response.data.response.location;
-			window.localStorage.locationCode = response.data.response.locationCode;
-
-			var info = {};
-			info.outlet = response.data.response.outlet;
-	    info.city = response.data.response.city;
-	    info.location = response.data.response.location;
-			info.locationCode = response.data.response.locationCode;
-	    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
-	    info.isTaxCollected = response.data.response.isTaxCollected;
-	    info.taxPercentage = response.data.response.taxPercentage;
-	    info.isParcelCollected = response.data.response.isParcelCollected;
-	    info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
-	    info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
-	    info.minAmount = response.data.response.minAmount;
-	    info.minTime = response.data.response.minTime;
-			outletService.setOutletInfo(info);
-		});
 
 		$scope.locality_popover.hide();
 
-		var temp = {name:locationName};
-		$scope.data.selected_locality = temp;
+		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+locationCode)
+		.then(function(response){
+			if(response.data.status){
+
+				//Set outlet and location
+				window.localStorage.outlet = response.data.response.outlet;
+				window.localStorage.location = response.data.response.location;
+				window.localStorage.locationCode = response.data.response.locationCode;
+
+				var info = {};
+				info.outlet = response.data.response.outlet;
+		    info.city = response.data.response.city;
+		    info.location = response.data.response.location;
+				info.locationCode = response.data.response.locationCode;
+		    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+		    info.isTaxCollected = response.data.response.isTaxCollected;
+		    info.taxPercentage = response.data.response.taxPercentage;
+		    info.isParcelCollected = response.data.response.isParcelCollected;
+		    info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
+		    info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
+		    info.minAmount = response.data.response.minAmount;
+		    info.minTime = response.data.response.minTime;
+				outletService.setOutletInfo(info);
+
+				var temp = {name:locationName};
+				$scope.data.selected_locality = temp;
+
+				//Clear the changeLocationFlag if at all set.
+				window.localStorage.changeLocationFlag = "";
+
+				//LOADING
+				$ionicLoading.show({
+					template:  '<ion-spinner></ion-spinner>'
+				});
 
 
-		//Go back to the checkout page (if it was redirected to set location)
-		$timeout(function () {
-			if(window.localStorage.backFlag){
-				window.localStorage.backFlag = "";
-				$state.go('main.app.checkout');
-			}
-			else if(window.localStorage.backFlagCart){
-				window.localStorage.backFlagCart = "";
-				$state.go('main.app.shopping-cart');
+				//Go back to the checkout page (if it was redirected to set location)
+				$timeout(function () {
+					if(window.localStorage.backFlag){
+						window.localStorage.backFlag = "";
+						$state.go('main.app.checkout');
+					}
+					else if(window.localStorage.backFlagCart){
+						window.localStorage.backFlagCart = "";
+						$state.go('main.app.shopping-cart');
+					}
+					else{
+						$scope.isLocationSet = true;
+					}
+					$ionicLoading.hide();
+				}, 1000);
+
 			}
 			else{
-				$scope.isLocationSet = true;
+				$ionicLoading.show({
+					template:  response.data.error,
+					duration: 2000
+				});
 			}
-		}, 1000);
+		});
+
 
 
 	};
