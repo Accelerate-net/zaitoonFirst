@@ -40,6 +40,14 @@ angular.module('zaitoonFirst.auth.controllers', [])
 			});
 		}
 
+		else{
+
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner></ion-spinner>'
+			});
+
+
 		var isnum = /^\d+$/.test($scope.user.mobile);
 		if(isnum && $scope.user.mobile.length == 10){
 
@@ -53,6 +61,8 @@ angular.module('zaitoonFirst.auth.controllers', [])
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			 })
 			.then(function(response) {
+				$ionicLoading.hide();
+
 				$scope.main = response.data.response;
 				if($scope.main.isOTPSent){
 					$scope.otpFlag = true;
@@ -67,7 +77,10 @@ angular.module('zaitoonFirst.auth.controllers', [])
 		else
 		{
 			$scope.error = "Invalid Mobile Number";
+			$ionicLoading.hide();
 		}
+
+	}
 
 	};
 
@@ -80,6 +93,14 @@ angular.module('zaitoonFirst.auth.controllers', [])
 				duration: 2000
 			});
 		}
+
+		else{
+
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner></ion-spinner>'
+			});
+
 
 		$scope.error="";
 
@@ -97,6 +118,9 @@ angular.module('zaitoonFirst.auth.controllers', [])
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			 })
 			.then(function(response) {
+
+				$ionicLoading.hide();
+
 				$scope.validated = response.data;
 
 				if($scope.validated.status){ //Validate OTP and LOG IN
@@ -115,7 +139,10 @@ angular.module('zaitoonFirst.auth.controllers', [])
 		else
 		{
 			$scope.error = "OTP must be a 4 digit number.";
+			$ionicLoading.hide();
 		}
+
+	}
 
 	};
 
@@ -150,6 +177,13 @@ angular.module('zaitoonFirst.auth.controllers', [])
 				duration: 2000
 			});
 		}
+		else{
+
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner></ion-spinner>'
+			});
+
 
 		//Validate, Create an account and login.
 		var isnum = /^\d+$/.test($scope.user.mobile);
@@ -170,6 +204,9 @@ angular.module('zaitoonFirst.auth.controllers', [])
 						headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 					 })
 					.then(function(response) {
+
+						$ionicLoading.hide();
+
 						$scope.main = response.data.response;
 						console.log($scope.main)
 						if($scope.main.isOTPSent){
@@ -184,16 +221,21 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 				}else{
 					$scope.error = "Enter a valid email.";
+					$ionicLoading.hide();
 				}
 			}else{
 				$scope.error = "Enter a valid moile number.";
+				$ionicLoading.hide();
 			}
 
 		}
 		else
 		{
 			$scope.error = "Name must be atleast 5 characters.";
+			$ionicLoading.hide();
 		}
+
+	}
 
 	};
 
@@ -206,6 +248,13 @@ angular.module('zaitoonFirst.auth.controllers', [])
 				duration: 2000
 			});
 		}
+		else{
+
+			//LOADING
+			$ionicLoading.show({
+				template:  '<ion-spinner></ion-spinner>'
+			});
+
 
 		var isnum = /^\d+$/.test($scope.user.otp);
 		if(isnum && $scope.user.otp.length == 4){
@@ -223,6 +272,9 @@ angular.module('zaitoonFirst.auth.controllers', [])
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			 })
 			.then(function(response) {
+
+				$ionicLoading.hide();
+
 				$scope.main = response.data.response;
 				if(response.data.status){
 					//Set User info
@@ -237,33 +289,11 @@ angular.module('zaitoonFirst.auth.controllers', [])
 		else
 		{
 			$scope.error = "OTP must be a 4 digit number.";
+			$ionicLoading.hide();
 		}
 
-		$ionicLoading.show({
-      		template: 'Loading...'
-    	});
+	}
 
-		$timeout(function(){
-			$ionicLoading.hide();
-		}, 800);
-	};
-
-	$scope.doFacebookSignUp = function(){
-		console.log("doing FACEBOOK sign up");
-
-		$ionicLoading.show({
-      template: 'Creating account...'
-    });
-
-		$timeout(function(){
-			// Simulate login OK
-			$state.go('main.app.feed.fashion');
-      $ionicLoading.hide();
-
-			// Simulate login ERROR
-			// $scope.error = "This is an error message";
-			// $ionicLoading.hide();
-		}, 800);
 	};
 
 	$ionicModal.fromTemplateUrl('views/legal/privacy-policy.html', {

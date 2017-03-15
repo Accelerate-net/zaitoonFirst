@@ -11,7 +11,8 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $state.go('intro.auth-login');
   }
 
-  //User Info
+
+ //User Info
  $rootScope.user = "";
  ProfileService.getUserData()
  .then(function(response){
@@ -35,17 +36,18 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
-  console.log($scope.outletSelection);
 	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
 	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
 	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
 
+  if(!$scope.outletSelection['outlet']){
+    $state.go('intro.walkthrough-welcome');
+  }
+
 
   //Change location
   $scope.changeLocation = function(){
-    window.localStorage.outlet = "";
-    window.localStorage.location = "";
-    window.localStorage.locationCode = "";
+    window.localStorage.changeLocationFlag = true;
     window.localStorage.backFlag = true;
     $state.go('intro.walkthrough-welcome');
   }
@@ -53,6 +55,9 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //Get the checkout mode TAKEAWAY/DELIVERY
   $scope.checkoutMode = CheckoutService.getCheckoutMode();
+
+  $scope.comments = {};
+  $scope.comments.value = "";
 
 
   //Set of Outlets Available
@@ -63,23 +68,26 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
     //For UI enhancement in popup
     $scope.outletListSize = Object.keys($scope.outletList).length;
-    console.log(  $scope.outletListSize)
 
     //Set what to display for the default pickup outlet
     var default_outlet = window.localStorage.outlet;
     var i = 0;
     while (i < Object.keys($scope.outletList).length){
-      if($scope.outletList[0].value == default_outlet){
-        window.localStorage.outletInfo = $scope.outletList[0].name;
+      if($scope.outletList[i].value == default_outlet){
+        window.localStorage.outletInfo = $scope.outletList[i].name;
         break;
       }
+      i++;
     }
   });
 
-    //Nearest Oulet
+
     var temp_nearest = {};
-    temp_nearest.value = $scope.outletSelection.outlet;
-    temp_nearest.name = window.localStorage.outletInfo;
+    $timeout(function () { //Time delay is added to give time gap for loading location
+      //Nearest Oulet
+      temp_nearest.value = $scope.outletSelection.outlet;
+      temp_nearest.name = window.localStorage.outletInfo;
+    }, 500);
 
     //To choose the pick up center
     $scope.data = {};
@@ -100,6 +108,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   };
 
   $scope.setOutlet = function(outletObj){
+    window.localStorage.outlet = outletObj.value;
     $scope.data.selected_outlet = outletObj;
     $scope.outlet_popover.hide();
   };
@@ -296,11 +305,12 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       //If PREPAID
       if($scope.paychoice == 'PRE'){
         if (!called) {
+
           //Step 1 - Create ORDER
           //Create Order
           var data = {};
           data.token = JSON.parse(window.localStorage.user).token;
-          data.comments = "Nothing";
+          data.comments = $scope.comments.value;
           data.address = !_.isUndefined(window.localStorage.zaitoonFirst_selected_address)? JSON.parse(window.localStorage.zaitoonFirst_selected_address): [];
           data.modeOfPayment = $scope.paychoice;
           data.outlet = window.localStorage.outlet;
@@ -311,6 +321,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
           formattedcart.cartCoupon = $scope.couponDiscount;
           formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
           data.cart = formattedcart;
+
 
           $http({
             method  : 'POST',
@@ -341,7 +352,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         var data = {};
         data.token = JSON.parse(window.localStorage.user).token;
         data.address = !_.isUndefined(window.localStorage.zaitoonFirst_selected_address)? JSON.parse(window.localStorage.zaitoonFirst_selected_address): [];
-        data.comments = "Nothing";
+        data.comments = $scope.comments.value;
         data.modeOfPayment = $scope.paychoice;
         data.outlet = window.localStorage.outlet;
         data.isTakeAway = $scope.checkoutMode =='takeaway'? true: false;
@@ -351,7 +362,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         formattedcart.cartCoupon = $scope.couponDiscount;
         formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
         data.cart = formattedcart;
-
 
         $http({
           method  : 'POST',

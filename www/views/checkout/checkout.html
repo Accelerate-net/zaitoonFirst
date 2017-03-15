@@ -11,9 +11,7 @@
 
     <!-- Confirm the preset location of the user -->
     <div ng-if="checkoutMode == 'delivery'">
-      <h3 class="checkout-sub-title" style="color: #BDBDBD; font-weight: 300; font-size: 14px; text-align: center; padding-bottom: 0px">You have set your location as <b>{{outletSelection['location']}}, {{outletSelection['city']}}</b>. Please ensure that it is accurate before you continue. <tag ng-click="changeLocation()" style="text-decoration: underline">Change My Location</tag></h3>
-      <div class="row address-row">
-      </div>
+      <h3 class="checkout-sub-title" style="color: #BDBDBD; font-weight: 300; font-size: 14px; text-align: center; padding-bottom: 0px">You have set your location as <b>{{outletSelection['location']}}, {{outletSelection['city']}}</b>. Please ensure that it is accurate before you continue. <tag ng-click="changeLocation()" style="text-decoration: underline">Change My Location</tag></h3>    
     </div>
 
 
@@ -43,22 +41,21 @@
 
     <h3 class="checkout-sub-title" style="font-weight: 250;">Payment Information</h3>
 
-    <div class="row paymentRadio" style="padding: 0px 10px" ng-if="onlinePayFlag">
-      <div class="col col-50">
+    <div class="paymentRadio" style="padding: 0px 10px" ng-if="onlinePayFlag">
+      <ion-list>
         <ion-radio ng-model="paychoice" ng-value="'PRE'" ng-click="setPay('PRE')">Pay Online</ion-radio>
-      </div>
-      <div class="col col-50">
-        <ion-radio ng-model="paychoice" ng-value="'COD'" ng-click="setPay('COD')">COD (Cash)</ion-radio>
-      </div>
+        <ion-radio ng-model="paychoice" ng-value="'COD'" ng-click="setPay('COD')">Cash on Delivery (COD)</ion-radio>
+      </ion-list>
     </div>
+
+
 
     <!-- Only COD option available -->
-    <div class="row paymentRadio" style="padding: 0px 10px" ng-if="!onlinePayFlag">
-      <div class="col col-100">
-        <ion-radio ng-model="paychoice" ng-value="'COD'">Cash on Delivery (COD)</ion-radio>
-      </div>
+    <div class="paymentRadio" style="padding: 0px 10px" ng-if="!onlinePayFlag">
+      <ion-list>
+        <ion-radio ng-model="paychoice" ng-value="'COD'" ng-click="setPay('COD')">Cash on Delivery (COD)</ion-radio>
+      </ion-list>
     </div>
-
 
     <h3 class="checkout-sub-title" style="font-weight: 250;">Promotional Offers</h3>
     <div class="row promo-code-row">
@@ -77,6 +74,11 @@
       <div class="col col-20">
         <div class="button button-small button-outline button-balanced" style="float: right" ng-if="isCouponEntered" ng-click="validateCoupon(promoCode)">APPLY</div>
       </div>
+    </div>
+
+    <h3 class="checkout-sub-title" style="font-weight: 250;">Any comments?</h3>
+    <div style="margin: 0px 15px; border: 1px solid #E8E8E8">
+      <textarea type="text" ng-model="comments.value" style="padding: 10px; border: none; resize: none; width: 100%" placeholder="Extra spicy? Less Oily? Add your notes to the chef here."></textarea>
     </div>
 
     <h3 class="checkout-sub-title">YOUR ORDER</h3>
