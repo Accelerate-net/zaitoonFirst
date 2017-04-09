@@ -188,11 +188,6 @@ angular.module('zaitoonFirst', [
             templateUrl: 'views/common/app.html',
             controller: 'AppCtrl'
           }
-        },
-        resolve: {
-          logged_user: function(AuthService){
-            return AuthService.getLoggedUser();
-          }
         }
       })
 
