@@ -22,7 +22,7 @@
         <h3 class="product-name">Address</h3>
         <h5 class="product-style">{{info.line1}}</h5>
         <h5 class="product-style">{{info.line2}}</h5>
-        <h5 class="product-style">{{info.line3}}</h5>
+        <h5 class="product-style">{{info.city}}</h5>
       </div>
     </div>
 
@@ -44,7 +44,7 @@
 
     <div class="row write-review-row">
     	<div class="col">
-    		<button class="button button-block new-review-button" ng-click="bookTable('VELACHERI')">
+    		<button class="button button-block new-review-button" ng-click="bookTable(info.outlet)">
     			BOOK A TABLE
     		</button>
     	</div>

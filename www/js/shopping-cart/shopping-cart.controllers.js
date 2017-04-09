@@ -4,16 +4,12 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 	//OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
-	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
-	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
-	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
+	$scope.deliveryCharge = Math.ceil($scope.outletSelection['parcelPercentageDelivery']*100);
+	$scope.pickupCharge = Math.ceil($scope.outletSelection['parcelPercentagePickup']*100);
+	$scope.taxPercentage = Math.ceil($scope.outletSelection['taxPercentage']*100);
 
 	//Check if location, outlet are set: if not ask user to set it.
 	if($scope.outletSelection.outlet == "" || $scope.outletSelection.location == "" || _.isUndefined(window.localStorage.locationCode)){
-		$ionicLoading.show({
-			template:  '<b style="color: #FFE800;">WARNING</b><br>Please set your location before you checkout.',
-			duration: 3000
-		});
 		$scope.isLocationSet = false;
 	}
 	else{
@@ -22,14 +18,12 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 	//Change location
 	$scope.changeLocation = function(){
-		window.localStorage.outlet = "";
-		window.localStorage.location = "";
-		window.localStorage.locationCode = "";
+		window.localStorage.removeItem("outlet");
+		window.localStorage.removeItem("location");
+		window.localStorage.removeItem("locationCode");
 		window.localStorage.backFlagCart = true;
 		$state.go('intro.walkthrough-welcome');
 	}
-
-
 
 	//Take away OR delivery
 	$scope.orderType = CheckoutService.getCheckoutMode();
@@ -37,6 +31,16 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	$scope.setCheckoutMode = function(mode){
 		CheckoutService.setCheckoutMode(mode);
 		$scope.orderType = mode;
+	}
+
+	//Restric ONLY Takeaway based on the uer location
+	if($scope.outletSelection['onlyTakeAway']){
+		$scope.isDeliveryAvailable = false;
+		$scope.orderType = 'takeaway';
+		CheckoutService.setCheckoutMode('takeaway');
+	}
+	else{
+		$scope.isDeliveryAvailable = true;
 	}
 
 
@@ -95,7 +99,7 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	$scope.tax = 0;
 	$scope.getTax = function() {
 		$scope.tax = $scope.subtotal * $scope.outletSelection['taxPercentage'];
-		return $scope.tax;
+		return Math.ceil($scope.tax);
 	};
 
 	$scope.getParcel = function() {
@@ -105,11 +109,11 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 		else{
 			$scope.parcel = $scope.subtotal * $scope.outletSelection['parcelPercentagePickup'];
 		}
-		return $scope.parcel;
+		return Math.ceil($scope.parcel);
 	};
 
 	$scope.getTotal = function() {
-		return $scope.subtotal + $scope.tax + $scope.parcel;
+		return $scope.subtotal + Math.ceil($scope.tax) + Math.ceil($scope.parcel);
 	};
 
 	//Go to checkout - validate cart total

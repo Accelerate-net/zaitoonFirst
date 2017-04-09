@@ -62,6 +62,7 @@ angular.module('zaitoonFirst.checkout.services', [])
     return checkoutMode;
   }
   this.setCheckoutMode = function(value){
+    console.log('Setting Value..'+value)
     checkoutMode = value;
   }
 
@@ -82,7 +83,7 @@ angular.module('zaitoonFirst.checkout.services', [])
     $http({
       method  : 'POST',
       url     : 'http://www.zaitoon.online/services/fetchusers.php',
-      data    : data, //forms user object
+      data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(response) {

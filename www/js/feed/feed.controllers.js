@@ -8,7 +8,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 })
 
 
-.controller('FoodArabianCtrl', function(outletService, ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodArabianCtrl', function(outletService, ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -18,21 +18,31 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		$scope.isOfflineFlag = false;
 	}
 
+	//LOADING
+	$ionicLoading.show({
+		template:  '<ion-spinner></ion-spinner>'
+	});
+
+/* DO NOT REMOVE OR DELETE THIS PART
 	//Check if location code is set in localStorage and update it
 	if(!_.isUndefined(window.localStorage.locationCode)){
 		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+window.localStorage.locationCode)
 		.then(function(response){
+
 			//Set outlet and location
 			window.localStorage.outlet = response.data.response.outlet;
 			window.localStorage.location = response.data.response.location;
 			window.localStorage.locationCode = response.data.response.locationCode;
 
 			var info = {};
+			info.onlyTakeAway = false;
 			info.outlet = response.data.response.outlet;
+			info.isSpecial = response.data.response.isSpecial;
 			info.city = response.data.response.city;
 			info.location = response.data.response.location;
 			info.locationCode = response.data.response.locationCode;
 			info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+			info.paymentKey = response.data.response.razorpayID;
 			info.isTaxCollected = response.data.response.isTaxCollected;
 			info.taxPercentage = response.data.response.taxPercentage;
 			info.isParcelCollected = response.data.response.isParcelCollected;
@@ -44,6 +54,8 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		});
 	}
 
+*/
+
 
 	//Check if feedback is submited for latest completed order
 	if(!_.isUndefined(window.localStorage.user)){
@@ -53,7 +65,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		$http({
 			method  : 'POST',
 			url     : 'http://www.zaitoon.online/services/getlatestorderid.php',
-			data    : mydata, //forms user object
+			data    : mydata,
 			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 		 })
 		.then(function(response) {
@@ -82,42 +94,57 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
   	$scope.clearFilter = function(){
 		$scope.isFilter = false;
-		window.localStorage.customFilter = "";
+		window.localStorage.removeItem("customFilter");
 		custom_filter = [];
 		$scope.reinitializeMenu();
 	}
 
+	$scope.showNotAvailable = function(product) {
+		$ionicLoading.show({
+			template:  '<b style="color: #e74c3c; font-size: 140%">Oops!</b><br>'+product.itemName+' is not available.',
+			duration: 1000
+		});
+	}
+
+	$scope.outletSelection = outletService.getInfo();
+	if($scope.outletSelection.outlet == ""){
+		$myOutlet = "VELACHERY";
+	}
+	else{
+		$myOutlet = $scope.outletSelection.outlet;
+	}
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
         var data = {};
         data.cuisine = "ARABIAN";
         data.isFilter = false;
+				data.outlet = $myOutlet;
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
         	data.filter = custom_filter;
     	}
 
-			//LOADING
-			$ionicLoading.show({
-				template:  '<ion-spinner></ion-spinner>'
-			});
+
 
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
 			}
 
+			console.log(data)
+
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
-          data    : data, //forms user object
+          data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
 					$ionicLoading.hide();
 
 					$scope.menu = response.data;
+					console.log($scope.menu)
 					if($scope.menu.length == 0)
 						$scope.isEmpty = true;
 					else
@@ -125,7 +152,9 @@ angular.module('zaitoonFirst.feed.controllers', [])
         });
     }
 
+$timeout(function () {
     init();
+}, 799);
 
 
     //For Search field
@@ -193,7 +222,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodChineseCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodChineseCtrl', function(outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -203,6 +232,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+	//LOADING
+	$ionicLoading.show({
+		template:  '<ion-spinner></ion-spinner>'
+	});
 
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
@@ -225,6 +259,15 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		window.localStorage.customFilter = "";
 		custom_filter = [];
 		$scope.reinitializeMenu();
+	}
+
+
+	$scope.outletSelection = outletService.getInfo();
+	if($scope.outletSelection.outlet == ""){
+		$myOutlet = "VELACHERY";
+	}
+	else{
+		$myOutlet = $scope.outletSelection.outlet;
 	}
 
 
@@ -233,6 +276,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
         var data = {};
         data.cuisine = "CHINESE";
         data.isFilter = false;
+				data.outlet = $myOutlet;
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
@@ -240,10 +284,6 @@ angular.module('zaitoonFirst.feed.controllers', [])
     	}
 
 
-			//LOADING
-			$ionicLoading.show({
-				template:  '<ion-spinner></ion-spinner>'
-			});
 
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
@@ -252,7 +292,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
-          data    : data, //forms user object
+          data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
@@ -266,7 +306,9 @@ angular.module('zaitoonFirst.feed.controllers', [])
         });
     }
 
-    init();
+		$timeout(function () {
+		    init();
+		}, 799);
 
 
     //For Search field
@@ -334,7 +376,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 })
 
 
-.controller('FoodIndianCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodIndianCtrl', function(outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -344,6 +386,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+	//LOADING
+	$ionicLoading.show({
+		template:  '<ion-spinner></ion-spinner>'
+	});
 
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
@@ -363,9 +410,18 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
   	$scope.clearFilter = function(){
 		$scope.isFilter = false;
-		window.localStorage.customFilter = "";
+		window.localStorage.removeItem("customFilter");
 		custom_filter = [];
 		$scope.reinitializeMenu();
+	}
+
+
+	$scope.outletSelection = outletService.getInfo();
+	if($scope.outletSelection.outlet == ""){
+		$myOutlet = "VELACHERY";
+	}
+	else{
+		$myOutlet = $scope.outletSelection.outlet;
 	}
 
 
@@ -374,16 +430,13 @@ angular.module('zaitoonFirst.feed.controllers', [])
         var data = {};
         data.cuisine = "INDIAN";
         data.isFilter = false;
+				data.outlet = $myOutlet;
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
         	data.filter = custom_filter;
     	}
 
-			//LOADING
-			$ionicLoading.show({
-				template:  '<ion-spinner></ion-spinner>'
-			});
 
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
@@ -393,7 +446,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
-          data    : data, //forms user object
+          data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
@@ -407,7 +460,9 @@ angular.module('zaitoonFirst.feed.controllers', [])
         });
     }
 
-    init();
+		$timeout(function () {
+		    init();
+		}, 799);
 
 
     //For Search field
@@ -474,7 +529,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 })
 
-.controller('FoodDessertCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup) {
+.controller('FoodDessertCtrl', function(outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -484,6 +539,11 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+	//LOADING
+	$ionicLoading.show({
+		template:  '<ion-spinner></ion-spinner>'
+	});
 
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
@@ -508,23 +568,27 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		$scope.reinitializeMenu();
 	}
 
+	$scope.outletSelection = outletService.getInfo();
+	if($scope.outletSelection.outlet == ""){
+		$myOutlet = "VELACHERY";
+	}
+	else{
+		$myOutlet = $scope.outletSelection.outlet;
+	}
+
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
         var data = {};
         data.cuisine = "DESSERTS";
         data.isFilter = false;
+				data.outlet = $myOutlet;
 
         if(custom_filter.length > 0){
         	data.isFilter = true;
         	data.filter = custom_filter;
     	}
 
-
-			//LOADING
-			$ionicLoading.show({
-				template:  '<ion-spinner></ion-spinner>'
-			});
 
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
@@ -534,7 +598,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/fetchmenu.php',
-          data    : data, //forms user object
+          data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
@@ -548,7 +612,9 @@ angular.module('zaitoonFirst.feed.controllers', [])
         });
     }
 
-    init();
+		$timeout(function () {
+		    init();
+		}, 799);
 
 
     //For Search field
@@ -617,7 +683,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 
 
-.controller('DealsCtrl', function($ionicLoading, ShoppingCartService, ConnectivityMonitor, $scope, $http, $ionicPopup, $state, OutletService) {
+.controller('DealsCtrl', function(outletService, $ionicLoading, ShoppingCartService, ConnectivityMonitor, $scope, $http, $ionicPopup, $state) {
 
 
 	//Network Status
@@ -672,12 +738,23 @@ angular.module('zaitoonFirst.feed.controllers', [])
   // });
 
 
+
+	$scope.outletSelection = outletService.getInfo();
+	if($scope.outletSelection.outlet == ""){
+		$myOutlet = "VELACHERY";
+	}
+	else{
+		$myOutlet = $scope.outletSelection.outlet;
+	}
+
+
 //Fetch COMBO OFFERS
-$http.get('http://www.zaitoon.online/services/fetchcombos.php?outlet=VELACHERY')
+console.log('http://www.zaitoon.online/services/fetchcombos.php?outlet='+$myOutlet)
+$http.get('http://www.zaitoon.online/services/fetchcombos.php?outlet='+$myOutlet)
 .then(function(response) {
 	$scope.combos = response.data.response;
 	$scope.isCombosEmpty = !response.data.status;
-	console.log($scope.itemName)
+	console.log($scope.combos)
 });
 
 $scope.addComboToCart = function(combo) {

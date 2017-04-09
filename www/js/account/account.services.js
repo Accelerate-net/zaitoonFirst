@@ -3,16 +3,47 @@
 angular.module('zaitoonFirst.account.services', [])
 
 .service('ProfileService', function ($http, $q){
+
+//  var isTokenRegenerated = false;
+
   this.getUserData = function(){
+
+    /*
+    if(!_.isUndefined(window.localStorage.user) && window.localStorage.user !="" && !this.isTokenRegenerated){
+      Console.log('***** Regerenerating Token...')
+      //Regenerate Token
+      var data = {};
+      data.token = JSON.parse(window.localStorage.user).token;
+      $http({
+        method  : 'POST',
+        url     : 'http://www.zaitoon.online/services/regeneratetoken.php',
+        data    : data,
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+       })
+      .then(function(response) {
+        console.log(response)
+        if(response.data.status){
+          var temp_user = JSON.parse(window.localStorage.user);
+          temp_user.token = response.data.newtoken
+          window.localStorage.user = JSON.stringify(temp_user);
+          this.isTokenRegenerated = true;
+        }
+        else{
+          this.isTokenRegenerated = false;
+          window.localStorage.user = "";
+        }
+      });
+    }
+    */
+
     var dfd = $q.defer();
 
     var data = {};
     data.token = JSON.parse(window.localStorage.user).token;
-
     $http({
       method  : 'POST',
       url     : 'http://www.zaitoon.online/services/fetchusers.php',
-      data    : data, //forms user object
+      data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(response) {
@@ -41,7 +72,7 @@ angular.module('zaitoonFirst.account.services', [])
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/edituser.php',
-          data    : data, //forms user object
+          data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
@@ -63,7 +94,7 @@ angular.module('zaitoonFirst.account.services', [])
     $http({
       method  : 'POST',
       url     : 'http://www.zaitoon.online/services/deletesavedaddress.php',
-      data    : data, //forms user object
+      data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(response) {

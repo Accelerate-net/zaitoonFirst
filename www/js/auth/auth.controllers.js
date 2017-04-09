@@ -57,7 +57,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 			$http({
 				method  : 'POST',
 				url     : 'http://www.zaitoon.online/services/userlogin.php',
-				data    : data, //forms user object
+				data    : data, 
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			 })
 			.then(function(response) {
@@ -114,7 +114,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 			$http({
 				method  : 'POST',
 				url     : 'http://www.zaitoon.online/services/validatelogin.php',
-				data    : sdata, //forms user object
+				data    : sdata, 
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			 })
 			.then(function(response) {
@@ -200,7 +200,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 					$http({
 						method  : 'POST',
 						url     : 'http://www.zaitoon.online/services/usersignup.php',
-						data    : data, //forms user object
+						data    : data, 
 						headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 					 })
 					.then(function(response) {
@@ -268,7 +268,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 			$http({
 				method  : 'POST',
 				url     : 'http://www.zaitoon.online/services/validatesignup.php',
-				data    : data, //forms user object
+				data    : data, 
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			 })
 			.then(function(response) {

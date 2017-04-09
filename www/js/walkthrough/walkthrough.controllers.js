@@ -1,11 +1,31 @@
 angular.module('zaitoonFirst.walkthrough.controllers', [])
 
-.controller('welcomeCtrl', function($timeout, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicLoading) {
+.controller('welcomeCtrl', function($timeout, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicPopup, $ionicLoading) {
 
 	//If already logged in?
-	if(!_.isUndefined(window.localStorage.user)){
-		$scope.isLoggedIn = true;
-		$scope.loggedUser = JSON.parse(window.localStorage.user).name;
+	if(!_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
+		//Regenerate Token
+		var data = {};
+		data.token = JSON.parse(window.localStorage.user).token;
+		$http({
+			method  : 'POST',
+			url     : 'http://www.zaitoon.online/services/regeneratetoken.php',
+			data    : data,
+			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+		 })
+		.then(function(response) {
+			if(response.data.status){
+				$scope.isLoggedIn = true;
+				var temp_user = JSON.parse(window.localStorage.user);
+				$scope.loggedUser = temp_user.name;
+				temp_user.token = response.data.newtoken
+				window.localStorage.user = JSON.stringify(temp_user);
+			}
+			else{
+				window.localStorage.removeItem("user");
+				$scope.isLoggedIn = false;
+			}
+		});
 	}
 	else{
 		$scope.isLoggedIn = false;
@@ -97,11 +117,9 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	//Suggestion function
 	$scope.suggest = function() {
 		var temp_outlet = outletService.getInfo();
-		console.log($scope.search.query.length)
 		if($scope.search.query.length > 1){
 			$http.get('http://www.zaitoon.online/services/searchareasmobile.php?city='+temp_outlet.city+'&key='+$scope.search.query)
 			.then(function(response){
-				console.log(response)
 				$scope.localities = response.data;
 			});
 		}
@@ -109,7 +127,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 
 	  //Choose Locality
-		$timeout(function () { //Time delay is added to give time gap for popup to load!!
+		$timeout(function () { //Time delay is added to give time gap for popup to load
 		  $ionicPopover.fromTemplateUrl('views/checkout/partials/location-chooser-popover.html', {
 		    scope: $scope
 		  }).then(function(popover) {
@@ -120,7 +138,6 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
  	$scope.openLocalityPopover = function($event){
 		var temp_outlet = outletService.getInfo();
 		if(temp_outlet.city != ""){
-			console.log(temp_outlet.city);
 			$scope.locality_popover.show($event);
 		}
 		else{ //City not set.
@@ -132,9 +149,70 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 	};
 
+	$rootScope.setRandomOutlet = function(randomOutlet, chosenLocationCode){
+		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?outletcode='+randomOutlet+'&locationCode='+chosenLocationCode)
+		.then(function(response){
+
+			if(response.data.status){
+				//Set outlet and location
+				window.localStorage.outlet = response.data.response.outlet;
+				window.localStorage.location = response.data.response.location;
+				window.localStorage.locationCode = response.data.response.locationCode;
+
+				var info = {};
+				info.onlyTakeAway = true;
+				info.outlet = response.data.response.outlet;
+				info.isSpecial = response.data.response.isSpecial;
+				info.city = response.data.response.city;
+				info.location = response.data.response.location;
+				info.locationCode = response.data.response.locationCode;
+				info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+				info.paymentKey = response.data.response.razorpayID;
+				info.isTaxCollected = response.data.response.isTaxCollected;
+				info.taxPercentage = response.data.response.taxPercentage;
+				info.isParcelCollected = response.data.response.isParcelCollected;
+				info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
+				info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
+				info.minAmount = response.data.response.minAmount;
+				info.minTime = response.data.response.minTime;
+				outletService.setOutletInfo(info);
+
+				var temp = {name:response.data.response.location};
+				$scope.data.selected_locality = temp;
+
+				//Clear the changeLocationFlag if at all set.
+				window.localStorage.changeLocationFlag = "";
+
+				//LOADING
+				$ionicLoading.show({
+					template:  '<ion-spinner></ion-spinner>'
+				});
+
+
+				//Go back to the checkout page (if it was redirected to set location)
+				$timeout(function () {
+					if(window.localStorage.backFlag){
+						window.localStorage.removeItem("backFlag");
+						$state.go('main.app.shopping-cart'); //Because, we need to reset the DELIVERY Flag
+					}
+					else if(window.localStorage.backFlagCart){
+						window.localStorage.removeItem("backFlagCart");
+						$state.go('main.app.shopping-cart');
+					}
+					else{
+						$scope.isLocationSet = true;
+					}
+					$ionicLoading.hide();
+				}, 1000);
+
+			}
+		});
+	}
+
 	$rootScope.setLocality = function(locationCode, locationName){
 
 		$scope.locality_popover.hide();
+		$timeout(function () {
 
 		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+locationCode)
 		.then(function(response){
@@ -146,11 +224,14 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 				window.localStorage.locationCode = response.data.response.locationCode;
 
 				var info = {};
+				info.onlyTakeAway = false;
 				info.outlet = response.data.response.outlet;
+				info.isSpecial = response.data.response.isSpecial;
 		    info.city = response.data.response.city;
 		    info.location = response.data.response.location;
 				info.locationCode = response.data.response.locationCode;
 		    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+				info.paymentKey = response.data.response.razorpayID;
 		    info.isTaxCollected = response.data.response.isTaxCollected;
 		    info.taxPercentage = response.data.response.taxPercentage;
 		    info.isParcelCollected = response.data.response.isParcelCollected;
@@ -175,11 +256,11 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 				//Go back to the checkout page (if it was redirected to set location)
 				$timeout(function () {
 					if(window.localStorage.backFlag){
-						window.localStorage.backFlag = "";
+						window.localStorage.removeItem("backFlag");
 						$state.go('main.app.checkout');
 					}
 					else if(window.localStorage.backFlagCart){
-						window.localStorage.backFlagCart = "";
+						window.localStorage.removeItem("backFlagCart");
 						$state.go('main.app.shopping-cart');
 					}
 					else{
@@ -190,14 +271,49 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 			}
 			else{
+
+				//LOADING
 				$ionicLoading.show({
-					template:  response.data.error,
-					duration: 2000
+					template:  '<ion-spinner></ion-spinner>'
 				});
+
+
+				$timeout(function () {
+						//Only Takeaway Possible.
+						$ionicPopup.show({
+		              title: response.data.error,
+		              subTitle: 'You can place only Take Away orders',
+									cssClass: 'delivery-unavailable-popup',
+		              scope: $scope,
+		              buttons: [
+		                { text: 'Cancel', onTap: function(e) { return true; } },
+		                {
+		                  text: '<b>OK</b>',
+		                  type: 'button-balanced',
+		                  onTap: function(e) {
+												$rootScope.setRandomOutlet(response.data.response.outlet, response.data.response.selectLocation);
+		                  }
+		                },
+		              ]
+		              }).then(function(res) {
+		              });
+
+							$ionicLoading.hide();
+					}, 1000);
+
+				// $ionicLoading.show({
+				// 	template:  response.data.error,
+				// 	duration: 2000
+				// });
 			}
 		});
 
 
+
+
+
+
+		}, 500);
 
 	};
 

@@ -10,19 +10,32 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 	var i = 0;
 	var today = new Date();
+	var dd, mm, yyyy;
 	while(i < 7){
 
 		var date = new Date();
 		date.setDate(today.getDate() + i);
 
+		dd = date.getDate();
+		mm = date.getMonth()+1;
+		yyyy = date.getFullYear();
+
+		//Format Date and Month
+		if(dd<10){
+    	dd='0'+dd;
+		}
+		if(mm<10){
+		   mm='0'+mm;
+		}
+
 		if(i == 0){ //Today
-			$scope.dateList.push({value: date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear(),name:"Today, "+date.getDate()+' '+months[date.getMonth()]});
+			$scope.dateList.push({value: dd+'-'+mm+'-'+yyyy, name:"Today, "+date.getDate()+' '+months[date.getMonth()]});
 		}
 		else if(i == 1){ //Tomorrow
-			$scope.dateList.push({value: date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear(),name:"Tomorrow, "+date.getDate()+' '+months[date.getMonth()]});
+			$scope.dateList.push({value: dd+'-'+mm+'-'+yyyy, name:"Tomorrow, "+date.getDate()+' '+months[date.getMonth()]});
 		}
 		else{ //Day Name
-			$scope.dateList.push({value: date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear(),name:days[date.getDay()]+", "+date.getDate()+' '+months[date.getMonth()]});
+			$scope.dateList.push({value: dd+'-'+mm+'-'+yyyy, name:days[date.getDay()]+", "+date.getDate()+' '+months[date.getMonth()]});
 		}
 		i++;
 	}
@@ -136,6 +149,8 @@ angular.module('zaitoonFirst.content.controllers', [])
 	}
 
 	$scope.fetchTimeslots = function(data){
+		$scope.dateSelected = data.dateSelected;
+
 		//If the date is TODAY, and remove time slots already passed.
 		var todayDate = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
 		if(data.dateSelected.value != todayDate){
@@ -161,6 +176,11 @@ angular.module('zaitoonFirst.content.controllers', [])
 		}
 	}
 
+	//To update the time slot
+	$scope.updateTimeSlot = function(data){
+		$scope.timeSelected = data.timeSelected;
+	}
+
 
 	//Date and Time DEFAULT options
 	$scope.dateSelected = $scope.dateList[0];
@@ -175,7 +195,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 	$scope.bookTable = function(outlet){
 
 		//Check if not logged in
-		if(_.isUndefined(window.localStorage.user)){
+		if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
 			$ionicLoading.show({
 				template:  'Please login to make a table reservation',
 				duration: 3000
@@ -185,7 +205,8 @@ angular.module('zaitoonFirst.content.controllers', [])
 		else{
 
 
-		$scope.count = 1;
+		$scope.count = {};
+		$scope.count.persons = 2;
 
 		schedulesPopup = $ionicPopup.show({
 			cssClass: 'popup-outer edit-shipping-address-view',
@@ -204,17 +225,19 @@ angular.module('zaitoonFirst.content.controllers', [])
 										"outlet":outlet,
 										"date": $scope.dateSelected.value,
 										"time": $scope.timeSelected.value,
-										"count":$scope.count
+										"count":$scope.count.persons
 									};
 
 									var data = {};
 									data.token = JSON.parse(window.localStorage.user).token;
 									data.details = reservation;
 
+									console.log(data.details)
+
 									$http({
 										method  : 'POST',
 										url     : 'http://www.zaitoon.online/services/newreservation.php',
-										data    : data, //forms user object
+										data    : data, 
 										headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 									 })
 									.then(function(respose) {

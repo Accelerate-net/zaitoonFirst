@@ -15,6 +15,9 @@ angular.module('zaitoonFirst.auth.services', [])
 
   //Default Parameters
   var outlet = "";
+  var paymentKey = "";
+  var onlyTakeAway = false;
+  var isSpecial = false;
   var city = "";
   var location = "";
   var locationCode = "";
@@ -33,10 +36,13 @@ angular.module('zaitoonFirst.auth.services', [])
 
   this.setOutletInfo = function(info){
     outlet = info.outlet;
+    onlyTakeAway = info.onlyTakeAway;
+    isSpecial = info.isSpecial;
     city = info.city;
     location = info.location;
     locationCode = info.locationCode;
     isAcceptingOnlinePayment = info.isAcceptingOnlinePayment;
+    paymentKey = info.paymentKey;
     isTaxCollected = info.isTaxCollected;
     taxPercentage = info.taxPercentage;
     isParcelCollected = info.isParcelCollected;
@@ -49,6 +55,8 @@ angular.module('zaitoonFirst.auth.services', [])
   this.getInfo = function(){
     var data = {
       "outlet":outlet,
+      "onlyTakeAway":onlyTakeAway,
+      "isSpecial": isSpecial,
       "city":city,
       "location":location,
       "locationCode":locationCode,
@@ -59,7 +67,8 @@ angular.module('zaitoonFirst.auth.services', [])
       "parcelPercentagePickup": parcelPercentagePickup,
       "minTime": minTime,
       "minAmount": minAmount,
-      "isAcceptingOnlinePayment": isAcceptingOnlinePayment
+      "isAcceptingOnlinePayment": isAcceptingOnlinePayment,
+      "paymentKey": paymentKey
     }
     return data;
   }

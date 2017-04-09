@@ -3,14 +3,13 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 .controller('CheckoutCtrl', function($timeout, ConnectivityMonitor, trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
 
   //If not logged in (meaning, does not have a token)?
-  if(_.isUndefined(window.localStorage.user)){
+  if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
     $ionicLoading.show({
       template:  'Please login to place an order',
       duration: 3000
     });
     $state.go('intro.auth-login');
   }
-
 
  //User Info
  $rootScope.user = "";
@@ -36,12 +35,23 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
-	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
-	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
-	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
+	$scope.deliveryCharge = Math.ceil($scope.outletSelection['parcelPercentageDelivery']*100);
+	$scope.pickupCharge = Math.ceil($scope.outletSelection['parcelPercentagePickup']*100);
+	$scope.taxPercentage = Math.ceil($scope.outletSelection['taxPercentage']*100);
 
   if(!$scope.outletSelection['outlet']){
     $state.go('intro.walkthrough-welcome');
+  }
+
+  //Pickup Defaulting for IIT Madras and Special Outlets
+  $scope.isPickupChangeable = true;
+  if($scope.outletSelection['isSpecial']){
+    $scope.isPickupChangeable = false;
+    $http.get('http://www.zaitoon.online/services/fetchoutletinfosimple.php?outlet='+$scope.outletSelection['outlet'])
+    .then(function(response){
+      $scope.myOutletFixed = response.data.response;
+      $scope.pickupAddressDefault = $scope.myOutletFixed[0].name;
+    });
   }
 
 
@@ -126,7 +136,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $scope.tax = 0;
   	$scope.getTax = function() {
   		$scope.tax = $scope.subtotal * $scope.outletSelection['taxPercentage'];
-  		return $scope.tax;
+  		return Math.ceil($scope.tax);
   	};
 
   	$scope.getParcel = function() {
@@ -136,11 +146,11 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   		else{
   			$scope.parcel = $scope.subtotal * $scope.outletSelection['parcelPercentagePickup'];
   		}
-  		return $scope.parcel;
+  		return Math.ceil($scope.parcel);
   	};
 
   	$scope.getTotal = function() {
-  		return $scope.subtotal + $scope.tax + $scope.parcel;
+  		return $scope.subtotal + Math.ceil($scope.tax) + Math.ceil($scope.parcel);
   	};
 
 	$scope.cancel = function() {
@@ -201,7 +211,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       $http({
         method  : 'POST',
         url     : 'http://www.zaitoon.online/services/validatecoupon.php',
-        data    : data, //forms user object
+        data    : data,
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
        })
       .then(function(response) {
@@ -226,8 +236,8 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   };
 
 	//Payment Options
+  $scope.onlinePayFlag = false;
 	$scope.onlinePayFlag = $scope.outletSelection['isAcceptingOnlinePayment'];
-	console.log($scope.onlinePayFlag)
 	if($scope.onlinePayFlag)
 		$scope.paychoice = 'PRE';
 	else
@@ -238,27 +248,10 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   }
 
 
+console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
-		//RAZORPAY testing...
-		var options = {
-    description: '#100132',
-    image: 'http://www.zaitoon.online/services/images/razorpay.png',
-    currency: 'INR',
-    key: 'rzp_test_1DP5mmOlF5G5ag',
-    amount: '1000',
-    name: 'Zaitoon First',
-    prefill: {
-      email: $rootScope.user.email,
-      contact: $rootScope.user.mobile,
-      name: $rootScope.user.name
-    },
-    theme: {
-      color: '#e74c3c'
-    }
-  };
 
-  // `ng-click` is triggered twice on ionic. (See https://github.com/driftyco/ionic/issues/1022).
-  // This is a dirty flag to hack around it
+	//RAZORPAY INTEGRATION
   var called = false
 
   var successCallback = function(payment_id) {
@@ -269,8 +262,8 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
     $http({
       method  : 'POST',
-      url     : 'http://www.zaitoon.online/services/paymentconfirmation.php',
-      data    : data, //forms user object
+      url     : 'http://www.zaitoon.online/services/processpayment.php',
+      data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(response) {
@@ -278,6 +271,12 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         //Go to track page
         trackOrderService.setOrderID(response.data.orderid);
         $state.go('main.app.checkout.track');
+      }
+      else{
+        $ionicLoading.show({
+          template:  'Something went wrong. The order was not placed.',
+          duration: 3000
+        });
       }
     });
 
@@ -287,7 +286,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   var cancelCallback = function(error) {
 
     $ionicLoading.show({
-      template:  '<b style="color: #e74c3c; font-size: 150%">Error #'+error.code+'</b><br>'+error.description,
+      template:  '<b style="color: #e74c3c; font-size: 150%">Error'+'</b><br>'+error.description,
       duration: 3000
     });
 
@@ -296,6 +295,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   $ionicPlatform.ready(function(){
     $scope.placeOrder = function() {
+
       if($scope.isOfflineFlag){
         $ionicLoading.show({
           template:  'Please connect to Internet',
@@ -318,15 +318,19 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
           var formattedcart = {};
           formattedcart.cartTotal = this.getSubtotal();
-          formattedcart.cartCoupon = $scope.couponDiscount;
+          formattedcart.cartExtra = this.getTax() + this.getParcel();
+          formattedcart.cartDiscount = $scope.couponDiscount;
+          formattedcart.cartCoupon = couponService.getCoupon();
           formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
           data.cart = formattedcart;
+          data.platform = "MOB";
+          data.location = $scope.outletSelection['locationCode'];
 
 
           $http({
             method  : 'POST',
             url     : 'http://www.zaitoon.online/services/createorder.php',
-            data    : data, //forms user object
+            data    : data,
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
            })
           .then(function(response) {
@@ -338,13 +342,33 @@ angular.module('zaitoonFirst.checkout.controllers', [])
             }
             else{
               $scope.orderID = response.data.orderid;
+
+              //Payment options
+              var options = {
+                description: 'Payment for Order #'+response.data.orderid,
+                image: 'https://zaitoon.online/services/images/razor_icon.png',
+                currency: 'INR',
+                key: $scope.outletSelection['paymentKey'],
+                amount: response.data.amount*100,
+                name: 'Zaitoon Online',
+                prefill: {
+                  email: $rootScope.user.email,
+                  contact: $rootScope.user.mobile,
+                  name: $rootScope.user.name
+                },
+                theme: {
+                  color: '#e74c3c'
+                }
+              };
+
+              //Step 2 - Make Payment
+              RazorpayCheckout.open(options, successCallback, cancelCallback);
+              called = true
+
             }
           });
 
 
-          //Step 2 - Make Payment
-          RazorpayCheckout.open(options, successCallback, cancelCallback);
-          called = true
         }
       }
       else{ //Cash on Delivery
@@ -359,14 +383,18 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
         var formattedcart = {};
         formattedcart.cartTotal = this.getSubtotal();
-        formattedcart.cartCoupon = $scope.couponDiscount;
+        formattedcart.cartExtra = this.getTax() + this.getParcel();
+        formattedcart.cartDiscount = $scope.couponDiscount;
+        formattedcart.cartCoupon = couponService.getCoupon();
         formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
         data.cart = formattedcart;
+        data.platform = "MOB";
+        data.location = $scope.outletSelection['locationCode'];
 
         $http({
           method  : 'POST',
           url     : 'http://www.zaitoon.online/services/createorder.php',
-          data    : data, //forms user object
+          data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
         .then(function(response) {
@@ -469,7 +497,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 						$http({
 							method  : 'POST',
 							url     : 'http://www.zaitoon.online/services/newaddress.php',
-							data    : data, //forms user object
+							data    : data,
 							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 						 })
 						.then(function(response) {
@@ -559,7 +587,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 						$http({
 							method  : 'POST',
 							url     : 'http://www.zaitoon.online/services/editaddress.php',
-							data    : data, //forms user object
+							data    : data,
 							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 						 })
 						.then(function(response) {
@@ -589,7 +617,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 .controller('trackCtrl', function($scope, $state, $interval, $http, $ionicLoading, trackOrderService) {
 
   //If not logged in (meaning, does not have a token)?
-  if(_.isUndefined(window.localStorage.user)){
+  if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
     $ionicLoading.show({
       template:  'Please login to view this page',
       duration: 3000
@@ -605,7 +633,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   $http({
     method  : 'POST',
     url     : 'http://www.zaitoon.online/services/orderinfo.php',
-    data    : data, //forms user object
+    data    : data,
     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
    })
   .then(function(response) {
@@ -619,7 +647,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $http({
       method  : 'POST',
       url     : 'http://www.zaitoon.online/services/orderinfo.php',
-      data    : data, //forms user object
+      data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(response) {
@@ -663,7 +691,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 .controller('feedbackCtrl', function(reviewOrderService, $scope, $http, $state, $rootScope, $ionicLoading) {
 
   //If not logged in (meaning, does not have a token)?
-  if(_.isUndefined(window.localStorage.user)){
+  if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
     $ionicLoading.show({
       template:  'Please login to view this page',
       duration: 3000
@@ -735,7 +763,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //Negative Feedback
   $rootScope.negative_feedback = {};
-  $rootScope.negative_feedback.packing = false;
+  $rootScope.negative_feedback.quality = false;
   $rootScope.negative_feedback.service = false;
   $rootScope.negative_feedback.delivery = false;
   $rootScope.negative_feedback.food = false;
@@ -759,19 +787,27 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       });
     }
     else{
-      if($scope.starRating < 5){
+      if($scope.starRating == 5){
         var reviewObject = {
           "rating" : $scope.starRating,
-          "negative" : $rootScope.negative_feedback,
-          "positive" : "",
+          "quality" : $rootScope.positive_feedback.quality,
+          "service" : $rootScope.positive_feedback.service,
+          "delivery" : $rootScope.positive_feedback.delivery,
+          "food" : $rootScope.positive_feedback.food,
+          "app" : $rootScope.positive_feedback.app,
+          "other" : $rootScope.positive_feedback.other,
           "comment" : comments
         }
       }
       else{
         var reviewObject = {
           "rating" : $scope.starRating,
-          "negative" : "",
-          "positive" : $rootScope.positive_feedback,
+          "quality" : $rootScope.negative_feedback.quality,
+          "service" : $rootScope.negative_feedback.service,
+          "delivery" : $rootScope.negative_feedback.delivery,
+          "food" : $rootScope.negative_feedback.food,
+          "app" : $rootScope.negative_feedback.app,
+          "other" : $rootScope.negative_feedback.other,
           "comment" : comments
         }
       }
@@ -789,7 +825,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       $http({
         method  : 'POST',
         url     : 'http://www.zaitoon.online/services/postreview.php',
-        data    : data, //forms user object
+        data    : data,
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
        })
       .then(function(response) {
