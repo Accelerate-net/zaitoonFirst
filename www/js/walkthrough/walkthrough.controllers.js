@@ -309,11 +309,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		});
 
 
-
-
-
-
-		}, 500);
+	}, 1000);
 
 	};
 

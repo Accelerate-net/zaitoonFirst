@@ -42,12 +42,20 @@
     </div>
 
 
-    <div class="row write-review-row">
+    <div class="row write-review-row" ng-if="info.isReservationAllowed">
     	<div class="col">
     		<button class="button button-block new-review-button" ng-click="bookTable(info.outlet)">
     			BOOK A TABLE
     		</button>
     	</div>
+    </div>
+
+    <div class="row write-review-row" ng-if="!info.isReservationAllowed">
+      <div class="col">
+        <button class="button button-block new-review-button" disabled>
+          Table Reservation Not Available
+        </button>
+      </div>
     </div>
 
 
