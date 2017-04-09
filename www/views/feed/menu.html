@@ -51,12 +51,13 @@
                   <a class="product-anchor">{{product.itemName}}</a>
                 </h5>
                 <p class="address-and-price-container">
-                  <span class="product-address">{{submenu.subName}}<tag class="myPrice">Rs. {{product.itemPrice}}</tag></span>
+                  <span class="product-address" style="color: #686868">{{submenu.subName}}<tag class="myPrice">Rs. {{product.itemPrice}}</tag></span>
                 </p>
               </div>
               <div class="col col-10 col-center">
-                <button ng-if="product.isCustom" class="button button-small button-outline button-balanced" ng-click="customOptions(product)"><span class="icon ion-plus"></span></button>
-                <button ng-if="!product.isCustom" class="button button-small button-outline button-balanced" ng-click="addToCart(product)"><span class="icon ion-plus"></span></button>
+                <button ng-if="!product.isAvailable" class="button button-small button-outline button-info" ng-click="showNotAvailable(product)"><span class="icon ion-alert"></span></button>
+                <button ng-if="product.isCustom && product.isAvailable" class="button button-small button-outline button-balanced" ng-click="customOptions(product)"><span class="icon ion-plus"></span></button>
+                <button ng-if="!product.isCustom && product.isAvailable" class="button button-small button-outline button-balanced" ng-click="addToCart(product)"><span class="icon ion-plus"></span></button>
               </div>
             </div>
           </div>

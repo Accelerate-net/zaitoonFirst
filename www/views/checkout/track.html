@@ -19,10 +19,11 @@
             <img class="illustration-image" ng-src="./img/common/waiting.gif" spinner-on-load/>
           </pre-img>
         </div>
-        <div class="ok-button-outer" style="padding-top: 20px; ">
-          <a class="button button-block ok-button">
-            Cancel Order
-          </a>
+        <div style="margin: 15px 10px; padding: 10px; background: #FBFBFB; position: fixed; bottom: 0;">
+          <p style="color: #7f8c8d; margin: 0; font-size: 10px">This order is placed at</p>
+          <hr style="border: none; border-top: 1px solid #F2F3F3;">
+          <p style="color: #A4A4A4; font-size: 14px; padding: 15px 15px 0px 15px">Zaitoon {{track.response.outletAddress}}</p>
+          <p style="color: #A4A4A4; font-size: 14px">Call <b>{{track.response.outletContact}}</b></p>
         </div>
       </div>
 
@@ -71,6 +72,12 @@
           <pre-img ratio="_41_22">
             <img class="illustration-image" ng-src="./img/common/cooking.png" spinner-on-load/>
           </pre-img>
+        </div>
+        <div style="margin: 15px 10px; padding: 10px; background: #FBFBFB; position: fixed; bottom: 0;">
+          <p style="color: #7f8c8d; margin: 0; font-size: 10px">This order is being prepared at</p>
+          <hr style="border: none; border-top: 1px solid #F2F3F3;">
+          <p style="color: #A4A4A4; font-size: 14px; padding: 15px 15px 0px 15px">Zaitoon {{track.response.outletAddress}}</p>
+          <p style="color: #A4A4A4; font-size: 14px">Call <b>{{track.response.outletContact}}</b></p>
         </div>
       </div>
 
@@ -121,6 +128,13 @@
             <img ng-if="isTakeAway" class="illustration-image" ng-src="./img/common/box.jpg" spinner-on-load/>
           </pre-img>
         </div>
+        <div style="margin: 15px 10px; padding: 10px; background: #FBFBFB; position: fixed; bottom: 0;">
+          <p ng-if="!isTakeAway" style="color: #7f8c8d; margin: 0; font-size: 10px">Order was dispatched from</p>
+          <p ng-if="isTakeAway" style="color: #7f8c8d; margin: 0; font-size: 10px">Ready for pick up at</p>
+          <hr style="border: none; border-top: 1px solid #F2F3F3;">
+          <p style="color: #A4A4A4; font-size: 14px; padding: 15px 15px 0px 15px">Zaitoon {{track.response.outletAddress}}</p>
+          <p style="color: #A4A4A4; font-size: 14px">Call <b>{{track.response.outletContact}}</b></p>
+        </div>
       </div>
 
 
@@ -169,8 +183,13 @@
             <img class="illustration-image" ng-src="./img/common/success.gif" spinner-on-load/>
           </pre-img>
         </div>
+        <div style="margin: 15px 10px; padding: 10px; background: #FBFBFB; position: fixed; bottom: 0;">
+          <p style="color: #7f8c8d; margin: 0; font-size: 10px">Order was accomplished by</p>
+          <hr style="border: none; border-top: 1px solid #F2F3F3;">
+          <p style="color: #A4A4A4; font-size: 14px; padding: 15px 15px 0px 15px">Zaitoon {{track.response.outletAddress}}</p>
+          <p style="color: #A4A4A4; font-size: 14px">Call <b>{{track.response.outletContact}}</b></p>
+        </div>
       </div>
-
 
       <div ng-if="status == 5">
         <h3 class="thanks-title" style="color: #e74c3c; font-weight: 250; margin-top: 30px">This order has been cancelled.</h3>

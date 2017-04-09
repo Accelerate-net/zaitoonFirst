@@ -27,7 +27,10 @@
             <button class="button shop-button-combo" style="float: left">
               COMBO OFFER
             </button>
-            <button ng-click=addComboToCart(combo) class="button button-small button-outline button-balanced" style="float: right;">
+            <button ng-if="!combo.isAvailable" class="button button-small button-outline button-info" style="float: right;">
+              Out of Stock
+            </button>
+            <button ng-if="combo.isAvailable" ng-click=addComboToCart(combo) class="button button-small button-outline button-balanced" style="float: right;">
               Add to Cart
             </button>
           </div>

@@ -25,13 +25,21 @@
         <b>{{ products.length }}</b> <tag style="font-weight: 300;">{{ products.length === 1 ? 'item' : 'items' }} in Cart</tag>
       </div>
 
-      <div class="button-bar padding">
+      <div class="button-bar padding" ng-if="isDeliveryAvailable">
         <a grouped-radio="'delivery'" ng-click="setCheckoutMode('delivery')" ng-model="orderType">Delivery</a>
         <a grouped-radio="'takeaway'" ng-click="setCheckoutMode('takeaway')" ng-model="orderType">Take Away</a>
       </div>
 
-      <div ng-if="orderType == 'takeaway'" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
+      <div class="button-bar padding" ng-if="!isDeliveryAvailable">
+        <a grouped-radio="'takeaway'" ng-click="setCheckoutMode('takeaway')" ng-model="orderType">Take Away</a>
+      </div>
+
+      <div ng-if="orderType == 'takeaway' && isDeliveryAvailable" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
         No minimum amount. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and VAT</tag> apply.
+      </div>
+
+      <div ng-if="orderType == 'takeaway' && !isDeliveryAvailable" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
+        We do not deliver in your area, only Take Away option available.<br>No minimum amount. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and VAT</tag> apply.
       </div>
 
       <div ng-if="orderType == 'delivery'" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">

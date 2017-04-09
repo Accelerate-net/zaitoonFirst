@@ -2,7 +2,7 @@
   <div class="row">
     <label class="col item item-input item-stacked-label">
       <span class="input-label">NUMBER OF PEOPLE</span>
-      <input class="input-data" type="tel" ng-value="count">
+      <input class="input-data" type="tel" ng-model="count.persons">
     </label>
   </div>
   <div class="row">
@@ -18,7 +18,7 @@
     <label class="col item item-input item-stacked-label">
       <span class="input-label">TIME</span>
       <form>
-        <select style="width: 100%; padding: 10px 0px; margin-left: 0px; border: none; color: #e74c3c" ng-model="timeSelected" ng-options="time.name for time in timeList">
+        <select style="width: 100%; padding: 10px 0px; margin-left: 0px; border: none; color: #e74c3c" ng-model="timeSelected" ng-options="time.name for time in timeList" ng-change="updateTimeSlot(this)">
         </select>
       </form>
     </label>

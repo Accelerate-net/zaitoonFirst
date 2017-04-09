@@ -15,7 +15,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 
 
   //if not logged in
-  if(_.isUndefined(window.localStorage.user)){
+  if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
     $state.go('intro.auth-login');
   }
 
@@ -199,7 +199,7 @@ angular.module('zaitoonFirst.account.controllers', [])
   $http({
     method  : 'POST',
     url     : 'http://www.zaitoon.online/services/orderhistory.php',
-    data    : data, //forms user object
+    data    : data, 
     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
    })
   .then(function(response) {
@@ -226,7 +226,7 @@ angular.module('zaitoonFirst.account.controllers', [])
     $http({
       method  : 'POST',
       url     : 'http://www.zaitoon.online/services/orderhistory.php',
-      data    : data, //forms user object
+      data    : data, 
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(items) {
