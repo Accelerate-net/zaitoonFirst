@@ -341,30 +341,36 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
               });
             }
             else{
-              $scope.orderID = response.data.orderid;
+              if(response.data.isPrepaidAllowed){
+                $scope.orderID = response.data.orderid;
+                //Payment options
+                var options = {
+                  description: 'Payment for Order #'+response.data.orderid,
+                  image: 'https://zaitoon.online/services/images/razor_icon.png',
+                  currency: 'INR',
+                  key: $scope.outletSelection['paymentKey'],
+                  amount: response.data.amount*100,
+                  name: 'Zaitoon Online',
+                  prefill: {
+                    email: $rootScope.user.email,
+                    contact: $rootScope.user.mobile,
+                    name: $rootScope.user.name
+                  },
+                  theme: {
+                    color: '#e74c3c'
+                  }
+                };
 
-              //Payment options
-              var options = {
-                description: 'Payment for Order #'+response.data.orderid,
-                image: 'https://zaitoon.online/services/images/razor_icon.png',
-                currency: 'INR',
-                key: $scope.outletSelection['paymentKey'],
-                amount: response.data.amount*100,
-                name: 'Zaitoon Online',
-                prefill: {
-                  email: $rootScope.user.email,
-                  contact: $rootScope.user.mobile,
-                  name: $rootScope.user.name
-                },
-                theme: {
-                  color: '#e74c3c'
-                }
-              };
-
-              //Step 2 - Make Payment
-              RazorpayCheckout.open(options, successCallback, cancelCallback);
-              called = true
-
+                //Step 2 - Make Payment
+                RazorpayCheckout.open(options, successCallback, cancelCallback);
+                called = true
+              }
+              else{
+                $ionicLoading.show({
+                  template:  '<b style="color: #e74c3c; font-size: 150%">Sorry!</b><br>Online payment is not available. Please opt for Cash on Delivery (COD)',
+                  duration: 3000
+                });
+              }
             }
           });
 

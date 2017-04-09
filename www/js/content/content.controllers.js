@@ -237,14 +237,23 @@ angular.module('zaitoonFirst.content.controllers', [])
 									$http({
 										method  : 'POST',
 										url     : 'http://www.zaitoon.online/services/newreservation.php',
-										data    : data, 
+										data    : data,
 										headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 									 })
-									.then(function(respose) {
-										$ionicLoading.show({
-											template:  '<b style="font-size: 150%">It\'s confirmed!</b><br>We will reserve enough tables for you.',
-											duration: 3000
-										});
+									.then(function(response) {
+										if(response.data.status){
+											$ionicLoading.show({
+												template:  '<b style="font-size: 150%">It\'s confirmed!</b><br>We will reserve enough tables for you.',
+												duration: 3000
+											});
+										}
+										else{
+											$ionicLoading.show({
+												template:  '<b style="font-size: 150%; color: #f1c40f">Oops!</b><br>'+response.data.error,
+												duration: 3000
+											});
+										}
+
 									});
 			        }
 			    }
