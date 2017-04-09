@@ -7,7 +7,7 @@
         <input type="search" placeholder="Search" name="search_query" ng-model="search.query" ng-keyup="suggest()" style="width: 100%; border-bottom: 1px solid #e74c3c; text-align: center; padding-top: 10px;">
 
         <ion-list>
-          <ion-item  class="myList" ng-repeat="locality in availableLocations = (localities | searchField : 'product.itemName' | filter:search.query)" ng-click="setLocality(locality.code, locality.name)" style="background: none; border: 0px; border-bottom: 1px solid #FAFBEB; color: #e74c3c;">
+          <ion-item  class="myList" ng-repeat="locality in availableLocations = (localities | searchField : 'product.itemName' | filter:search.query)" ng-click="setLocality(locality.code)" style="background: none; border: 0px; border-bottom: 1px solid #FAFBEB; color: #e74c3c;">
             {{locality.name}}
           </ion-item>
         </ion-list>
