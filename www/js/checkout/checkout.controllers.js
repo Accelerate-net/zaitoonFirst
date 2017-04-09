@@ -39,6 +39,8 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 	$scope.pickupCharge = Math.ceil($scope.outletSelection['parcelPercentagePickup']*100);
 	$scope.taxPercentage = Math.ceil($scope.outletSelection['taxPercentage']*100);
 
+  $scope.razorpayKey = $scope.outletSelection['paymentKey'];
+
   if(!$scope.outletSelection['outlet']){
     $state.go('intro.walkthrough-welcome');
   }
@@ -80,7 +82,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $scope.outletListSize = Object.keys($scope.outletList).length;
 
     //Set what to display for the default pickup outlet
-    var default_outlet = window.localStorage.outlet;
+    var default_outlet = $scope.outletSelection.outlet;
     var i = 0;
     while (i < Object.keys($scope.outletList).length){
       if($scope.outletList[i].value == default_outlet){
@@ -103,6 +105,9 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $scope.data = {};
     $scope.data.selected_outlet = temp_nearest;
 
+    console.log('&&&&&&&&&')
+    console.log($scope.data.selected_outlet)
+
 
   //Choose Outlet
   $timeout(function () { //Time delay is added to give time gap for popup to load!!
@@ -118,9 +123,14 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   };
 
   $scope.setOutlet = function(outletObj){
+    console.log(outletObj.value)
     window.localStorage.outlet = outletObj.value;
     $scope.data.selected_outlet = outletObj;
     $scope.outlet_popover.hide();
+
+    //Update Payment Info.
+    $scope.onlinePayFlag = outletObj.isAcceptingOnlinePayment;
+    $scope.razorpayKey = outletObj.razorpayID
   };
 
 	$scope.products = products;
@@ -348,7 +358,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
                   description: 'Payment for Order #'+response.data.orderid,
                   image: 'https://zaitoon.online/services/images/razor_icon.png',
                   currency: 'INR',
-                  key: $scope.outletSelection['paymentKey'],
+                  key: $scope.razorpayKey,
                   amount: response.data.amount*100,
                   name: 'Zaitoon Online',
                   prefill: {

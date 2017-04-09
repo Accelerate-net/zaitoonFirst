@@ -66,14 +66,6 @@ angular.module('zaitoonFirst.checkout.services', [])
     checkoutMode = value;
   }
 
-  this.getUserCreditCards = function(){
-    var dfd = $q.defer();
-    $http.get('logged_user_db.json').success(function(database) {
-      dfd.resolve(database.user.credit_cards);
-    });
-    return dfd.promise;
-  };
-
   this.getUserShippingAddresses = function(){
     var dfd = $q.defer();
 
