@@ -149,6 +149,8 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 	};
 
+
+	/*
 	$rootScope.setRandomOutlet = function(randomOutlet, chosenLocationCode){
 		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?outletcode='+randomOutlet+'&locationCode='+chosenLocationCode)
 		.then(function(response){
@@ -192,12 +194,16 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 				//Go back to the checkout page (if it was redirected to set location)
 				$timeout(function () {
 					if(window.localStorage.backFlag){
-						window.localStorage.removeItem("backFlag");
-						$state.go('main.app.shopping-cart'); //Because, we need to reset the DELIVERY Flag
+						$timeout(function () {
+							window.localStorage.removeItem("backFlag");
+							$state.go('main.app.shopping-cart'); //Because, we need to reset the DELIVERY Flag
+						}, 200);
 					}
 					else if(window.localStorage.backFlagCart){
-						window.localStorage.removeItem("backFlagCart");
-						$state.go('main.app.shopping-cart');
+						$timeout(function () {
+							window.localStorage.removeItem("backFlagCart");
+							$state.go('main.app.shopping-cart');
+						}, 200);
 					}
 					else{
 						$scope.isLocationSet = true;
@@ -208,8 +214,10 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 			}
 		});
 	}
+*/
 
-	$rootScope.setLocality = function(locationCode, locationName){
+
+	$rootScope.setLocality = function(locationCode){
 
 		$scope.locality_popover.hide();
 		$timeout(function () {
@@ -217,101 +225,190 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+locationCode)
 		.then(function(response){
 			if(response.data.status){
+				console.log(response.data)
+				//Serviced Areas
+				if(response.data.isServed){
 
-				//Set outlet and location
-				window.localStorage.outlet = response.data.response.outlet;
-				window.localStorage.location = response.data.response.location;
-				window.localStorage.locationCode = response.data.response.locationCode;
+					//Set outlet and location
+					window.localStorage.outlet = response.data.response.outlet;
+					window.localStorage.location = response.data.response.location;
+					window.localStorage.locationCode = response.data.response.locationCode;
 
-				var info = {};
-				info.onlyTakeAway = false;
-				info.outlet = response.data.response.outlet;
-				info.isSpecial = response.data.response.isSpecial;
-		    info.city = response.data.response.city;
-		    info.location = response.data.response.location;
-				info.locationCode = response.data.response.locationCode;
-		    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
-				info.paymentKey = response.data.response.razorpayID;
-		    info.isTaxCollected = response.data.response.isTaxCollected;
-		    info.taxPercentage = response.data.response.taxPercentage;
-		    info.isParcelCollected = response.data.response.isParcelCollected;
-		    info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
-		    info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
-		    info.minAmount = response.data.response.minAmount;
-		    info.minTime = response.data.response.minTime;
-				outletService.setOutletInfo(info);
+					var info = {};
+					info.onlyTakeAway = !response.data.isServed;
+					info.outlet = response.data.response.outlet;
+					info.isSpecial = response.data.response.isSpecial;
+			    info.city = response.data.response.city;
+			    info.location = response.data.response.location;
+					info.locationCode = response.data.response.locationCode;
+			    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+					info.paymentKey = response.data.response.razorpayID;
+			    info.isTaxCollected = response.data.response.isTaxCollected;
+			    info.taxPercentage = response.data.response.taxPercentage;
+			    info.isParcelCollected = response.data.response.isParcelCollected;
+			    info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
+			    info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
+			    info.minAmount = response.data.response.minAmount;
+			    info.minTime = response.data.response.minTime;
+					outletService.setOutletInfo(info);
 
-				var temp = {name:locationName};
-				$scope.data.selected_locality = temp;
+					var temp = {name:response.data.response.location};
+					$scope.data.selected_locality = temp;
 
-				//Clear the changeLocationFlag if at all set.
-				window.localStorage.changeLocationFlag = "";
+					//Clear the changeLocationFlag if at all set.
+					window.localStorage.changeLocationFlag = "";
 
-				//LOADING
-				$ionicLoading.show({
-					template:  '<ion-spinner></ion-spinner>'
-				});
+					//LOADING
+					$ionicLoading.show({
+						template:  '<ion-spinner></ion-spinner>'
+					});
 
 
-				//Go back to the checkout page (if it was redirected to set location)
-				$timeout(function () {
-					if(window.localStorage.backFlag){
-						window.localStorage.removeItem("backFlag");
-						$state.go('main.app.checkout');
-					}
-					else if(window.localStorage.backFlagCart){
-						window.localStorage.removeItem("backFlagCart");
-						$state.go('main.app.shopping-cart');
-					}
-					else{
-						$scope.isLocationSet = true;
-					}
-					$ionicLoading.hide();
-				}, 1000);
+					//Go back to the checkout page (if it was redirected to set location)
+					$timeout(function () {
+						if(window.localStorage.backFlag){
+							window.localStorage.removeItem("backFlag");
+							$state.go('main.app.checkout');
+						}
+						else if(window.localStorage.backFlagCart){
+							window.localStorage.removeItem("backFlagCart");
+							$state.go('main.app.shopping-cart');
+						}
+						else{
+							$scope.isLocationSet = true;
+						}
+						$ionicLoading.hide();
+					}, 1000);
+				}
+				//NOT SERVICED AREAS
+				else{
+					//Warn Only Takeaway Possible.
+					$ionicPopup.show({
+								title: "Can not be delivered to selected area",
+								subTitle: 'You can place only Take Away orders',
+								cssClass: 'delivery-unavailable-popup',
+								scope: $scope,
+								buttons: [
+									{ text: 'Cancel', onTap: function(e) { return true; } },
+									{
+										text: '<b>OK</b>',
+										type: 'button-balanced',
+										onTap: function(e) {
+											//Set outlet and location
+											window.localStorage.outlet = response.data.response.outlet;
+											window.localStorage.location = response.data.response.location;
+											window.localStorage.locationCode = response.data.response.locationCode;
 
+											var info = {};
+											info.onlyTakeAway = !response.data.isServed;
+											info.outlet = response.data.response.outlet;
+											info.isSpecial = response.data.response.isSpecial;
+											info.city = response.data.response.city;
+											info.location = response.data.response.location;
+											info.locationCode = response.data.response.locationCode;
+											info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+											info.paymentKey = response.data.response.razorpayID;
+											info.isTaxCollected = response.data.response.isTaxCollected;
+											info.taxPercentage = response.data.response.taxPercentage;
+											info.isParcelCollected = response.data.response.isParcelCollected;
+											info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
+											info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
+											info.minAmount = response.data.response.minAmount;
+											info.minTime = response.data.response.minTime;
+											outletService.setOutletInfo(info);
+
+											var temp = {name:response.data.response.location};
+											$scope.data.selected_locality = temp;
+
+											//Clear the changeLocationFlag if at all set.
+											window.localStorage.changeLocationFlag = "";
+
+											//LOADING
+											$ionicLoading.show({
+												template:  '<ion-spinner></ion-spinner>'
+											});
+
+
+											//Go back to the checkout page (if it was redirected to set location)
+											$timeout(function () {
+												if(window.localStorage.backFlag){
+													window.localStorage.removeItem("backFlag");
+													$state.go('main.app.checkout');
+												}
+												else if(window.localStorage.backFlagCart){
+													window.localStorage.removeItem("backFlagCart");
+													$state.go('main.app.shopping-cart');
+												}
+												else{
+													$scope.isLocationSet = true;
+												}
+												$ionicLoading.hide();
+											}, 1000);
+										}
+									},
+								]
+						});
+				}
 			}
 			else{
-
-				//LOADING
 				$ionicLoading.show({
-					template:  '<ion-spinner></ion-spinner>'
+					template:  response.data.error,
+					duration: 2000
 				});
-
-
-				$timeout(function () {
-						//Only Takeaway Possible.
-						$ionicPopup.show({
-		              title: response.data.error,
-		              subTitle: 'You can place only Take Away orders',
-									cssClass: 'delivery-unavailable-popup',
-		              scope: $scope,
-		              buttons: [
-		                { text: 'Cancel', onTap: function(e) { return true; } },
-		                {
-		                  text: '<b>OK</b>',
-		                  type: 'button-balanced',
-		                  onTap: function(e) {
-												$rootScope.setRandomOutlet(response.data.response.outlet, response.data.response.selectLocation);
-		                  }
-		                },
-		              ]
-		              }).then(function(res) {
-		              });
-
-							$ionicLoading.hide();
-					}, 1000);
-
-				// $ionicLoading.show({
-				// 	template:  response.data.error,
-				// 	duration: 2000
-				// });
 			}
 		});
 
 
-	}, 1000);
+	}, 1500);
 
 	};
+
+
+
+	//Reset Location on next iteration
+	if(!_.isUndefined(window.localStorage.locationCode) && window.localStorage.locationCode != "")
+	{
+		//LOADING
+		$ionicLoading.show({
+			template:  '<ion-spinner></ion-spinner>'
+		});
+
+		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+window.localStorage.locationCode)
+		.then(function(response){
+			$ionicLoading.hide();
+
+			if(response.data.status){
+					//Set outlet and location
+					window.localStorage.outlet = response.data.response.outlet;
+					window.localStorage.location = response.data.response.location;
+					window.localStorage.locationCode = response.data.response.locationCode;
+
+					var info = {};
+					info.onlyTakeAway = !response.data.isServed;
+					info.outlet = response.data.response.outlet;
+					info.isSpecial = response.data.response.isSpecial;
+			    info.city = response.data.response.city;
+			    info.location = response.data.response.location;
+					info.locationCode = response.data.response.locationCode;
+			    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+					info.paymentKey = response.data.response.razorpayID;
+			    info.isTaxCollected = response.data.response.isTaxCollected;
+			    info.taxPercentage = response.data.response.taxPercentage;
+			    info.isParcelCollected = response.data.response.isParcelCollected;
+			    info.parcelPercentageDelivery = response.data.response.parcelPercentageDelivery;
+			    info.parcelPercentagePickup = response.data.response.parcelPercentagePickup;
+			    info.minAmount = response.data.response.minAmount;
+			    info.minTime = response.data.response.minTime;
+					outletService.setOutletInfo(info);
+			}
+			else{
+				$ionicLoading.show({
+					template:  response.data.error,
+					duration: 2000
+				});
+			}
+		});
+	}
 
 })
 
