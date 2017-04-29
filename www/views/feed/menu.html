@@ -27,6 +27,18 @@
     </div>
   </ion-header-bar>
 
+  <ion-footer-bar class="" style="background-color: #2c3e50" ng-if="isOutletClosedNow && outletClosureWarning">
+    <div class="row item-input-inset search-row-filter">
+      <div class="col col-90">
+          <tag style="color: #FF6340;"><i style="font-size: 120%" class="icon ion-alert-circled"></i> The nearest outlets are now closed</tag>
+      </div>
+      <div class="col">
+        <button class="button button-clear cancel-button ion-close" ng-click="clearClosureWarning()">
+        </button>
+      </div>
+    </div>
+  </ion-footer-bar>
+
   <ion-content>
     <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
     <div class="products-row">

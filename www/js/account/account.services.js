@@ -2,7 +2,7 @@
 
 angular.module('zaitoonFirst.account.services', [])
 
-.service('ProfileService', function ($http, $q){
+.service('ProfileService', function ($http, $q, $state, $ionicLoading){
 
 //  var isTokenRegenerated = false;
 
@@ -47,6 +47,17 @@ angular.module('zaitoonFirst.account.services', [])
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(response) {
+      console.log(response)
+      if(!response.data.status){
+        //Something Went Wrong
+        $ionicLoading.show({
+          template:  'Session Expired. Please login again.',
+          duration: 2000
+        });
+        window.localStorage.clear();
+        $state.go('intro.auth-login');
+      }
+
         if(response.data.savedAddresses == null)
           response.data.savedAddresses=[];
 

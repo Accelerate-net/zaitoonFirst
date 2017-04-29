@@ -8,6 +8,8 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 	$scope.pickupCharge = Math.ceil($scope.outletSelection['parcelPercentagePickup']*100);
 	$scope.taxPercentage = Math.ceil($scope.outletSelection['taxPercentage']*100);
 
+	$scope.isOutletOpenNow = $scope.outletSelection['isOpen'];
+
 	//Check if location, outlet are set: if not ask user to set it.
 	if($scope.outletSelection.outlet == "" || $scope.outletSelection.location == "" || _.isUndefined(window.localStorage.locationCode)){
 		$scope.isLocationSet = false;
@@ -129,25 +131,42 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 			});
 		}
 		else{
-			if($scope.orderType == 'delivery'){ //Check for minimum order criteria
-				console.log('DELIVERY...')
-				var total = this.getSubtotal();
-				var min = $scope.outletSelection['minAmount'];
-				if(total >= min){
-					$state.go('main.app.checkout');
+			if(!$scope.isOutletOpenNow){
+				if($scope.orderType == 'delivery'){
+					$ionicLoading.show({
+						template:  'Sorry! The nearest outlet is closed.',
+						duration: 2000
+					});
 				}
 				else{
 					$ionicLoading.show({
-						template:  '<b style="color: #FFE800; font-size: 160%">Oops!</b><br>The minimum order amount is Rs. '+min,
+						template:  'Warning: The nearest outlet is closed.',
 						duration: 3000
 					});
+					$state.go('main.app.checkout');
 				}
+
 			}
 			else{
-				$state.go('main.app.checkout');
+				if($scope.orderType == 'delivery'){ //Check for minimum order criteria
+					console.log('DELIVERY...')
+					var total = this.getSubtotal();
+					var min = $scope.outletSelection['minAmount'];
+					if(total >= min){
+						$state.go('main.app.checkout');
+					}
+					else{
+						$ionicLoading.show({
+							template:  '<b style="color: #FFE800; font-size: 160%">Oops!</b><br>The minimum order amount is Rs. '+min,
+							duration: 3000
+						});
+					}
+				}
+				else{
+					$state.go('main.app.checkout');
+				}
 			}
 		}
-
 	}
 })
 
