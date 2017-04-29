@@ -242,6 +242,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 			    info.location = response.data.response.location;
 					info.locationCode = response.data.response.locationCode;
 			    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+					info.isOpen = response.data.response.isOpen;
 					info.paymentKey = response.data.response.razorpayID;
 			    info.isTaxCollected = response.data.response.isTaxCollected;
 			    info.taxPercentage = response.data.response.taxPercentage;
@@ -307,6 +308,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 											info.location = response.data.response.location;
 											info.locationCode = response.data.response.locationCode;
 											info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+											info.isOpen = response.data.response.isOpen;
 											info.paymentKey = response.data.response.razorpayID;
 											info.isTaxCollected = response.data.response.isTaxCollected;
 											info.taxPercentage = response.data.response.taxPercentage;
@@ -391,6 +393,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 			    info.location = response.data.response.location;
 					info.locationCode = response.data.response.locationCode;
 			    info.isAcceptingOnlinePayment = response.data.response.isAcceptingOnlinePayment;
+					info.isOpen = response.data.response.isOpen;
 					info.paymentKey = response.data.response.razorpayID;
 			    info.isTaxCollected = response.data.response.isTaxCollected;
 			    info.taxPercentage = response.data.response.taxPercentage;

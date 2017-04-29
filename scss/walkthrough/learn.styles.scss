@@ -1,6 +1,6 @@
 .learn-view
 {
-	background-color: $learn-bg;
+	background-color: $main_red;
 
 	.learn-header
 	{
@@ -83,7 +83,7 @@
 			line-height: $learn-actions-height - 5px;
 			font-size: 26px;
 
-			@include button-style($learn-action-button-bg, $learn-action-button-border, $learn-action-button-active-bg, $learn-action-button-active-border, $learn-action-button-text);
+			@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $learn-action-button-text);
 
 			&::after
 			{
@@ -119,10 +119,11 @@
 			.illustration-container
 			{
 				width: 100%;
+				margin-top: 60px;
 
 				.illustration-image
 			    {
-			      width: 100%;
+			      width: 40%;
 			    }
 			}
 		}
@@ -138,17 +139,20 @@
 
 			.welcome-title
 			{
-				margin: 60px 0px 0px;
-				color: $learn-color;
+				font-size: 2em;
+				font-weight: 300;
+				margin: 25px 0px 0px;
+				color: $text_white_dull;
 				text-align: center;
 			}
 
 			.welcome-paragraph
 			{
-				color: $learn-color;
+				font-weight: 200;
+				color: $text_white_dull;
 				text-align: center;
-				margin: 50px 18% 0px;
-				font-size: 22px;
+				margin: 30px 10% 0px;
+				font-size: 1.5em;
 				line-height: 28px;
 			}
 		}

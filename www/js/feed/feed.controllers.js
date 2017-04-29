@@ -114,6 +114,13 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		$myOutlet = $scope.outletSelection.outlet;
 	}
 
+	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
+	$scope.outletClosureWarning = true;
+	$scope.clearClosureWarning = function() {
+		$scope.outletClosureWarning = false;
+	}
+
+
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
         var data = {};
@@ -270,6 +277,12 @@ $timeout(function () {
 		$myOutlet = $scope.outletSelection.outlet;
 	}
 
+	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
+	$scope.outletClosureWarning = true;
+	$scope.clearClosureWarning = function() {
+		$scope.outletClosureWarning = false;
+	}
+
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
@@ -424,6 +437,12 @@ $timeout(function () {
 		$myOutlet = $scope.outletSelection.outlet;
 	}
 
+	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
+	$scope.outletClosureWarning = true;
+	$scope.clearClosureWarning = function() {
+		$scope.outletClosureWarning = false;
+	}
+
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
@@ -574,6 +593,12 @@ $timeout(function () {
 	}
 	else{
 		$myOutlet = $scope.outletSelection.outlet;
+	}
+
+	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
+	$scope.outletClosureWarning = true;
+	$scope.clearClosureWarning = function() {
+		$scope.outletClosureWarning = false;
 	}
 
 
@@ -745,6 +770,12 @@ $timeout(function () {
 	}
 	else{
 		$myOutlet = $scope.outletSelection.outlet;
+	}
+
+	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
+	$scope.outletClosureWarning = true;
+	$scope.clearClosureWarning = function() {
+		$scope.outletClosureWarning = false;
 	}
 
 

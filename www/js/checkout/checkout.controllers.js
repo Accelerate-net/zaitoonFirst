@@ -78,6 +78,8 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   .then(function(response){
     $scope.outletList = response.data.response;
 
+    console.log($scope.outletList)
+
     //For UI enhancement in popup
     $scope.outletListSize = Object.keys($scope.outletList).length;
 

@@ -15,6 +15,7 @@ angular.module('zaitoonFirst.auth.services', [])
   var locationCode = "";
 
   var isAcceptingOnlinePayment = true;
+  var isOpen = true;
 
   var isTaxCollected = true;
   var taxPercentage = 0.02;
@@ -34,6 +35,7 @@ angular.module('zaitoonFirst.auth.services', [])
     location = info.location;
     locationCode = info.locationCode;
     isAcceptingOnlinePayment = info.isAcceptingOnlinePayment;
+    isOpen = info.isOpen;
     paymentKey = info.paymentKey;
     isTaxCollected = info.isTaxCollected;
     taxPercentage = info.taxPercentage;
@@ -60,6 +62,7 @@ angular.module('zaitoonFirst.auth.services', [])
       "minTime": minTime,
       "minAmount": minAmount,
       "isAcceptingOnlinePayment": isAcceptingOnlinePayment,
+      "isOpen": isOpen,
       "paymentKey": paymentKey
     }
     return data;
