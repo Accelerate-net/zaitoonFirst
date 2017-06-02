@@ -200,7 +200,4 @@ angular.module('zaitoonFirst.feed.directives', [])
 		templateUrl: 'views/feed/templates/sliding-item.html'
 	};
 })
-
-
-
 ;

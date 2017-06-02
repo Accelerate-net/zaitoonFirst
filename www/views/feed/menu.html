@@ -39,8 +39,12 @@
     </div>
   </ion-footer-bar>
 
-  <ion-content>
+  <ion-content ng-controller="featureCtrl">
     <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
+    <hscroller ng-if="!isFilter">
+      <hcard ng-repeat="item in items" index="{{$index}}" desc="{{item.desc}}" image="{{item.image}}"></hcard>
+    </hscroller>
+
     <div class="products-row">
     <div ng-if="isEmpty" class="padding"><p style="color: #C7C7C7; text-align: center">No items found.</p></div>
     <div ng-if="isOfflineFlag" class="padding"><p style="color: #6F6F6F; text-align: center; font-size: 18px;"><i style="color: #FFC300; font-size: 130%" class="icon ion-alert-circled"></i> Not connected to internet.</p></div>
@@ -83,4 +87,11 @@
     </div>
 
   </ion-content>
+
+  <!-- <ion-content>
+
+
+
+
+  </ion-content> -->
 </ion-view>

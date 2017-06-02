@@ -198,15 +198,16 @@ angular.module('zaitoonFirst.account.controllers', [])
 
   $http({
     method  : 'POST',
-    url     : 'http://www.zaitoon.online/services/orderhistory.php',
-    data    : data, 
-    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+    url     : 'https://www.zaitoon.online/services/orderhistory.php',
+    data    : data,
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+    timeout : 10000
    })
-  .then(function(response) {
+  .success(function(data) {
 
-    $scope.orders = response.data.response;
-    $scope.isFail= !response.data.status;
-    $scope.failMsg= response.data.error;
+    $scope.orders = data.response;
+    $scope.isFail= !data.status;
+    $scope.failMsg= data.error;
 
     if($scope.orders.length == 0)
       $scope.isEmpty = true;
@@ -214,6 +215,13 @@ angular.module('zaitoonFirst.account.controllers', [])
       $scope.isEmpty = false;
 
     $scope.left = 1;
+  })
+  .error(function(data){
+      $ionicLoading.hide();
+      $ionicLoading.show({
+        template:  "Not responding. Please try again.",
+        duration: 3000
+      });
   });
 
 
@@ -225,8 +233,8 @@ angular.module('zaitoonFirst.account.controllers', [])
 
     $http({
       method  : 'POST',
-      url     : 'http://www.zaitoon.online/services/orderhistory.php',
-      data    : data, 
+      url     : 'https://www.zaitoon.online/services/orderhistory.php',
+      data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(items) {
@@ -249,7 +257,7 @@ angular.module('zaitoonFirst.account.controllers', [])
 
 
   //
-  // $http.get('http://www.zaitoon.online/services/orderhistory.php?id=0&token='+token)
+  // $http.get('https://www.zaitoon.online/services/orderhistory.php?id=0&token='+token)
   // .then(function(response){
   //       $scope.orders = response.data.response;
   //       if($scope.orders.length == 0)
@@ -261,7 +269,7 @@ angular.module('zaitoonFirst.account.controllers', [])
   //   });
   // $scope.limiter=5;
   // $scope.loadMore = function() {
-  //   $http.get('http://www.zaitoon.online/services/orderhistory.php?id='+$scope.limiter+'&token='+token)
+  //   $http.get('https://www.zaitoon.online/services/orderhistory.php?id='+$scope.limiter+'&token='+token)
   //   .then(function(items) {
   //     if(items.data.response.length == 0){
   //       $scope.left = 0;

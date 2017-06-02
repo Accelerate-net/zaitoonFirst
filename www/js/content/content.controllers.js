@@ -236,7 +236,7 @@ angular.module('zaitoonFirst.content.controllers', [])
 
 									$http({
 										method  : 'POST',
-										url     : 'http://www.zaitoon.online/services/newreservation.php',
+										url     : 'https://www.zaitoon.online/services/newreservation.php',
 										data    : data,
 										headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 									 })
