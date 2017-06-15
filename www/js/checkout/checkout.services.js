@@ -74,7 +74,7 @@ angular.module('zaitoonFirst.checkout.services', [])
 
     $http({
       method  : 'POST',
-      url     : 'http://www.zaitoon.online/services/fetchusers.php',
+      url     : 'https://www.zaitoon.online/services/fetchusers.php',
       data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })

@@ -35,9 +35,9 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
-	$scope.deliveryCharge = Math.ceil($scope.outletSelection['parcelPercentageDelivery']*100);
-	$scope.pickupCharge = Math.ceil($scope.outletSelection['parcelPercentagePickup']*100);
-	$scope.taxPercentage = Math.ceil($scope.outletSelection['taxPercentage']*100);
+	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
+	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
+	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
 
   $scope.razorpayKey = $scope.outletSelection['paymentKey'];
 
@@ -49,7 +49,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   $scope.isPickupChangeable = true;
   if($scope.outletSelection['isSpecial']){
     $scope.isPickupChangeable = false;
-    $http.get('http://www.zaitoon.online/services/fetchoutletinfosimple.php?outlet='+$scope.outletSelection['outlet'])
+    $http.get('https://www.zaitoon.online/services/fetchoutletinfosimple.php?outlet='+$scope.outletSelection['outlet'])
     .then(function(response){
       $scope.myOutletFixed = response.data.response;
       $scope.pickupAddressDefault = $scope.myOutletFixed[0].name;
@@ -74,7 +74,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //Set of Outlets Available
 
-  $http.get('http://www.zaitoon.online/services/fetchoutletssimple.php?city='+$scope.outletSelection.city)
+  $http.get('https://www.zaitoon.online/services/fetchoutletssimple.php?city='+$scope.outletSelection.city)
   .then(function(response){
     $scope.outletList = response.data.response;
 
@@ -222,7 +222,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
       data.cart = formattedcart;
       $http({
         method  : 'POST',
-        url     : 'http://www.zaitoon.online/services/validatecoupon.php',
+        url     : 'https://www.zaitoon.online/services/validatecoupon.php',
         data    : data,
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
        })
@@ -274,7 +274,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
     $http({
       method  : 'POST',
-      url     : 'http://www.zaitoon.online/services/processpayment.php',
+      url     : 'https://www.zaitoon.online/services/processpayment.php',
       data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
@@ -341,11 +341,12 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
           $http({
             method  : 'POST',
-            url     : 'http://www.zaitoon.online/services/createorder.php',
+            url     : 'https://www.zaitoon.online/services/createorder.php',
             data    : data,
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
            })
           .then(function(response) {
+            console.log(response.data)
             if(!response.data.status){
               $ionicLoading.show({
                 template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,
@@ -411,7 +412,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
         $http({
           method  : 'POST',
-          url     : 'http://www.zaitoon.online/services/createorder.php',
+          url     : 'https://www.zaitoon.online/services/createorder.php',
           data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
@@ -514,7 +515,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
 						$http({
 							method  : 'POST',
-							url     : 'http://www.zaitoon.online/services/newaddress.php',
+							url     : 'https://www.zaitoon.online/services/newaddress.php',
 							data    : data,
 							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 						 })
@@ -604,7 +605,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
 						$http({
 							method  : 'POST',
-							url     : 'http://www.zaitoon.online/services/editaddress.php',
+							url     : 'https://www.zaitoon.online/services/editaddress.php',
 							data    : data,
 							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 						 })
@@ -650,7 +651,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
   $http({
     method  : 'POST',
-    url     : 'http://www.zaitoon.online/services/orderinfo.php',
+    url     : 'https://www.zaitoon.online/services/orderinfo.php',
     data    : data,
     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
    })
@@ -664,7 +665,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
   $interval(function () {
     $http({
       method  : 'POST',
-      url     : 'http://www.zaitoon.online/services/orderinfo.php',
+      url     : 'https://www.zaitoon.online/services/orderinfo.php',
       data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
@@ -691,7 +692,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
   //Polling to check if payment is done.
   var pollerFunction = $interval(function () {
     console.log('------------ POLLING ...'+$scope.pollCount);
-      $http.get('http://www.zaitoon.online/services/paymentconfirmation.php')
+      $http.get('https://www.zaitoon.online/services/paymentconfirmation.php')
       .then(function(response){
         $scope.response = response.data;
 
@@ -842,7 +843,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
       $http({
         method  : 'POST',
-        url     : 'http://www.zaitoon.online/services/postreview.php',
+        url     : 'https://www.zaitoon.online/services/postreview.php',
         data    : data,
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
        })

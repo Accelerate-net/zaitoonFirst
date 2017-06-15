@@ -1,0 +1,30 @@
+<ion-view class="checkout-view" cache-view="false" style="background: #c52031">
+  <ion-content has-bouncing="false" class="checkout-content">
+
+    <div class="product-images-slider">
+        <div class="image-container" style="background-image: url('https://www.w3schools.com/css/trolltunga.jpg');">
+          <button class="button button-clear" ui-sref="main.app.rewards()"><img src="img/common/back.png" width="20px" style="position: absolute; right: 5px; top: 5px; left: 5px; padding-top: 5px"></button>
+          <div class="product-illustration-container">
+          <h1 style="color: #FFF">Zaitoon Rewards</h1>
+          </div>
+        </div>
+    </div>
+
+      <h1 style="font-weight: 200; font-size: 21px; line-height: 1.25em; color: #FFF; padding: 30px; margin:0px; text-align: center">
+        A loyalty program for the members of the Zaitoon Family. Earn Zaitoon Coins when you order from Zaitoon online. Each Zaitoon Coin is worth 1 Rs and it can be redeemed on next order.
+        <br><br>Also get exciting benefits when you reach milestones. Enroll today for free!</h1>
+
+      <div style="padding: 20px">
+        <div ng-repeat="scheme in schemesList" style="background: #a71d2b; padding: 10px; color: #FFF; margin-bottom: 10px;"><type style="color: #9f1a28; background: #FFF; padding: 2px 4px; font-weight: bold">{{scheme.type}}</type><coins style="float: right; color: #f39c12">{{scheme.coinsNeeded}}+ Coins</coins> <p style="margin-top: 10px">{{scheme.brief}}</p></div>
+      </div>
+
+
+  </ion-content>
+  <ion-footer-bar class="checkout-footer">
+    <a class="button button-full place-order-button" ng-click="enrollNow()">
+      ENROLL NOW FOR FREE
+    </a>
+  </ion-footer-bar>
+
+
+</ion-view>

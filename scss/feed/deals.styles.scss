@@ -2,6 +2,77 @@
 {
 	background-color: $deals-view-bg;
 
+	.product-images-slider
+	{
+		height: $fashion-content-images-slider-height + $fashion-content-images-slider-padding;
+		padding-bottom: $fashion-content-images-slider-padding;// For the slider pager
+
+		.image-container
+		{
+			height: 100%;
+
+			.pre-img.full
+			{
+				padding: 0px;
+				height: 100%;
+				width: 100%;
+				@include display(flex);
+				@include align-items(center);
+				@include justify-content(center);
+
+				ng-transclude
+				{
+					height: 100%;
+				}
+			}
+
+			.product-image
+			{
+				height: $fashion-content-images-slider-height;
+				position: initial;
+			}
+
+			&.multi-bg-outer
+			{
+				background-color: $fashion-content-multi-bg;
+
+				.bg-overlay
+				{
+					opacity: 0;
+				}
+			}
+		}
+
+		.slider-pager
+		{
+			bottom: 0px;
+			margin: (($fashion-content-images-slider-padding - 15px)/2) 0px;
+
+			.slider-pager-page
+			{
+				background-color: $fashion-content-images-slider-pager-bg;
+				border: 1px solid $fashion-content-images-slider-pager-color;
+				border-radius: 50%;
+				width: 10px;
+				height: 10px;
+				margin: -1px 5px 0px;
+				opacity: 0.8;
+
+				&.active
+				{
+					background-color: $fashion-content-images-slider-pager-color;
+					opacity: 1;
+				}
+
+				.icon
+				{
+					display: none;
+				}
+			}
+		}
+	}
+	
+
 	.products-row
 	{
 		margin-top: 5px;

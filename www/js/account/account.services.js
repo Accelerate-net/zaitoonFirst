@@ -2,6 +2,8 @@
 
 angular.module('zaitoonFirst.account.services', [])
 
+
+
 .service('ProfileService', function ($http, $q, $state, $ionicLoading){
 
 //  var isTokenRegenerated = false;
@@ -16,7 +18,7 @@ angular.module('zaitoonFirst.account.services', [])
       data.token = JSON.parse(window.localStorage.user).token;
       $http({
         method  : 'POST',
-        url     : 'http://www.zaitoon.online/services/regeneratetoken.php',
+        url     : 'https://www.zaitoon.online/services/regeneratetoken.php',
         data    : data,
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
        })
@@ -42,7 +44,7 @@ angular.module('zaitoonFirst.account.services', [])
     data.token = JSON.parse(window.localStorage.user).token;
     $http({
       method  : 'POST',
-      url     : 'http://www.zaitoon.online/services/fetchusers.php',
+      url     : 'https://www.zaitoon.online/services/fetchusers.php',
       data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
@@ -82,7 +84,7 @@ angular.module('zaitoonFirst.account.services', [])
 
         $http({
           method  : 'POST',
-          url     : 'http://www.zaitoon.online/services/edituser.php',
+          url     : 'https://www.zaitoon.online/services/edituser.php',
           data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
@@ -104,7 +106,7 @@ angular.module('zaitoonFirst.account.services', [])
 
     $http({
       method  : 'POST',
-      url     : 'http://www.zaitoon.online/services/deletesavedaddress.php',
+      url     : 'https://www.zaitoon.online/services/deletesavedaddress.php',
       data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })

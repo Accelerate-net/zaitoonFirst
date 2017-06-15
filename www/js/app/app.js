@@ -296,6 +296,7 @@ angular.module('zaitoonFirst', [
 
 
 
+
           .state('main.app.account', {
             url: '/account',
             views: {
@@ -319,6 +320,30 @@ angular.module('zaitoonFirst', [
                   }
                 }
               })
+
+
+              .state('main.app.rewards', {
+                url: '/rewards',
+                views: {
+                  'main-view@main': {
+                    templateUrl: 'views/rewards/rewards.html',
+                    controller: 'RewardsCtrl'
+                  }
+                }
+              })
+
+              .state('main.app.rewardslanding', {
+                url: '/rewardslanding',
+                views: {
+                  'main-view@main': {
+                    templateUrl: 'views/rewards/rewardslanding.html',
+                    controller: 'RewardsLandingCtrl'
+                  }
+                }
+              })
+
+
+
 
               .state('main.app.account.orders', {
                 url: '/orders',

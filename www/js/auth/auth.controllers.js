@@ -56,21 +56,29 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 			$http({
 				method  : 'POST',
-				url     : 'http://www.zaitoon.online/services/userlogin.php',
-				data    : data, 
-				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+				url     : 'https://www.zaitoon.online/services/userlogin.php',
+				data    : data,
+				headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+				timeout : 10000
 			 })
-			.then(function(response) {
+			.success(function(data) {
 				$ionicLoading.hide();
 
-				$scope.main = response.data.response;
+				$scope.main = data.response;
 				if($scope.main.isOTPSent){
 					$scope.otpFlag = true;
 					$scope.error="";
 				}else{
 					$scope.error = "Number not registered.";
 				}
-			});
+			})
+			.error(function(data){
+					$ionicLoading.hide();
+					$ionicLoading.show({
+						template:  "Not responding. Please try again.",
+						duration: 3000
+					});
+    	});
 
 
 		}
@@ -113,15 +121,16 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 			$http({
 				method  : 'POST',
-				url     : 'http://www.zaitoon.online/services/validatelogin.php',
-				data    : sdata, 
-				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+				url     : 'https://www.zaitoon.online/services/validatelogin.php',
+				data    : sdata,
+				headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+				timeout : 10000
 			 })
-			.then(function(response) {
+			.success(function(data) {
 
 				$ionicLoading.hide();
 
-				$scope.validated = response.data;
+				$scope.validated = data;
 
 				if($scope.validated.status){ //Validate OTP and LOG IN
 					$scope.error="";
@@ -134,7 +143,14 @@ angular.module('zaitoonFirst.auth.controllers', [])
 					$scope.error = $scope.validated.error;
 				}
 
-			});
+			})
+			.error(function(data){
+					$ionicLoading.hide();
+					$ionicLoading.show({
+						template:  "Not responding. Please try again.",
+						duration: 3000
+					});
+    	});
 		}
 		else
 		{
@@ -199,24 +215,32 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 					$http({
 						method  : 'POST',
-						url     : 'http://www.zaitoon.online/services/usersignup.php',
-						data    : data, 
-						headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+						url     : 'https://www.zaitoon.online/services/usersignup.php',
+						data    : data,
+						headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+						timeout : 10000
 					 })
-					.then(function(response) {
+					.success(function(data) {
 
 						$ionicLoading.hide();
 
-						$scope.main = response.data.response;
+						$scope.main = data.response;
 						console.log($scope.main)
 						if($scope.main.isOTPSent){
 							$scope.signupFlag = true;
 							$scope.error="";
 							$scope.otpapi = $scope.main.otp;
 						}else{
-							$scope.error = response.data.error;
+							$scope.error = data.error;
 						}
-					});
+					})
+					.error(function(data){
+							$ionicLoading.hide();
+							$ionicLoading.show({
+								template:  "Not responding. Please try again.",
+								duration: 3000
+							});
+		    	});
 
 
 				}else{
@@ -267,23 +291,31 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 			$http({
 				method  : 'POST',
-				url     : 'http://www.zaitoon.online/services/validatesignup.php',
-				data    : data, 
-				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+				url     : 'https://www.zaitoon.online/services/validatesignup.php',
+				data    : data,
+				headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+				timeout : 10000
 			 })
-			.then(function(response) {
+			.success(function(data) {
 
 				$ionicLoading.hide();
 
-				$scope.main = response.data.response;
+				$scope.main = data.response;
 				if(response.data.status){
 					//Set User info
-					window.localStorage.user = JSON.stringify(response.data.response);
+					window.localStorage.user = JSON.stringify(data.response);
 					$state.go('main.app.feed.arabian');
 				}else{
-					$scope.error = response.data.error;
+					$scope.error = data.error;
 				}
-			});
+			})
+			.error(function(data){
+					$ionicLoading.hide();
+					$ionicLoading.show({
+						template:  "Not responding. Please try again.",
+						duration: 3000
+					});
+    	});
 
 		}
 		else

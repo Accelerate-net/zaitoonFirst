@@ -4,8 +4,8 @@
 
 	.checkout-header
 	{
-		background-color: $checkout-header-bg !important;
-		background: $checkout-header-bg !important;
+		background-color: $main_red_dark !important;
+		background: $main_red_dark !important;
 		border: none !important;
 		background-size: 0px !important; // To remove bottom border on header
 
@@ -44,7 +44,7 @@
 			font-size: 20px;
 			text-transform: uppercase;
 
-			@include button-style($save-address-button-bg, $save-address-button-border, $save-address-button-active-bg, $save-address-button-active-border, $save-address-button-text);
+			@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $save-address-button-text);
 
 			&::after
 			{
@@ -368,6 +368,49 @@
 			.bill-item-value
 			{
 				text-align: right;
+			}
+		}
+	}
+
+	.product-images-slider
+	{
+		height: $food-content-images-slider-height;
+
+		.image-container
+		{
+			height: 100%;
+
+			&.multi-bg-outer
+			{
+				background-color: $food-content-multi-bg;
+
+				.bg-overlay
+				{
+					opacity: 0.4;
+					background-color: $food-content-multi-bg-overlay;
+				}
+			}
+
+			.product-image
+			{
+				height: $food-content-images-slider-height;
+				position: initial;
+			}
+
+			.product-illustration-container
+			{
+
+					width: 100%;
+					height: 100%;
+					@include display(flex);
+					@include align-items(center);
+					@include justify-content(center);
+
+				.product-illustration
+				{
+					padding: 0px 20%;
+					width: 100%;
+				}
 			}
 		}
 	}

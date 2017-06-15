@@ -1,4 +1,4 @@
-angular.module('zaitoonFirst.feed.controllers', [])
+angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
 
 
 .controller('FeedCtrl', function($scope,  $ionicScrollDelegate, ShoppingCartService) {
@@ -7,8 +7,25 @@ angular.module('zaitoonFirst.feed.controllers', [])
 	};
 })
 
+.controller('featureCtrl', function($scope) {
 
-.controller('FoodArabianCtrl', function(outletService, ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+  $scope.items = [];
+
+    var tmp = [
+      {desc: 'The Ramones', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'},
+      {desc: 'The Beatles', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTGpH07f9zeucoOs_stZyIFtBncU-Z8TDYmJgoFnlnxYmXjJEaitmxZNDkNvYnCzwWTySM'},
+      {desc: 'Pink Floyd', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT-FbU5dD_Wz472srRIvoZAhyGTEytx9HWGusbhYgSc2h0N6AqqRrDwzApmyxZoIlyxDcU'},
+      {desc: 'The Rolling Stones', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT6uwPPBnHfAAUcSzxr3iq9ou1CZ4f_Zc2O76i5A4IyoymIVwjOMXwUFTGSrVGcdGT9vQY'},
+      {desc: 'Chicken Salamy', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRA3jz0uhVypONAKWUve80Q6HASvuvZiohl4Sru5ZihkAsjWiaGjocfxd0aC3H7EeFk5-I'},
+      {desc: 'Van Halen', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRIslVN9cJJ6YuV0y7JihAyA63JDhXGhkCVxHIRE-IoaF-rpefjIXO5osA24QvN9iCptC8'}
+    ];
+    $scope.items = $scope.items.concat(tmp);
+
+})
+
+
+
+.controller('FoodArabianCtrl', function(menuService, outletService, ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -23,10 +40,14 @@ angular.module('zaitoonFirst.feed.controllers', [])
 		template:  '<ion-spinner></ion-spinner>'
 	});
 
+	//Check if already cached
+	var isCached = menuService.getIsLoadedFlag('ARABIAN');
+
+
 /* DO NOT REMOVE OR DELETE THIS PART
 	//Check if location code is set in localStorage and update it
 	if(!_.isUndefined(window.localStorage.locationCode)){
-		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+window.localStorage.locationCode)
+		$http.get('https://www.zaitoon.online/services/fetchoutlets.php?locationCode='+window.localStorage.locationCode)
 		.then(function(response){
 
 			//Set outlet and location
@@ -64,7 +85,7 @@ angular.module('zaitoonFirst.feed.controllers', [])
 
 		$http({
 			method  : 'POST',
-			url     : 'http://www.zaitoon.online/services/getlatestorderid.php',
+			url     : 'https://www.zaitoon.online/services/getlatestorderid.php',
 			data    : mydata,
 			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 		 })
@@ -133,17 +154,14 @@ angular.module('zaitoonFirst.feed.controllers', [])
         	data.filter = custom_filter;
     	}
 
-
-
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
 			}
 
-			console.log(data)
-
-        $http({
+			if(data.isFilter || !isCached){
+				$http({
           method  : 'POST',
-          url     : 'http://www.zaitoon.online/services/fetchmenu.php',
+          url     : 'https://www.zaitoon.online/services/fetchmenu.php',
           data    : data,
           headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          })
@@ -151,17 +169,35 @@ angular.module('zaitoonFirst.feed.controllers', [])
 					$ionicLoading.hide();
 
 					$scope.menu = response.data;
-					console.log($scope.menu)
-					if($scope.menu.length == 0)
-						$scope.isEmpty = true;
-					else
-						$scope.isEmpty = false;
+						if($scope.menu.length == 0){
+							$scope.isEmpty = true;
+						}
+						else{
+							$scope.isEmpty = false;
+						}
+						//Caching Part
+						if(!data.isFilter){
+							//add to Cache if it's not filter applied Search
+							window.localStorage.arabianCache = JSON.stringify($scope.menu);
+							menuService.setLoadFlag('ARABIAN', true);
+						}
         });
+			}
+			else{
+				//Don't call http. Load from cache only.
+				$scope.menu = JSON.parse(window.localStorage.arabianCache);
+				$ionicLoading.hide();
+			}
     }
 
-$timeout(function () {
-    init();
-}, 799);
+		if(isCached){
+			init();
+		}
+		else{
+			$timeout(function () {
+					init();
+			}, 799);
+		}
 
 
     //For Search field
@@ -229,7 +265,7 @@ $timeout(function () {
 
 })
 
-.controller('FoodChineseCtrl', function(outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodChineseCtrl', function(menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -244,6 +280,11 @@ $timeout(function () {
 	$ionicLoading.show({
 		template:  '<ion-spinner></ion-spinner>'
 	});
+
+
+		//Check if already cached
+		var isCached = menuService.getIsLoadedFlag('CHINESE');
+
 
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
@@ -286,42 +327,60 @@ $timeout(function () {
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
-        var data = {};
-        data.cuisine = "CHINESE";
-        data.isFilter = false;
+				var data = {};
+				data.cuisine = "CHINESE";
+				data.isFilter = false;
 				data.outlet = $myOutlet;
 
-        if(custom_filter.length > 0){
-        	data.isFilter = true;
-        	data.filter = custom_filter;
-    	}
-
-
+				if(custom_filter.length > 0){
+					data.isFilter = true;
+					data.filter = custom_filter;
+			}
 
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
 			}
 
-        $http({
-          method  : 'POST',
-          url     : 'http://www.zaitoon.online/services/fetchmenu.php',
-          data    : data,
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-         })
-        .then(function(response) {
+			if(data.isFilter || !isCached){
+				$http({
+					method  : 'POST',
+					url     : 'https://www.zaitoon.online/services/fetchmenu.php',
+					data    : data,
+					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+				 })
+				.then(function(response) {
 					$ionicLoading.hide();
 
 					$scope.menu = response.data;
-					if($scope.menu.length == 0)
-						$scope.isEmpty = true;
-					else
-						$scope.isEmpty = false;
-        });
-    }
+						if($scope.menu.length == 0){
+							$scope.isEmpty = true;
+						}
+						else{
+							$scope.isEmpty = false;
+						}
+						//Caching Part
+						if(!data.isFilter){
+							//add to Cache if it's not filter applied Search
+							window.localStorage.chineseCache = JSON.stringify($scope.menu);
+							menuService.setLoadFlag('CHINESE', true);
+						}
+				});
+			}
+			else{
+				//Don't call http. Load from cache only.
+				$scope.menu = JSON.parse(window.localStorage.chineseCache);
+				$ionicLoading.hide();
+			}
+		}
 
-		$timeout(function () {
-		    init();
-		}, 799);
+		if(isCached){
+			init();
+		}
+		else{
+			$timeout(function () {
+					init();
+			}, 799);
+		}
 
 
     //For Search field
@@ -389,7 +448,7 @@ $timeout(function () {
 })
 
 
-.controller('FoodIndianCtrl', function(outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodIndianCtrl', function(menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -404,6 +463,10 @@ $timeout(function () {
 	$ionicLoading.show({
 		template:  '<ion-spinner></ion-spinner>'
 	});
+
+
+		//Check if already cached
+		var isCached = menuService.getIsLoadedFlag('INDIAN');
 
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
@@ -446,42 +509,62 @@ $timeout(function () {
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
-        var data = {};
-        data.cuisine = "INDIAN";
-        data.isFilter = false;
+				var data = {};
+				data.cuisine = "INDIAN";
+				data.isFilter = false;
 				data.outlet = $myOutlet;
 
-        if(custom_filter.length > 0){
-        	data.isFilter = true;
-        	data.filter = custom_filter;
-    	}
-
+				if(custom_filter.length > 0){
+					data.isFilter = true;
+					data.filter = custom_filter;
+			}
 
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
 			}
 
-
-        $http({
-          method  : 'POST',
-          url     : 'http://www.zaitoon.online/services/fetchmenu.php',
-          data    : data,
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-         })
-        .then(function(response) {
+			if(data.isFilter || !isCached){
+				$http({
+					method  : 'POST',
+					url     : 'https://www.zaitoon.online/services/fetchmenu.php',
+					data    : data,
+					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+				 })
+				.then(function(response) {
 					$ionicLoading.hide();
 
 					$scope.menu = response.data;
-					if($scope.menu.length == 0)
-						$scope.isEmpty = true;
-					else
-						$scope.isEmpty = false;
-        });
-    }
+						if($scope.menu.length == 0){
+							$scope.isEmpty = true;
+						}
+						else{
+							$scope.isEmpty = false;
+						}
+						//Caching Part
+						if(!data.isFilter){
+							//add to Cache if it's not filter applied Search
+							window.localStorage.indianCache = JSON.stringify($scope.menu);
+							menuService.setLoadFlag('INDIAN', true);
+						}
+				});
+			}
+			else{
+				//Don't call http. Load from cache only.
+				$scope.menu = JSON.parse(window.localStorage.indianCache);
+				$ionicLoading.hide();
+			}
+		}
 
-		$timeout(function () {
-		    init();
-		}, 799);
+		if(isCached){
+			init();
+		}
+		else{
+			$timeout(function () {
+					init();
+			}, 799);
+		}
+
+
 
 
     //For Search field
@@ -548,7 +631,7 @@ $timeout(function () {
 
 })
 
-.controller('FoodDessertCtrl', function(outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodDessertCtrl', function(menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -563,6 +646,10 @@ $timeout(function () {
 	$ionicLoading.show({
 		template:  '<ion-spinner></ion-spinner>'
 	});
+
+
+		//Check if already cached
+		var isCached = menuService.getIsLoadedFlag('DESSERT');
 
 
 	var custom_filter = !_.isUndefined(window.localStorage.customFilter) ? window.localStorage.customFilter : [];
@@ -604,43 +691,60 @@ $timeout(function () {
 
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
-        var data = {};
-        data.cuisine = "DESSERTS";
-        data.isFilter = false;
+				var data = {};
+				data.cuisine = "DESSERTS";
+				data.isFilter = false;
 				data.outlet = $myOutlet;
 
-        if(custom_filter.length > 0){
-        	data.isFilter = true;
-        	data.filter = custom_filter;
-    	}
-
+				if(custom_filter.length > 0){
+					data.isFilter = true;
+					data.filter = custom_filter;
+			}
 
 			if(ConnectivityMonitor.isOffline()){
 				$ionicLoading.hide();
 			}
 
-
-        $http({
-          method  : 'POST',
-          url     : 'http://www.zaitoon.online/services/fetchmenu.php',
-          data    : data,
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-         })
-        .then(function(response) {
+			if(data.isFilter || !isCached){
+				$http({
+					method  : 'POST',
+					url     : 'https://www.zaitoon.online/services/fetchmenu.php',
+					data    : data,
+					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+				 })
+				.then(function(response) {
 					$ionicLoading.hide();
 
 					$scope.menu = response.data;
-					if($scope.menu.length == 0)
-						$scope.isEmpty = true;
-					else
-						$scope.isEmpty = false;
-        });
-    }
+						if($scope.menu.length == 0){
+							$scope.isEmpty = true;
+						}
+						else{
+							$scope.isEmpty = false;
+						}
+						//Caching Part
+						if(!data.isFilter){
+							//add to Cache if it's not filter applied Search
+							window.localStorage.dessertCache = JSON.stringify($scope.menu);
+							menuService.setLoadFlag('DESSERT', true);
+						}
+				});
+			}
+			else{
+				//Don't call http. Load from cache only.
+				$scope.menu = JSON.parse(window.localStorage.dessertCache);
+				$ionicLoading.hide();
+			}
+		}
 
-		$timeout(function () {
-		    init();
-		}, 799);
-
+		if(isCached){
+			init();
+		}
+		else{
+			$timeout(function () {
+					init();
+			}, 799);
+		}
 
     //For Search field
 	$scope.search = { query : '' };
@@ -731,7 +835,7 @@ $timeout(function () {
 		}
 		else{
 			//Get all the outlets
-			$http.get('http://www.zaitoon.online/services/fetchoutlets.php')
+			$http.get('https://www.zaitoon.online/services/fetchoutlets.php')
 			.then(function(response){
 						$scope.allList = response.data.response;
 				});
@@ -756,7 +860,7 @@ $timeout(function () {
 	}
 
 
-	// $http.get('http://www.zaitoon.online/services/fetchdeals.php')
+	// $http.get('https://www.zaitoon.online/services/fetchdeals.php')
 	// .then(function(response){
   //     	$scope.deals = response.data.response;
 	// 			$scope.isEmpty = !response.data.status;
@@ -780,8 +884,8 @@ $timeout(function () {
 
 
 //Fetch COMBO OFFERS
-console.log('http://www.zaitoon.online/services/fetchcombos.php?outlet='+$myOutlet)
-$http.get('http://www.zaitoon.online/services/fetchcombos.php?outlet='+$myOutlet)
+console.log('https://www.zaitoon.online/services/fetchcombos.php?outlet='+$myOutlet)
+$http.get('https://www.zaitoon.online/services/fetchcombos.php?outlet='+$myOutlet)
 .then(function(response) {
 	$scope.combos = response.data.response;
 	$scope.isCombosEmpty = !response.data.status;
@@ -803,7 +907,7 @@ $scope.addComboToCart = function(combo) {
 
 
 
-		$http.get('http://www.zaitoon.online/services/fetchdeals.php?id=0')
+		$http.get('https://www.zaitoon.online/services/fetchdeals.php?id=0')
 	  .then(function(response) {
 			$scope.deals = response.data.response;
 			$scope.isEmpty = !response.data.status;
@@ -814,7 +918,7 @@ $scope.addComboToCart = function(combo) {
 
 	  $scope.limiter = 5;
 	  $scope.loadMore = function() {
-			$http.get('http://www.zaitoon.online/services/fetchdeals.php?id='+$scope.limiter)
+			$http.get('https://www.zaitoon.online/services/fetchdeals.php?id='+$scope.limiter)
 		  .then(function(items) {
 				if(items.data.response.length == 0){
 	        $scope.left = 0;

@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.walkthrough.controllers', [])
 
-.controller('welcomeCtrl', function($timeout, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicPopup, $ionicLoading) {
+.controller('welcomeCtrl', function($timeout, menuService, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicPopup, $ionicLoading) {
 
 	//If already logged in?
 	if(!_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
@@ -9,7 +9,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		data.token = JSON.parse(window.localStorage.user).token;
 		$http({
 			method  : 'POST',
-			url     : 'http://www.zaitoon.online/services/regeneratetoken.php',
+			url     : 'https://www.zaitoon.online/services/regeneratetoken.php',
 			data    : data,
 			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 		 })
@@ -62,7 +62,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 	//Avaialble Cities
 	$scope.data = {};
-	$http.get('http://www.zaitoon.online/services/fetchcities.php')
+	$http.get('https://www.zaitoon.online/services/fetchcities.php')
 	.then(function(response){
 		$scope.cities = response.data.response;
 	});
@@ -108,7 +108,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		$scope.search = { query : '' };
 
 		var temp_outlet = outletService.getInfo();
-		$http.get('http://www.zaitoon.online/services/popularareas.php?city='+temp_outlet.city)
+		$http.get('https://www.zaitoon.online/services/popularareas.php?city='+temp_outlet.city)
 		.then(function(response){
 			$scope.localities = response.data.response;
 		});
@@ -118,7 +118,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 	$scope.suggest = function() {
 		var temp_outlet = outletService.getInfo();
 		if($scope.search.query.length > 1){
-			$http.get('http://www.zaitoon.online/services/searchareasmobile.php?city='+temp_outlet.city+'&key='+$scope.search.query)
+			$http.get('https://www.zaitoon.online/services/searchareasmobile.php?city='+temp_outlet.city+'&key='+$scope.search.query)
 			.then(function(response){
 				$scope.localities = response.data;
 			});
@@ -152,7 +152,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 	/*
 	$rootScope.setRandomOutlet = function(randomOutlet, chosenLocationCode){
-		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?outletcode='+randomOutlet+'&locationCode='+chosenLocationCode)
+		$http.get('https://www.zaitoon.online/services/fetchoutlets.php?outletcode='+randomOutlet+'&locationCode='+chosenLocationCode)
 		.then(function(response){
 
 			if(response.data.status){
@@ -222,7 +222,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		$scope.locality_popover.hide();
 		$timeout(function () {
 
-		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+locationCode)
+		$http.get('https://www.zaitoon.online/services/fetchoutlets.php?locationCode='+locationCode)
 		.then(function(response){
 			if(response.data.status){
 				console.log(response.data)
@@ -252,6 +252,8 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 			    info.minAmount = response.data.response.minAmount;
 			    info.minTime = response.data.response.minTime;
 					outletService.setOutletInfo(info);
+
+					menuService.resetAll();
 
 					var temp = {name:response.data.response.location};
 					$scope.data.selected_locality = temp;
@@ -375,7 +377,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 			template:  '<ion-spinner></ion-spinner>'
 		});
 
-		$http.get('http://www.zaitoon.online/services/fetchoutlets.php?locationCode='+window.localStorage.locationCode)
+		$http.get('https://www.zaitoon.online/services/fetchoutlets.php?locationCode='+window.localStorage.locationCode)
 		.then(function(response){
 			$ionicLoading.hide();
 
