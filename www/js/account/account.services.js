@@ -2,6 +2,8 @@
 
 angular.module('zaitoonFirst.account.services', [])
 
+
+
 .service('ProfileService', function ($http, $q, $state, $ionicLoading){
 
 //  var isTokenRegenerated = false;

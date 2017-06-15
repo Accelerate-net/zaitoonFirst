@@ -1,5 +1,204 @@
 angular.module('zaitoonFirst.account.controllers', [])
 
+.controller('RewardsCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading) {
+
+  //Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+
+  //If not logged in
+  if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
+    $state.go('main.app.rewardslanding');
+  }
+
+
+
+$ionicLoading.show({
+  template:  '<ion-spinner></ion-spinner>'
+});
+
+var data = {};
+data.token = JSON.parse(window.localStorage.user).token;
+$http({
+  method  : 'POST',
+  url     : 'https://www.zaitoon.online/services/getloyaltystatus.php',
+  data    : data,
+  headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+  timeout : 10000
+ })
+.success(function(data) {
+  console.log(data)
+  $ionicLoading.hide();
+  if(data.error == "NOTENROLLED"){
+    $state.go('main.app.rewardslanding');
+  }
+  if(data.status){
+    $scope.rewardsInfo = data.response;
+  }
+  else{
+    $scope.errorMsg = data.error;
+  }
+
+})
+.error(function(data){
+    $ionicLoading.hide();
+    $ionicLoading.show({
+      template:  "Not responding. Please try again.",
+      duration: 3000
+    });
+});
+
+
+
+//Loyalty History
+$ionicLoading.show({
+  template:  '<ion-spinner></ion-spinner>'
+});
+
+var data = {};
+data.token = JSON.parse(window.localStorage.user).token;
+data.id = 0;
+$http({
+  method  : 'POST',
+  url     : 'https://www.zaitoon.online/services/loyaltyhistory.php',
+  data    : data,
+  headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+  timeout : 10000
+ })
+.success(function(data) {
+
+  $ionicLoading.hide();
+
+  if(data.status){
+    $scope.historyList = data.response;
+    if($scope.historyList.length == 0)
+      $scope.isEmpty = true;
+    else
+      $scope.isEmpty = false;
+    $scope.left = 1;
+  }
+  else{
+  }
+
+
+})
+.error(function(data){
+    $ionicLoading.hide();
+    $ionicLoading.show({
+      template:  "Not responding. Please try again.",
+      duration: 3000
+    });
+});
+
+
+$scope.limiter = 5;
+$scope.loadMore = function() {
+  var data = {};
+  data.token = JSON.parse(window.localStorage.user).token;
+  data.id = $scope.limiter;
+
+  $http({
+    method  : 'POST',
+    url     : 'https://www.zaitoon.online/services/loyaltyhistory.php',
+    data    : data,
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+    timeout : 10000
+   })
+  .success(function(data) {
+
+    if(data.response.length == 0){
+      $scope.left = 0;
+    }
+    $scope.historyList = $scope.historyList.concat(data.response)
+
+    $scope.limiter+=5;
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+  })
+  .error(function(data){
+      $ionicLoading.hide();
+      $ionicLoading.show({
+        template:  "Not responding. Please try again.",
+        duration: 3000
+      });
+  });
+
+};
+
+
+})
+
+.controller('RewardsLandingCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading) {
+
+  //Network Status
+	if(ConnectivityMonitor.isOffline()){
+		$scope.isOfflineFlag = true;
+	}
+	else{
+		$scope.isOfflineFlag = false;
+	}
+
+
+  //Enroll for Rewards
+  $scope.enrollNow = function(){
+    //if not logged in
+    if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
+      $ionicLoading.show({
+        template:  'Please login to enroll',
+        duration: 3000
+      });
+      $state.go('intro.auth-login');
+    }
+    else{
+
+      $ionicLoading.show({
+        template:  '<ion-spinner></ion-spinner>'
+      });
+
+      var data = {};
+      data.token = JSON.parse(window.localStorage.user).token;
+      $http({
+        method  : 'POST',
+        url     : 'https://www.zaitoon.online/services/enrollloyaltyprogram.php',
+        data    : data,
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+        timeout : 10000
+       })
+      .success(function(data) {
+        console.log(data)
+        $ionicLoading.hide();
+        if(data.status){
+          $state.go('main.app.rewards');
+        }
+        else{
+          $ionicLoading.show({
+            template:  data.error,
+            duration: 3000
+          });
+        }
+      })
+      .error(function(data){
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template:  "Not responding. Please try again.",
+            duration: 3000
+          });
+      });
+    }
+  }
+
+
+  $http.get('https://www.zaitoon.online/services/getloyaltyscheme.php')
+  .then(function(response){
+    $scope.schemesList = response.data;
+  });
+
+
+})
+
 .controller('ProfileCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, user, ProfileService, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
 
   //Network Status

@@ -4,9 +4,9 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 
 	//OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
-	$scope.deliveryCharge = Math.ceil($scope.outletSelection['parcelPercentageDelivery']*100);
-	$scope.pickupCharge = Math.ceil($scope.outletSelection['parcelPercentagePickup']*100);
-	$scope.taxPercentage = Math.ceil($scope.outletSelection['taxPercentage']*100);
+	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
+	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
+	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
 
 	$scope.isOutletOpenNow = $scope.outletSelection['isOpen'];
 

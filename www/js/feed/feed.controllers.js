@@ -692,7 +692,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	// Making request to server to fetch-menu
 	var init = $scope.reinitializeMenu = function(){
 				var data = {};
-				data.cuisine = "CHINESE";
+				data.cuisine = "DESSERTS";
 				data.isFilter = false;
 				data.outlet = $myOutlet;
 

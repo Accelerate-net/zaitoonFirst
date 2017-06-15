@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.walkthrough.controllers', [])
 
-.controller('welcomeCtrl', function($timeout, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicPopup, $ionicLoading) {
+.controller('welcomeCtrl', function($timeout, menuService, outletService, $scope, $http, $rootScope, $state, $ionicPopover, $ionicPopup, $ionicLoading) {
 
 	//If already logged in?
 	if(!_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
@@ -252,6 +252,8 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 			    info.minAmount = response.data.response.minAmount;
 			    info.minTime = response.data.response.minTime;
 					outletService.setOutletInfo(info);
+
+					menuService.resetAll();
 
 					var temp = {name:response.data.response.location};
 					$scope.data.selected_locality = temp;

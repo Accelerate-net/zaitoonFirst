@@ -35,9 +35,9 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
   //OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
-	$scope.deliveryCharge = Math.ceil($scope.outletSelection['parcelPercentageDelivery']*100);
-	$scope.pickupCharge = Math.ceil($scope.outletSelection['parcelPercentagePickup']*100);
-	$scope.taxPercentage = Math.ceil($scope.outletSelection['taxPercentage']*100);
+	$scope.deliveryCharge = Math.round($scope.outletSelection['parcelPercentageDelivery']*100);
+	$scope.pickupCharge = Math.round($scope.outletSelection['parcelPercentagePickup']*100);
+	$scope.taxPercentage = Math.round($scope.outletSelection['taxPercentage']*100);
 
   $scope.razorpayKey = $scope.outletSelection['paymentKey'];
 
@@ -346,6 +346,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
            })
           .then(function(response) {
+            console.log(response.data)
             if(!response.data.status){
               $ionicLoading.show({
                 template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,

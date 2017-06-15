@@ -15,6 +15,13 @@ angular.module('zaitoonFirst.feed.services', [])
     displayMenuType = menutype;
   }
 
+  this.resetAll = function(){
+     isArabianLoaded = false;
+     isChineseLoaded = false;
+     isIndianLoaded = false;
+     isDessertLoaded = false;
+  }
+
   this.setLoadFlag = function(type, flag){
     if(type == 'ARABIAN'){
       isArabianLoaded = flag;
