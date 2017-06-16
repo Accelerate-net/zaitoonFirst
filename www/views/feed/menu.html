@@ -40,9 +40,11 @@
   </ion-footer-bar>
 
   <ion-content ng-controller="featureCtrl">
-    <section ng-include="'views/common/sort-and-filters-bar.html'"></section>
-    <hscroller ng-if="!isFilter">
-      <hcard ng-repeat="item in items" index="{{$index}}" desc="{{item.desc}}" image="{{item.image}}"></hcard>
+    <!-- <section ng-include="'views/common/sort-and-filters-bar.html'"></section> -->
+
+    <h1 class="myMenuSubTitle" style="padding: 0px 10px 10px 10px; margin: 0; margin-top: 10px; color: #f39c12">Featured Dishes</h1>
+    <hscroller ng-if="!isFilter" style="margin-bottom: 15px">
+      <hcard ng-repeat="item in items" index="{{$index}}" name="{{item.itemName}}" price="{{item.itemPrice}}" image="{{item.photo}}" ng-click="addFeature(item)"></hcard>
     </hscroller>
 
     <div class="products-row">
@@ -62,12 +64,12 @@
           </div>
           <div class="col description-col">
             <div class="row">
-              <div class="col data-col">
+              <div class="col data-col" style="padding: 3px">
                 <h5 class="product-title">
                   <a class="product-anchor">{{product.itemName}}</a>
                 </h5>
                 <p class="address-and-price-container">
-                  <span class="product-address" style="color: #686868">{{submenu.subName}}<tag class="myPrice">Rs. {{product.itemPrice}}</tag></span>
+                  <span class="myPrice"><i class="fa fa-inr"></i> {{product.itemPrice}}</span>
                 </p>
               </div>
               <div class="col col-10 col-center">
@@ -86,7 +88,11 @@
       </div>
     </div>
 
+
+
   </ion-content>
+
+  <tag class="filterIcon" ng-if="!isFilter" ui-sref="main.app.filters()"><img src="img/feed/filter.png" style="margin: 8px" width="25px"></tag>
 
   <!-- <ion-content>
 

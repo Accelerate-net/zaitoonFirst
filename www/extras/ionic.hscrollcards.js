@@ -35,14 +35,14 @@
         replace: true,
         transclude: true,
         scope: {
-          desc: '@',
+          name: '@',
           image: '@',
+          price: '@',
           index: '@'
         },
         link: function(scope, element, attrs){
-          var img = angular.element("<img class='hscroller-img' src='"+attrs.image+"' />");
-          element.append(img);
-          element.append('<div class="hscroller-label">'+attrs.desc+'</div>');
+          element.append('<div style="position: relative"><img class="hscroller-img" src="'+attrs.image+'" /><div style="position: absolute; right: 0px; top: 4px; background: rgba(167, 29, 43, 0.4); font-size: 12px; color: #FFF; padding: 0px 4px"><i class="fa fa-inr" style="font-size: 10px; padding-right: 2px"></i>'+attrs.price+'</div></div>');
+          element.append('<div class="hscroller-label">'+attrs.name+'</div>');
           var animationClass = 'hscroller-card-animated-' + attrs.index.toString();
           element.addClass(animationClass);
 

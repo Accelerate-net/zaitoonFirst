@@ -1,7 +1,7 @@
 angular.module('zaitoonFirst.account.controllers', [])
 
 .controller('RewardsCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading) {
-
+console.log('PROFILE................')
   //Network Status
 	if(ConnectivityMonitor.isOffline()){
 		$scope.isOfflineFlag = true;
@@ -58,6 +58,8 @@ $http({
 $ionicLoading.show({
   template:  '<ion-spinner></ion-spinner>'
 });
+
+$scope.isEmpty = false;
 
 var data = {};
 data.token = JSON.parse(window.localStorage.user).token;
@@ -133,6 +135,8 @@ $scope.loadMore = function() {
 
 .controller('RewardsLandingCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading) {
 
+  console.log('LANDING................')
+
   //Network Status
 	if(ConnectivityMonitor.isOffline()){
 		$scope.isOfflineFlag = true;
@@ -140,6 +144,15 @@ $scope.loadMore = function() {
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+  //Logged in or not
+  $scope.isEnrolledFlag = false;
+  if(!_.isUndefined(window.localStorage.user)){
+    $scope.isEnrolledFlag = JSON.parse(window.localStorage.user).isRewardEnabled;
+  }
+  else{
+    $scope.isEnrolledFlag = false;
+  }
 
 
   //Enroll for Rewards
@@ -171,6 +184,9 @@ $scope.loadMore = function() {
         console.log(data)
         $ionicLoading.hide();
         if(data.status){
+          var temp_user = JSON.parse(window.localStorage.user);
+  				temp_user.isRewardEnabled = true;
+  				window.localStorage.user = JSON.stringify(temp_user);
           $state.go('main.app.rewards');
         }
         else{

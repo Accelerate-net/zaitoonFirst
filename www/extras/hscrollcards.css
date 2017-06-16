@@ -12,7 +12,7 @@ div.hscroller-card {
   width: 120px;
   height: 160px;
   display: inline-block;
-  background-color: #262626;
+  background-color: #c52031;
   vertical-align: middle;
   margin: 0 2px; }
   div.hscroller-card img {
@@ -20,7 +20,7 @@ div.hscroller-card {
     width: 120px; }
   div.hscroller-card div.hscroller-label {
     font-family: "Helvetica Neue", "Roboto", Helvetica, sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 14px;
     padding: 0 0.5em;
     color: #fff;

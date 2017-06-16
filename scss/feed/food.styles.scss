@@ -44,9 +44,8 @@
 
 			.col.logo-col
 			{
-				max-width: 8px;
-				margin-top: -2px;
-				margin-right: 6px;			
+				max-width: 9px;
+				margin: 4px 6px 0px 2px;
 
 				.product-anchor
 				{
@@ -76,7 +75,9 @@
 
 					a
 					{
-						color: $food-product-color;
+						color: $main_grey;
+						font-size: 17px;
+						font-weight: 300;
 					}
 				}
 

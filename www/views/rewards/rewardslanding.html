@@ -3,7 +3,7 @@
 
     <div class="product-images-slider">
         <div class="image-container" style="background-image: url('https://www.w3schools.com/css/trolltunga.jpg');">
-          <button class="button button-clear" ui-sref="main.app.rewards()"><img src="img/common/back.png" width="20px" style="position: absolute; right: 5px; top: 5px; left: 5px; padding-top: 5px"></button>
+          <button class="button button-clear" ui-sref="main.app.feed.arabian()"><img src="img/common/back.png" width="20px" style="position: absolute; right: 5px; top: 5px; left: 5px; padding-top: 5px"></button>
           <div class="product-illustration-container">
           <h1 style="color: #FFF">Zaitoon Rewards</h1>
           </div>
@@ -21,8 +21,11 @@
 
   </ion-content>
   <ion-footer-bar class="checkout-footer">
-    <a class="button button-full place-order-button" ng-click="enrollNow()">
+    <a class="button button-full place-order-button" ng-click="enrollNow()" ng-if="!isEnrolledFlag">
       ENROLL NOW FOR FREE
+    </a>
+    <a class="button button-full place-order-button" ui-sref="main.app.rewards()" ng-if="isEnrolledFlag">
+      CONTINUE
     </a>
   </ion-footer-bar>
 
