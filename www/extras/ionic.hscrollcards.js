@@ -38,11 +38,18 @@
           name: '@',
           image: '@',
           price: '@',
+          available: '@',
           index: '@'
         },
         link: function(scope, element, attrs){
-          element.append('<div style="position: relative"><img class="hscroller-img" src="'+attrs.image+'" /><div style="position: absolute; right: 0px; top: 4px; background: rgba(167, 29, 43, 0.4); font-size: 12px; color: #FFF; padding: 0px 4px"><i class="fa fa-inr" style="font-size: 10px; padding-right: 2px"></i>'+attrs.price+'</div></div>');
-          element.append('<div class="hscroller-label">'+attrs.name+'</div>');
+          if(attrs.available == 'true'){
+            element.append('<div style="position: relative"><img class="hscroller-img" src="'+attrs.image+'" /><div style="position: absolute; right: 0px; top: 4px; background: rgba(167, 29, 43, 0.4); font-size: 12px; color: #FFF; padding: 0px 4px"><i class="fa fa-inr" style="font-size: 10px; padding-right: 2px"></i>'+attrs.price+'</div></div>');
+            element.append('<div class="hscroller-label">'+attrs.name+'</div>');
+          }
+          else{
+            element.append('<div style="position: relative"><img class="hscroller-img" style="filter: grayscale(100%);" src="'+attrs.image+'" /><div style="position: absolute; right: 0px; top: 4px; background: rgba(167, 29, 43, 0.4); font-size: 12px; color: #FFF; padding: 0px 4px"><i class="fa fa-inr" style="font-size: 10px; padding-right: 2px"></i>'+attrs.price+'</div></div>');
+            element.append('<div class="hscroller-label" style="color: #830d19">'+attrs.name+'</div>');
+          }
           var animationClass = 'hscroller-card-animated-' + attrs.index.toString();
           element.addClass(animationClass);
 

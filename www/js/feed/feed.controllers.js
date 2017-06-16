@@ -33,15 +33,87 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 })
 
 
-.controller('featureCtrl', function($scope, $http, $ionicLoading) {
+.controller('featureCtrl', function($scope, $http, $ionicLoading, ShoppingCartService, $ionicPopup, menuService) {
 
 	$scope.addFeature = function(item){
-		console.log('Clicked on ');
-		console.log(item)
+
+		if(!item.isAvailable){
+			$ionicLoading.show({
+				template:  item.itemName+ " is not currently available.",
+				duration: 2000
+			});
+		}
+		else{
+			if(item.isCustom){
+
+					//Render Template
+					var i = 0;
+					$scope.choiceName = "";
+					$scope.choicePrice = "";
+					var choiceTemplate = '<div style="margin-top: 10px">';
+					while(i < item.custom.length){
+						choiceTemplate = choiceTemplate + '<button class="button button-full" style="text-align: left; color: #c52031; margin-bottom: 8px;" ng-click="addCustomItem(\''+item.custom[i].customName+'\', '+item.custom[i].customPrice+')">'+item.custom[i].customName+' <tag style="font-size: 80%; color: #8c8f93; float: right"><i class="fa fa-inr"></i> '+item.custom[i].customPrice+'</tag></button>';
+						i++;
+					}
+					choiceTemplate = choiceTemplate + '</div>';
+
+					var newCustomPopup = $ionicPopup.show({
+						cssClass: 'popup-outer new-shipping-address-view',
+						template: choiceTemplate,
+						title: 'Your choice of '+item.itemName,
+						scope: $scope,
+						buttons: [
+							{ text: 'Cancel' }
+						]
+					});
+					$scope.addCustomItem = function(variant, price){
+						$scope.choiceName = variant;
+						$scope.choicePrice = price;
+
+								if($scope.choiceName != "" && $scope.choicePrice != ""){
+									item.itemPrice = $scope.choicePrice;
+									item.variant = $scope.choiceName;
+
+									//adding to cart
+									$ionicLoading.show({
+										template:  '<tag style="color: #f1c40f">'+item.itemName+'</tag> is added.',
+										duration: 1000
+									});
+									item.qty = 1;
+									ShoppingCartService.addProduct(item);
+
+									newCustomPopup.close();
+								}
+
+					}
+
+			}
+			else{
+						 var confirmPopup = $ionicPopup.confirm({
+							 cssClass: 'popup-outer confirm-alert-view',
+					     title: 'Do you want to add '+item.itemName+' to cart?'
+					   });
+
+					   confirmPopup.then(function(res) {
+					     if(res) {
+									$ionicLoading.show({
+			 							template:  '<tag style="color: #f1c40f">'+item.itemName+'</tag> is added.',
+			 							duration: 1000
+			 						});
+
+			 						item.qty = 1;
+			 						ShoppingCartService.addProduct(item);
+					     }
+					   });
+			}
+		}
+
 	}
 
+	var temp_cusine = menuService.getDisplayMenuType();
+
 	var data = {};
-	data.cuisine = "ARABIAN";
+	data.cuisine = temp_cusine;
 	$http({
 		method  : 'POST',
 		url     : 'https://www.zaitoon.online/services/featuremenu.php',
@@ -86,6 +158,9 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+	//To keep track which cuisine is rentered
+	menuService.setDisplayMenuType("ARABIAN");
 
 
 	//LOADING
@@ -282,9 +357,9 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	  	var i = 0;
 	  	$scope.choiceName = "";
 	  	$scope.choicePrice = "";
-	  	var choiceTemplate = '<div class="padding">';
+	  	var choiceTemplate = '<div style="margin-top: 10px">';
 	  	while(i < product.custom.length){
-	  		choiceTemplate = choiceTemplate + '<ion-radio ng-click="addCustomItem(\''+product.custom[i].customName+'\', '+product.custom[i].customPrice+')">'+product.custom[i].customName+' <tag style="font-size: 80%; color: #d35400">Rs. '+product.custom[i].customPrice+'</tag></ion-radio>';
+	  		choiceTemplate = choiceTemplate + '<button class="button button-full" style="text-align: left; color: #c52031; margin-bottom: 8px;" ng-click="addCustomItem(\''+product.custom[i].customName+'\', '+product.custom[i].customPrice+')">'+product.custom[i].customName+' <tag style="font-size: 80%; color: #8c8f93; float: right"><i class="fa fa-inr"></i> '+product.custom[i].customPrice+'</tag></button>';
 	  		i++;
 	  	}
 	  	choiceTemplate = choiceTemplate + '</div>';
@@ -292,7 +367,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	    var newCustomPopup = $ionicPopup.show({
 	      cssClass: 'popup-outer new-shipping-address-view',
 	      template: choiceTemplate,
-	      title: 'Choose Options',
+	      title: 'Your choice of '+product.itemName,
 	      scope: $scope,
 	      buttons: [
 	        { text: 'Cancel' }
@@ -316,14 +391,13 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 
-	$scope.addToCart = function(product) {
-		$ionicLoading.show({
-			template:  '<b style="color: #f1c40f">'+product.itemName+'</b> is added.',
-			duration: 1000
-		});
+		$scope.addToCart = function(product) {
+				$ionicLoading.show({
+					template:  '<tag style="color: #f1c40f">'+product.itemName+'</tag> is added.',
+					duration: 1000
+				});
 
-		product.qty = 1;
-		console.log(product)
+				product.qty = 1;
   	    ShoppingCartService.addProduct(product);
   	};
 
@@ -340,6 +414,10 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+	//To keep track which cuisine is rentered
+	menuService.setDisplayMenuType("CHINESE");
+
 
 	//LOADING
 	$ionicLoading.show({
@@ -514,7 +592,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 	$scope.addToCart = function(product) {
 		$ionicLoading.show({
-			template:  '<b style="color: #f1c40f">'+product.itemName+'</b> is added.',
+			template:  '<tag style="color: #f1c40f">'+product.itemName+'</tag> is added.',
 			duration: 1000
 		});
 
@@ -528,7 +606,6 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 .controller('FoodIndianCtrl', function(menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
-
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
 		$scope.isOfflineFlag = true;
@@ -536,6 +613,10 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+	//To keep track which cuisine is rentered
+	menuService.setDisplayMenuType("INDIAN");
+
 
 	//LOADING
 	$ionicLoading.show({
@@ -711,7 +792,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 	$scope.addToCart = function(product) {
 		$ionicLoading.show({
-			template:  '<b style="color: #f1c40f">'+product.itemName+'</b> is added.',
+			template:  '<tag style="color: #f1c40f">'+product.itemName+'</tag> is added.',
 			duration: 1000
 		});
 
@@ -732,6 +813,10 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
+	//To keep track which cuisine is rentered
+	menuService.setDisplayMenuType("DESSERT");
+
 
 	//LOADING
 	$ionicLoading.show({
@@ -902,7 +987,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 	$scope.addToCart = function(product) {
 		$ionicLoading.show({
-			template:  '<b style="color: #f1c40f">'+product.itemName+'</b> is added.',
+			template:  '<tag style="color: #f1c40f">'+product.itemName+'</tag> is added.',
 			duration: 1000
 		});
 
@@ -997,7 +1082,7 @@ $http.get('https://www.zaitoon.online/services/fetchcombos.php?outlet='+$myOutle
 
 $scope.addComboToCart = function(combo) {
 	$ionicLoading.show({
-		template:  '<b style="color: #f1c40f">'+combo.itemName+'</b> is added to cart.',
+		template:  '<tag style="color: #f1c40f">'+combo.itemName+'</tag> is added to cart.',
 		duration: 2000
 	});
 

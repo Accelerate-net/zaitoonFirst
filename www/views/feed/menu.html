@@ -42,12 +42,12 @@
   <ion-content ng-controller="featureCtrl">
     <!-- <section ng-include="'views/common/sort-and-filters-bar.html'"></section> -->
 
-    <h1 class="myMenuSubTitle" style="padding: 0px 10px 10px 10px; margin: 0; margin-top: 10px; color: #f39c12">Featured Dishes</h1>
+    <h1 ng-if="items.length > 0" class="myMenuSubTitle" style="padding: 0px 10px 10px 10px; margin: 0; margin-top: 10px; color: #f39c12">Featured Dishes</h1>
     <hscroller ng-if="!isFilter" style="margin-bottom: 15px">
-      <hcard ng-repeat="item in items" index="{{$index}}" name="{{item.itemName}}" price="{{item.itemPrice}}" image="{{item.photo}}" ng-click="addFeature(item)"></hcard>
+      <hcard ng-repeat="item in items" index="{{$index}}" available="{{item.isAvailable}}" name="{{item.itemName}}" price="{{item.itemPrice}}" image="{{item.photo}}" ng-click="addFeature(item)"></hcard>
     </hscroller>
 
-    <div class="products-row">
+    <div class="products-row" style="padding-bottom: 50px">
     <div ng-if="isEmpty" class="padding"><p style="color: #C7C7C7; text-align: center">No items found.</p></div>
     <div ng-if="isOfflineFlag" class="padding"><p style="color: #6F6F6F; text-align: center; font-size: 18px;"><i style="color: #FFC300; font-size: 130%" class="icon ion-alert-circled"></i> Not connected to internet.</p></div>
     <div ng-repeat="maintype in menu track by $index">

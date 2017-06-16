@@ -38,7 +38,7 @@ angular.module('zaitoonFirst.feed.services', [])
   }
 
   this.getDisplayMenuType = function(){
-    return type;
+    return displayMenuType;
   }
 
   this.getIsLoadedFlag = function(menutype){
