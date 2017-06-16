@@ -1,7 +1,7 @@
 <ion-view class="checkout-view" cache-view="false">
   <ion-header-bar class="checkout-header">
     <div class="buttons">
-      <button class="button button-clear cancel-button" ng-click="cancel()"><img src="img/common/back.png" width="20px" style="padding-top: 5px"></button>
+      <button class="button button-clear cancel-button" ui-sref="main.app.feed.arabian()"><img src="img/common/back.png" width="20px" style="padding-top: 5px"></button>
     </div>
     <div class="buttons" style="position: absolute; right: 5px">
       <button class="button button-clear cancel-button" ui-sref="main.app.rewardslanding()"><img src="img/common/info.png" width="20px" style="padding-top: 5px"></button>
@@ -27,8 +27,8 @@
     </div>
     </center>
 
-    <h3 class="checkout-sub-title" style="font-weight: 300; color: #7f8c8d; border-bottom: 1px solid #ecf0f1">Zaitoon Coins Passbook</h3>
-    <ul class="list checkout-products" style="border: none">
+    <h3 class="checkout-sub-title" ng-if="!isEmpty" style="font-weight: 300; color: #7f8c8d; border-bottom: 1px solid #ecf0f1">Zaitoon Coins Passbook</h3>
+    <ul class="list checkout-products" ng-if="!isEmpty" style="border: none">
       <li class="item checkout-product" style="border-bottom: 1px solid #ecf0f1" ng-repeat="trac in historyList">
         <div class="row">
           <div class="col col-33 col-center">

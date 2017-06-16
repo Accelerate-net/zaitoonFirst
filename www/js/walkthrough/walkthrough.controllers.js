@@ -18,7 +18,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 				$scope.isLoggedIn = true;
 				var temp_user = JSON.parse(window.localStorage.user);
 				$scope.loggedUser = temp_user.name;
-				temp_user.token = response.data.newtoken
+				temp_user.token = response.data.newtoken;
 				window.localStorage.user = JSON.stringify(temp_user);
 			}
 			else{
@@ -41,6 +41,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 
 	$scope.logout = function() {
+		menuService.resetAll();
 		window.localStorage.clear();
 		$state.go('intro.auth-login');
 	};

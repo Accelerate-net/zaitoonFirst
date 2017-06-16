@@ -4,8 +4,8 @@
 
 	.feed-header
 	{
-		background-color: $feed-header-bg !important;
-		background: $feed-header-bg !important;
+		background-color: $main_red_dark !important;
+		background: $main_red_dark !important;
 		border: none !important;
 		background-size: 0px !important; // To remove bottom border on header
 
@@ -216,7 +216,7 @@
 				{
 					font-size: 24px;
 					font-weight: 600;
-					border-bottom: 3px solid #F98B38;
+					border-bottom: 3px solid $main_red_darkest;
 				}
 
 				&.main.app.feed.fashion

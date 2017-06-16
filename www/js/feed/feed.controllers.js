@@ -1,25 +1,77 @@
 angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
 
 
-.controller('FeedCtrl', function($scope,  $ionicScrollDelegate, ShoppingCartService) {
+.controller('FeedCtrl', function($scope, $rootScope, $state, $ionicScrollDelegate, ShoppingCartService) {
 	$scope.getProductsInCart = function(){
 		return ShoppingCartService.getProducts().length;
 	};
+
+	if(!_.isUndefined(window.localStorage.user)){
+		$scope.isEnrolledFlag = JSON.parse(window.localStorage.user).isRewardEnabled;
+	}
+	else{
+		$scope.isEnrolledFlag = false;
+	}
+
+	console.log($scope.isEnrolledFlag)
+
+	$scope.goToRewards = function(){
+		if($scope.isEnrolledFlag){
+			$state.go('main.app.rewards');
+		}
+		else{
+			$state.go('main.app.rewardslanding');
+		}
+	}
+
+
+	$scope.callSearch = function(){
+		$rootScope.$broadcast('search_called', true);
+		$rootScope.$emit('search_called', true);
+	}
+
 })
 
-.controller('featureCtrl', function($scope) {
 
-  $scope.items = [];
+.controller('featureCtrl', function($scope, $http, $ionicLoading) {
 
-    var tmp = [
-      {desc: 'The Ramones', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'},
-      {desc: 'The Beatles', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTGpH07f9zeucoOs_stZyIFtBncU-Z8TDYmJgoFnlnxYmXjJEaitmxZNDkNvYnCzwWTySM'},
-      {desc: 'Pink Floyd', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT-FbU5dD_Wz472srRIvoZAhyGTEytx9HWGusbhYgSc2h0N6AqqRrDwzApmyxZoIlyxDcU'},
-      {desc: 'The Rolling Stones', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT6uwPPBnHfAAUcSzxr3iq9ou1CZ4f_Zc2O76i5A4IyoymIVwjOMXwUFTGSrVGcdGT9vQY'},
-      {desc: 'Chicken Salamy', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRA3jz0uhVypONAKWUve80Q6HASvuvZiohl4Sru5ZihkAsjWiaGjocfxd0aC3H7EeFk5-I'},
-      {desc: 'Van Halen', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRIslVN9cJJ6YuV0y7JihAyA63JDhXGhkCVxHIRE-IoaF-rpefjIXO5osA24QvN9iCptC8'}
-    ];
-    $scope.items = $scope.items.concat(tmp);
+	$scope.addFeature = function(item){
+		console.log('Clicked on ');
+		console.log(item)
+	}
+
+	var data = {};
+	data.cuisine = "ARABIAN";
+	$http({
+		method  : 'POST',
+		url     : 'https://www.zaitoon.online/services/featuremenu.php',
+		data    : data,
+		headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+		timeout : 10000
+	 })
+	.success(function(response) {
+		$ionicLoading.hide();
+		$scope.items = response;
+	})
+	.error(function(data){
+			$ionicLoading.hide();
+			$ionicLoading.show({
+				template:  "Not responding. Please try again.",
+				duration: 3000
+			});
+	});
+
+
+   // 	$scope.items= [];
+    // var tmp = [
+    //   {itemName: 'The One', itemCode: '1001', itemPrice: '240', isAvailable: false, image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'},
+		// 	{itemName: 'The Two', itemCode: '1001', itemPrice: '240', isAvailable: false, image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'},
+		// 	{itemName: 'The Three', itemCode: '1001', itemPrice: '240', isAvailable: false, image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'},
+		// 	{itemName: 'The Four', itemCode: '1001', itemPrice: '240', isAvailable: false, image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'},
+		// 	{itemName: 'The Ramones', itemCode: '1001', itemPrice: '240', isAvailable: false, image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'},
+		// 	{itemName: 'The Ramones', itemCode: '1001', itemPrice: '240', isAvailable: false, image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'}
+    // ];
+    // $scope.items = $scope.items.concat(tmp);
 
 })
 
@@ -34,6 +86,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	else{
 		$scope.isOfflineFlag = false;
 	}
+
 
 	//LOADING
 	$ionicLoading.show({
@@ -108,7 +161,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 	//Receiving Broadcast - If Filter Applied
-	$rootScope.$on('filter_applied', function(event, filter) {
+		$rootScope.$on('filter_applied', function(event, filter) {
 		window.localStorage.customFilter = JSON.stringify(filter);
     	$scope.reinitializeMenu();
   	});
@@ -163,12 +216,13 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
           method  : 'POST',
           url     : 'https://www.zaitoon.online/services/fetchmenu.php',
           data    : data,
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+					timeout : 10000
          })
-        .then(function(response) {
+        .success(function(response) {
 					$ionicLoading.hide();
 
-					$scope.menu = response.data;
+					$scope.menu = response;
 						if($scope.menu.length == 0){
 							$scope.isEmpty = true;
 						}
@@ -181,7 +235,14 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 							window.localStorage.arabianCache = JSON.stringify($scope.menu);
 							menuService.setLoadFlag('ARABIAN', true);
 						}
-        });
+        })
+				.error(function(data){
+						$ionicLoading.hide();
+						$ionicLoading.show({
+							template:  "Not responding. Please try again.",
+							duration: 3000
+						});
+	    	});
 			}
 			else{
 				//Don't call http. Load from cache only.
@@ -209,6 +270,10 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		$scope.search = { query : '' };
 		$scope.showSearch = !$scope.showSearch;
 	}
+
+	$scope.$on('search_called', function(event, search_called) {
+			$scope.showSearch = !$scope.showSearch;
+	});
 
 
 	  $scope.customOptions = function(product) {
@@ -346,12 +411,13 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 					method  : 'POST',
 					url     : 'https://www.zaitoon.online/services/fetchmenu.php',
 					data    : data,
-					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+					headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+					timeout : 10000
 				 })
-				.then(function(response) {
+				.success(function(response) {
 					$ionicLoading.hide();
 
-					$scope.menu = response.data;
+					$scope.menu = response;
 						if($scope.menu.length == 0){
 							$scope.isEmpty = true;
 						}
@@ -364,7 +430,14 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 							window.localStorage.chineseCache = JSON.stringify($scope.menu);
 							menuService.setLoadFlag('CHINESE', true);
 						}
-				});
+				})
+				.error(function(data){
+						$ionicLoading.hide();
+						$ionicLoading.show({
+							template:  "Not responding. Please try again.",
+							duration: 3000
+						});
+	    	});
 			}
 			else{
 				//Don't call http. Load from cache only.
@@ -392,6 +465,11 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		$scope.search = { query : '' };
 		$scope.showSearch = !$scope.showSearch;
 	}
+
+	$scope.$on('search_called', function(event, search_called) {
+			$scope.showSearch = !$scope.showSearch;
+	});
+
 
 
 	  $scope.customOptions = function(product) {
@@ -528,12 +606,13 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 					method  : 'POST',
 					url     : 'https://www.zaitoon.online/services/fetchmenu.php',
 					data    : data,
-					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+					headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+					timeout : 10000
 				 })
-				.then(function(response) {
+				.success(function(response) {
 					$ionicLoading.hide();
 
-					$scope.menu = response.data;
+					$scope.menu = response;
 						if($scope.menu.length == 0){
 							$scope.isEmpty = true;
 						}
@@ -546,7 +625,14 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 							window.localStorage.indianCache = JSON.stringify($scope.menu);
 							menuService.setLoadFlag('INDIAN', true);
 						}
-				});
+				})
+				.error(function(data){
+						$ionicLoading.hide();
+						$ionicLoading.show({
+							template:  "Not responding. Please try again.",
+							duration: 3000
+						});
+	    	});
 			}
 			else{
 				//Don't call http. Load from cache only.
@@ -576,6 +662,11 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		$scope.search = { query : '' };
 		$scope.showSearch = !$scope.showSearch;
 	}
+
+	$scope.$on('search_called', function(event, search_called) {
+			$scope.showSearch = !$scope.showSearch;
+	});
+
 
 
 	  $scope.customOptions = function(product) {
@@ -710,12 +801,13 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 					method  : 'POST',
 					url     : 'https://www.zaitoon.online/services/fetchmenu.php',
 					data    : data,
-					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+					headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+					timeout : 10000
 				 })
-				.then(function(response) {
+				.success(function(response) {
 					$ionicLoading.hide();
 
-					$scope.menu = response.data;
+					$scope.menu = response;
 						if($scope.menu.length == 0){
 							$scope.isEmpty = true;
 						}
@@ -728,7 +820,14 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 							window.localStorage.dessertCache = JSON.stringify($scope.menu);
 							menuService.setLoadFlag('DESSERT', true);
 						}
-				});
+				})
+				.error(function(data){
+						$ionicLoading.hide();
+						$ionicLoading.show({
+							template:  "Not responding. Please try again.",
+							duration: 3000
+						});
+	    	});
 			}
 			else{
 				//Don't call http. Load from cache only.
@@ -755,6 +854,10 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		$scope.search = { query : '' };
 		$scope.showSearch = !$scope.showSearch;
 	}
+
+	$scope.$on('search_called', function(event, search_called) {
+			$scope.showSearch = !$scope.showSearch;
+	});
 
 
 	  $scope.customOptions = function(product) {
