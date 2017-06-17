@@ -1,6 +1,6 @@
 .welcome-view
 {
-	background-color: $welcome-bg;
+	background-color: $main_red;
 	//background-image: url("../img/common/bg.png");
 
 
@@ -93,7 +93,7 @@
 			font-size: 20px;
 			border-radius: $get-started-button-height/2;
 
-			@include button-style($get-started-button-bg, $get-started-button-border, $get-started-button-active-bg, $get-started-button-active-border, $get-started-button-text);
+			@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $get-started-button-text);
 		}
 
 		.auth-button

@@ -68,7 +68,7 @@
 
 				background: none;
 				border: none;
-				border-bottom: 1px dashed #ecf0f1;
+				border-bottom: 1px solid $text_white_dull;
 				color: #FFF;
 
 
@@ -175,7 +175,7 @@
 		font-size: 18px;
 		//border-radius: $auth-buttons-height/2;
 
-		@include button-style($auth-action-button-bg, $auth-action-button-border, $auth-action-button-active-bg, $auth-action-button-active-border, $auth-action-button-text);
+		@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $auth-action-button-text);
 	}
 
 	.auth-action-button-signup
@@ -188,7 +188,7 @@
 		font-size: 18px;
 		//border-radius: $auth-buttons-height/2;
 
-		@include button-style($auth-action-button-bg, $auth-action-button-border, $auth-action-button-active-bg, $auth-action-button-active-border, $auth-action-button-text);
+		@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $auth-action-button-text);
 	}
 
 

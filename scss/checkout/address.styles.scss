@@ -114,7 +114,7 @@
 		text-align: left;
 		padding: 0px 15px;
 
-		@include button-style($addresses-popover-button-bg, $addresses-popover-button-border, $addresses-popover-button-active-bg, $addresses-popover-button-active-border, $addresses-popover-button-color);
+		@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $addresses-popover-button-color);
 
 		&::before
 		{

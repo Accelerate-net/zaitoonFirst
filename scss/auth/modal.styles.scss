@@ -1,6 +1,6 @@
 .modal-view.legal-view
 {
-	background-color: #e74c3c;
+	background-color: $main_red;
 
 	.legal-header
 	{
@@ -55,7 +55,7 @@
 
 		.title
 		{
-			color: $auth-color;
+			color: $main_red_dark;
 		}
 	}
 }

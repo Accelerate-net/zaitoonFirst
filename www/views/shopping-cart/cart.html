@@ -41,7 +41,7 @@
       </div>
 
       <div ng-if="orderType == 'delivery'" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
-        Minimum order of Rs. {{outletSelection['minAmount']}}. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and VAT</tag> apply.
+        Minimum order of <i class="fa fa-inr"></i> {{outletSelection['minAmount']}}. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and VAT</tag> apply.
       </div>
 
       <!-- Set Location -->
@@ -85,7 +85,7 @@
               <div class="col col-10 col-center">
               </div>
               <div class="col col-90 col-center">
-                <p style="font-size: 10px; color: #707778; padding-top: 3px">Rs {{product.itemPrice}}</p>
+                <p style="font-size: 10px; color: #707778; padding-top: 3px"><i class="fa fa-inr"></i> {{product.itemPrice}}</p>
               </div>
             </div>
           </div>
@@ -118,7 +118,7 @@
               <span class="bill-item-title">Price Subtotal</span>
             </div>
             <div class="col">
-              <span class="bill-item-value">Rs. {{ getSubtotal() | number:2 }}</span>
+              <span class="bill-item-value"><i class="fa fa-inr"></i> {{ getSubtotal() | number:2 }}</span>
             </div>
           </div>
         </li>
@@ -128,7 +128,7 @@
               <span class="bill-item-title">VAT ({{taxPercentage}}%)</span>
             </div>
             <div class="col">
-              <span class="bill-item-value">Rs. {{ getTax() | number:2 }}</span>
+              <span class="bill-item-value"><i class="fa fa-inr"></i> {{ getTax() | number:2 }}</span>
             </div>
           </div>
         </li>
@@ -139,7 +139,7 @@
               <span ng-if="orderType=='takeaway'" class="bill-item-title">Parcel Charges ({{pickupCharge}}%)</span>
             </div>
             <div class="col">
-              <span class="bill-item-value">Rs. {{ getParcel() | number:2 }}</span>
+              <span class="bill-item-value"><i class="fa fa-inr"></i> {{ getParcel() | number:2 }}</span>
             </div>
           </div>
         </li>
@@ -149,7 +149,7 @@
               <span class="bill-item-title">Order Total</span>
             </div>
             <div class="col">
-              <span class="bill-item-value">Rs. {{ getTotal() | number:2 }}</span>
+              <span class="bill-item-value"><i class="fa fa-inr"></i> {{ getTotal() | number:2 }}</span>
             </div>
           </div>
         </li>

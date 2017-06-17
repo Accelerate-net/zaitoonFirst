@@ -89,7 +89,9 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 	};
 
+	$scope.isCitySet = false;
 	$scope.setCity = function(city){
+		$scope.isCitySet = true;
 		var temp = {name:city};
 		$scope.data.selected_city = temp;
 

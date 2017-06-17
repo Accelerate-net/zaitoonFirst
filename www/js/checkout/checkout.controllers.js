@@ -232,7 +232,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
           $scope.couponDiscount = response.data.discount;
 
           $scope.isCouponApplied = true;
-          $scope.promoMessage = "Coupon applied successfully. You are eligible for a discount of Rs. "+$scope.couponDiscount;
+          $scope.promoMessage = "Coupon applied successfully. You are eligible for a discount of <i class='fa fa-inr'></i> "+$scope.couponDiscount;
 
           //Add a lock to Cart Object.
           couponService.setStatus(true);
