@@ -154,7 +154,7 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 					}
 					else{
 						$ionicLoading.show({
-							template:  '<b style="color: #FFE800; font-size: 160%">Oops!</b><br>The minimum order amount is Rs. '+min,
+							template:  '<b style="color: #FFE800; font-size: 160%">Oops!</b><br>The minimum order amount is <i class="fa fa-inr"></i> '+min,
 							duration: 3000
 						});
 					}

@@ -30,14 +30,14 @@
 
         <!-- City Chooser -->
         <div class="address-chooser" ng-click="openCityPopover($event)">
-          <button class="button button-block icon-right addresses-popover-button-forlocation" style="background: #c0392b; color: #FFF; " ng-class="{'ion-chevron-up': city_popover.isShown(), 'ion-chevron-down' : !city_popover.isShown()}">
+          <button class="button button-block icon-right addresses-popover-button-forlocation" style="background: #a71d2b; color: #FFF; " ng-class="{'ion-chevron-up': city_popover.isShown(), 'ion-chevron-down' : !city_popover.isShown()}">
             {{data.selected_city.name || 'Select City'}}
           </button>
         </div>
 
         <!-- Location Chooser -->
-        <div class="address-chooser" ng-click="openLocalityPopover($event)">
-          <button class="button button-block icon-right addresses-popover-button-forlocation" style="background: #c0392b; color: #FFF; " ng-class="{'ion-chevron-up': locality_popover.isShown(), 'ion-chevron-down' : !locality_popover.isShown()}">
+        <div class="address-chooser" ng-click="openLocalityPopover($event)" ng-if="isCitySet">
+          <button class="button button-block icon-right addresses-popover-button-forlocation" style="background: #a71d2b; color: #FFF; " ng-class="{'ion-chevron-up': locality_popover.isShown(), 'ion-chevron-down' : !locality_popover.isShown()}">
             {{data.selected_locality.name || 'Your Locality'}}
           </button>
         </div>

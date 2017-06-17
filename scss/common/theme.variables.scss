@@ -49,11 +49,11 @@ $text_white_dull: #dce1ec;
 }
 
 .myOTP{
-	color: #902B2B;
+	color: #d06f76;
 	font-size: 18px;
 	text-align: center;
 	padding: 10px 0px;
-	border-bottom: 1px dashed #902B2B;
+	border-bottom: 1px solid #902B2B;
 	margin-bottom: 20px;
 }
 
@@ -77,7 +77,7 @@ $text_white_dull: #dce1ec;
 }
 
 .myHeaderRed{
-	background: #e74c3c;
+	background: $main_red_dark;
 	color: #FFF;
 }
 

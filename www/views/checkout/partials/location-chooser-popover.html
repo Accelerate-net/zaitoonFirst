@@ -4,8 +4,8 @@
     <ion-scroll class="addresses-scroller" direction="y">
       <div class="list addresses-list">
 
-        <input type="search" placeholder="Search" name="search_query" ng-model="search.query" ng-keyup="suggest()" style="width: 100%; border-bottom: 1px solid #e74c3c; text-align: center; padding-top: 10px;">
-
+        <input type="search" placeholder="Start typing your location here" name="search_query" ng-model="search.query" ng-keyup="suggest()" style="width: 100%; border-bottom: 1px solid #e74c3c; text-align: center; padding-top: 10px;">
+        <p style="color: #a71d2b; font-size: 10px; font-weight: 300; text-align: center; margin: 10px 0px 0px 0px">POPULAR LOCATIONS</p>
         <ion-list>
           <ion-item  class="myList" ng-repeat="locality in availableLocations = (localities | searchField : 'product.itemName' | filter:search.query)" ng-click="setLocality(locality.code)" style="background: none; border: 0px; border-bottom: 1px solid #FAFBEB; color: #e74c3c;">
             {{locality.name}}
