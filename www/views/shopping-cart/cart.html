@@ -1,7 +1,7 @@
 <ion-view class="shopping-cart-view" cache-view="false">
   <ion-header-bar class="shopping-cart-header">
     <div class="buttons">
-      <button class="button button-clear close-button" ng-click="close()">Back</button>
+      <button class="button button-clear close-button" ng-click="close()"><img src="img/common/back.png" width="20px" style="position: absolute; right: 5px; top: 5px; left: 5px;"></button>
     </div>
     <h1 class="title"></h1>
     <div class="buttons">
@@ -12,12 +12,10 @@
   <ion-content class="shopping-cart-content" has-bouncing="false">
     <div class="row row-center empty-cart-row" ng-if="products.length == 0">
       <div class="col">
-        <h3 class="no-products-title">Your cart is empty.</h3>
-        <div class="illustration-container">
-          <pre-img ratio="_34_25">
-            <img class="illustration-image" ng-src="./img/shopping-cart/cart-empty.png" spinner-on-load/>
-          </pre-img>
-        </div>
+        <center>
+          <img src="./img/feed/emptycart.png" width="30%"/>
+        </center>
+        <h3 class="no-products-title" style="margin-top: 30px; color: #c52031">Your cart is empty.</h3>
       </div>
     </div>
     <div ng-if="products.length > 0">
