@@ -92,8 +92,12 @@
 
   </ion-content>
 
-  <tag class="filterIcon" ng-if="!isFilter" ui-sref="main.app.filters()"><img src="img/feed/filter.png" style="margin: 8px" width="25px"></tag>
-
+  <tag ng-if="!outletClosureWarning">
+    <tag class="filterIcon" ng-if="!isFilter" ui-sref="main.app.filters()"><img src="img/feed/filter.png" style="margin: 8px" width="25px"></tag>
+  </tag>
+  <tag ng-if="outletClosureWarning">
+    <tag class="filterIcon" style="bottom: 60px" ng-if="!isFilter" ui-sref="main.app.filters()"><img src="img/feed/filter.png" style="margin: 8px" width="25px"></tag>
+  </tag>
   <!-- <ion-content>
 
 

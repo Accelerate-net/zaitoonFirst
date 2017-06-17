@@ -41,8 +41,8 @@
 
 			.tab-item
 			{
-				background-color: $account-tabs-bg;
-				color: $account-tabs-color;
+				background-color: $main_red_dark;
+				color: #d65865;
 				opacity: 1;
 
 				&:nth-of-type(1)
@@ -59,7 +59,7 @@
 
 				&.tab-item-active
 				{
-					background-color: $account-tabs-active-bg;
+					background-color: $main_red;
 					color: $account-tabs-active-color;
 				}
 

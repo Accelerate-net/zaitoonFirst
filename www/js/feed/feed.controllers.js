@@ -149,7 +149,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 
-.controller('FoodArabianCtrl', function(menuService, outletService, ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodArabianCtrl', function(outletWarningStatusService, menuService, outletService, ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -264,9 +264,10 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	}
 
 	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
-	$scope.outletClosureWarning = true;
+	$scope.outletClosureWarning = outletWarningStatusService.getStatus();
 	$scope.clearClosureWarning = function() {
 		$scope.outletClosureWarning = false;
+		outletWarningStatusService.clearWarning();
 	}
 
 
@@ -404,7 +405,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 })
 
-.controller('FoodChineseCtrl', function(menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodChineseCtrl', function(outletWarningStatusService, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -462,10 +463,12 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	}
 
 	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
-	$scope.outletClosureWarning = true;
+	$scope.outletClosureWarning = outletWarningStatusService.getStatus();
 	$scope.clearClosureWarning = function() {
 		$scope.outletClosureWarning = false;
+		outletWarningStatusService.clearWarning();
 	}
+
 
 
 	// Making request to server to fetch-menu
@@ -604,7 +607,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 })
 
 
-.controller('FoodIndianCtrl', function(menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodIndianCtrl', function(outletWarningStatusService, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -660,9 +663,10 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	}
 
 	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
-	$scope.outletClosureWarning = true;
+	$scope.outletClosureWarning = outletWarningStatusService.getStatus();
 	$scope.clearClosureWarning = function() {
 		$scope.outletClosureWarning = false;
+		outletWarningStatusService.clearWarning();
 	}
 
 
@@ -803,7 +807,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 })
 
-.controller('FoodDessertCtrl', function(menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodDessertCtrl', function(outletWarningStatusService, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -859,10 +863,12 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	}
 
 	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
-	$scope.outletClosureWarning = true;
+	$scope.outletClosureWarning = outletWarningStatusService.getStatus();
 	$scope.clearClosureWarning = function() {
 		$scope.outletClosureWarning = false;
+		outletWarningStatusService.clearWarning();
 	}
+
 
 
 	// Making request to server to fetch-menu
@@ -1000,7 +1006,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 
-.controller('DealsCtrl', function(outletService, $ionicLoading, ShoppingCartService, ConnectivityMonitor, $scope, $http, $ionicPopup, $state) {
+.controller('DealsCtrl', function(outletWarningStatusService, outletService, $ionicLoading, ShoppingCartService, ConnectivityMonitor, $scope, $http, $ionicPopup, $state) {
 
 
 	//Network Status
@@ -1065,9 +1071,10 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	}
 
 	$scope.isOutletClosedNow = !$scope.outletSelection.isOpen;
-	$scope.outletClosureWarning = true;
+	$scope.outletClosureWarning = outletWarningStatusService.getStatus();
 	$scope.clearClosureWarning = function() {
 		$scope.outletClosureWarning = false;
+		outletWarningStatusService.clearWarning();
 	}
 
 

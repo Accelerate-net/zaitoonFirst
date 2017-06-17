@@ -1,6 +1,20 @@
 angular.module('zaitoonFirst.feed.services', [])
 
 
+
+.service('outletWarningStatusService', function ($http, $q){
+  var isWarningPrefered = true;
+
+  this.getStatus = function(){
+    return isWarningPrefered;
+  }
+
+  this.clearWarning = function(){
+    isWarningPrefered = false;
+  }
+
+})
+
 .service('menuService', function ($http, $q){
 
   //Default Parameters

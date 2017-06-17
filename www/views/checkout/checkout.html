@@ -1,18 +1,9 @@
 <ion-view class="checkout-view" cache-view="false">
   <ion-header-bar class="checkout-header">
-    <div class="buttons">
-      <button class="button button-clear cancel-button" ng-click="cancel()">Cancel</button>
-    </div>
-    <h1 class="title">Checkout</h1>
-
+    <button class="button button-clear" width="80px" ng-click="cancel()"><img src="img/common/back.png" width="20px" style="position: absolute; right: 5px; top: 5px; left: 5px;"></button>
+    <button class="button button-clear" style="padding: 0px 30px 0px 50px; color: #FFF; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size: 14px;" ng-if="checkoutMode == 'delivery'" width="80px" ng-click="changeLocation()"><img src="img/common/location.png" width="20px" style="position: absolute; right: 5px; top: 5px;">{{outletSelection['location']}}, {{outletSelection['city']}}</button>
   </ion-header-bar>
   <ion-content has-bouncing="false" class="checkout-content">
-
-
-    <!-- Confirm the preset location of the user -->
-    <div ng-if="checkoutMode == 'delivery'">
-      <h3 class="checkout-sub-title" style="color: #BDBDBD; font-weight: 300; font-size: 14px; text-align: center; padding-bottom: 0px">You have set your location as <b>{{outletSelection['location']}}, {{outletSelection['city']}}</b>. Please ensure that it is accurate before you continue. <tag ng-click="changeLocation()" style="text-decoration: underline">Change My Location</tag></h3>
-    </div>
 
 
   <!-- Option for changing the pickup location -->
@@ -35,19 +26,19 @@
   </div>
 
   <div ng-if="checkoutMode == 'delivery'">
-    <h3 class="checkout-sub-title" style="font-weight: 250;">Delivery Address</h3>
+    <h3 class="checkout-sub-title" style="">Delivery Address</h3>
     <div class="row address-row">
       <div class="col">
         <div class="address-chooser">
-          <a class="button button-block icon-right ion-chevron-right choose-addresses-button" ng-class="{'aa': addresses_popover.isShown(), 'bb' : !addresses_popover.isShown()}" ui-sref="main.app.checkout.address()">{{getSelectedAddress() || 'Delivery Address'}}</a>
+          <a class="button button-block icon-right ion-chevron-right choose-addresses-button" style="color: #c52031" ng-class="{'aa': addresses_popover.isShown(), 'bb' : !addresses_popover.isShown()}" ui-sref="main.app.checkout.address()">{{getSelectedAddress() || 'Select a Delivery Address'}}</a>
         </div>
       </div>
     </div>
   </div>
 
-    <h3 class="checkout-sub-title" style="font-weight: 250;">Payment Information</h3>
+    <h3 class="checkout-sub-title" style="">Payment Information</h3>
 
-    <div class="paymentRadio" style="padding: 0px 10px" ng-if="onlinePayFlag">
+    <div class="paymentRadio" style="padding: 0px 15px" ng-if="onlinePayFlag">
       <ion-list>
         <ion-radio ng-model="paychoice" ng-value="'PRE'" ng-click="setPay('PRE')">Pay Online</ion-radio>
         <ion-radio ng-model="paychoice" ng-value="'COD'" ng-click="setPay('COD')">Cash on Delivery (COD)</ion-radio>
@@ -63,31 +54,33 @@
       </ion-list>
     </div>
 
-    <h3 class="checkout-sub-title" style="font-weight: 250;">Promotional Offers</h3>
+    <h3 class="checkout-sub-title" style="">Promotional Offers</h3>
     <div class="row promo-code-row">
-      <div class="col">
-        <label class="item item-input promo-item">
-          <span class="input-label">COUPON CODE</span>
-          <input type="text" ng-model="promoCode" ng-blur="validateCoupon()" ng-focus="enteringCoupon()">
+      <div class="col col-75">
+        <label class="item item-input promo-item" style="border-bottom-left-radius: 6px; border-top-left-radius: 6px; border: 1px solid #c52031; border-right: none; background: none;">
+          <input type="text" ng-model="promoCode" style="text-transform:uppercase;" ng-blur="validateCoupon()" ng-focus="enteringCoupon()">
         </label>
       </div>
-    </div>
-    <div class="row" style="padding: 10px">
-      <div class="col col-80">
-        <p ng-if="isSuccess" style="font-size: 11px; color: #27ae60; line-height: 120%">{{promoMessage}}</p>
-        <p ng-if="!isSuccess" style="font-size: 11px; color: #e74c3c ; line-height: 120%">{{promoMessage}}</p>
-      </div>
-      <div class="col col-20">
-        <div class="button button-small button-outline button-balanced" style="float: right" ng-if="isCouponEntered" ng-click="validateCoupon(promoCode)">APPLY</div>
+      <div class="col">
+        <div class="item item-input promo-item" style="border-top-right-radius: 6px; border-bottom-right-radius: 6px; border: 1px solid #c52031;border-left: none; background: none; height: 45px; width: 100%">
+          <div class="input-label" style="text-align: center; color: #FFF; width:100%; background: #c52031" ng-click="validateCoupon(promoCode)">APPLY</div>
+        </div>
       </div>
     </div>
 
-    <h3 class="checkout-sub-title" style="font-weight: 250;">Any comments?</h3>
-    <div style="margin: 0px 15px; border: 1px solid #E8E8E8">
-      <textarea type="text" ng-model="comments.value" style="padding: 10px; border: none; resize: none; width: 100%" placeholder="Extra spicy? Less Oily? Add your notes to the chef here."></textarea>
+    <div class="row" style="padding: 15px">
+      <center>
+        <p ng-if="isSuccess" style="text-align: center; font-size: 11px; color: #27ae60; line-height: 120%">{{promoMessage}}</p>
+        <p ng-if="!isSuccess" style="text-align: center; font-size: 11px; color: #e74c3c ; line-height: 120%">{{promoMessage}}</p>
+      </center>
     </div>
 
-    <h3 class="checkout-sub-title">YOUR ORDER</h3>
+    <h3 class="checkout-sub-title" style="padding-top: 10px">Any comments?</h3>
+    <div style="margin: 0px 15px; border: 1px solid #c52031; border-radius: 6px">
+      <textarea type="text" ng-model="comments.value" style="padding: 10px;  border-radius: 6px; resize: none;width: 100%;line-height:1.6em; font-size: 14px; font-weight: 300" placeholder="Extra spicy? Less Oily? Add your notes to the chef here."></textarea>
+    </div>
+
+    <h3 class="checkout-sub-title">Order Summary</h3>
     <ul class="list checkout-products">
       <li class="item checkout-product" ng-repeat="product in products track by $index">
         <div class="row">
@@ -98,7 +91,7 @@
             <span class="product-name">x {{product.qty}}</span>
           </div>
           <div class="col col-center">
-            <span class="product-price">Rs {{product.itemPrice}}</span>
+            <span class="product-price"><i class="fa fa-inr"></i> {{product.itemPrice}}</span>
           </div>
         </div>
       </li>
@@ -110,7 +103,7 @@
             <span class="bill-item-title">Price Subtotal</span>
           </div>
           <div class="col">
-            <span class="bill-item-value">Rs {{ getSubtotal() | number:2 }}</span>
+            <span class="bill-item-value"><i class="fa fa-inr"></i> {{ getSubtotal() | number:2 }}</span>
           </div>
         </div>
       </li>
@@ -120,7 +113,7 @@
             <span class="bill-item-title">VAT ({{taxPercentage}}%)</span>
           </div>
           <div class="col">
-            <span class="bill-item-value">Rs. {{ getTax() | number:2 }}</span>
+            <span class="bill-item-value"><i class="fa fa-inr"></i> {{ getTax() | number:2 }}</span>
           </div>
         </div>
       </li>
@@ -131,7 +124,7 @@
             <span ng-if="checkoutMode=='takeaway'" class="bill-item-title">Parcel Charges ({{pickupCharge}}%)</span>
           </div>
           <div class="col">
-            <span class="bill-item-value">Rs. {{ getParcel() | number:2 }}</span>
+            <span class="bill-item-value"><i class="fa fa-inr"></i> {{ getParcel() | number:2 }}</span>
           </div>
         </div>
       </li>
@@ -141,7 +134,7 @@
             <span class="bill-item-title" style="color: #27ae60">Coupon Discount</span>
           </div>
           <div class="col">
-            <span class="bill-item-value" style="color: #27ae60">- Rs {{couponDiscount}}</span>
+            <span class="bill-item-value" style="color: #27ae60">- <i class="fa fa-inr"></i> {{couponDiscount}}</span>
           </div>
         </div>
       </li>
@@ -152,8 +145,8 @@
             <span class="bill-item-title">Order Total</span>
           </div>
           <div class="col">
-            <span ng-if="!isCouponApplied" class="bill-item-value">Rs {{ getTotal() | number:2 }}</span>
-            <span ng-if="isCouponApplied" class="bill-item-value">Rs {{ getTotal()-couponDiscount | number:2 }}</span>
+            <span ng-if="!isCouponApplied" class="bill-item-value"><i class="fa fa-inr"></i> {{ getTotal() | number:2 }}</span>
+            <span ng-if="isCouponApplied" class="bill-item-value"><i class="fa fa-inr"></i> {{ getTotal()-couponDiscount | number:2 }}</span>
           </div>
         </div>
       </li>
