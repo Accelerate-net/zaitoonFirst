@@ -4,8 +4,8 @@
 
 	.checkout-address-header
 	{
-		background-color: $checkout-header-bg !important;
-		background: $checkout-header-bg !important;
+		background-color: $main_red_dark !important;
+		background: $main_red_dark !important;
 		border: none !important;
 		background-size: 0px !important; // To remove bottom border on header
 
@@ -61,7 +61,7 @@
 			font-size: 20px;
 			text-transform: uppercase;
 
-			@include button-style($save-address-button-bg, $save-address-button-border, $save-address-button-active-bg, $save-address-button-active-border, $save-address-button-text);
+			@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $save-address-button-text);
 
 			&::after
 			{
@@ -92,7 +92,7 @@
 		text-align: left;
 		padding: 0px 15px;
 
-		@include button-style($addresses-popover-button-bg, $addresses-popover-button-border, $addresses-popover-button-active-bg, $addresses-popover-button-active-border, $addresses-popover-button-color);
+		@include button-style($addresses-popover-button-bg, $addresses-popover-button-border, $addresses-popover-button-active-bg, $addresses-popover-button-active-border, $main_red_dark);
 
 		&::before
 		{
@@ -141,7 +141,7 @@
 		padding: 0px 15px;
 		font-weight: 500;
 
-		@include button-style($new-address-button-bg, $new-address-button-border, $new-address-button-active-bg, $new-address-button-active-border, $new-address-button-color);
+		@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $save-address-button-text);
 
 		&::before
 		{
@@ -426,7 +426,7 @@
 
 			.edit-address-button
 			{
-				color: $addresses-popover-item-edit-color;
+				color: $main_red_dark;
 				font-size: 15px;
 				text-align: right;
 				min-height: 0px;
@@ -444,7 +444,7 @@
 		position: fixed;
 		bottom: -$addresses-popover-item-height + (-1px);
 
-		@include button-style($addresses-popover-inset-button-bg, $addresses-popover-inset-button-border, $addresses-popover-inset-button-active-bg, $addresses-popover-inset-button-active-border, $addresses-popover-inset-button-color);
+		@include button-style($main_red_dark, $main_red_dark, $main_red_darkest, $main_red_darkest, $save-address-button-text);
 	}
 }
 

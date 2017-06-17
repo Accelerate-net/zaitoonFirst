@@ -169,11 +169,11 @@
 
 	.checkout-sub-title
 	{
-		color: #e74c3c;
-		padding: 35px 15px 15px;
+		color: $main_red;
+		padding: 30px 15px 15px;
 		text-align: center;
-		font-size: 18px;
-		font-weight: 400;
+		font-size: 21px;
+		font-weight: 300;
 		margin: 0px;
 	}
 
@@ -191,21 +191,20 @@
 		{
 			border: none;
 			background-color: $checkout-promo-code-bg;
-			border-radius: 6px;
-			padding: 0px 15px 0px 0px;
+			padding: 0px;
 			min-height: $button-height + 5px;
 
 			.input-label
 			{
-				color: #e74c3c;
-				text-transform: uppercase;
+				color: $main_red_dark;
 				font-size: 15px;
-				font-weight: 500;
+				font-weight: 400;
 				background-color: #faf7dc;
-				padding: 0px 10px 0px 15px;
+				padding: 0px 10px 0px 10px;
 				height: $button-height + 5px;
 				line-height: $button-height + 5px;
-				border-right: 1px solid $checkout-promo-code-border;
+				text-align: center;
+				border-left: 1px solid $checkout-promo-code-border;
 			}
 
 			input
@@ -244,7 +243,7 @@
 	.checkout-products
 	{
 		background-color: $checkout-products-bg;
-		border-top: 2px dashed $checkout-products-border;
+		border-top: 2px solid $main_red;
 		margin: 0px;
 		padding: 10px 30px 0px;
 
@@ -257,7 +256,7 @@
 
 			&:last-child
 			{
-				border-color: $checkout-products-border;
+				border-color: $main_red;
 			}
 
 			.row

@@ -19,7 +19,7 @@
       <div class="col">
         <a ng-if="!isLoggedIn" class="button button-block get-started-button" ui-sref="intro.walkthrough-learn()">EXPLORE</a>
         <a ng-if="!isLoggedIn" class="button button-block button-clear auth-button" ui-sref="intro.auth-login()">Login</a>
-        <a ng-if="isLoggedIn" class="button button-block get-started-button" style="text-transform: none; font-weight: 200; font-size: 16px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;" ui-sref="main.app.feed.arabian">Continue as <b style="color: #FFC300">{{loggedUser}}</b></a>
+        <a ng-if="isLoggedIn" class="button button-block get-started-button" style="text-transform: none; font-weight: 200; font-size: 16px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;" ui-sref="main.app.feed.arabian">Continue as <tag style="color: #FFC300; text-transform: capitalize; font-weight: 300">{{loggedUser}}</tag></a>
         <a ng-if="isLoggedIn" class="button button-block button-clear auth-button" ng-click="logout()" style="text-decoration: underline">Logout</a>
       </div>
     </div>

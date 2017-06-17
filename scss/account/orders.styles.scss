@@ -30,19 +30,19 @@
 
     .order-header
     {
-      background-color: #e74c3c;
+      background-color: $main_red_dark;
       border: none;
       margin: 0px;
       color: $account-orders-header-color;
       min-height: 0px;
       height: 35px;
       line-height: 36px;
-      padding: 0px 20px;
+      padding: 0px 10px;
 
       .header-title
       {
         //text-transform: uppercase;
-        font-size: 16px;
+        font-size: 12px;
         font-weight: 300;
         color: #FFF;
       }
@@ -167,6 +167,7 @@
       .status-title
       {
         text-transform: capitalize;
+        font-weight: 300;
         font-size: 18px;
       }
     }

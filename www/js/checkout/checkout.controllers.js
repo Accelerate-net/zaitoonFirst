@@ -201,6 +201,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   }
 
   $scope.validateCoupon = function(promo) {
+    console.log('TESTIG.....')
     $scope.isCouponEntered = true;
     $scope.isCouponApplied = false;
 
@@ -232,7 +233,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
           $scope.couponDiscount = response.data.discount;
 
           $scope.isCouponApplied = true;
-          $scope.promoMessage = "Coupon applied successfully. You are eligible for a discount of <i class='fa fa-inr'></i> "+$scope.couponDiscount;
+          $scope.promoMessage = "Coupon applied successfully. You are eligible for a discount of Rs. "+$scope.couponDiscount;
 
           //Add a lock to Cart Object.
           couponService.setStatus(true);
@@ -670,11 +671,22 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
     .then(function(response) {
+      console.log(response)
       $scope.track = response.data;
       $scope.status = $scope.track.response.status;
       $scope.isTakeAway = $scope.track.response.isTakeaway;
     });
   }, 15000);
+
+  $scope.displayInfo = false;
+  $scope.clearInfo = function(){
+    $scope.displayInfo = false;
+  }
+  $scope.showInfo = function(){
+    $scope.displayInfo = true;
+  }
+
+
 
 
 

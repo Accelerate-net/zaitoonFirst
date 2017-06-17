@@ -176,12 +176,12 @@ $text_white_dull: #dce1ec;
 
 .paymentRadio{
 	.item {
-					border: 1px solid #27ae60;
+					border: 1px solid $main_red;
 					color: #FFF;
 					margin-bottom: 5px;
 	}
 	.item-radio .item-content {
-	  color: #BDBDBD;
+	  color: $main_red;
 		padding: 8px 64px 8px 16px;
 	}
 
@@ -190,7 +190,7 @@ $text_white_dull: #dce1ec;
 	}
 
 	.item-radio input:checked + .radio-content .item-content {
-			background: #27ae60;
+			background: $main_red_dark;
 			color: #FFF;
 	}
 }

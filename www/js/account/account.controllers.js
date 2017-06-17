@@ -276,16 +276,16 @@ $scope.loadMore = function() {
     $scope.customer.name = $scope.temp_name;
     $scope.customer.email = $scope.temp_email;
 
-    document.getElementById("inputProfileName").style.borderBottom="1px dashed #bdc3c7";
-    document.getElementById("inputProfileEmail").style.borderBottom="1px dashed #bdc3c7";
+    document.getElementById("inputProfileName").style.borderBottom="1px solid rgba(238, 242, 245, 1)";
+    document.getElementById("inputProfileEmail").style.borderBottom="1px solid rgba(238, 242, 245, 1)";
 
     $scope.isEditMode = false;
   }
 
   $scope.saveEdit = function(){
     $scope.isEditMode = false;
-    document.getElementById("inputProfileName").style.borderBottom="1px dashed #bdc3c7";
-    document.getElementById("inputProfileEmail").style.borderBottom="1px dashed #bdc3c7";
+    document.getElementById("inputProfileName").style.borderBottom="1px solid rgba(238, 242, 245, 1)";
+    document.getElementById("inputProfileEmail").style.borderBottom="1px solid rgba(238, 242, 245, 1)";
 
     //Call http request and make the changes in the servers
     ProfileService.updateUserData($scope.customer.name, $scope.customer.email);
