@@ -2,16 +2,7 @@
 {
 	background-color: #FFF;
 
-
-
-
-
-
-
-
 //For Timeline
-
-
 .timeline{
   list-style-type: none;
   display: flex;
@@ -42,7 +33,7 @@
   transition: all 200ms ease-in;
   > h4{
   	margin-top: 20px;
-    font-weight: 400;  
+    font-weight: 300;  
     font-size: 14px;
     color: #D6DCE0;
       &:before{
@@ -58,25 +49,25 @@
         transition: all 200ms ease-in;
       }
     }
-  } 
+  }
 .li.complete{
   .status{
-    border-top: 2px solid #66DC71;
+    border-top: 2px solid #c52031;
     &:before{
-      background-color: #66DC71;
+      background-color: #c52031;
       border: none;
       transition: all 200ms ease-in ;
     }
     h4{
-      color: #66DC71;
+      color: #c52031;
       font-size: 14px;
 
       &:before{
         content: '';
         width: 25px;
         height: 25px;
-        background-color: #66DC71;
-        border: 1px solid #66DC71;
+        background-color: #c52031;
+        border: 1px solid #c52031;
         border-radius: 25px;
         position: absolute;
         top: -15px;
@@ -173,7 +164,7 @@
 			margin: 0px;
 			padding: 2px 5px 2px 20px;
 			text-align: left;
-		}		
+		}
 
 
 
@@ -300,7 +291,7 @@
 							position: absolute;
   						width: 35px;
 							top: 9px;
-  						left: 0px; 
+  						left: 0px;
 						}
 					}
 
@@ -862,8 +853,8 @@
 
 
 	.feedbackComments{
-		padding: 20px; 
-		font-size: 14px; 
+		padding: 20px;
+		font-size: 14px;
 		width: 100%;
 		border: 1px dashed #ecf0f1;
 		color: #34495e;
@@ -958,6 +949,3 @@
 		}
 	}
 }
-
-
-
