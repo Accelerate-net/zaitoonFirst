@@ -13,18 +13,25 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 			data    : data,
 			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 		 })
-		.then(function(response) {
-			if(response.data.status){
+		.success(function(response) {
+			if(response.status){
 				$scope.isLoggedIn = true;
 				var temp_user = JSON.parse(window.localStorage.user);
 				$scope.loggedUser = temp_user.name;
-				temp_user.token = response.data.newtoken;
+				temp_user.token = response.newtoken;
 				window.localStorage.user = JSON.stringify(temp_user);
 			}
 			else{
 				window.localStorage.removeItem("user");
 				$scope.isLoggedIn = false;
 			}
+		})
+		.error(function(data){
+				$ionicLoading.hide();
+				$ionicLoading.show({
+					template:  "Not responding. Please try again.",
+					duration: 3000
+				});
 		});
 	}
 	else{
