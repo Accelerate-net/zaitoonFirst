@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.auth.controllers', [])
 
-.controller('LoginCtrl', function(ConnectivityMonitor, $scope, $state, $http, $ionicLoading, $timeout) {
+.controller('LoginCtrl', function(ConnectivityMonitor, $interval, $scope, $state, $http, $ionicLoading, $timeout, $rootScope) {
 	//If already logged in?
 	if(!_.isUndefined(window.localStorage.user)){
 		$state.go('main.app.feed.arabian');
@@ -28,10 +28,14 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 	$scope.resetNumber = function(){
 		$scope.otpFlag = false;
+		$scope.resendOTPFlag = false;
+		$interval.cancel($rootScope.loopTimer);
+		$scope.error = "";
+		$scope.showResendButton = false;
 	}
 
 	$scope.validateNumber = function(){
-
+console.log('VALIDATING LOGIN...')
 		if($scope.isOfflineFlag)
 		{
 			$ionicLoading.show({
@@ -51,6 +55,9 @@ angular.module('zaitoonFirst.auth.controllers', [])
 		var isnum = /^\d+$/.test($scope.user.mobile);
 		if(isnum && $scope.user.mobile.length == 10){
 
+			$scope.resendOTPFlag = false;
+			$scope.showResendButton = false;
+
 			var data = {};
 			data.mobile = $scope.user.mobile;
 
@@ -63,13 +70,44 @@ angular.module('zaitoonFirst.auth.controllers', [])
 			 })
 			.success(function(data) {
 				$ionicLoading.hide();
+				$scope.resendOTPFlag = true;
+				$scope.showResendButton = false;
 
 				$scope.main = data.response;
-				if($scope.main.isOTPSent){
+				if(data.status){
 					$scope.otpFlag = true;
 					$scope.error="";
+
+													//Additional Warnings
+												 	var warning = data.error;
+												 	var timeLeft = 60;
+
+												 	if(warning != ""){
+												 		$scope.error = warning;
+												 		timeLeft = data.timeleft;
+												 	}
+												 	else{
+												 		$scope.error="";
+												 		timeLeft = 60;
+												 	}
+
+												 	$rootScope.loopTimer = $interval(function(){
+													  document.getElementById("resendOTP").innerHTML = '<tag style="color: #bdc3c7;">Resend OTP in '+timeLeft +' seconds</tag>';
+													  timeLeft--;
+													  if(timeLeft == 0){
+													  	$scope.error="";
+															$scope.showResendButton = true;
+															$interval.cancel($rootScope.loopTimer);
+													  	document.getElementById("resendOTP").innerHTML = '';
+
+													  }
+
+													}, 1000);
+
+
+
 				}else{
-					$scope.error = "Number not registered.";
+					$scope.error = data.error;
 				}
 			})
 			.error(function(data){
@@ -165,7 +203,7 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 })
 
-.controller('SignupCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading, $timeout, $ionicModal) {
+.controller('SignupCtrl', function(ConnectivityMonitor, $rootScope, $interval, $scope, $http, $state, $ionicLoading, $timeout, $ionicModal) {
 
 
 		//Network Status
@@ -176,6 +214,9 @@ angular.module('zaitoonFirst.auth.controllers', [])
 			$scope.isOfflineFlag = false;
 		}
 
+		//Default Values
+		$scope.showResendButton = false;
+		$scope.resendOTPFlag = false;
 
 	$scope.user = {};
 
@@ -223,13 +264,41 @@ angular.module('zaitoonFirst.auth.controllers', [])
 					.success(function(data) {
 
 						$ionicLoading.hide();
-
+						$scope.showResendButton = false;
 						$scope.main = data.response;
-						console.log($scope.main)
-						if($scope.main.isOTPSent){
+						if(data.status){
+							$scope.resendOTPFlag = true;
 							$scope.signupFlag = true;
 							$scope.error="";
 							$scope.otpapi = $scope.main.otp;
+
+							//Additional Warnings
+							var warning = data.error;
+							var timeLeft = 60;
+
+							if(warning != ""){
+								$scope.error = warning;
+								timeLeft = data.timeleft;
+							}
+							else{
+								$scope.error="";
+								timeLeft = 60;
+							}
+
+							$rootScope.loopTimer = $interval(function(){
+								document.getElementById("resendOTP").innerHTML = '<tag style="color: #bdc3c7;">Resend OTP in '+timeLeft +' seconds</tag>';
+								timeLeft--;
+								if(timeLeft == 0){
+									$scope.error="";
+									$scope.showResendButton = true;
+									$interval.cancel($rootScope.loopTimer);
+									document.getElementById("resendOTP").innerHTML = '';
+
+								}
+
+							}, 1000);
+
+
 						}else{
 							$scope.error = data.error;
 						}
@@ -300,8 +369,8 @@ angular.module('zaitoonFirst.auth.controllers', [])
 
 				$ionicLoading.hide();
 
-				$scope.main = data.response;
-				if(response.data.status){
+				$scope.main = data;
+				if(data.status){
 					//Set User info
 					window.localStorage.user = JSON.stringify(data.response);
 					$state.go('main.app.feed.arabian');
