@@ -225,6 +225,10 @@ console.log('VALIDATING LOGIN...')
 	$scope.user.mobile = "";
 	$scope.signupFlag = false;
 
+	if(!$scope.signupFlag){ // <!-- to prevent double timer bug
+		$interval.cancel($rootScope.loopTimer);
+	}
+
 	$scope.validateSignUp = function(){
 
 		if($scope.isOfflineFlag)
