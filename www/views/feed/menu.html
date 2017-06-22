@@ -39,7 +39,7 @@
     </div>
   </ion-footer-bar>
 
-  <ion-content ng-controller="featureCtrl">
+  <ion-content ng-controller="featureCtrl" on-swipe-right="goRight()" on-swipe-left="goLeft()">
     <!-- <section ng-include="'views/common/sort-and-filters-bar.html'"></section> -->
 
     <h1 ng-if="items.length > 0" class="myMenuSubTitle" style="padding: 0px 10px 10px 10px; margin: 0; margin-top: 10px; color: #f39c12">Featured Dishes</h1>
