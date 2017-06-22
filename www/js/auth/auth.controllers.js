@@ -34,6 +34,10 @@ angular.module('zaitoonFirst.auth.controllers', [])
 		$scope.showResendButton = false;
 	}
 
+		if(!$scope.main.isOTPSent){
+			$interval.cancel($rootScope.loopTimer);
+		}
+
 	$scope.validateNumber = function(){
 console.log('VALIDATING LOGIN...')
 		if($scope.isOfflineFlag)

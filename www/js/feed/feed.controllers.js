@@ -162,6 +162,14 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	//To keep track which cuisine is rentered
 	menuService.setDisplayMenuType("ARABIAN");
 
+	//Swipe left/right
+	$scope.goRight = function(){
+		//$state.go('main.app.feed.chinese');
+	}
+	$scope.goLeft = function(){
+		$state.go('main.app.feed.chinese');
+	}
+
 
 	//LOADING
 	$ionicLoading.show({
@@ -405,7 +413,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 })
 
-.controller('FoodChineseCtrl', function(outletWarningStatusService, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodChineseCtrl', function(outletWarningStatusService, $state, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -425,6 +433,14 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		template:  '<ion-spinner></ion-spinner>'
 	});
 
+
+	//Swipe left/right
+	$scope.goRight = function(){
+		$state.go('main.app.feed.arabian');
+	}
+	$scope.goLeft = function(){
+		$state.go('main.app.feed.indian');
+	}
 
 		//Check if already cached
 		var isCached = menuService.getIsLoadedFlag('CHINESE');
@@ -607,7 +623,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 })
 
 
-.controller('FoodIndianCtrl', function(outletWarningStatusService, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodIndianCtrl', function(outletWarningStatusService, $state, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -625,6 +641,14 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	$ionicLoading.show({
 		template:  '<ion-spinner></ion-spinner>'
 	});
+
+	//Swipe left/right
+	$scope.goRight = function(){
+		$state.go('main.app.feed.chinese');
+	}
+	$scope.goLeft = function(){
+		$state.go('main.app.feed.dessert');
+	}
 
 
 		//Check if already cached
@@ -807,7 +831,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 })
 
-.controller('FoodDessertCtrl', function(outletWarningStatusService, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodDessertCtrl', function($state, outletWarningStatusService, menuService, outletService, ConnectivityMonitor, $scope, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 
 	//Network Status
@@ -826,6 +850,14 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	$ionicLoading.show({
 		template:  '<ion-spinner></ion-spinner>'
 	});
+
+	//Swipe left/right
+	$scope.goRight = function(){
+		$state.go('main.app.feed.indian');
+	}
+	$scope.goLeft = function(){
+		//$state.go('main.app.feed.chinese');
+	}
 
 
 		//Check if already cached
