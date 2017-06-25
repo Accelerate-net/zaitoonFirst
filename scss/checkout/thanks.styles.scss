@@ -33,7 +33,7 @@
   transition: all 200ms ease-in;
   > h4{
   	margin-top: 20px;
-    font-weight: 300;  
+    font-weight: 300;
     font-size: 14px;
     color: #D6DCE0;
       &:before{
@@ -209,7 +209,7 @@
 
 .checkout-feedback-view
 {
-	background-color: #FFF;
+	background-color: #c52031;
 
 
 //For TAGS
@@ -220,8 +220,8 @@
 					box-shadow: none;
 					// padding: 15px 15px 5px;
 					padding: 15px 0px 5px;
-					background-color: $filter-group-bg;
-					color: $filter-group-color;
+					background: none;
+					color: $main_red;
 
 					// Reset child border radius
 					// *{
@@ -236,12 +236,12 @@
 					.item-divider
 					{
 						padding: 0px 2px 12px;
-						background-color: $filter-group-bg;
+						background: none;
 						border: none;
 					  font-weight: 300;
 					  font-size: 21px;
-						color: $filter-group-color;
-						border-bottom: 1px solid $filter-group-border;
+						color: #FFF;
+						border-bottom: 1px solid $main_red_dark;
 						// margin: 0px;
 						margin: 0px 15px;
 						line-height: initial;
@@ -302,12 +302,13 @@
 
 						.item-checkbox
 						{
-							float: left;
+							//float: left;
 							padding: 0px;
 							border: none;
 							margin: 0px;
 							@include display(inline-flex);
 							margin: 0px 8px 10px 0px;
+							background: none !important;
 
 							.checkbox
 							{
@@ -325,18 +326,18 @@
 									height: $tag-filter-item-height;
 									margin: 0px;
 									border-radius: 15px;
-									border: 1px solid $filter-group-color;
-									background-color: $filter-group-bg;
-									color: $filter-group-color;
-								  font-weight: 400;
+									border: 1px solid $text_white_dull;
+									background: none;
+									color: $text_white_dull;
+								  font-weight: 300;
 									font-size: 16px;
   								line-height: $tag-filter-item-height - 2px;
 								}
 
 							  & input:checked + .checkbox-title {
-							    color: $tag-filter-active-color;
-									background: #e74c3c;
-									border-color: #e74c3c;
+							    color: $main_red;
+									background: #FFF;
+									border-color: $main_red;
 							  }
 							}
 						}
@@ -853,11 +854,12 @@
 
 
 	.feedbackComments{
+		background: none;
 		padding: 20px;
 		font-size: 14px;
 		width: 100%;
-		border: 1px dashed #ecf0f1;
-		color: #34495e;
+		border: 1px solid #ecf0f1;
+		color: #FFF;
 	}
 
 	.checkout-thanks-header
@@ -945,7 +947,7 @@
 			font-size: 22px;
 			border-radius: $checkout-thanks-button-height/2;
 
-			@include button-style($checkout-thanks-button-bg, $checkout-thanks-button-border, $checkout-thanks-button-active-bg, $checkout-thanks-button-active-border, $checkout-thanks-button-text);
+			@include button-style($main_red_dark,$main_red_dark, $main_red_darkest, $main_red_darkest, $checkout-thanks-button-text);
 		}
 	}
 }

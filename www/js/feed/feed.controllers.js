@@ -1,7 +1,7 @@
 angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
 
 
-.controller('FeedCtrl', function($scope, $rootScope, $state, $ionicScrollDelegate, ShoppingCartService) {
+.controller('FeedCtrl', function($scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, ShoppingCartService) {
 	$scope.getProductsInCart = function(){
 		return ShoppingCartService.getProducts().length;
 	};
@@ -29,6 +29,45 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		$rootScope.$broadcast('search_called', true);
 		$rootScope.$emit('search_called', true);
 	}
+
+
+	//Book a Table
+	$scope.showOutlets = function(){
+
+		if($scope.isOfflineFlag){
+			$ionicLoading.show({
+				template:  'Please connect to Internet',
+				duration: 2000
+			});
+		}
+		else{
+			//Get all the outlets
+			$http.get('https://www.zaitoon.online/services/fetchoutlets.php')
+			.then(function(response){
+						$scope.allList = response.data.response;
+				});
+
+			outletsPopup = $ionicPopup.show({
+				cssClass: 'popup-outer edit-shipping-address-view',
+				templateUrl: 'views/content/outlet/outlets.html',
+				scope: angular.extend($scope, {}),
+				title: 'Select Outlet',
+				buttons: [
+					{
+						text:'Cancel'
+					}
+				]
+			});
+
+				//Goto Outlet's page
+				$scope.gotoOutlet = function(){
+					outletsPopup.close();
+				}
+		}
+	}
+
+
+
 
 })
 
@@ -149,7 +188,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 
-.controller('FoodArabianCtrl', function(outletWarningStatusService, menuService, outletService, ConnectivityMonitor, reviewOrderService, $scope, $state, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
+.controller('FoodArabianCtrl', function($state, outletWarningStatusService, menuService, outletService, ConnectivityMonitor, reviewOrderService, $scope, $location, $rootScope, $http, ShoppingCartService, $ionicLoading, $ionicPopup, $timeout) {
 
 	//Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -163,12 +202,11 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	menuService.setDisplayMenuType("ARABIAN");
 
 	//Swipe left/right
-	$scope.goRight = function(){
-		//$state.go('main.app.feed.chinese');
-	}
-	$scope.goLeft = function(){
-		$state.go('main.app.feed.chinese');
-	}
+	// $scope.goRight = function(){
+	// }
+	// $scope.goLeft = function(){
+	// 	$state.go('main.app.feed.chinese');
+	// }
 
 
 	//LOADING
@@ -435,12 +473,12 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 	//Swipe left/right
-	$scope.goRight = function(){
-		$state.go('main.app.feed.arabian');
-	}
-	$scope.goLeft = function(){
-		$state.go('main.app.feed.indian');
-	}
+	// $scope.goRight = function(){
+	// 	$state.go('main.app.feed.arabian');
+	// }
+	// $scope.goLeft = function(){
+	// 	$state.go('main.app.feed.indian');
+	// }
 
 		//Check if already cached
 		var isCached = menuService.getIsLoadedFlag('CHINESE');
@@ -643,12 +681,13 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	});
 
 	//Swipe left/right
-	$scope.goRight = function(){
-		$state.go('main.app.feed.chinese');
-	}
-	$scope.goLeft = function(){
-		$state.go('main.app.feed.dessert');
-	}
+	// $scope.goRight = function(){
+	// 	$state.go('main.app.feed.chinese');
+	// }
+	// $scope.goLeft = function(){
+	// 	$state.go('main.app.feed.dessert');
+	// }
+
 
 
 		//Check if already cached
@@ -852,12 +891,11 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	});
 
 	//Swipe left/right
-	$scope.goRight = function(){
-		$state.go('main.app.feed.indian');
-	}
-	$scope.goLeft = function(){
-		//$state.go('main.app.feed.chinese');
-	}
+	// $scope.goRight = function(){
+	// 	$state.go('main.app.feed.indian');
+	// }
+	// $scope.goLeft = function(){
+	// }
 
 
 		//Check if already cached
@@ -1050,40 +1088,6 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	}
 
 
-	//Book a Table
-	$scope.showOutlets = function(){
-
-		if($scope.isOfflineFlag){
-			$ionicLoading.show({
-				template:  'Please connect to Internet',
-				duration: 2000
-			});
-		}
-		else{
-			//Get all the outlets
-			$http.get('https://www.zaitoon.online/services/fetchoutlets.php')
-			.then(function(response){
-						$scope.allList = response.data.response;
-				});
-
-			outletsPopup = $ionicPopup.show({
-				cssClass: 'popup-outer edit-shipping-address-view',
-				templateUrl: 'views/content/outlet/outlets.html',
-				scope: angular.extend($scope, {}),
-				title: 'Select Outlet',
-				buttons: [
-					{
-						text:'Cancel'
-					}
-				]
-			});
-
-				//Goto Outlet's page
-				$scope.gotoOutlet = function(){
-					outletsPopup.close();
-				}
-		}
-	}
 
 
 	// $http.get('https://www.zaitoon.online/services/fetchdeals.php')

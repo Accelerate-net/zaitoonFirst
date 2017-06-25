@@ -1,34 +1,33 @@
 <ion-view class="food-content-view" cache-view="false">
-  <ion-header-bar class="food-content-header" style="background: #e74c3c">
-    <div class="buttons">
-      <button class="button button-clear back-button" ng-click="goBack()">Back</button>
-    </div>
-  </ion-header-bar>
   <ion-content>
-    <ion-slide-box class="product-images-slider" show-pager="false">
-      <ion-slide>
-        <div class="image-container" multi-bg="[info.pictures[0]]">
-          <div class="product-illustration-container">
-          <h1 style="color: #FFF">Zaitoon {{info.name}}</h1>
+    <div style="position: relative">
+      <button class="button button-clear" ui-sref="main.app.feed.arabian()" style="z-index: 1000; position: absolute; top: 10px; left: 10px;"><img src="img/common/back.png" width="20px" style="position: absolute; right: 5px; top: 5px; left: 5px; padding-top: 5px"></button>
+      <ion-slide-box class="product-images-slider" show-pager="true">
+        <ion-slide>
+          <div class="image-container" multi-bg="[info.pictures[0]]">
+            <div class="product-illustration-container">
+            <h1 style="color: #FFF">Zaitoon {{info.name}}</h1>
+            </div>
           </div>
-        </div>
-      </ion-slide>
-      <ion-slide ng-repeat="product_image in info.pictures.slice(1) track by $index">
-        <div class="image-container" multi-bg="[product_image]"></div>
-      </ion-slide>
-    </ion-slide-box>
+        </ion-slide>
+        <ion-slide ng-repeat="product_image in info.pictures.slice(1) track by $index">
+          <div class="image-container" multi-bg="[product_image]"></div>
+        </ion-slide>
+      </ion-slide-box>
+    </div>
+
     <div class="row brief-info-row">
       <div class="col">
-        <h3 class="product-name">Address</h3>
-        <h5 class="product-style">{{info.line1}}</h5>
-        <h5 class="product-style">{{info.line2}}</h5>
-        <h5 class="product-style">{{info.city}}</h5>
+        <h3 class="product-name" style="font-size: 12px; font-weight:200; color: #7f8c8d">Address</h3>
+        <h5 class="product-style" style="color: #a71d2b; font-weight: 300">{{info.line1}}</h5>
+        <h5 class="product-style" style="color: #a71d2b; font-weight: 300">{{info.line2}}</h5>
+        <h5 class="product-style" style="color: #a71d2b; font-weight: 300">{{info.city}}</h5>
       </div>
     </div>
 
     <div class="row schedules-and-address-row">
       <div class="col">
-        <p>Open Hours : 12 Noon - 11 Night</p>
+        <p style="font-weight: 300">Open Hours : 12 Noon - 11 Night</p>
       </div>
     </div>
     <div class="row address-map-row">
@@ -61,9 +60,9 @@
 
     <div class="row all-reviews-row">
       <div class="col">
-        <button class="button button-block read-all-reviews-button">
-          Contact {{info.mobile}}
-        </button>
+        <a class="button button-block read-all-reviews-button" href="tel:{{info.mobile}}" style="font-size:24px; color: #a71d2b">
+          <i class="fa fa-phone"></i> {{info.mobile}}
+        </a>
       </div>
     </div>
 
