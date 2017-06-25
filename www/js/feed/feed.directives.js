@@ -23,19 +23,20 @@ angular.module('zaitoonFirst.feed.directives', [])
 				//console.log("to ["+toState.name+"] indexOf", toState.name.indexOf('main.app.feed'));
 				if(fromState.name.indexOf('main.app.feed')==-1 && toState.name.indexOf('main.app.feed')>=0)
 				{
-					// Estoy navegando de otra tab hacia la tab de feed
+					// I'm browsing from another tab to the feed tab
 					//console.log("**** Estoy navegando de otra tab hacia la tab de feed");
-					// console.log("active_class", active_class);
+					 //console.log("active_class", active_class);
 					// console.log("items", items);
 					var selected_item = utils.getSelectedItem(),
 							previous_item = utils.getItem(toState.name);
 
-					//console.log("selected_item", selected_item);
-					//console.log("previous_item", previous_item);
+					// console.log("selected_item", selected_item);
+					// console.log("previous_item", previous_item);
 
 					if(selected_item.state != previous_item.state)
 					{
 						$scope.$broadcast("item-selected", previous_item);
+
 						//console.log("ANIMATING SCROLL");
 					}
 					else

@@ -39,7 +39,7 @@
     </div>
   </ion-footer-bar>
 
-  <ion-content ng-controller="featureCtrl" on-swipe-right="goRight()" on-swipe-left="goLeft()">
+  <ion-content ng-controller="featureCtrl">
     <!-- <section ng-include="'views/common/sort-and-filters-bar.html'"></section> -->
 
     <h1 ng-if="items.length > 0" class="myMenuSubTitle" style="padding: 0px 10px 10px 10px; margin: 0; margin-top: 10px; color: #f39c12">Featured Dishes</h1>
@@ -101,7 +101,7 @@
   </tag>
 </tag>
 <tag ng-if="!isOutletClosedNow">
-  <tag class="filterIcon" style="bottom: 60px" ng-if="!isFilter" ui-sref="main.app.filters()"><img src="img/feed/filter.png" style="margin: 8px" width="25px"></tag>
+  <tag class="filterIcon" ng-if="!isFilter" ui-sref="main.app.filters()"><img src="img/feed/filter.png" style="margin: 8px" width="25px"></tag>
 </tag>
   <!-- <ion-content>
 
