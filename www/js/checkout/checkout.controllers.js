@@ -71,6 +71,9 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   $scope.comments = {};
   $scope.comments.value = "";
 
+  //Redeem Points - default value
+  $scope.rewardCoins = 0;
+
 
   //Set of Outlets Available
 
@@ -201,7 +204,8 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   }
 
   $scope.validateCoupon = function(promo) {
-    console.log('TESTIG.....')
+  if(!$scope.availRewards){
+
     $scope.isCouponEntered = true;
     $scope.isCouponApplied = false;
 
@@ -225,12 +229,15 @@ angular.module('zaitoonFirst.checkout.controllers', [])
         method  : 'POST',
         url     : 'https://www.zaitoon.online/services/validatecoupon.php',
         data    : data,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+        timeout : 10000
        })
-      .then(function(response) {
-        $scope.isSuccess = response.data.status;
-        if(response.data.status){
-          $scope.couponDiscount = response.data.discount;
+      .success(function(response) {
+        $scope.isSuccess = response.status;
+        if(response.status){
+          $scope.couponDiscount = response.discount;
+
+          $scope.showBannerFlag = false; // <-- for redeem points
 
           $scope.isCouponApplied = true;
           $scope.promoMessage = "Coupon applied successfully. You are eligible for a discount of Rs. "+$scope.couponDiscount;
@@ -241,12 +248,104 @@ angular.module('zaitoonFirst.checkout.controllers', [])
           couponService.setDiscount($scope.couponDiscount);
         }
         else{
-          $scope.promoMessage = "Failed. "+response.data.error;
+          $scope.promoMessage = "Failed. "+response.error;
         }
+      })
+      .error(function(data){
+          $ionicLoading.show({
+            template:  "Not responding. Check your connection.",
+            duration: 3000
+          });
       });
     }
-
+  }
+  else{
+    $ionicLoading.show({
+      template:  "Coupon can not be used when you redeem Zaitoon Coins.",
+      duration: 3000
+    });
+  }
   };
+
+
+
+  //Rewards Redemmption part
+  $scope.isRewardEnabled = false;
+  $scope.showBannerFlag = true;
+  $scope.availRewards = false;
+
+  if(!_.isUndefined(window.localStorage.user)){
+    $scope.isRewardEnabled = JSON.parse(window.localStorage.user).isRewardEnabled;
+  }
+
+  if($scope.isCouponApplied){
+    $scope.showBannerFlag = false;
+  }
+
+  //Calculate redeemable points on this order
+  var initRedeem = $scope.getRedeemablePoints = function() {
+
+      var data = {};
+      data.token = JSON.parse(window.localStorage.user).token;
+      data.outlet = window.localStorage.outlet;
+      //Formatting Cart Object in the service required way
+      var formattedcart = {};
+      formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
+      data.cart = formattedcart;
+
+      //LOADING
+      $ionicLoading.show({
+        template:  '<ion-spinner></ion-spinner>'
+      });
+
+      $http({
+        method  : 'POST',
+        url     : 'https://www.zaitoon.online/services/geteligiblerewardpoints.php',
+        data    : data,
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+        timeout : 10000
+       })
+      .success(function(response) {
+        if(response.status)
+        {
+          $ionicLoading.hide();
+          $scope.availRewards = true;
+          $scope.rewardCoins = response.coins;
+        }
+        else{
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template:  response.error,
+            duration: 3000
+          });
+        }
+      })
+      .error(function(data){
+        $ionicLoading.hide();
+        $ionicLoading.show({
+          template:  "Could not redeem. Try again.",
+          duration: 3000
+        });
+      });
+  };
+
+  $scope.hideBanner = function(){
+    $scope.showBannerFlag = false;
+  }
+
+  $scope.triggerCoins = function(){
+    if($scope.isCouponApplied){
+      $ionicLoading.show({
+        template:  "Sorry. Coins can not be redeemed as you have alread availed coupon discount.",
+        duration: 3000
+      });
+    }
+    else{
+      initRedeem();
+    }
+    $scope.showBannerFlag = false;
+  }
+
 
 	//Payment Options
   $scope.onlinePayFlag = false;
@@ -277,12 +376,13 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
       method  : 'POST',
       url     : 'https://www.zaitoon.online/services/processpayment.php',
       data    : data,
-      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+      timeout : 10000
      })
-    .then(function(response) {
-      if(response.data.status){
+    .success(function(response) {
+      if(response.status){
         //Go to track page
-        trackOrderService.setOrderID(response.data.orderid);
+        trackOrderService.setOrderID(response.orderid);
         $state.go('main.app.checkout.track');
       }
       else{
@@ -291,6 +391,12 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
           duration: 3000
         });
       }
+    })
+    .error(function(data){
+        $ionicLoading.show({
+          template:  "Order was not placed due to network error.",
+          duration: 3000
+        });
     });
 
     called = false
@@ -333,37 +439,39 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
           formattedcart.cartTotal = this.getSubtotal();
           formattedcart.cartExtra = this.getTax() + this.getParcel();
           formattedcart.cartDiscount = $scope.couponDiscount;
+          formattedcart.rewardsDiscount = $scope.rewardCoins;
           formattedcart.cartCoupon = couponService.getCoupon();
           formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
           data.cart = formattedcart;
           data.platform = "MOB";
           data.location = $scope.outletSelection['locationCode'];
 
-
+console.log(data)
           $http({
             method  : 'POST',
             url     : 'https://www.zaitoon.online/services/createorder.php',
             data    : data,
-            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+            timeout : 10000,
            })
-          .then(function(response) {
-            console.log(response.data)
-            if(!response.data.status){
+          .success(function(response) {
+            console.log(response)
+            if(!response.status){
               $ionicLoading.show({
-                template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,
+                template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.error,
                 duration: 3000
               });
             }
             else{
-              if(response.data.isPrepaidAllowed){
-                $scope.orderID = response.data.orderid;
+              if(response.isPrepaidAllowed){
+                $scope.orderID = response.orderid;
                 //Payment options
                 var options = {
-                  description: 'Payment for Order #'+response.data.orderid,
+                  description: 'Payment for Order #'+response.orderid,
                   image: 'https://zaitoon.online/services/images/razor_icon.png',
                   currency: 'INR',
                   key: $scope.razorpayKey,
-                  amount: response.data.amount*100,
+                  amount: response.amount*100,
                   name: 'Zaitoon Online',
                   prefill: {
                     email: $rootScope.user.email,
@@ -386,6 +494,12 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
                 });
               }
             }
+          })
+          .error(function(data){
+              $ionicLoading.show({
+                template:  "Not responding. Check your connection.",
+                duration: 3000
+              });
           });
 
 
@@ -405,20 +519,24 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
         formattedcart.cartTotal = this.getSubtotal();
         formattedcart.cartExtra = this.getTax() + this.getParcel();
         formattedcart.cartDiscount = $scope.couponDiscount;
+        formattedcart.rewardsDiscount = $scope.rewardCoins;
         formattedcart.cartCoupon = couponService.getCoupon();
         formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
         data.cart = formattedcart;
         data.platform = "MOB";
         data.location = $scope.outletSelection['locationCode'];
+        console.log(data)
 
         $http({
           method  : 'POST',
           url     : 'https://www.zaitoon.online/services/createorder.php',
           data    : data,
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+          timeout : 10000
          })
-        .then(function(response) {
-          if(!response.data.status){
+        .success(function(response) {
+          console.log(response)
+          if(!response.status){
             $ionicLoading.show({
               template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,
               duration: 3000
@@ -426,9 +544,15 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
           }
           else{
             //Go to track page
-            trackOrderService.setOrderID(response.data.orderid);
+            trackOrderService.setOrderID(response.orderid);
             $state.go('main.app.checkout.track');
           }
+        })
+        .error(function(data){
+            $ionicLoading.show({
+              template:  "Not responding. Check your connection.",
+              duration: 3000
+            });
         });
 
       }
@@ -518,21 +642,28 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 							method  : 'POST',
 							url     : 'https://www.zaitoon.online/services/newaddress.php',
 							data    : data,
-							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+							headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+              timeout : 10000
 						 })
-						.then(function(response) {
-							if(response.data.status)
+						.success(function(response) {
+							if(response.status)
 							{
 								$scope.saveSelectedAddress($scope.address);
 								$state.go('main.app.checkout');
 							}
 							else{
 								$ionicLoading.show({
-									template:  '<b style="color: #e74c3c">Error!</b><br>Failed to add address. '+response.data.error,
+									template:  '<b style="color: #e74c3c">Error!</b><br>Failed to add address. '+response.error,
 									duration: 2000
 								});
 							}
-						});
+						})
+            .error(function(data){
+                $ionicLoading.show({
+                  template:  "Not responding. Check your connection.",
+                  duration: 3000
+                });
+            });
 
 
           }
@@ -608,10 +739,11 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 							method  : 'POST',
 							url     : 'https://www.zaitoon.online/services/editaddress.php',
 							data    : data,
-							headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+							headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+              timeout : 10000
 						 })
-						.then(function(response) {
-							if(response.data.status)
+						.success(function(response) {
+							if(response.status)
 							{
 								$scope.saveSelectedAddress($scope.address);
 								$state.go('main.app.checkout');
@@ -622,7 +754,13 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 									duration: 2000
 								});
 							}
-						});
+						})
+            .error(function(data){
+                $ionicLoading.show({
+                  template:  "Not responding. Check your connection.",
+                  duration: 3000
+                });
+            });
           }
         }
       ]
@@ -654,12 +792,19 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
     method  : 'POST',
     url     : 'https://www.zaitoon.online/services/orderinfo.php',
     data    : data,
-    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+    timeout : 10000
    })
-  .then(function(response) {
-    $scope.track = response.data;
+  .success(function(response) {
+    $scope.track = response;
     $scope.status = $scope.track.response.status;
     $scope.isTakeAway = $scope.track.response.isTakeaway;
+  })
+  .error(function(data){
+      $ionicLoading.show({
+        template:  "Not responding. Check your connection.",
+        duration: 3000
+      });
   });
 
   //Repeated Pooling of Track Page
@@ -668,13 +813,19 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
       method  : 'POST',
       url     : 'https://www.zaitoon.online/services/orderinfo.php',
       data    : data,
-      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+      timeout : 90000
      })
-    .then(function(response) {
-      console.log(response)
-      $scope.track = response.data;
+    .success(function(response) {
+      $scope.track = response;
       $scope.status = $scope.track.response.status;
       $scope.isTakeAway = $scope.track.response.isTakeaway;
+    })
+    .error(function(data){
+        $ionicLoading.show({
+          template:  "Unable to track. Check your connection.",
+          duration: 3000
+        });
     });
   }, 15000);
 
@@ -857,11 +1008,18 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
         method  : 'POST',
         url     : 'https://www.zaitoon.online/services/postreview.php',
         data    : data,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+        timeout : 10000
        })
-      .then(function(response) {
+      .success(function(response) {
         $ionicLoading.hide();
         $state.go('main.app.feed.arabian');
+      })
+      .error(function(data){
+          $ionicLoading.show({
+            template:  "Not responding. Check your connection.",
+            duration: 3000
+          });
       });
 
     }

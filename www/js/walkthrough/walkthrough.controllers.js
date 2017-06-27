@@ -29,7 +29,7 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 		.error(function(data){
 				$ionicLoading.hide();
 				$ionicLoading.show({
-					template:  "Not responding. Please try again.",
+					template:  "Not responding. Check your connection.",
 					duration: 3000
 				});
 		});
@@ -70,10 +70,24 @@ angular.module('zaitoonFirst.walkthrough.controllers', [])
 
 	//Avaialble Cities
 	$scope.data = {};
-	$http.get('https://www.zaitoon.online/services/fetchcities.php')
-	.then(function(response){
+	// $http.get('https://www.zaitoon.online/services/fetchcities.php')
+	// .then(function(response){
+	// 	$scope.cities = response.data.response;
+	// });
+
+	$http({
+	  method: 'GET',
+	  url: 'https://www.zaitoon.online/services/fetchcities.php',
+		timeout: 5000
+	}).then(function successCallback(response) {
 		$scope.cities = response.data.response;
-	});
+  }, function errorCallback(response) {
+			$ionicLoading.show({
+				template:  "Please check your connection.",
+				duration: 3000
+			});
+  });
+
 
 	  //Choose City
 		$timeout(function () { //Time delay is added to give time gap for popup to load!!

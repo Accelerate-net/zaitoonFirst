@@ -45,7 +45,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 			$http.get('https://www.zaitoon.online/services/fetchoutlets.php')
 			.then(function(response){
 						$scope.allList = response.data.response;
-				});
+			});
 
 			outletsPopup = $ionicPopup.show({
 				cssClass: 'popup-outer edit-shipping-address-view',
@@ -167,7 +167,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	.error(function(data){
 			$ionicLoading.hide();
 			$ionicLoading.show({
-				template:  "Not responding. Please try again.",
+				template:  "Not responding. Check your connection.",
 				duration: 3000
 			});
 	});
@@ -361,7 +361,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 				.error(function(data){
 						$ionicLoading.hide();
 						$ionicLoading.show({
-							template:  "Not responding. Please try again.",
+							template:  "Not responding. Check your connection.",
 							duration: 3000
 						});
 	    	});
@@ -569,7 +569,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 				.error(function(data){
 						$ionicLoading.hide();
 						$ionicLoading.show({
-							template:  "Not responding. Please try again.",
+							template:  "Not responding. Check your connection.",
 							duration: 3000
 						});
 	    	});
@@ -777,7 +777,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 				.error(function(data){
 						$ionicLoading.hide();
 						$ionicLoading.show({
-							template:  "Not responding. Please try again.",
+							template:  "Not responding. Check your connection.",
 							duration: 3000
 						});
 	    	});
@@ -985,7 +985,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 				.error(function(data){
 						$ionicLoading.hide();
 						$ionicLoading.show({
-							template:  "Not responding. Please try again.",
+							template:  "Not responding. Check your connection.",
 							duration: 3000
 						});
 	    	});

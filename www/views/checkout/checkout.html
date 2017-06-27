@@ -67,11 +67,10 @@
         </div>
       </div>
     </div>
-
     <div class="row" style="padding: 15px">
       <center>
-        <p ng-if="isSuccess" style="text-align: center; font-size: 11px; color: #27ae60; line-height: 120%">{{promoMessage}}</p>
-        <p ng-if="!isSuccess" style="text-align: center; font-size: 11px; color: #e74c3c ; line-height: 120%">{{promoMessage}}</p>
+        <p ng-show="isSuccess" style="text-align: center; font-size: 11px; color: #27ae60; line-height: 120%">{{promoMessage}}</p>
+        <p ng-show="!isSuccess" style="text-align: center; font-size: 11px; color: #e74c3c ; line-height: 120%">{{promoMessage}}</p>
       </center>
     </div>
 
@@ -139,19 +138,43 @@
         </div>
       </li>
 
+      <li class="item" ng-if="availRewards">
+        <div class="row">
+          <div class="col">
+            <span class="bill-item-title" style="color: #27ae60">
+              Zaitoon Rewards Coins
+            </span>
+          </div>
+          <div class="col">
+            <span class="bill-item-value" style="color: #27ae60">- <i class="fa fa-inr"></i> {{rewardCoins}}</span>
+          </div>
+        </div>
+      </li>
+
       <li class="item bill-total">
         <div class="row">
           <div class="col">
             <span class="bill-item-title">Order Total</span>
           </div>
           <div class="col">
-            <span ng-if="!isCouponApplied" class="bill-item-value"><i class="fa fa-inr"></i> {{ getTotal() | number:2 }}</span>
-            <span ng-if="isCouponApplied" class="bill-item-value"><i class="fa fa-inr"></i> {{ getTotal()-couponDiscount | number:2 }}</span>
+            <span ng-if="!isCouponApplied && !availRewards" class="bill-item-value"><i class="fa fa-inr"></i> {{ getTotal() | number:2 }}</span>
+            <span ng-if="isCouponApplied && !availRewards" class="bill-item-value"><i class="fa fa-inr"></i> {{ getTotal()-couponDiscount | number:2 }}</span>
+            <span ng-if="!isCouponApplied && availRewards" class="bill-item-value"><i class="fa fa-inr"></i> {{ getTotal()-rewardCoins | number:2 }}</span>
           </div>
         </div>
       </li>
     </ul>
+
   </ion-content>
+
+  <div class="row" ng-if="showBannerFlag" style="position: absolute; bottom: 65px; background: #2ecc71; color: #fff; width: 100%; padding: 10px 10px 10px 0px">
+      <div class="col col-10" ng-click="hideBanner()"><button class="button button-clear" style="float: left; color: #DCDCDC;">X</button></div>
+      <div class="col col-66" style="padding-top: 7px"><tag style="color: #FFF; vertical-align: middle; text-align: center; text-overflow: ellipsis; font-size: 18px; font-weight: 300; padding: 7px; line-height: 42px;">Redeem Zaitoon Coins?</tag></div>
+      <div class="col col-20" ng-click="triggerCoins()"><button class="button button-clear button-outline" style="float: right; color: #FFF; border-color: #FFF">Yeah!</button></div>
+  </div>
+
+
+
   <ion-footer-bar class="checkout-footer">
     <a class="button button-full place-order-button" ng-click="placeOrder()">
       Place Order
