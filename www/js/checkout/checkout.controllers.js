@@ -383,6 +383,7 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
       if(response.status){
         //Go to track page
         trackOrderService.setOrderID(response.orderid);
+        window.localStorage.removeItem("zaitoonFirst_cart");
         $state.go('main.app.checkout.track');
       }
       else{
@@ -538,13 +539,14 @@ console.log(data)
           console.log(response)
           if(!response.status){
             $ionicLoading.show({
-              template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.data.error,
+              template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.error,
               duration: 3000
             });
           }
           else{
             //Go to track page
             trackOrderService.setOrderID(response.orderid);
+            window.localStorage.removeItem("zaitoonFirst_cart");
             $state.go('main.app.checkout.track');
           }
         })

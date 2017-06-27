@@ -4,8 +4,8 @@
 
 	.filters-header
 	{
-		background-color: #e74c3c !important;
-		background: #e74c3c !important;
+		background-color: #a71d2b !important;
+		background: #a71d2b !important;
 		border: none !important;
 		background-size: 0px !important; // To remove bottom border on header
 
@@ -41,8 +41,8 @@
 			{
 				& > .button
 				{
-					background-color: $filters-tabs-bg;
-					color: $filters-tabs-color;
+					background-color: $main_red_darkest;
+					color: $main_red;
 					padding: 8px 0px;
 					min-height: ($button-height + 5px) - (16px);
 					line-height: ($button-height) - (16px);
@@ -50,11 +50,13 @@
 					&.active,
 					&.activated
 					{
-						background-color: $filters-tabs-selected-bg;
+						background-color: #c52031;
 						color: $filters-tabs-selected-color;
 
 						.tab-title
 						{
+							text-transform: none;
+							font-weight: 300;
 							border-left-color: rgba($filters-tabs-selected-bg, 0) !important;
 						}
 
@@ -62,6 +64,8 @@
 						{
 							.tab-title
 							{
+								text-transform: none;
+								font-weight: 300;
 								border-left-color: $filters-tabs-bg;
 							}
 						}
@@ -73,12 +77,16 @@
 
 						.tab-title
 						{
+							text-transform: none;
+							font-weight: 300;
 							border-left-color: $filters-tabs-bg;
 						}
 				 	}
 
 					&:last-child
 					{
+						text-transform: none;
+						font-weight: 300;
 						border-radius: 0px 6px 6px 0px;
 					}
 
@@ -187,7 +195,7 @@
 
 								.radio-icon
 								{
-									color: #e74c3c;
+									color: #c52031;
 									top: -4px;
 								}
 							}
@@ -248,9 +256,9 @@
 								}
 
 							  & input:checked + .checkbox-title {
-							    color: $tag-filter-active-color;
-									background: #e74c3c;
-									border-color: #e74c3c;
+							    color: #FFF;
+									background: $main_red;
+									border-color: $main_red;
 							  }
 							}
 						}
@@ -390,9 +398,9 @@
 
 							input:checked + .radio-content .item-content
 							{
-								background-color: #e74c3c;
+								background-color: #c52031;
 								color: $size-filter-active-color;
-								border-color: #e74c3c;
+								border-color: #c52031;
 							}
 						}
 					}

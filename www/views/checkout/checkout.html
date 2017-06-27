@@ -13,7 +13,7 @@
       <div class="row address-row">
         <!-- Pickup location Chooser -->
         <div class="address-chooser" ng-click="openOutletPopover($event)" style="width: 100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-          <button class="button button-block icon-right addresses-popover-button-forlocation" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;background: #c0392b; color: #FFF; " ng-class="{'ion-chevron-up': city_popover.isShown(), 'ion-chevron-down' : !city_popover.isShown()}">
+          <button class="button button-block icon-right addresses-popover-button-forlocation" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;background: #FFF; color: #c52031; border-color: #c52031; " ng-class="{'ion-chevron-up': city_popover.isShown(), 'ion-chevron-down' : !city_popover.isShown()}">
             {{data.selected_outlet.name || 'Select Outlet'}}
           </button>
         </div>
