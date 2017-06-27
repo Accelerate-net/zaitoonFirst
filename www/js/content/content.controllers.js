@@ -238,10 +238,11 @@ angular.module('zaitoonFirst.content.controllers', [])
 										method  : 'POST',
 										url     : 'https://www.zaitoon.online/services/newreservation.php',
 										data    : data,
-										headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+										headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+										timeout : 10000
 									 })
-									.then(function(response) {
-										if(response.data.status){
+									.success(function(response) {
+										if(response.status){
 											$ionicLoading.show({
 												template:  '<b style="font-size: 150%">It\'s confirmed!</b><br>We will reserve enough tables for you.',
 												duration: 3000
@@ -249,12 +250,18 @@ angular.module('zaitoonFirst.content.controllers', [])
 										}
 										else{
 											$ionicLoading.show({
-												template:  '<b style="font-size: 150%; color: #f1c40f">Oops!</b><br>'+response.data.error,
+												template:  '<b style="font-size: 150%; color: #f1c40f">Oops!</b><br>'+response.error,
 												duration: 3000
 											});
 										}
 
-									});
+									})
+									.error(function(data){
+					            $ionicLoading.show({
+					              template:  "Not responding. Check your connection.",
+					              duration: 3000
+					            });
+					        });
 			        }
 			    }
 			]

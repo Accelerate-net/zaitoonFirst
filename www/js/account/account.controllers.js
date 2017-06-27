@@ -47,7 +47,7 @@ $http({
 .error(function(data){
     $ionicLoading.hide();
     $ionicLoading.show({
-      template:  "Not responding. Please try again.",
+      template:  "Not responding. Check your connection.",
       duration: 3000
     });
 });
@@ -91,7 +91,7 @@ $http({
 .error(function(data){
     $ionicLoading.hide();
     $ionicLoading.show({
-      template:  "Not responding. Please try again.",
+      template:  "Not responding. Check your connection.",
       duration: 3000
     });
 });
@@ -123,7 +123,7 @@ $scope.loadMore = function() {
   .error(function(data){
       $ionicLoading.hide();
       $ionicLoading.show({
-        template:  "Not responding. Please try again.",
+        template:  "Not responding. Check your connection.",
         duration: 3000
       });
   });
@@ -199,7 +199,7 @@ $scope.loadMore = function() {
       .error(function(data){
           $ionicLoading.hide();
           $ionicLoading.show({
-            template:  "Not responding. Please try again.",
+            template:  "Not responding. Check your connection.",
             duration: 3000
           });
       });
@@ -434,7 +434,7 @@ $scope.loadMore = function() {
   .error(function(data){
       $ionicLoading.hide();
       $ionicLoading.show({
-        template:  "Not responding. Please try again.",
+        template:  "Not responding. Check your connection.",
         duration: 3000
       });
   });
@@ -450,20 +450,27 @@ $scope.loadMore = function() {
       method  : 'POST',
       url     : 'https://www.zaitoon.online/services/orderhistory.php',
       data    : data,
-      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+      timeout : 10000
      })
-    .then(function(items) {
+    .success(function(items) {
 
-      if(items.data.response.length == 0){
+      if(items.response.length == 0){
         $scope.left = 0;
       }
-      $scope.orders = $scope.orders.concat(items.data.response)
+      $scope.orders = $scope.orders.concat(items.response)
 
     //  $scope.feedsList.push(items);
       $scope.limiter+=5;
 
       //$scope.left = 0;
       $scope.$broadcast('scroll.infiniteScrollComplete');
+    })
+    .error(function(data){
+        $ionicLoading.show({
+          template:  "Not responding. Check your connection.",
+          duration: 3000
+        });
     });
 
   };

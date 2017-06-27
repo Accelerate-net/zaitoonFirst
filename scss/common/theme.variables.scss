@@ -202,3 +202,47 @@ $text_white_dull: #dce1ec;
 		border-radius: 2px;
 	}
 }
+
+// Special Checkbox for Redeem Coins Part
+.regular-checkbox {
+	content: '\2714';
+	-webkit-appearance: none;
+	background: none;
+	border: 1px solid #c52031;
+	color: #A9A9A9;
+	//box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 10px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+}
+
+.regular-checkbox:active, .regular-checkbox:checked:active {
+	//box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-checkbox:checked {
+	background-color: #a71d2b;
+	border: 1px solid #a71d2b;
+	//box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+	color: #FFF;
+}
+
+.regular-checkbox:checked:after {
+	content: '\2714';
+	font-size: 15px;
+	position: absolute;
+	top: 0px;
+	left: 4px;
+	color: #FFF;
+}
+//
+// .big-checkbox {
+// 	padding: 18px;
+// }
+//
+// .big-checkbox:checked:after {
+// 	font-size: 28px;
+// 	left: 6px;
+// }

@@ -44,11 +44,12 @@ angular.module('zaitoonFirst.account.services', [])
       method  : 'POST',
       url     : 'https://www.zaitoon.online/services/fetchusers.php',
       data    : data,
-      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+      timeout : 10000
      })
-    .then(function(response) {
-      console.log(response)
-      if(!response.data.status){
+    .success(function(response) {
+
+      if(!response.status){
         //Something Went Wrong
         $ionicLoading.show({
           template:  'Session Expired. Please login again.',
@@ -58,16 +59,22 @@ angular.module('zaitoonFirst.account.services', [])
         $state.go('intro.auth-login');
       }
 
-        if(response.data.savedAddresses == null)
-          response.data.savedAddresses=[];
+        if(response.savedAddresses == null)
+          response.savedAddresses=[];
 
           //Update the Offline Cache
           var temp = {};
-          temp = response.data;
+          temp = response;
           temp.token = JSON.parse(window.localStorage.user).token;
           window.localStorage.user = JSON.stringify(temp);
 
-        dfd.resolve(response.data);
+        dfd.resolve(response);
+    })
+    .error(function(data){
+        $ionicLoading.show({
+          template:  "Failed to load user information. Try again.",
+          duration: 3000
+        });
     });
 
     return dfd.promise;
@@ -84,15 +91,22 @@ angular.module('zaitoonFirst.account.services', [])
           method  : 'POST',
           url     : 'https://www.zaitoon.online/services/edituser.php',
           data    : data,
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+          timeout: 10000
          })
-        .then(function(response) {
+        .success(function(response) {
           //Update the Offline Cache
           var temp = {};
           temp = JSON.parse(window.localStorage.user);
           temp.name = data.name;
           temp.email = data.email;
           window.localStorage.user = JSON.stringify(temp);
+        })
+        .error(function(data){
+            $ionicLoading.show({
+              template:  "Not responding. Check your connection.",
+              duration: 3000
+            });
         });
   };
 
@@ -108,7 +122,14 @@ angular.module('zaitoonFirst.account.services', [])
       data    : data,
       headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      })
-    .then(function(response) {
+    .success(function(response) {
+
+    })
+    .error(function(data){
+        $ionicLoading.show({
+          template:  "Not responding. Check your connection.",
+          duration: 3000
+        });
     });
 
     return true;

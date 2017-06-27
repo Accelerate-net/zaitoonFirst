@@ -117,7 +117,7 @@ console.log('VALIDATING LOGIN...')
 			.error(function(data){
 					$ionicLoading.hide();
 					$ionicLoading.show({
-						template:  "Not responding. Please try again.",
+						template:  "Not responding. Check your connection.",
 						duration: 3000
 					});
     	});
@@ -189,7 +189,7 @@ console.log('VALIDATING LOGIN...')
 			.error(function(data){
 					$ionicLoading.hide();
 					$ionicLoading.show({
-						template:  "Not responding. Please try again.",
+						template:  "Not responding. Check your connection.",
 						duration: 3000
 					});
     	});
@@ -314,7 +314,7 @@ console.log('VALIDATING LOGIN...')
 					.error(function(data){
 							$ionicLoading.hide();
 							$ionicLoading.show({
-								template:  "Not responding. Please try again.",
+								template:  "Not responding. Check your connection.",
 								duration: 3000
 							});
 		    	});
@@ -389,7 +389,7 @@ console.log('VALIDATING LOGIN...')
 			.error(function(data){
 					$ionicLoading.hide();
 					$ionicLoading.show({
-						template:  "Not responding. Please try again.",
+						template:  "Not responding. Check your connection.",
 						duration: 3000
 					});
     	});
