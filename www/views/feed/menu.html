@@ -44,7 +44,9 @@
 
     <h1 ng-if="items.length > 0" class="myMenuSubTitle" style="padding: 0px 10px 10px 10px; margin: 0; margin-top: 10px; color: #f39c12">Featured Dishes</h1>
     <hscroller ng-if="!isFilter" style="margin-bottom: 15px">
-      <hcard ng-repeat="item in items" index="{{$index}}" available="{{item.isAvailable}}" name="{{item.itemName}}" price="{{item.itemPrice}}" image="{{item.photo}}" ng-click="addFeature(item)"></hcard>
+      <ion-scroll direction="x">
+        <hcard ng-repeat="item in items" index="{{$index}}" available="{{item.isAvailable}}" name="{{item.itemName}}" price="{{item.itemPrice}}" image="{{item.photo}}" ng-click="addFeature(item)"></hcard>
+      </ion-scroll>
     </hscroller>
 
     <div class="products-row" style="padding-bottom: 50px">
