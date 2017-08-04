@@ -1,7 +1,7 @@
 angular.module('zaitoonFirst.account.controllers', [])
 
-.controller('RewardsCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading) {
-console.log('PROFILE................')
+.controller('RewardsCtrl', function(ConnectivityMonitor, $ionicPopup, $scope, $http, $state, $ionicLoading) {
+
   //Network Status
 	if(ConnectivityMonitor.isOffline()){
 		$scope.isOfflineFlag = true;
@@ -16,85 +16,107 @@ console.log('PROFILE................')
   }
 
 
+//Terms
+$scope.showTerms = function(){
+  var alertPopup = $ionicPopup.alert({
+  cssClass: 'popup-outer new-shipping-address-view',
+  title: 'Terms',
+  template: "<div style='padding: 10px; color: #7f8c8d; font-weight: 300'><ul style='list-style-type: circle;'>"+
+            "<li>Member's Club is decided based on monthly average of coins earned by the member.</li>"+
+            "<li>Validity of coins is 30 days from the date it is earned. It expires automatically after the validity period.</li>"+
+            "<li>Once the Voucher is generated, it can not be reversed.</li>"+
+            "<li>Validity of generated voucher will be 1 month.</li>"+
+            "<li>Keep the SMS safe. Vouchers will NOT be resent.</li>"+
+            "</ul></div>"
+  });
+}
 
-$ionicLoading.show({
-  template:  '<ion-spinner></ion-spinner>'
-});
 
-var data = {};
-data.token = JSON.parse(window.localStorage.user).token;
-$http({
-  method  : 'POST',
-  url     : 'https://www.zaitoon.online/services/getloyaltystatus.php',
-  data    : data,
-  headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-  timeout : 10000
- })
-.success(function(data) {
-  console.log(data)
-  $ionicLoading.hide();
-  if(data.error == "NOTENROLLED"){
-    $state.go('main.app.rewardslanding');
-  }
-  if(data.status){
-    $scope.rewardsInfo = data.response;
-  }
-  else{
-    $scope.errorMsg = data.error;
-  }
 
-})
-.error(function(data){
+$scope.loadStatus = function(){
+  $ionicLoading.show({
+    template:  '<ion-spinner></ion-spinner>'
+  });
+
+  var data = {};
+  data.token = JSON.parse(window.localStorage.user).token;
+  $http({
+    method  : 'POST',
+    url     : 'https://www.zaitoon.online/services/getloyaltystatus.php',
+    data    : data,
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+    timeout : 10000
+   })
+  .success(function(data) {
     $ionicLoading.hide();
-    $ionicLoading.show({
-      template:  "Not responding. Check your connection.",
-      duration: 3000
-    });
-});
+    if(data.error == "NOTENROLLED"){
+      $state.go('main.app.rewardslanding');
+    }
+    if(data.status){
+      $scope.rewardsInfo = data.response;
+    }
+    else{
+      $scope.errorMsg = data.error;
+    }
+
+  })
+  .error(function(data){
+      $ionicLoading.hide();
+      $ionicLoading.show({
+        template:  "Not responding. Check your connection.",
+        duration: 3000
+      });
+  });
+}
+$scope.loadStatus();
 
 
 
 //Loyalty History
-$ionicLoading.show({
-  template:  '<ion-spinner></ion-spinner>'
-});
+  $scope.loadHistory = function(){
+    console.log('Loading Histroy')
+  $ionicLoading.show({
+    template:  '<ion-spinner></ion-spinner>'
+  });
 
-$scope.isEmpty = false;
+  $scope.isEmpty = false;
 
-var data = {};
-data.token = JSON.parse(window.localStorage.user).token;
-data.id = 0;
-$http({
-  method  : 'POST',
-  url     : 'https://www.zaitoon.online/services/loyaltyhistory.php',
-  data    : data,
-  headers : {'Content-Type': 'application/x-www-form-urlencoded'},
-  timeout : 10000
- })
-.success(function(data) {
+  var data = {};
+  data.token = JSON.parse(window.localStorage.user).token;
+  data.id = 0;
+  $http({
+    method  : 'POST',
+    url     : 'https://www.zaitoon.online/services/loyaltyhistory.php',
+    data    : data,
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+    timeout : 10000
+   })
+  .success(function(data) {
 
-  $ionicLoading.hide();
-
-  if(data.status){
-    $scope.historyList = data.response;
-    if($scope.historyList.length == 0)
-      $scope.isEmpty = true;
-    else
-      $scope.isEmpty = false;
-    $scope.left = 1;
-  }
-  else{
-  }
-
-
-})
-.error(function(data){
     $ionicLoading.hide();
-    $ionicLoading.show({
-      template:  "Not responding. Check your connection.",
-      duration: 3000
-    });
-});
+
+    if(data.status){
+      $scope.historyList = data.response;
+      if($scope.historyList.length == 0)
+        $scope.isEmpty = true;
+      else
+        $scope.isEmpty = false;
+      $scope.left = 1;
+    }
+    else{
+    }
+
+
+  })
+  .error(function(data){
+      $ionicLoading.hide();
+      $ionicLoading.show({
+        template:  "Not responding. Check your connection.",
+        duration: 3000
+      });
+  });
+}
+$scope.loadHistory();
 
 
 $scope.limiter = 5;
@@ -129,6 +151,59 @@ $scope.loadMore = function() {
   });
 
 };
+
+$scope.generateVoucher = function(){
+  var confirmPopup = $ionicPopup.confirm({
+    cssClass: 'popup-outer new-shipping-address-view',
+    title: 'Generate Voucher',
+    template: '<div style="color: #34495e; padding: 15px 5px">Are you sure you want to redeem coins and generate a voucher?</div>'
+  });
+
+  confirmPopup.then(function(res) {
+    if(res) {
+      $ionicLoading.show({
+        template:  '<ion-spinner></ion-spinner>'
+      });
+      var data = {};
+      data.token = JSON.parse(window.localStorage.user).token;
+      $http({
+        method  : 'POST',
+        url     : 'https://www.zaitoon.online/services/generatevoucher.php',
+        data    : data,
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+        timeout : 10000
+       })
+      .success(function(data) {
+        $ionicLoading.hide();
+        if(data.status){
+          var alertPopup = $ionicPopup.alert({
+          cssClass: 'popup-outer new-shipping-address-view',
+          title: 'Voucher',
+          template: "<div style='padding: 10px; color: #7f8c8d; font-weight: 300'>"+data.brief+"<br><br><strong style='color: #2ecc71; font-size: 16px'>"+data.voucher+"</strong><br><br>Expires on "+data.expiry+"</div>"
+          });
+          $scope.loadHistory();
+          $scope.loadStatus();
+        }
+        else{
+          $ionicLoading.show({
+            template:  "Error: "+data.error,
+            duration: 3000
+          });
+        }
+      })
+      .error(function(data){
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template:  "Not responding. Check your connection.",
+            duration: 3000
+          });
+      });
+
+    } else{
+    }
+  });
+
+}
 
 
 })
@@ -215,7 +290,8 @@ $scope.loadMore = function() {
 
 })
 
-.controller('ProfileCtrl', function(ConnectivityMonitor, $scope, $rootScope, $http, user, ProfileService, $ionicPopover, $ionicPopup, $ionicActionSheet, $state) {
+.controller('ProfileCtrl', function($ionicLoading, ConnectivityMonitor, $scope, $rootScope, $http, user, ProfileService, $ionicPopover, $ionicPopup, $ionicActionSheet, $state, $ionicModal) {
+
 
   //Network Status
 	if(ConnectivityMonitor.isOffline()){
@@ -381,14 +457,116 @@ $scope.loadMore = function() {
     editAddressPopup.then(function(res) {
       if(res)
       {
-				console.log('hacer algo cuando apreta ADD con los datos llenos')
       }
       else {}
     });
   };
+
+
+  //Help Part
+  $ionicModal.fromTemplateUrl('views/account/help.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.help_modal = modal;
+  });
+
+  $scope.showHelp = function(){
+    $scope.help_modal.show();
+  };
+
+  $scope.queryType = 'GENERAL';
+
+  $scope.myquery = {};
+  $scope.myquery.reference = "";
+  $scope.myquery.comment = "";
+  $scope.myquery.name = $scope.customer.name;
+  $scope.myquery.email = $scope.customer.email;
+  $scope.myquery.mobile = $scope.customer.mobile;
+
+  $scope.setType = function (value) {
+    $scope.queryType = value;
+    if(value == 'REFUND'){
+      $scope.myquery.comment = 'The order I tried to place on DD-MM-YYYY, at around HH:MM AM/PM was failed. An amount of Rs. XXX was deducted from my account, but the order was not placed. Please initiate refund for the debited amount. I have mentioned the Razoray Payment ID for your reference.';
+    }
+    else{
+      $scope.myquery.comment = '';
+    }
+  }
+
+  $scope.submitError = '';
+  $scope.submitQuery = function(){
+    $scope.submitError = '';
+    //Validations
+		if(!(/^[a-zA-Z\s]*$/.test($scope.myquery.name))){
+			$scope.submitError = "Names can contain only letters";
+		}
+		else if(!(/^\d{10}$/).test($scope.myquery.mobile)){
+			$scope.submitError = "Mobile Number has to be 10 digit number";
+		}
+		else if(($scope.myquery.comment).length < 10){
+			$scope.submitError = "Please elaborate your query";
+		}
+		else if(($scope.myquery.comment).length > 500){
+			$scope.submitError = "Comments can not contain more than 500 characters";
+		}
+		else if($scope.myquery.comment == 'The order I tried to place on DD-MM-YYYY, at around HH:MM AM/PM was failed. An amount of Rs. XXX was deducted from my account, but the order was not placed. Please initiate refund for the debited amount. I have mentioned the Razoray Payment ID for your reference.' && $scope.queryType == 'REFUND'){
+			$scope.submitError = "Please edit the date and time of placing the order, order amount etc. in comments";
+		}
+		else if($scope.queryType == 'REFUND' && ($scope.myquery.reference).length < 1){
+			$scope.submitError = "Add 'Payment Reference ID' from Razorpay";
+		}
+		else{
+      $scope.submitError = '';
+
+      $scope.myquery.type = $scope.queryType;
+      $scope.myquery.token = JSON.parse(window.localStorage.user).token;
+
+      //LOADING
+      $ionicLoading.show({
+        template:  '<ion-spinner></ion-spinner>'
+      });
+
+      $http({
+        method  : 'POST',
+        url     : 'https://www.zaitoon.online/services/submitquery.php',
+        data    : $scope.myquery,
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+        timeout : 10000
+       })
+      .success(function(response) {
+        $ionicLoading.hide();
+        if(response.status){
+          $ionicLoading.show({
+            template:  'We have received your message. You will be contacted soon!',
+            duration: 3000
+          });
+          $scope.myquery.comments = "";
+          $scope.myquery.reference = "";
+          $scope.help_modal.hide();
+          $state.go('main.app.account');
+        }
+        else{
+          $ionicLoading.show({
+            template:  response.error,
+            duration: 3000
+          });
+        }
+      })
+      .error(function(data){
+        $ionicLoading.hide();
+          $ionicLoading.show({
+            template:  "Order was not placed due to network error.",
+            duration: 3000
+          });
+      });
+
+    }
+  }
+
 })
 
-.controller('OrdersCtrl', function(ConnectivityMonitor, $scope, $http, trackOrderService, $state) {
+.controller('OrdersCtrl', function(ConnectivityMonitor, $scope, $http, trackOrderService, $state, $ionicLoading) {
 
 
 

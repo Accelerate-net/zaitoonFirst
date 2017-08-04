@@ -32,15 +32,15 @@
       </div>
 
       <div ng-if="orderType == 'takeaway' && isDeliveryAvailable" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
-        No minimum amount. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and VAT</tag> apply.
+        No minimum amount. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and GST</tag> apply.
       </div>
 
       <div ng-if="orderType == 'takeaway' && !isDeliveryAvailable" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
-        We do not deliver in your area, only Take Away option available.<br>No minimum amount. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and VAT</tag> apply.
+        We do not deliver in your area, only Take Away option available.<br>No minimum amount. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and GST</tag> apply.
       </div>
 
       <div ng-if="orderType == 'delivery'" style="color: #95a5a6; font-size: 12px; padding: 0px 10px 0px 10px; text-align: center">
-        Minimum order of <i class="fa fa-inr"></i> {{outletSelection['minAmount']}}. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and VAT</tag> apply.
+        Minimum order of <i class="fa fa-inr"></i> {{outletSelection['minAmount']}}. Parcel charges <tag ng-if="outletSelection['isTaxCollected']"> and GST</tag> apply.
       </div>
 
       <!-- Set Location -->
@@ -124,7 +124,7 @@
         <li class="item" ng-if="outletSelection['isTaxCollected']">
           <div class="row">
             <div class="col">
-              <span class="bill-item-title">VAT ({{taxPercentage}}%)</span>
+              <span class="bill-item-title">GST ({{taxPercentage}}%)</span>
             </div>
             <div class="col">
               <span class="bill-item-value"><i class="fa fa-inr"></i> {{ getTax() | number:2 }}</span>

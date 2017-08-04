@@ -72,7 +72,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   $scope.comments.value = "";
 
   //Redeem Points - default value
-  $scope.rewardCoins = 0;
+  //$scope.rewardCoins = 0;
 
 
   //Set of Outlets Available
@@ -184,6 +184,7 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   //Validation of Coupon Code
   /*Check if coupon is already applied and locked*/
   $scope.isCouponEntered = false;
+  $scope.couponDiscount = 0;
 
   if(couponService.getStatus()){
     $scope.isCouponApplied = true;
@@ -269,10 +270,12 @@ angular.module('zaitoonFirst.checkout.controllers', [])
 
 
 
+
+$scope.availRewards = false;
+/*
   //Rewards Redemmption part
   $scope.isRewardEnabled = false;
   $scope.showBannerFlag = true;
-  $scope.availRewards = false;
 
   if(!_.isUndefined(window.localStorage.user)){
     $scope.isRewardEnabled = JSON.parse(window.localStorage.user).isRewardEnabled;
@@ -346,6 +349,8 @@ angular.module('zaitoonFirst.checkout.controllers', [])
     $scope.showBannerFlag = false;
   }
 
+  */
+
 
 	//Payment Options
   $scope.onlinePayFlag = false;
@@ -360,7 +365,6 @@ angular.module('zaitoonFirst.checkout.controllers', [])
   }
 
 
-console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
 
 
 	//RAZORPAY INTEGRATION
@@ -440,14 +444,13 @@ console.log('%%%%%% '+$scope.outletSelection['paymentKey'])
           formattedcart.cartTotal = this.getSubtotal();
           formattedcart.cartExtra = this.getTax() + this.getParcel();
           formattedcart.cartDiscount = $scope.couponDiscount;
-          formattedcart.rewardsDiscount = $scope.rewardCoins;
+          //formattedcart.rewardsDiscount = $scope.rewardCoins;
           formattedcart.cartCoupon = couponService.getCoupon();
           formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
           data.cart = formattedcart;
           data.platform = "MOB";
           data.location = $scope.outletSelection['locationCode'];
 
-console.log(data)
           $http({
             method  : 'POST',
             url     : 'https://www.zaitoon.online/services/createorder.php',
@@ -456,7 +459,6 @@ console.log(data)
             timeout : 10000,
            })
           .success(function(response) {
-            console.log(response)
             if(!response.status){
               $ionicLoading.show({
                 template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.error,
@@ -520,14 +522,15 @@ console.log(data)
         formattedcart.cartTotal = this.getSubtotal();
         formattedcart.cartExtra = this.getTax() + this.getParcel();
         formattedcart.cartDiscount = $scope.couponDiscount;
-        formattedcart.rewardsDiscount = $scope.rewardCoins;
+        //formattedcart.rewardsDiscount = $scope.rewardCoins;
         formattedcart.cartCoupon = couponService.getCoupon();
         formattedcart.items = JSON.parse(window.localStorage.zaitoonFirst_cart);
         data.cart = formattedcart;
         data.platform = "MOB";
         data.location = $scope.outletSelection['locationCode'];
-        console.log(data)
 
+console.log('********************')
+console.log(data)
         $http({
           method  : 'POST',
           url     : 'https://www.zaitoon.online/services/createorder.php',
@@ -536,7 +539,6 @@ console.log(data)
           timeout : 10000
          })
         .success(function(response) {
-          console.log(response)
           if(!response.status){
             $ionicLoading.show({
               template:  '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>'+response.error,
