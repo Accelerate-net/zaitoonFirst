@@ -31,15 +31,15 @@
       </div>
 
       <div ng-if="!isCombosEmpty" class="card deals-product-container" ng-repeat="combo in combos">
-        <div class="row row-center top-row">
+        <div class="row row-center top-row" style="border: none; background: #c52031">
           <div class="col col-100 shop-col">
-            <button class="button shop-button-combo" style="float: left">
+            <button class="button shop-button-combo" style="background: none; color: #FFF; float: left">
               COMBO OFFER
             </button>
-            <button ng-if="!combo.isAvailable" class="button button-small button-outline button-info" style="float: right;">
+            <button ng-if="!combo.isAvailable" class="button button-small button-outline button-info" style="float: right; border-color: #a71d2b; color: #a71d2b">
               Out of Stock
             </button>
-            <button ng-if="combo.isAvailable" ng-click=addComboToCart(combo) class="button button-small button-outline button-balanced" style="float: right;">
+            <button ng-if="combo.isAvailable" ng-click=addComboToCart(combo) class="button button-small button-outline button-balanced" style="float: right; border-color: #FFF; color: #FFF">
               Add to Cart
             </button>
           </div>
@@ -52,9 +52,9 @@
         <div class="row middle-row">
           <div class="col col-100">
             <h5 class="product-title">
-              <a class="product-anchor">{{combo.itemName}}</a>
+              <a class="product-anchor" style="color: #c52031; font-size: 16px; font-weight: 300">{{combo.itemName}}</a>
             </h5>
-            <p class="product-description">
+            <p class="product-description" style="font-weight: 300; color: #162433">
               {{combo.combo}}
             </p>
           </div>
@@ -66,7 +66,7 @@
 
         <div class="row row-center top-row" ng-if="deal.type=='coupon'">
           <div class="col col-100 shop-col">
-            <button ng-if="deal.code" class="button shop-button">
+            <button ng-if="deal.code" class="button shop-button" style="background: #2ecc71">
               {{deal.code}}
             </button>
           </div>
@@ -76,9 +76,9 @@
         <div class="row middle-row" ng-if="deal.type=='coupon'">
           <div class="col col-100">
             <h5 class="product-title">
-              <a class="product-anchor">COUPON OFFER</a>
+              <a class="product-anchor" style="color: #c52031; font-size: 16px; font-weight: 300">COUPON OFFER</a>
             </h5>
-            <p class="product-description">
+            <p class="product-description" style="font-weight: 300; color: #162433">
               {{deal.description}}
             </p>
           </div>
@@ -87,7 +87,7 @@
         <div class="row middle-row-special" ng-if="deal.type=='promotion'">
           <div class="col col-100" ng-if="deal.type=='promotion'">
             <img ng-if="deal.isImageAvailable" src="{{deal.url}}" class="myDealsImg">
-            <p class="product-description">
+            <p class="product-description" style="font-weight: 300; color: #162433">
               {{deal.description}}
             </p>
           </div>
@@ -96,9 +96,9 @@
         <div class="row middle-row" ng-if="deal.type=='offer'">
           <div class="col col-100">
             <h5 class="product-title">
-              <a class="product-anchor">SPECIAL OFFER</a>
+              <a class="product-anchor" style="color: #c52031; font-size: 16px; font-weight: 300">SPECIAL OFFER</a>
             </h5>
-            <p class="product-description">
+            <p class="product-description" style="font-weight: 300; color: #162433">
               {{deal.description}}
             </p>
           </div>
@@ -108,7 +108,7 @@
         <div class="row bottom-row" ng-if="deal.type!='promotion'">
           <div class="col time-col">
             <div class="time-left-container">
-              <span class="deal-time-left">Valid till {{deal.validTill}}</span>
+              <span class="deal-time-left" style="font-weight: 300">Valid till {{deal.validTill}}</span>
               <i class="icon ion-android-time"></i>
             </div>
           </div>

@@ -1,20 +1,13 @@
 <ion-view class="welcome-view" cache-view="false">
-  <ion-content has-bouncing="false">
-    <div class="row images-row">
-      <div class="col images-outer-col">
-        <div class="row row-bottom logo-row">
-          <div class="col">
-            <div class="logo-container">
-              <pre-img ratio="_1_1" helper-class="square-image">
-                <img class="logo-image" ng-src="./img/common/white_logo_full.png" spinner-on-load/>
-            	</pre-img>
-            </div>
-          </div>
-        </div>
-
+  <ion-content has-bouncing="false" scroll="false">
+    <div class="row" style="margin: 70px 0px">
+      <div class="col">
+        <center>
+          <img src="./img/common/white_logo_full.png" width="60%"/>
+        </center>
       </div>
     </div>
-    <img src="img/walkthrough/theme.png" style="position: absolute; bottom: 0; z-index: -1" width="100%" class="hello">
+
     <div class="row actions-row" ng-if="isLocationSet  && !changeLocationFlag">
       <div class="col">
         <a ng-if="!isLoggedIn" class="button button-block get-started-button" ui-sref="intro.walkthrough-learn()">EXPLORE</a>
@@ -44,6 +37,8 @@
 
       </div>
     </div>
+
+    <img src="img/walkthrough/theme.png" style="position: absolute; bottom: 0; z-index: -1" width="100%" class="hello">
 
   </ion-content>
 </ion-view>

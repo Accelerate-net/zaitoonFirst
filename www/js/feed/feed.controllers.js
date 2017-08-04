@@ -1,7 +1,7 @@
 angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
 
 
-.controller('FeedCtrl', function($scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, ShoppingCartService) {
+.controller('FeedCtrl', function($ionicLoading, $ionicModal, $scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, ShoppingCartService) {
 	$scope.getProductsInCart = function(){
 		return ShoppingCartService.getProducts().length;
 	};
@@ -51,7 +51,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 				cssClass: 'popup-outer edit-shipping-address-view',
 				templateUrl: 'views/content/outlet/outlets.html',
 				scope: angular.extend($scope, {}),
-				title: 'Select Outlet',
+				title: 'Where do you want to reserve a table?',
 				buttons: [
 					{
 						text:'Cancel'
@@ -66,6 +66,115 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		}
 	}
 
+	//Customer Support
+	$ionicModal.fromTemplateUrl('views/account/help.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.help_modal = modal;
+	});
+
+	$scope.showHelp = function(){
+		$scope.help_modal.show();
+	};
+
+	$scope.queryType = 'GENERAL';
+
+  $scope.myquery = {};
+  $scope.myquery.reference = "";
+  $scope.myquery.comment = "";
+
+	//if not logged in
+	if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
+	  $scope.myquery.name = "";
+	  $scope.myquery.email = "";
+	  $scope.myquery.mobile = "";
+	}
+	else{
+		$scope.customer = JSON.parse(window.localStorage.user);
+		$scope.myquery.name = $scope.customer.name;
+	  $scope.myquery.email = $scope.customer.email;
+	  $scope.myquery.mobile = $scope.customer.mobile;		
+	}
+
+  $scope.setType = function (value) {
+    $scope.queryType = value;
+    if(value == 'REFUND'){
+      $scope.myquery.comment = 'The order I tried to place on DD-MM-YYYY, at around HH:MM AM/PM was failed. An amount of Rs. XXX was deducted from my account, but the order was not placed. Please initiate refund for the debited amount. I have mentioned the Razoray Payment ID for your reference.';
+    }
+    else{
+      $scope.myquery.comment = '';
+    }
+  }
+
+  $scope.submitError = '';
+  $scope.submitQuery = function(){
+    $scope.submitError = '';
+    //Validations
+		if(!(/^[a-zA-Z\s]*$/.test($scope.myquery.name))){
+			$scope.submitError = "Names can contain only letters";
+		}
+		else if(!(/^\d{10}$/).test($scope.myquery.mobile)){
+			$scope.submitError = "Mobile Number has to be 10 digit number";
+		}
+		else if(($scope.myquery.comment).length < 10){
+			$scope.submitError = "Please elaborate your query";
+		}
+		else if(($scope.myquery.comment).length > 500){
+			$scope.submitError = "Comments can not contain more than 500 characters";
+		}
+		else if($scope.myquery.comment == 'The order I tried to place on DD-MM-YYYY, at around HH:MM AM/PM was failed. An amount of Rs. XXX was deducted from my account, but the order was not placed. Please initiate refund for the debited amount. I have mentioned the Razoray Payment ID for your reference.' && $scope.queryType == 'REFUND'){
+			$scope.submitError = "Please edit the date and time of placing the order, order amount etc. in comments";
+		}
+		else if($scope.queryType == 'REFUND' && ($scope.myquery.reference).length < 1){
+			$scope.submitError = "Add 'Payment Reference ID' from Razorpay";
+		}
+		else{
+      $scope.submitError = '';
+
+      $scope.myquery.type = $scope.queryType;
+      $scope.myquery.token = JSON.parse(window.localStorage.user).token;
+
+      //LOADING
+      $ionicLoading.show({
+        template:  '<ion-spinner></ion-spinner>'
+      });
+
+      $http({
+        method  : 'POST',
+        url     : 'https://www.zaitoon.online/services/submitquery.php',
+        data    : $scope.myquery,
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+        timeout : 10000
+       })
+      .success(function(response) {
+        $ionicLoading.hide();
+        if(response.status){
+          $ionicLoading.show({
+            template:  'We have received your message. You will be contacted soon!',
+            duration: 3000
+          });
+          $scope.myquery.comments = "";
+          $scope.myquery.reference = "";
+          $scope.help_modal.hide();
+        }
+        else{
+          $ionicLoading.show({
+            template:  response.error,
+            duration: 3000
+          });
+        }
+      })
+      .error(function(data){
+        $ionicLoading.hide();
+          $ionicLoading.show({
+            template:  "Order was not placed due to network error.",
+            duration: 3000
+          });
+      });
+
+    }
+  }
 
 
 

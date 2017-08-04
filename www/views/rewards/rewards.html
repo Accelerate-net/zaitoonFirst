@@ -3,8 +3,11 @@
     <div class="buttons">
       <button class="button button-clear cancel-button" ui-sref="main.app.feed.arabian()"><img src="img/common/back.png" width="20px" style="padding-top: 5px"></button>
     </div>
-    <div class="buttons" style="position: absolute; right: 5px">
+    <div class="buttons" style="position: absolute; right: 10px">
       <button class="button button-clear cancel-button" ui-sref="main.app.rewardslanding()"><img src="img/common/info.png" width="20px" style="padding-top: 5px"></button>
+    </div>
+    <div class="buttons" style="position: absolute; right: 45px">
+      <button class="button button-clear cancel-button" ng-click="showTerms()"><i class="fa fa fa-external-link" style="padding-top: 5px"></i></button>
     </div>
 
   </ion-header-bar>
@@ -21,24 +24,22 @@
     </div>
 
     <center>
-    <div style="margin-top: 25px">
+    <div style="margin-top: 25px; padding: 0px 20px">
       <h2 style="margin:0; color: #a71d2b; font-size: 36px; font-weight: 200">{{rewardsInfo.club}} Club</h2>
       <p style="color: #7f8c8d">{{rewardsInfo.nextClubBrief}}</p>
+      <button ng-if="rewardsInfo.redeemFlag" class="button button-small button-balanced" style="font-size: 16px; font-weight: 300;" ng-click="generateVoucher()">Generate Voucher</button>
     </div>
     </center>
 
-    <h3 class="checkout-sub-title" ng-if="!isEmpty" style="font-weight: 300; color: #7f8c8d; border-bottom: 1px solid #ecf0f1">Zaitoon Coins Passbook</h3>
-    <ul class="list checkout-products" ng-if="!isEmpty" style="border: none">
+    <h3 class="checkout-sub-title" ng-show="!isEmpty" style="font-weight: 300; color: #7f8c8d; border-bottom: 1px solid #ecf0f1">Zaitoon Coins Passbook</h3>
+    <ul class="list checkout-products" ng-show="!isEmpty" style="border: none">
       <li class="item checkout-product" style="border-bottom: 1px solid #ecf0f1" ng-repeat="trac in historyList">
         <div class="row">
-          <div class="col col-33 col-center">
-            <span class="product-name">{{trac.time}}</span>
+          <div class="col col-25 col-center">
+            <span class="product-name" style="font-size: 10px; color: #bdc3c7">{{trac.time}}</span>
           </div>
           <div class="col col-33 col-center">
-            <span class="product-name">#{{trac.orderID}}</span>
-          </div>
-          <div class="col col-20 col-center">
-            <span class="product-name">Rs. {{trac.amount}}</span>
+            <span class="product-name" style="font-size: 12px;">{{trac.orderID}} <tag ng-if="!trac.isCredit">worth <i class="fa fa-inr" style="font-size: 80%; padding-right: 1px"></i>{{trac.amount}}</tag></span>
           </div>
           <div class="col col-center">
             <span class="product-price" style="color: green" ng-if="trac.isCredit">+{{trac.coins}} <img src="img/common/coin.png" height="12px"></span>
