@@ -1,6 +1,6 @@
 angular.module('zaitoonFirst.content.controllers', [])
 
-.controller('outletCtrl', function($scope, $http, $state, $rootScope, $ionicPopup, outlet, ShoppingCartService, $ionicLoading) {
+.controller('outletCtrl', function($scope, $http, $state, $rootScope, $ionicPopup, outlet, $cordovaLaunchNavigator, ShoppingCartService, $ionicLoading) {
 	$scope.dateList = [];
 
 	//Pre-populate time and date list:
@@ -279,6 +279,15 @@ angular.module('zaitoonFirst.content.controllers', [])
 		// If we want to access the map in the future
 		$scope.map = map;
 	});
+	
+  $scope.launchNavigator = function(latitude, longitude) {
+    var destination = [latitude, longitude];
+	var start = "Trento";
+    $cordovaLaunchNavigator.navigate(destination, start).then(function() {
+      console.log("Navigator launched");
+    });
+  };
+		
 })
 
 .controller('TravelContentCtrl', function($scope, $state, $rootScope, product) {

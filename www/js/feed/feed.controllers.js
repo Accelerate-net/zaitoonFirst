@@ -94,7 +94,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		$scope.customer = JSON.parse(window.localStorage.user);
 		$scope.myquery.name = $scope.customer.name;
 	  $scope.myquery.email = $scope.customer.email;
-	  $scope.myquery.mobile = $scope.customer.mobile;		
+	  $scope.myquery.mobile = $scope.customer.mobile;
 	}
 
   $scope.setType = function (value) {
@@ -311,11 +311,15 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	menuService.setDisplayMenuType("ARABIAN");
 
 	//Swipe left/right
-	// $scope.goRight = function(){
-	// }
-	// $scope.goLeft = function(){
-	// 	$state.go('main.app.feed.chinese');
-	// }
+	$scope.goRight = function(){
+	}
+	$scope.goLeft = function(){
+		$state.go('main.app.feed.chinese');
+		$scope.$emit("item-selected", this);
+		$scope.$broadcast("item-selected", this);
+	}
+	
+			
 
 
 	//LOADING
@@ -582,12 +586,13 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 	//Swipe left/right
-	// $scope.goRight = function(){
-	// 	$state.go('main.app.feed.arabian');
-	// }
-	// $scope.goLeft = function(){
-	// 	$state.go('main.app.feed.indian');
-	// }
+	$scope.goRight = function(){
+		$state.go('main.app.feed.arabian');
+		console.log(this)
+	}
+	$scope.goLeft = function(){
+		$state.go('main.app.feed.indian');
+	}
 
 		//Check if already cached
 		var isCached = menuService.getIsLoadedFlag('CHINESE');
@@ -790,12 +795,12 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	});
 
 	//Swipe left/right
-	// $scope.goRight = function(){
-	// 	$state.go('main.app.feed.chinese');
-	// }
-	// $scope.goLeft = function(){
-	// 	$state.go('main.app.feed.dessert');
-	// }
+	$scope.goRight = function(){
+		$state.go('main.app.feed.chinese');
+	}
+	$scope.goLeft = function(){
+		$state.go('main.app.feed.dessert');
+	}
 
 
 
@@ -1000,11 +1005,11 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 	});
 
 	//Swipe left/right
-	// $scope.goRight = function(){
-	// 	$state.go('main.app.feed.indian');
-	// }
-	// $scope.goLeft = function(){
-	// }
+	$scope.goRight = function(){
+		$state.go('main.app.feed.indian');
+	}
+	$scope.goLeft = function(){
+	}
 
 
 		//Check if already cached
