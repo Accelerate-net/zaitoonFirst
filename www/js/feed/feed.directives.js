@@ -14,14 +14,14 @@ angular.module('zaitoonFirst.feed.directives', [])
 			var stateChangeListener = $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 				//console.log("state changed", toState);
 				//console.log("active_class", $scope.active_class);
-
+//console.log('State change detected')
 				// debugger;
 				// var $fromState = $state.get(fromState.name),
 				// 		$toState = $state.get(toState.name);
 				// if(!$fromState.includes('main.app.feed') && $toState.includes('main.app.feed'))
-				//console.log("from ["+fromState.name+"] indexOf", fromState.name.indexOf('main.app.feed'));
-				//console.log("to ["+toState.name+"] indexOf", toState.name.indexOf('main.app.feed'));
-				if(fromState.name.indexOf('main.app.feed')==-1 && toState.name.indexOf('main.app.feed')>=0)
+			//console.log("from ["+fromState.name+"] indexOf", fromState.name.indexOf('main.app.feed'));
+			//console.log("to ["+toState.name+"] indexOf", toState.name.indexOf('main.app.feed'));
+				if(toState.name.indexOf('main.app.feed')>=0) //&&fromState.name.indexOf('main.app.feed')==-1 && 
 				{
 					// I'm browsing from another tab to the feed tab
 					//console.log("**** Estoy navegando de otra tab hacia la tab de feed");
@@ -30,19 +30,19 @@ angular.module('zaitoonFirst.feed.directives', [])
 					var selected_item = utils.getSelectedItem(),
 							previous_item = utils.getItem(toState.name);
 
-					// console.log("selected_item", selected_item);
-					// console.log("previous_item", previous_item);
+					console.log("selected_item", selected_item);
+					console.log("previous_item", previous_item);
 
 					if(selected_item.state != previous_item.state)
 					{
 						$scope.$broadcast("item-selected", previous_item);
 
-						//console.log("ANIMATING SCROLL");
+						console.log("ANIMATING SCROLL");
 					}
 					else
 					{
 						// Then, we should not re animate the sliding tabs
-						//console.log("DONT ANIMATE SCROLL");
+						console.log("DONT ANIMATE SCROLL");
 					}
 				}
 			});
@@ -63,13 +63,15 @@ angular.module('zaitoonFirst.feed.directives', [])
 			};
 
 			$scope.$on("item-selected", function(event, item){
+				//console.log('item seletected....')
+				//console.log(item)
 				utils.selectItem(item);
 
 				var scroll = $element[0].querySelector('.scroll');
 				//console.log("scrolling, ITEM => ", item);
 				// debugger;
 				var vw = scroll.clientWidth,
-						scroll_to = (item.position.left - ((vw/2) - (item.position.width/2)));
+				scroll_to = (item.position.left - ((vw/2) - (item.position.width/2)));
 				$ionicScrollDelegate.$getByHandle('sliding-list-scroll').scrollTo(scroll_to, 0, true);
 				// $ionicScrollDelegate.$getByHandle('feeds-content').resize();
 				// document.getElementsByClassName('category-feed')[0].style.webkitTransform = 'scale(1)';
@@ -192,7 +194,6 @@ angular.module('zaitoonFirst.feed.directives', [])
 			$timeout(function(){
 				item_position = $ionicPosition.position(list_item);
 				scope.position = item_position;
-				// console.log("["+$element[0].computedName+", "+$scope.state+"] My position is: ", item_position);
 				slidingListCtrl.addItem(scope);
 			}, 0);
 
