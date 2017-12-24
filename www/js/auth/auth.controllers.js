@@ -76,18 +76,14 @@ console.log('VALIDATING LOGIN...')
 				
 				$ionicLoading.hide();
 				
-			
-   if(SMS) SMS.startWatch(function(){
-           alert('watching started');
-        }, function(){
-       console.log('failed to start watching');
-   })
+    /* Only for Android */		
+   if(SMS) SMS.startWatch()
 
-  document.addEventListener('onSMSArrive', function(e){
+	document.addEventListener('onSMSArrive', function(e){
        var sms = e.data;
-      alert(sms);
-
-       })
+       alert(JSON.stringify(sms));
+	   SMS.stopWatch();
+    })
 	   
 
   
