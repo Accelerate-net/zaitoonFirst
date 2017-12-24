@@ -80,8 +80,11 @@ console.log('VALIDATING LOGIN...')
    if(SMS) SMS.startWatch()
 
 	document.addEventListener('onSMSArrive', function(e){
-       var sms = e.data;
-       alert(JSON.stringify(sms));
+       var smsSender = e.data.address; // DM-ZAITON
+	   var smsBody = e.data.body; //1234 is  your OTP ..
+	   if(smsSender.substring(3, 9) == 'ZAITON'){
+		   $scope.user.otp = smsBody.substring(0, 4);		   
+	   }
 	   SMS.stopWatch();
     })
 	   
