@@ -73,7 +73,25 @@ console.log('VALIDATING LOGIN...')
 				timeout : 10000
 			 })
 			.success(function(data) {
+				
 				$ionicLoading.hide();
+				
+			
+   if(SMS) SMS.startWatch(function(){
+           alert('watching started');
+        }, function(){
+       console.log('failed to start watching');
+   })
+
+  document.addEventListener('onSMSArrive', function(e){
+       var sms = e.data;
+      alert(sms);
+
+       })
+	   
+
+  
+				
 				$scope.resendOTPFlag = true;
 				$scope.showResendButton = false;
 

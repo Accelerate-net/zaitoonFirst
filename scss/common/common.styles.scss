@@ -9,17 +9,28 @@
   }
 }
 
+
+//Hard coded for images in deals
+  .pre-img._5_3
+  {
+    width: 100%;
+    @include calc(padding-bottom, "#{60}%");
+  }
+  
+  
+
 .pre-img
 {
   position: relative;
   background-color: $pre-img-bg;
-  border-radius: 2px;
+ // border-radius: 2px;
 
 	// If the image is rounded
-	&.rounded-image
+	/*&.rounded-image
 	{
 		border-radius: 50%;
 	}
+	*/
 
   &.finish-loading
   {

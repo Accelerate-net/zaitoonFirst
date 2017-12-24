@@ -832,6 +832,9 @@ console.log(data)
         });
     });
   }, 15000);
+  
+ // $scope.$on('$destroy', function () {$interval.cancel($scope.Timer);});
+  
 
   $scope.displayInfo = false;
   $scope.clearInfo = function(){

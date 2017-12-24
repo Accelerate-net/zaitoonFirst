@@ -85,8 +85,15 @@
         </div>
 
         <div class="row middle-row-special" ng-if="deal.type=='promotion'">
-          <div class="col col-100" ng-if="deal.type=='promotion'">
-            <img ng-if="deal.isImageAvailable" src="{{deal.url}}" class="myDealsImg">
+          <div class="col col-100" ng-if="deal.type=='promotion'">		      
+			  
+			  <pre-img ratio="_5_3">
+                 <img ng-if="deal.isImageAvailable" src="{{deal.url}}" class="myDealsImg" spinner-on-load>
+				 <!--<img class="product-image" ng-src="{{ product.image }}" > -->
+              </pre-img>
+			  
+			  
+           
             <p class="product-description" style="font-weight: 300; color: #162433">
               {{deal.description}}
             </p>
