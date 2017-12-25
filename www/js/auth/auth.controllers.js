@@ -76,7 +76,9 @@ console.log('VALIDATING LOGIN...')
 				
 				$ionicLoading.hide();
 				
-    /* Only for Android */		
+				
+				
+    /* Only for Android */	/*	
    if(SMS) SMS.startWatch()
 
 	document.addEventListener('onSMSArrive', function(e){
@@ -96,7 +98,7 @@ console.log('VALIDATING LOGIN...')
   }, 15000);	
 	   
 
-  
+  */
 				
 				$scope.resendOTPFlag = true;
 				$scope.showResendButton = false;
@@ -296,6 +298,29 @@ console.log('VALIDATING LOGIN...')
 					.success(function(data) {
 
 						$ionicLoading.hide();
+						
+						
+    /* Only for Android */		
+   if(SMS) SMS.startWatch()
+
+	document.addEventListener('onSMSArrive', function(e){
+       var smsSender = e.data.address; // DM-ZAITON
+	   var smsBody = e.data.body; //1234 is  your OTP ..
+	   if(smsSender.substring(3, 9) == 'ZAITON'){
+		   $scope.user.otp = smsBody.substring(0, 4);
+		   if($scope.user.otp.length == 4){
+			   $scope.doLogIn();
+		   }
+	   }
+	   SMS.stopWatch();
+    })
+	
+  $timeout(function () {
+      SMS.stopWatch();
+  }, 15000);					
+
+
+						
 						$scope.showResendButton = false;
 						$scope.main = data.response;
 						if(data.status){

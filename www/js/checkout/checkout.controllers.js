@@ -366,8 +366,7 @@ $scope.availRewards = false;
 
 
 
-
-	//RAZORPAY INTEGRATION
+  //RAZORPAY INTEGRATION
   var called = false
 
   var successCallback = function(payment_id) {

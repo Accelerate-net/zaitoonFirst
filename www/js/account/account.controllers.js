@@ -687,4 +687,95 @@ $scope.generateVoucher = function(){
 })
 
 
+
+.controller('PassesCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading, PassViewService) {
+
+
+
+    //Network Status
+  	if(ConnectivityMonitor.isOffline()){
+  		$scope.isOfflineFlag = true;
+  	}
+  	else{
+  		$scope.isOfflineFlag = false;
+  	}
+
+
+  var data = {};
+  data.token = JSON.parse(window.localStorage.user).token;
+  data.id = 0;
+
+  $http({
+    method  : 'POST',
+    url     : 'https://www.zaitoon.online/services/passhistory.php',
+    data    : data,
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+    timeout : 10000
+   })
+  .success(function(data) {
+
+    $scope.orders = data.response;
+    $scope.isFail= !data.status;
+    $scope.failMsg= data.error;
+
+    if($scope.orders.length == 0)
+      $scope.isEmpty = true;
+    else
+      $scope.isEmpty = false;
+
+    $scope.left = 1;
+  })
+  .error(function(data){
+      $ionicLoading.hide();
+      $ionicLoading.show({
+        template:  "Not responding. Check your connection.",
+        duration: 3000
+      });
+  });
+  
+  
+  $scope.openPasses = function(orderid){
+	  PassViewService.setOrderID(orderid);
+	  $state.go('main.app.view-passes');
+  }
+
+
+  $scope.limiter = 5;
+  $scope.loadMore = function() {
+    var data = {};
+    data.token = JSON.parse(window.localStorage.user).token;
+    data.id = $scope.limiter;
+
+    $http({
+      method  : 'POST',
+      url     : 'https://www.zaitoon.online/services/passhistory.php',
+      data    : data,
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+      timeout : 10000
+     })
+    .success(function(items) {
+
+      if(items.response.length == 0){
+        $scope.left = 0;
+      }
+      $scope.orders = $scope.orders.concat(items.response)
+
+    //  $scope.feedsList.push(items);
+      $scope.limiter+=5;
+
+      //$scope.left = 0;
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    })
+    .error(function(data){
+        $ionicLoading.show({
+          template:  "Not responding. Check your connection.",
+          duration: 3000
+        });
+    });
+
+  };
+})
+
+
+
 ;

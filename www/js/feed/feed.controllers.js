@@ -1190,7 +1190,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 
-.controller('DealsCtrl', function(outletWarningStatusService, outletService, $ionicLoading, ShoppingCartService, ConnectivityMonitor, $scope, $http, $ionicPopup, $state) {
+.controller('DealsCtrl', function(outletWarningStatusService, DealsCartService, outletService, $ionicLoading, ShoppingCartService, ConnectivityMonitor, $scope, $http, $ionicPopup, $state) {
 
 
 	//Network Status
@@ -1201,6 +1201,18 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		$scope.isOfflineFlag = false;
 	}
 
+
+	
+	//Show Deals Cart button if any item found in the deals cart
+	$scope.getProductsInCart = function(){
+		return DealsCartService.getProducts().length;
+	};
+	
+	$scope.cartLength = $scope.getProductsInCart();
+	
+	$scope.goDealsCart = function(){
+		$state.go('main.app.deals-cart');
+	}
 
 
 
@@ -1252,7 +1264,72 @@ $scope.addComboToCart = function(combo) {
 
 
 
-		$http.get('https://www.zaitoon.online/services/fetchdeals.php?id=0')
+ $scope.customDealsOptions = function(product) {
+
+	  	//Render Template
+	  	var i = 0;
+	  	$scope.choiceName = "";
+	  	$scope.choicePrice = "";
+	  	var choiceTemplate = '<div style="margin-top: 10px">';
+	  	while(i < product.custom.length){
+	  		choiceTemplate = choiceTemplate + '<button class="button button-full" style="text-align: left; color: #c52031; margin-bottom: 8px;" ng-click="addCustomItem(\''+product.custom[i].customName+'\', '+product.custom[i].customPrice+')">'+product.custom[i].customName+' <tag style="font-size: 80%; color: #8c8f93; float: right"><i class="fa fa-inr"></i> '+product.custom[i].customPrice+'</tag></button>';
+	  		i++;
+	  	}
+	  	choiceTemplate = choiceTemplate + '</div>';
+
+	    var newCustomPopup = $ionicPopup.show({
+	      cssClass: 'popup-outer new-shipping-address-view',
+	      template: choiceTemplate,
+	      title: 'Your choice of '+product.itemName,
+	      scope: $scope,
+	      buttons: [
+	        { text: 'Cancel' }
+	      ]
+	    });
+	    $scope.addCustomItem = function(variant, price){
+	    	$scope.choiceName = variant;
+	  		$scope.choicePrice = price;
+
+            if($scope.choiceName != "" && $scope.choicePrice != ""){
+            	product.itemPrice = $scope.choicePrice;
+            	product.variant = $scope.choiceName;
+
+            	$scope.addToDealsCart(product);
+            	newCustomPopup.close();
+            }
+
+	    }
+
+	  }
+
+
+
+	$scope.addToDealsCart = function(product) {
+			
+			console.log(product)
+				$ionicLoading.show({
+					template:  '<tag style="color: #f1c40f">'+product.itemName+'</tag> is added.',
+					duration: 1000
+				});
+
+				product.qty = 1;
+  	    
+		DealsCartService.addProduct(product);
+		$scope.cartLength = $scope.getProductsInCart();		
+  	}
+	
+	
+	$scope.showHistory = function(){
+		$state.go('main.app.passes');
+	}
+		
+
+
+
+
+
+
+      $http.get('https://www.zaitoon.online/services/fetchdeals.php?id=0')
 	  .then(function(response) {
 			$scope.deals = response.data.response;
 			$scope.isEmpty = !response.data.status;

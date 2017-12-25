@@ -49,6 +49,12 @@ angular.module('zaitoonFirst', [
   'zaitoonFirst.shopping-cart.directives',
   'zaitoonFirst.shopping-cart.services',
 
+  
+   'zaitoonFirst.deals-cart.controllers',
+  'zaitoonFirst.deals-cart.directives',
+  'zaitoonFirst.deals-cart.services',
+
+  
   'zaitoonFirst.walkthrough.controllers',
   'zaitoonFirst.walkthrough.directives',
   'zaitoonFirst.walkthrough.services',
@@ -354,6 +360,19 @@ angular.module('zaitoonFirst', [
                   }
                 }
               })
+			  
+			  
+          .state('main.app.passes', {
+            url: '/passes',
+            views: {
+              'app-deals@main.app': {
+                templateUrl: 'views/account/passes.html',
+                controller: 'PassesCtrl'
+              }
+            }
+          })
+			  
+			  
 
           .state('main.app.shopping-cart', {
             url: '/shopping-cart',
@@ -369,6 +388,34 @@ angular.module('zaitoonFirst', [
               }
             }
           })
+		  
+		  
+          .state('main.app.deals-cart', {
+            url: '/deals-cart',
+            views: {
+              'main-view@main': {
+                templateUrl: 'views/deals-cart/cart.html',
+                controller: 'DealsCartCtrl'
+              }
+            },
+            resolve: {
+              products: function(DealsCartService){
+                return DealsCartService.getProducts();
+              }
+            }
+          })
+		  
+		  		  
+          .state('main.app.view-passes', {
+            url: '/view-passes',
+            views: {
+              'main-view@main': {
+                templateUrl: 'views/account/view-passes.html',
+                controller: 'ViewPassesCtrl'
+              }
+            }
+          })
+		  
 
           .state('main.app.checkout', {
             url: '/checkout',
