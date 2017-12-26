@@ -30,7 +30,10 @@
           <div class="button button-small button-outline button-primary" style="float: right; margin-top:5px" ng-click="trackMe(order.orderID)">TRACK ORDER</div>
         </div>
         <div class="item item-divider order-footer" ng-if="order.status==2">
-          <span class="status-title" style="color:#2c3e50; float: left">Dispatched</span>
+          <span class="status-title" style="color:#2c3e50; float: left">
+			<tag ng-if="order.isTakeaway">Ready for Pickup</tag>
+			<tag ng-if="!order.isTakeaway">Dispatched</tag>
+		  </span>
           <div class="button button-small button-outline button-primary" style="float: right; margin-top:5px" ng-click="trackMe(order.orderID)">TRACK ORDER</div>
         </div>
         <div class="item item-divider order-footer" ng-if="order.status==3">

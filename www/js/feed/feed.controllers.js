@@ -1,7 +1,7 @@
 angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
 
 
-.controller('FeedCtrl', function($ionicLoading, $ionicModal, $scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, ShoppingCartService) {
+.controller('FeedCtrl', function($ionicLoading, $ionicModal, $scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, $ionicSideMenuDelegate, ShoppingCartService) {
 	$scope.getProductsInCart = function(){
 		return ShoppingCartService.getProducts().length;
 	};
@@ -24,6 +24,13 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 		}
 	}
 
+	
+	
+  $scope.showOptionsMenu = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+  
+  
 
 	$scope.callSearch = function(){
 		$rootScope.$broadcast('search_called', true);
@@ -182,6 +189,7 @@ angular.module('zaitoonFirst.feed.controllers', ['ionic', 'ionic.contrib.ui.hscr
 
 
 .controller('featureCtrl', function($scope, $http, $ionicLoading, ShoppingCartService, $ionicPopup, menuService) {
+	
 
 	$scope.addFeature = function(item){
 
