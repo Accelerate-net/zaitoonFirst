@@ -1,4 +1,4 @@
-angular.module('zaitoonFirst.search.controllers', [])
+angular.module('search.controllers', [])
 
 .controller('SearchCtrl', function($scope, results, ShoppingCartService, $ionicLoading) {
 
@@ -22,7 +22,6 @@ angular.module('zaitoonFirst.search.controllers', [])
 		product.color = "black";
 		product.price = 150;
   	    ShoppingCartService.addProduct(product);
-  	    //console.log(product);
   	};
 
 

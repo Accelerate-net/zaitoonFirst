@@ -1,31 +1,5 @@
-angular.module('zaitoonFirst.checkout.services', [])
+angular.module('checkout.services', [])
 
-.service('trackOrderService', function () {
-        var orderid = '';
-
-        return {
-            getOrderID: function () {
-                return orderid;
-            },
-            setOrderID: function(value) {
-                orderid = value;
-            }
-        };
-})
-
-
-.service('reviewOrderService', function () {
-        var orderid = '';
-
-        return {
-            getLatest: function () {
-                return orderid;
-            },
-            setLatest: function(value) {
-                orderid = value;
-            }
-        };
-})
 
 .service('couponService', function () {
         var couponLock = false;

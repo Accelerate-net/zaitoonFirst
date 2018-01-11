@@ -392,3 +392,17 @@ ion-side-menu
 	}
 }
 
+
+//Branch Listing
+.branchListName{
+	position: absolute; font-size: 32px; line-height: 36px; font-weight: bold; text-shadow: 2px 2px #4c4b4b; top: 50%; left: 50%; transform: translate(-50%, -50%);
+
+}
+
+.branchListStatusGreen{
+	position: absolute; top: 8px; right: 0; border-radius: 0; height: 24px; background: #149c6d; padding: 2px 8px; font-weight: bold; height: 24px;
+}
+
+.branchListStatusRed{
+	position: absolute; top: 8px; right: 0; border-radius: 0; height: 24px; padding: 2px 8px; font-font-weight: 400; height: 24px; background: #752713; color: #d48382;
+}

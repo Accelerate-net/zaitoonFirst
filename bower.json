@@ -14,7 +14,8 @@
     "ng-range-slider": "^0.2.0",
     "font-awesome": "fontawesome#^4.7.0",
     "ngCordova": "^0.1.27-alpha",
-    "ionic-toast": "^0.4.1"
+    "ionic-toast": "^0.4.1",
+    "ionic-native-transitions": "shprink/ionic-native-transitions#^1.0.3"
   },
   "resolutions": {
     "moment": ">=2.8.0 <2.11.0",

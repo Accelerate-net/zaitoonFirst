@@ -1,4 +1,4 @@
-angular.module('zaitoonFirst.filters.controllers', [])
+angular.module('filters.controllers', [])
 
 .controller('FiltersCtrl', function($scope, $state, $rootScope, $ionicSlideBoxDelegate) {
 

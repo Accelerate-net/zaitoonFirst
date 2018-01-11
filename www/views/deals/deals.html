@@ -2,8 +2,8 @@
 
   <ion-header-bar class="myHeaderRed">
     <h1 class="title myWhiteFont">Offers</h1>
-    <div class="buttons" style="position: absolute; right: 5px">
-      <button class="button button-clear cancel-button" style="color: #FFF" ng-click="showHistory()"><i class="fa fa fa-history"></i> My Purchases</button>
+    <div class="buttons" ng-if="isLoggedIn" style="position: absolute; right: 5px">
+      <button class="button button-clear cancel-button" style="color: #FFF" ng-click="showHistory()"><i class="fa fa-ticket"></i> My Purchases</button>
     </div>
 	
   </ion-header-bar>
@@ -56,7 +56,7 @@
         <div class="row middle-row">
           <div class="col col-100">
             <h5 class="product-title">
-              <a class="product-anchor" style="color: #c52031; font-size: 16px; font-weight: 300">{{combo.itemName}}</a>
+              <a class="product-anchor" style="color: #c52031; font-size: 16px; font-weight: 300">{{combo.itemName}}<tag style="float: right; font-size: 18px; color: #05bf84; font-weight: bold;"><i  class="fa fa-inr" style="font-size: 80%; font-weight: 300"></i>{{combo.itemPrice}}</tag></a>
             </h5>
             <p class="product-description" style="font-weight: 300; color: #162433">
               {{combo.combo}}
@@ -138,10 +138,10 @@
 
 
         <div class="row bottom-row" ng-if="deal.type!='promotion'">
-		  <div class="col">
-                <button ng-if="deal.isCustom" class="button button-small button-outline button-balanced" ng-click="customDealsOptions(deal)">Buy Offer</button>
-                <button ng-if="!deal.isCustom" class="button button-small button-outline button-balanced" ng-click="addToDealsCart(deal)">Buy Offer</button>
-		  </div>
+    		  <div class="col">
+                    <button ng-if="deal.isCustom" class="button button-small button-outline button-balanced" ng-click="customDealsOptions(deal)">Buy Offer at <i class="fa fa-inr" style="font-size: 80%; font-weight: 300"></i><price style="font-weight: bold">{{deal.itemPrice}}</price></button>
+                    <button ng-if="!deal.isCustom" class="button button-small button-outline button-balanced" ng-click="addToDealsCart(deal)">Buy Offer at <i class="fa fa-inr" style="font-size: 80%; font-weight: 300"></i><price style="font-weight: bold">{{deal.itemPrice}}</price></button>
+    		  </div>
           <div class="col time-col">
             <div class="time-left-container">
               <span class="deal-time-left" style="font-weight: 300">Valid till {{deal.validTill}}</span>
