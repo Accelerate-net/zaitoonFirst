@@ -77,26 +77,37 @@ angular.module('auth.controllers', [])
 
 
 
-                            /* Only for Android */
-              /*   */           
-   if(SMS) SMS.startWatch()
+                            /* Only for Android */ 
 
-	document.addEventListener('onSMSArrive', function(e){
-       var smsSender = e.data.address; // DM-ZAITON
-	   var smsBody = e.data.body; //1234 is  your OTP ..
-	   if(smsSender.substring(3, 9) == 'ZAITON'){
-		   $scope.user.otp = smsBody.substring(0, 4);
-		   if($scope.user.otp.length == 4){
-			   $scope.doLogIn();
-		   }
-	   }
-	   SMS.stopWatch();
-    })
-	
-  $timeout(function () {
-      SMS.stopWatch();
-  }, 15000);	
+                            /*      
+
+                            Plugin: https://github.com/floatinghotpot/cordova-plugin-sms
+
+
+                           if(SMS){
+                            SMS.startWatch()
+                           } 
+
+                        	document.addEventListener('onSMSArrive', function(e){
+                               var smsSender = e.data.address; // DM-ZAITON
+                        	   var smsBody = e.data.body; //1234 is  your OTP ..
+                               alert(smsBody)
+                        	   if(smsSender.substring(3, 9) == 'ZAITON'){
+                        		   $scope.user.otp = smsBody.substring(0, 4);
+                        		   if($scope.user.otp.length == 4){
+                        			   $scope.doLogIn();
+                        		   }
+                        	   }
+                        	   SMS.stopWatch();
+                            })
+                        	
+                          $timeout(function () {
+                              SMS.stopWatch();
+                          }, 15000);	
+                          */
 	   
+
+    
 
   
 
@@ -294,6 +305,11 @@ angular.module('auth.controllers', [])
 
 
                                     /* Only for Android */
+                                    /*
+
+                                    Plugin: https://github.com/floatinghotpot/cordova-plugin-sms
+
+
                                     if (SMS) SMS.startWatch()
 
                                     document.addEventListener('onSMSArrive', function(e) {
@@ -312,7 +328,7 @@ angular.module('auth.controllers', [])
                                         SMS.stopWatch();
                                     }, 15000);
 
-
+                                    */
 
                                     $scope.showResendButton = false;
                                     $scope.main = data.response;
