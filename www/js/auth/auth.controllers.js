@@ -82,7 +82,7 @@ angular.module('auth.controllers', [])
                             /*      
 
                             Plugin: https://github.com/floatinghotpot/cordova-plugin-sms
-
+                            */
 
                            if(SMS){
                             SMS.startWatch()
@@ -104,7 +104,7 @@ angular.module('auth.controllers', [])
                           $timeout(function () {
                               SMS.stopWatch();
                           }, 15000);	
-                          */
+                          
 	   
 
     
@@ -308,7 +308,7 @@ angular.module('auth.controllers', [])
                                     /*
 
                                     Plugin: https://github.com/floatinghotpot/cordova-plugin-sms
-
+                                    */
 
                                     if (SMS) SMS.startWatch()
 
@@ -328,7 +328,7 @@ angular.module('auth.controllers', [])
                                         SMS.stopWatch();
                                     }, 15000);
 
-                                    */
+                                    
 
                                     $scope.showResendButton = false;
                                     $scope.main = data.response;
