@@ -315,7 +315,7 @@ angular.module('zaitoonFirst', [
 
             .state('main.app.account', {
                 url: '/account',
-                nativeTransitions: { type: "fade" },
+                nativeTransitions: null,
                 views: {
                     'app-account@main.app': {
                         templateUrl: 'views/account/account.html'
