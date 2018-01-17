@@ -1,4 +1,4 @@
-angular.module('zaitoonFirst.common.directives', [])
+angular.module('common.directives', [])
 
 .directive('multiBg', function(_){
 	return {

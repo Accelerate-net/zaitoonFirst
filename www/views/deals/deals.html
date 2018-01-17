@@ -2,6 +2,10 @@
 
   <ion-header-bar class="myHeaderRed">
     <h1 class="title myWhiteFont">Offers</h1>
+    <div class="buttons" ng-if="isLoggedIn" style="position: absolute; right: 5px">
+      <button class="button button-clear cancel-button" style="color: #FFF" ng-click="showHistory()"><i class="fa fa-ticket"></i> My Purchases</button>
+    </div>
+	
   </ion-header-bar>
 
 
@@ -22,7 +26,7 @@
 
      -->
 
-    <div class="products-row">
+    <div class="products-row" style="padding-bottom: 55px">
 
       <div ng-if="isOfflineFlag" class="padding"><p style="color: #6F6F6F; text-align: center; font-size: 18px;"><i style="color: #FFC300; font-size: 130%" class="icon ion-alert-circled"></i> Not connected to internet.</p></div>
 
@@ -45,14 +49,14 @@
           </div>
         </div>
 
-        <div class="row" ng-if="combo.isImageAvailable" style="padding-top: 1px">
+        <div class="row" ng-if="combo.isImageAvailable">
           <img width="100%" height="100%" src="{{combo.url}}">
         </div>
 
         <div class="row middle-row">
           <div class="col col-100">
             <h5 class="product-title">
-              <a class="product-anchor" style="color: #c52031; font-size: 16px; font-weight: 300">{{combo.itemName}}</a>
+              <a class="product-anchor" style="color: #c52031; font-size: 16px; font-weight: 300">{{combo.itemName}}<tag style="float: right; font-size: 18px; color: #05bf84; font-weight: bold;"><i  class="fa fa-inr" style="font-size: 80%; font-weight: 300"></i>{{combo.itemPrice}}</tag></a>
             </h5>
             <p class="product-description" style="font-weight: 300; color: #162433">
               {{combo.combo}}
@@ -84,9 +88,37 @@
           </div>
         </div>
 
+		
+        <div class="row middle-row-special" ng-if="deal.type=='purchase'">
+          <div class="col col-100">		      
+			  
+			  <pre-img ratio="_5_3">
+                 <img ng-if="deal.isImageAvailable" src="{{deal.url}}" class="myDealsImg" spinner-on-load>
+				 <!--<img class="product-image" ng-src="{{ product.image }}" > -->
+              </pre-img>
+			  
+			  
+           
+            <p class="product-description" style="font-weight: 300; color: #162433">
+              {{deal.description}}
+            </p>
+          </div>
+        </div>
+
+		
+		
+		
+		
         <div class="row middle-row-special" ng-if="deal.type=='promotion'">
-          <div class="col col-100" ng-if="deal.type=='promotion'">
-            <img ng-if="deal.isImageAvailable" src="{{deal.url}}" class="myDealsImg">
+          <div class="col col-100" ng-if="deal.type=='promotion'">		      
+			  
+			  <pre-img ratio="_5_3">
+                 <img ng-if="deal.isImageAvailable" src="{{deal.url}}" class="myDealsImg" spinner-on-load>
+				 <!--<img class="product-image" ng-src="{{ product.image }}" > -->
+              </pre-img>
+			  
+			  
+           
             <p class="product-description" style="font-weight: 300; color: #162433">
               {{deal.description}}
             </p>
@@ -106,6 +138,10 @@
 
 
         <div class="row bottom-row" ng-if="deal.type!='promotion'">
+    		  <div class="col">
+                    <button ng-if="deal.isCustom" class="button button-small button-outline button-balanced" ng-click="customDealsOptions(deal)">Buy Offer at <i class="fa fa-inr" style="font-size: 80%; font-weight: 300"></i><price style="font-weight: bold">{{deal.itemPrice}}</price></button>
+                    <button ng-if="!deal.isCustom" class="button button-small button-outline button-balanced" ng-click="addToDealsCart(deal)">Buy Offer at <i class="fa fa-inr" style="font-size: 80%; font-weight: 300"></i><price style="font-weight: bold">{{deal.itemPrice}}</price></button>
+    		  </div>
           <div class="col time-col">
             <div class="time-left-container">
               <span class="deal-time-left" style="font-weight: 300">Valid till {{deal.validTill}}</span>
@@ -127,4 +163,12 @@
     </ion-infinite-scroll>
 
   </ion-content>
+  
+  
+	<div class="quickCart" ng-if="cartLength" ng-click="goDealsCart()">
+	    <span><img src="img/feed/deals.png" width="30px"><span class="cartBadge cartSize" id="quickCartCount">{{cartLength}}</span></span>
+	</div>     
+
+	
+  
 </ion-view>

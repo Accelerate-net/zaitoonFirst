@@ -1,4 +1,4 @@
-angular.module('zaitoonFirst.filters.directives', [])
+angular.module('filters.directives', [])
 
 .directive('filterTabs', function($ionicSlideBoxDelegate) {
 	return {
