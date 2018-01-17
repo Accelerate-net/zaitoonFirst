@@ -1,4 +1,4 @@
-angular.module('zaitoonFirst.shopping-cart.controllers', [])
+angular.module('cart.controllers', [])
 
 .controller('ShoppingCartCtrl', function($scope, $ionicLoading, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService, CheckoutService, outletService) {
 
@@ -58,7 +58,6 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 		$state.go(previous_view.fromState, previous_view.fromParams );
   	};
 
-  	//Remove Item from Cart
 	$scope.removeFromCart = function(product) {
 		$ionicActionSheet.show({
 			buttons: [
@@ -75,13 +74,11 @@ angular.module('zaitoonFirst.shopping-cart.controllers', [])
 		});
 	};
 
-	//Increase item count
 	$scope.addCount = function(product) {
 		console.log(product);
 		ShoppingCartService.addProduct(product);
 	};
 
-	//Decrease Item count
 	$scope.lessCount = function(product) {
 		ShoppingCartService.lessProduct(product);
 	};
