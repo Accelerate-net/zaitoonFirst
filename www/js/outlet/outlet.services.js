@@ -40,6 +40,7 @@ angular.module('outlet.services', [])
 
 })
 
+
 .service('outletService', function ($http, $q){
 
   //Default Parameters

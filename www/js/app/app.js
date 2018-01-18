@@ -56,6 +56,7 @@ angular.module('zaitoonFirst', [
 
 
         'landing.controllers',
+        'landing.services',
 
         'underscore',
         'angularMoment',
