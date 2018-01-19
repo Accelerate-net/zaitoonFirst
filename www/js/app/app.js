@@ -56,10 +56,10 @@ angular.module('zaitoonFirst', [
 
 
         'landing.controllers',
+        'landing.services',
 
         'underscore',
         'angularMoment',
-        'ngMap',
         'ngRangeSlider',
         'ionic-native-transitions'
     ])

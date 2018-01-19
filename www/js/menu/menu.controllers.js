@@ -1,7 +1,7 @@
 angular.module('menu.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
 
 
-    .controller('FeedCtrl', function($ionicLoading, $ionicModal, $scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, $ionicSideMenuDelegate, ShoppingCartService) {
+    .controller('FeedCtrl', function(outletService, locationChangeRouteTrackerService, $ionicLoading, $ionicModal, $scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, $ionicSideMenuDelegate, ShoppingCartService) {
     
 
         $scope.getProductsInCart = function() {
@@ -23,6 +23,8 @@ angular.module('menu.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
             }
         }
 
+        $scope.selectedOutlet = outletService.getInfo();
+
 
         $scope.navToggled = false;
 
@@ -35,8 +37,7 @@ angular.module('menu.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
         //Change location
         $scope.changeLocation = function() {
             window.localStorage.changeLocationFlag = true;
-            window.localStorage.backFlag = true;
-            window.localStorage.backFlagValue = 'MENU';
+            locationChangeRouteTrackerService.setSource('main.app.feed.arabian');
             $state.go('intro.walkthrough-welcome');
         }
 

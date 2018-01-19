@@ -1,6 +1,6 @@
 angular.module('cart.controllers', [])
 
-.controller('ShoppingCartCtrl', function($scope, $ionicLoading, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService, CheckoutService, outletService) {
+.controller('ShoppingCartCtrl', function($scope, locationChangeRouteTrackerService, $ionicLoading, $state, $rootScope, $ionicActionSheet, products, ShoppingCartService, CheckoutService, outletService) {
 
 	//OUTLET INFO
 	$scope.outletSelection = outletService.getInfo();
@@ -11,7 +11,7 @@ angular.module('cart.controllers', [])
 	$scope.isOutletOpenNow = $scope.outletSelection['isOpen'];
 
 	//Check if location, outlet are set: if not ask user to set it.
-	if($scope.outletSelection.outlet == "" || $scope.outletSelection.location == "" || _.isUndefined(window.localStorage.locationCode)){
+	if($scope.outletSelection.outlet == "" || _.isUndefined(window.localStorage.locationCode)){
 		$scope.isLocationSet = false;
 	}
 	else{
@@ -23,7 +23,8 @@ angular.module('cart.controllers', [])
 		window.localStorage.removeItem("outlet");
 		window.localStorage.removeItem("location");
 		window.localStorage.removeItem("locationCode");
-		window.localStorage.backFlagCart = true;
+
+		locationChangeRouteTrackerService.setSource('main.app.shopping-cart');
 		$state.go('intro.walkthrough-welcome');
 	}
 

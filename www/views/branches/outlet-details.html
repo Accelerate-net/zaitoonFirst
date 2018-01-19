@@ -6,7 +6,7 @@
         <ion-slide>
           <div class="image-container" multi-bg="[info.pictures[0]]">
             <div class="product-illustration-container">
-            <h1 style="color: #FFF">Zaitoon {{info.name}}</h1>
+            <h1 style="color: #FFF; text-align: center">Zaitoon {{info.name}}</h1>
             </div>
           </div>
         </ion-slide>
@@ -44,15 +44,10 @@
       </div>
     </div>
 	
-
-
 	
     <div class="row address-map-row">
       <div class="col">
-        <div class="map-wrapper" data-tap-disabled="true">
-          <map center="{{info.lat}},{{info.lng}}" zoom="15" map-type-control="false" street-view-control="false" zoom-control="true" zoom-control-options="{style:'SMALL'}">
-            <marker position="{{info.lat}},{{info.lng}}" title="Zaitoon {{info.name}}" visible="true"></marker>
-          </map>
+        <div class="map-wrapper" id="map" data-tap-disabled="true">
         </div>
       </div>
     </div>

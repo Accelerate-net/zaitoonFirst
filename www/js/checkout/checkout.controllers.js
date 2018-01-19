@@ -1,6 +1,6 @@
 angular.module('checkout.controllers', [])
 
-    .controller('CheckoutCtrl', function($timeout, ConnectivityMonitor, trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
+    .controller('CheckoutCtrl', function($timeout, locationChangeRouteTrackerService, ConnectivityMonitor, trackOrderService, $scope, $state, $http, ProfileService, $rootScope, products, CheckoutService, couponService, outletService, $ionicPopover, $ionicPlatform, $ionicLoading) {
 
         //If not logged in (meaning, does not have a token)?
         if (_.isUndefined(window.localStorage.user) && window.localStorage.user != "") {
@@ -59,7 +59,7 @@ angular.module('checkout.controllers', [])
         //Change location
         $scope.changeLocation = function() {
             window.localStorage.changeLocationFlag = true;
-            window.localStorage.backFlag = true;
+            locationChangeRouteTrackerService.setSource('main.app.checkout');
             $state.go('intro.walkthrough-welcome');
         }
 
