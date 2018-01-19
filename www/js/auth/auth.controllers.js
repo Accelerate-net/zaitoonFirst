@@ -84,6 +84,8 @@ angular.module('auth.controllers', [])
                             Plugin: https://github.com/floatinghotpot/cordova-plugin-sms
                             */
 
+                            /*
+
                            if(SMS){
                             SMS.startWatch()
                            } 
@@ -106,7 +108,7 @@ angular.module('auth.controllers', [])
                           }, 15000);	
                           
 	   
-
+*/
     
 
   

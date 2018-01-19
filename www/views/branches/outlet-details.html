@@ -44,15 +44,10 @@
       </div>
     </div>
 	
-
-
 	
     <div class="row address-map-row">
       <div class="col">
-        <div class="map-wrapper" data-tap-disabled="true">
-          <map center="{{info.lat}},{{info.lng}}" zoom="15" map-type-control="false" street-view-control="false" zoom-control="true" zoom-control-options="{style:'SMALL'}">
-            <marker position="{{info.lat}},{{info.lng}}" title="Zaitoon {{info.name}}" visible="true"></marker>
-          </map>
+        <div class="map-wrapper" id="map" data-tap-disabled="true">
         </div>
       </div>
     </div>

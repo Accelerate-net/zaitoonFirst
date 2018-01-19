@@ -60,7 +60,6 @@ angular.module('zaitoonFirst', [
 
         'underscore',
         'angularMoment',
-        'ngMap',
         'ngRangeSlider',
         'ionic-native-transitions'
     ])

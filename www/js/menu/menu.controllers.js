@@ -1,7 +1,7 @@
 angular.module('menu.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
 
 
-    .controller('FeedCtrl', function(locationChangeRouteTrackerService, $ionicLoading, $ionicModal, $scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, $ionicSideMenuDelegate, ShoppingCartService) {
+    .controller('FeedCtrl', function(outletService, locationChangeRouteTrackerService, $ionicLoading, $ionicModal, $scope, $http, $ionicPopup, $rootScope, $state, $ionicScrollDelegate, $ionicSideMenuDelegate, ShoppingCartService) {
     
 
         $scope.getProductsInCart = function() {
@@ -22,6 +22,8 @@ angular.module('menu.controllers', ['ionic', 'ionic.contrib.ui.hscrollcards'])
                 $state.go('main.app.rewardslanding');
             }
         }
+
+        $scope.selectedOutlet = outletService.getInfo();
 
 
         $scope.navToggled = false;
