@@ -101,7 +101,7 @@ angular.module('landing.controllers', [])
                     userLocationService.setCoords(lat, lng);
                     userLocationService.setText(results[0].formatted_address);
                     $scope.location.formatted_address = results[0].formatted_address;  
-                    $scope.location.place_id = 'HU';                   
+                    $scope.location.place_id = results[0].place_id;               
                 } else {
                     $ionicLoading.show({
                         template: 'Error occured while fetching your location. Enter location manually.',
@@ -214,7 +214,6 @@ angular.module('landing.controllers', [])
                             $ionicPopup.show({
                                 title: "Delivery Not Available",
                                 subTitle: 'Selected area is beyond our delivering area. You can place only Take Away orders.',
-                                cssClass: 'delivery-unavailable-popup',
                                 scope: $scope,
                                 buttons: [{
                                         text: 'Cancel',
