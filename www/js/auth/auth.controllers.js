@@ -84,31 +84,28 @@ angular.module('auth.controllers', [])
                             Plugin: https://github.com/floatinghotpot/cordova-plugin-sms
                             */
 
-                            /*
+                        
+                           // if(SMS){ //SMS
 
-                           if(SMS){
-                            SMS.startWatch()
-                           } 
+                           //      SMS.startWatch()
 
-                        	document.addEventListener('onSMSArrive', function(e){
-                               var smsSender = e.data.address; // DM-ZAITON
-                        	   var smsBody = e.data.body; //1234 is  your OTP ..
-                               alert(smsBody)
-                        	   if(smsSender.substring(3, 9) == 'ZAITON'){
-                        		   $scope.user.otp = smsBody.substring(0, 4);
-                        		   if($scope.user.otp.length == 4){
-                        			   $scope.doLogIn();
-                        		   }
-                        	   }
-                        	   SMS.stopWatch();
-                            })
-                        	
-                          $timeout(function () {
-                              SMS.stopWatch();
-                          }, 15000);	
-                          
-	   
-*/
+                           //  	document.addEventListener('onSMSArrive', function(e){
+                           //         var smsSender = e.data.address; // DM-ZAITON
+                           //  	   var smsBody = e.data.body; //1234 is  your OTP ..
+                           //         console.log(smsBody)
+                           //  	   if(smsSender.substring(3, 9) == 'ZAITON'){
+                           //  		   $scope.user.otp = smsBody.substring(0, 4);
+                           //  		   if($scope.user.otp.length == 4){
+                           //  			   $scope.doLogIn();
+                           //  		   }
+                           //  	   }
+                           //  	   SMS.stopWatch();
+                           //      })
+                            	
+                           //      $timeout(function () {
+                           //        SMS.stopWatch();
+                           //      }, 15000);	
+                           //  }
     
 
   
@@ -310,25 +307,28 @@ angular.module('auth.controllers', [])
                                     /*
 
                                     Plugin: https://github.com/floatinghotpot/cordova-plugin-sms
+                                    
                                     */
 
-                                    if (SMS) SMS.startWatch()
+                                    // if (SMS){
+                                    //     SMS.startWatch()
 
-                                    document.addEventListener('onSMSArrive', function(e) {
-                                        var smsSender = e.data.address; // DM-ZAITON
-                                        var smsBody = e.data.body; //1234 is  your OTP ..
-                                        if (smsSender.substring(3, 9) == 'ZAITON') {
-                                            $scope.user.otp = smsBody.substring(0, 4);
-                                            if ($scope.user.otp.length == 4) {
-                                                $scope.doLogIn();
-                                            }
-                                        }
-                                        SMS.stopWatch();
-                                    })
+                                    //     document.addEventListener('onSMSArrive', function(e) {
+                                    //         var smsSender = e.data.address; // DM-ZAITON
+                                    //         var smsBody = e.data.body; //1234 is  your OTP ..
+                                    //         if (smsSender.substring(3, 9) == 'ZAITON') {
+                                    //             $scope.user.otp = smsBody.substring(0, 4);
+                                    //             if ($scope.user.otp.length == 4) {
+                                    //                 $scope.doLogIn();
+                                    //             }
+                                    //         }
+                                    //         SMS.stopWatch();
+                                    //     })
 
-                                    $timeout(function() {
-                                        SMS.stopWatch();
-                                    }, 15000);
+                                    //     $timeout(function() {
+                                    //         SMS.stopWatch();
+                                    //     }, 15000);
+                                    // }
 
                                     
 

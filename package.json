@@ -65,7 +65,8 @@
     "cordova-plugin-sms@^1.0.5",
     "uk.co.workingedge.phonegap.plugin.launchnavigator@^4.0.7",
     "cordova-plugin-sms-receiver",
-    "cordova-plugin-geolocation"
+    "cordova-plugin-geolocation",
+    "com.razorpay.cordova"
   ],
   "cordovaPlatforms": [
     "ios"
@@ -92,7 +93,8 @@
       "cordova-plugin-sms": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": " "
-      }
+      },
+      "com.razorpay.cordova": {}
     }
   }
 }

@@ -51,6 +51,7 @@ angular.module('landing.services', [])
 
 })
 
+
 .service('LocationService', function($q){
   var autocompleteService = new google.maps.places.AutocompleteService();
   var detailsService = new google.maps.places.PlacesService(document.createElement("input"));
@@ -76,6 +77,7 @@ angular.module('landing.services', [])
     getDetails: function(placeId) {
       var deferred = $q.defer();
       detailsService.getDetails({placeId: placeId}, function(result) {
+        console.log(result)
         deferred.resolve(result);
       });
       return deferred.promise;
@@ -126,7 +128,7 @@ angular.module('landing.services', [])
         $scope.choosePlace = function(place) {
           LocationService.getDetails(place.place_id).then(function(location) {
             userLocationService.setCoords(location.geometry.location.lat(), location.geometry.location.lng());
-            userLocationService.setText(location.formatted_address);
+            userLocationService.setText(location.name);
             $scope.location = location;
             $scope.close();
           });

@@ -83,6 +83,11 @@ angular.module('zaitoonFirst', [
         });
 
         $ionicPlatform.ready(function() {
+            
+            //Hide Splash Screen
+            setTimeout(function(){
+                navigator.splashscreen.hide();
+            }, 200);
 
             //Push Notifications
             var notificationOpenedCallback = function(jsonData) {
