@@ -5,8 +5,9 @@
   "dependencies": {
     "angular-route": "^1.6.4",
     "async": "^1.4.0",
+    "com.razorpay.cordova": "~0.15.0",
     "com.telerik.plugins.nativepagetransitions": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions",
-    "cordova-android": "^5.0.0",
+    "cordova-android": "^7.0.0",
     "cordova-browser": "^5.0.3",
     "cordova-ios": "3.8.0",
     "cordova-plugin-actionsheet": "^2.3.3",
@@ -28,7 +29,7 @@
     "gulp-sass": "^2.2.0",
     "gulp-sourcemaps": "^1.5.2",
     "ionic-plugin-keyboard": "^2.0.1",
-    "onesignal-cordova-plugin": "~2.0.11",
+    "onesignal-cordova-plugin": "^2.0.11",
     "razorpay-cordova": "^0.1.0",
     "require-dir": "^0.3.0",
     "uk.co.workingedge.phonegap.plugin.launchnavigator": "^4.0.7"

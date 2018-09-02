@@ -128,7 +128,7 @@
               <div class="col col-10 col-center">
                 <button ng-if="!product.isAvailable" class="button button-small button-outline button-info" ng-click="showNotAvailable(product)"><span class="icon ion-alert"></span></button>
                 <button ng-if="product.isCustom && product.isAvailable" class="button button-small button-outline button-balanced" ng-click="customOptions(product)"><span class="icon ion-plus"></span></button>
-                <button ng-if="!product.isCustom && product.isAvailable" class="button button-small button-outline button-balanced" ng-attr-id="{{'search_dish_'+product.itemCode}}" ng-click="addToCart(product, 'SEARCHING')"><span class="icon ion-plus"></span></button>
+                <button ng-if="!product.isCustom && product.isAvailable" class="button button-small button-outline button-balanced" ng-attr-id="{{'dish_'+product.itemCode}}" ng-click="addToCart(product)"><span class="icon ion-plus"></span></button>
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@
               <div class="col col-10 col-center">
                 <button ng-if="!product.isAvailable" class="button button-small button-outline button-info" ng-click="showNotAvailable(product)"><span class="icon ion-alert"></span></button>
                 <button ng-if="product.isCustom && product.isAvailable" class="button button-small button-outline button-balanced" ng-click="customOptions(product)"><span class="icon ion-plus"></span></button>
-                <button ng-if="!product.isCustom && product.isAvailable" class="button button-small button-outline button-balanced" ng-attr-id="{{'dish_'+product.itemCode}}" ng-click="addToCart(product)"><span class="icon ion-plus"></span></button>
+                <button ng-if="!product.isCustom && product.isAvailable" class="button button-small button-outline button-balanced" ng-attr-id="{{'search_dish_'+product.itemCode}}" ng-click="addToCart(product, 'SEARCH')"><span class="icon ion-plus"></span></button>
               </div>
             </div>
           </div>
