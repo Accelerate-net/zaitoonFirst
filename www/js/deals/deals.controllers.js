@@ -39,12 +39,6 @@ angular.module('deals.controllers', [])
         }
 
 
-        //Fetch COMBO OFFERS
-        $http.get('https://www.zaitoon.online/services/fetchcombos.php?outlet=' + $myOutlet)
-            .then(function(response) {
-                $scope.combos = response.data.response;
-                $scope.isCombosEmpty = !response.data.status;
-            });
 
         $scope.addComboToCart = function(combo) {
             $ionicLoading.show({
@@ -118,16 +112,107 @@ angular.module('deals.controllers', [])
         }
 
 
+        //Load Combos and Other Deals
+        $scope.initializeDeals = function() { 
+
+                  //FIRST LOAD
+                  $scope.renderFailed = false;
+                  $scope.isRenderLoaded = false;
 
 
-        $http.get('https://www.zaitoon.online/services/fetchdeals.php?id=0')
-            .then(function(response) {
-                $scope.deals = response.data.response;
-                $scope.isEmpty = !response.data.status;
+                    //Fetch COMBO OFFERS
+                    $http({
+                        method: 'GET',
+                        url: 'https://www.zaitoon.online/services/fetchcombos.php?outlet=' + $myOutlet,
+                        timeout: 10000
+                    })
+                    .success(function(data) {
+                        $scope.combos = data.response;
+                        $scope.isCombosEmpty = !data.status;
 
-                $scope.left = 1;
+                        callDeals();
+                    })
+                    .error(function(data) {
+                        callDeals();
+                    });
 
-            });
+
+                    function callDeals(){
+                        //Fetch DEALS AND OFFERS
+                        $http({
+                            method: 'GET',
+                            url: 'https://www.zaitoon.online/services/fetchdeals.php?id=0',
+                            timeout: 10000
+                        })
+                        .success(function(data) {
+                            $scope.deals = data.response;
+                            $scope.isEmpty = !data.status;
+
+                            $scope.left = 1;
+
+                            $scope.renderFailed = false;
+                            $scope.isRenderLoaded = true;
+
+                        })
+                        .error(function(data) {
+                            $scope.renderFailed = true;
+                        });
+                    }
+        };
+
+        $scope.initializeDeals();
+
+
+
+        //REFRESHER
+        $scope.doRefresh = function() {
+
+                    //Fetch COMBO OFFERS
+                    $http({
+                        method: 'GET',
+                        url: 'https://www.zaitoon.online/services/fetchcombos.php?outlet=' + $myOutlet,
+                        timeout: 10000
+                    })
+                    .success(function(data) {
+                        $scope.combos = data.response;
+                        $scope.isCombosEmpty = !data.status;
+
+                        callRefreshDeals();
+                    })
+                    .error(function(data) {
+                        $scope.combos = [];
+                        callRefreshDeals();
+                    });
+
+
+                    function callRefreshDeals(){
+                        //Fetch DEALS AND OFFERS
+                        $http({
+                            method: 'GET',
+                            url: 'https://www.zaitoon.online/services/fetchdeals.php?id=0',
+                            timeout: 10000
+                        })
+                        .success(function(data) {
+
+                            $scope.deals = data.response;
+                            $scope.isEmpty = !data.status;
+
+                            $scope.left = 1;
+
+                            $scope.renderFailed = false;
+                            $scope.isRenderLoaded = true;
+
+                            $scope.limiter = 5;
+                            $scope.$broadcast('scroll.refreshComplete');
+                        })
+                        .error(function(data) {
+                            $scope.deals = [];
+                            $scope.$broadcast('scroll.refreshComplete');
+
+                            $scope.renderFailed = true;
+                        });
+                    }
+        };
 
 
         $scope.limiter = 5;
@@ -498,8 +583,6 @@ angular.module('deals.controllers', [])
 
 .controller('PassesCtrl', function(ConnectivityMonitor, $scope, $http, $state, $ionicLoading, PassViewService) {
 
-
-
     //Network Status
     if(ConnectivityMonitor.isOffline()){
         $scope.isOfflineFlag = true;
@@ -507,6 +590,10 @@ angular.module('deals.controllers', [])
     else{
         $scope.isOfflineFlag = false;
     }
+
+  //FIRST LOAD
+  $scope.renderFailed = false;
+  $scope.isRenderLoaded = false;
 
 
   var data = {};
@@ -532,13 +619,19 @@ angular.module('deals.controllers', [])
       $scope.isEmpty = false;
 
     $scope.left = 1;
+
+    $scope.renderFailed = false;
+    $scope.isRenderLoaded = true;
   })
   .error(function(data){
-      $ionicLoading.hide();
+    
       $ionicLoading.show({
         template:  "Not responding. Check your connection.",
         duration: 3000
       });
+
+      $scope.renderFailed = true;
+
   });
   
   

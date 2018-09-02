@@ -7,19 +7,20 @@ angular.module('account.controllers', [])
   //Network Status
 	if(ConnectivityMonitor.isOffline()){
 		$scope.isOfflineFlag = true;
-    $scope.customer = JSON.parse(window.localStorage.user); //display offline content
 	}
 	else{
 		$scope.isOfflineFlag = false;
-    $scope.customer = user; //Fetch user info if online
 	}
-
 
 
   //if not logged in
   if(_.isUndefined(window.localStorage.user) && window.localStorage.user !=""){
     $state.go('intro.auth-login');
   }
+
+  $scope.customer = JSON.parse(window.localStorage.user);
+  $scope.isProfileLoaded = true;
+
 
   //Settings
   $scope.show_new_address_button = false;   //Don't give a provision to add new address here.
@@ -40,8 +41,6 @@ angular.module('account.controllers', [])
       }
       i++;
     }
-
-
 
 
   //Edit Profile
@@ -299,6 +298,11 @@ angular.module('account.controllers', [])
   }
 
 
+  //FIRST LOAD
+  $scope.renderFailed = false;
+  $scope.isRenderLoaded = false;
+
+
   var data = {};
   data.token = JSON.parse(window.localStorage.user).token;
   data.id = 0;
@@ -322,13 +326,19 @@ angular.module('account.controllers', [])
       $scope.isEmpty = false;
 
     $scope.left = 1;
+
+    $scope.renderFailed = false;
+    $scope.isRenderLoaded = true;
+
   })
   .error(function(data){
-      $ionicLoading.hide();
+    
       $ionicLoading.show({
         template:  "Not responding. Check your connection.",
         duration: 3000
       });
+
+      $scope.renderFailed = true;
   });
 
 
@@ -366,6 +376,54 @@ angular.module('account.controllers', [])
     });
 
   };
+
+
+        //REFRESHER
+        $scope.doRefresh = function() {
+
+            var data = {};
+            data.token = JSON.parse(window.localStorage.user).token;
+            data.id = 0;
+
+            $http({
+              method  : 'POST',
+              url     : 'https://www.zaitoon.online/services/orderhistory.php',
+              data    : data,
+              headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+              timeout : 10000
+             })
+            .success(function(data) {
+
+              $ionicLoading.hide();
+
+              $scope.orders = data.response;
+              $scope.isFail= !data.status;
+              $scope.failMsg= data.error;
+
+              if($scope.orders.length == 0)
+                $scope.isEmpty = true;
+              else
+                $scope.isEmpty = false;
+
+              $scope.left = 1;
+
+              $scope.renderFailed = false;
+              $scope.isRenderLoaded = true;
+
+              $scope.limiter = 5;
+              $scope.$broadcast('scroll.refreshComplete');
+
+            })
+            .error(function(data){
+                $ionicLoading.hide();
+                $ionicLoading.show({
+                  template:  "Not responding. Check your connection.",
+                  duration: 3000
+                });
+
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
 
 
 

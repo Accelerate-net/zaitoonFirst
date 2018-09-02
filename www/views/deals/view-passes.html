@@ -19,7 +19,7 @@
               <div class="col col-center">
 			  <div class="rubber_stamp" ng-if="product.status != 0">Redeemed</div>
 			  <pre-img ratio="_5_3">
-                 <img ng-src="{{product.url}}" class="myDealsImg" style="border-top-left-radius: 10px; border-top-right-radius: 10px;" spinner-on-load>
+                 <img ng-src="{{product.url}}" on-error-src="./img/common/image_error.jpg" class="myDealsImg" style="border-top-left-radius: 10px; border-top-right-radius: 10px;" spinner-on-load>
 				 <!--<img class="product-image" ng-src="{{ product.image }}" > -->
               </pre-img>
 			  			  

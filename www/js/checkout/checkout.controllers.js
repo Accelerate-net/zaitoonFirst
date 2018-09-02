@@ -505,10 +505,13 @@ angular.module('checkout.controllers', [])
                             })
                             .success(function(response) {
                                 if (!response.status) {
-                                    $ionicLoading.show({
-                                        template: '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>' + response.error,
-                                        duration: 3000
+                                    
+                                    var alertPopup = $ionicPopup.alert({
+                                        cssClass: 'popup-outer confirm-alert-view',
+                                        title: 'Error',
+                                        template: '<p style="padding: 15px 5px; color: red">' + response.error + '</p>'
                                     });
+
                                 } else {
                                     if (response.isPrepaidAllowed) {
                                         $scope.orderID = response.orderid;
@@ -592,10 +595,13 @@ angular.module('checkout.controllers', [])
                         })
                         .success(function(response) {
                             if (!response.status) {
-                                $ionicLoading.show({
-                                    template: '<b style="color: #e74c3c; font-size: 150%">Error!</b><br>' + response.error,
-                                    duration: 3000
-                                });
+                                
+                                    var alertPopup = $ionicPopup.alert({
+                                        cssClass: 'popup-outer confirm-alert-view',
+                                        title: 'Error',
+                                        template: '<p style="padding: 15px 5px; color: red">' + response.error + '</p>'
+                                    });
+
                             } else {
                                 //Go to track page
                                 trackOrderService.setOrderID(response.orderid);
