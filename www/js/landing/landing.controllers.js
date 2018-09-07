@@ -144,8 +144,28 @@ angular.module('landing.controllers', [])
                 template: '<ion-spinner></ion-spinner>'
             });
 
-              var posOptions = {timeout: 10000, enableHighAccuracy: false};
-              $cordovaGeolocation
+            var posOptions = {timeout: 10000, enableHighAccuracy: false};
+            
+            function onSuccess(position) {
+                $ionicLoading.hide();
+                $scope.getGooglePlaceName(position.coords.latitude, position.coords.longitude);
+            };
+
+            function onError(errorObj) {
+                    $ionicLoading.hide();
+                    
+                    $ionicLoading.show({
+                        template: errorObj.code + ": " + errorObj.message+'Error occured while fetching your location. Enter location manually.',
+                        cssClass: 'popup-pin',                        
+                        duration: 3000
+                    });   
+            }
+
+            navigator.geolocation.getCurrentPosition( onSuccess, onError, {enableHighAccuracy: false, timeout: 12000, maximumAge: 12000});
+
+/*
+
+                $cordovaGeolocation
                 .getCurrentPosition(posOptions)
                 .then(function (position) {
                   $ionicLoading.hide();
@@ -158,6 +178,8 @@ angular.module('landing.controllers', [])
                         duration: 3000
                     });                    
                 });
+        
+*/
         }
 
         $scope.askToConfirm = function(response, tempUserLocation){
